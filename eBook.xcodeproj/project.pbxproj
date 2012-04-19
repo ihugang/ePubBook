@@ -22,6 +22,9 @@
 		1087FF01153679A900862D76 /* unzip.c in Sources */ = {isa = PBXBuildFile; fileRef = 1087FEF9153679A900862D76 /* unzip.c */; };
 		1087FF02153679A900862D76 /* zip.c in Sources */ = {isa = PBXBuildFile; fileRef = 1087FEFB153679A900862D76 /* zip.c */; };
 		1087FF03153679A900862D76 /* ZipArchive.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1087FEFE153679A900862D76 /* ZipArchive.mm */; };
+		10888A68153FADD600C02010 /* HighlightedString.js in Sources */ = {isa = PBXBuildFile; fileRef = 10888A67153FADD600C02010 /* HighlightedString.js */; };
+		10888A6A153FADE300C02010 /* HighlightedString.js in Resources */ = {isa = PBXBuildFile; fileRef = 10888A67153FADD600C02010 /* HighlightedString.js */; };
+		10888A71153FEC4200C02010 /* ChapterListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 10888A70153FEC4200C02010 /* ChapterListVC.m */; };
 		109CA1D81536A054007A3F68 /* CXMLDocument_CreationExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 109CA1BD1536A054007A3F68 /* CXMLDocument_CreationExtensions.m */; };
 		109CA1D91536A054007A3F68 /* CXMLNode_CreationExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 109CA1BF1536A054007A3F68 /* CXMLNode_CreationExtensions.m */; };
 		109CA1DA1536A054007A3F68 /* CXHTMLDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = 109CA1C11536A054007A3F68 /* CXHTMLDocument.m */; };
@@ -79,6 +82,9 @@
 		1087FEFC153679A900862D76 /* zip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zip.h; sourceTree = "<group>"; };
 		1087FEFD153679A900862D76 /* ZipArchive.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZipArchive.h; sourceTree = "<group>"; };
 		1087FEFE153679A900862D76 /* ZipArchive.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ZipArchive.mm; sourceTree = "<group>"; };
+		10888A67153FADD600C02010 /* HighlightedString.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = HighlightedString.js; sourceTree = "<group>"; };
+		10888A6F153FEC4100C02010 /* ChapterListVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChapterListVC.h; sourceTree = "<group>"; };
+		10888A70153FEC4200C02010 /* ChapterListVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChapterListVC.m; sourceTree = "<group>"; };
 		109CA1BC1536A054007A3F68 /* CXMLDocument_CreationExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CXMLDocument_CreationExtensions.h; sourceTree = "<group>"; };
 		109CA1BD1536A054007A3F68 /* CXMLDocument_CreationExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CXMLDocument_CreationExtensions.m; sourceTree = "<group>"; };
 		109CA1BE1536A054007A3F68 /* CXMLNode_CreationExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CXMLNode_CreationExtensions.h; sourceTree = "<group>"; };
@@ -181,6 +187,7 @@
 		1087FED615366CC000862D76 /* eBook */ = {
 			isa = PBXGroup;
 			children = (
+				10888A67153FADD600C02010 /* HighlightedString.js */,
 				181AC6CF153D18CF00177AE6 /* NewVersion */,
 				109CA2011537D64F007A3F68 /* ATPagingView */,
 				109CA1F21536B925007A3F68 /* Chapter.h */,
@@ -327,6 +334,8 @@
 				181AC6D8153D1A9F00177AE6 /* ContentView.m */,
 				181AC6E0153D1C6400177AE6 /* AppShare.h */,
 				181AC6E1153D1C6400177AE6 /* AppShare.m */,
+				10888A6F153FEC4100C02010 /* ChapterListVC.h */,
+				10888A70153FEC4200C02010 /* ChapterListVC.m */,
 			);
 			path = NewVersion;
 			sourceTree = "<group>";
@@ -381,6 +390,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				10888A6A153FADE300C02010 /* HighlightedString.js in Resources */,
 				1087FEDB15366CC000862D76 /* InfoPlist.strings in Resources */,
 				1087FEF1153678A600862D76 /* vhugo.epub in Resources */,
 			);
@@ -427,6 +437,8 @@
 				181AC6DC153D1AAB00177AE6 /* ContentWrapperView.m in Sources */,
 				181AC6DF153D1AB400177AE6 /* BaseView.m in Sources */,
 				181AC6E2153D1C6400177AE6 /* AppShare.m in Sources */,
+				10888A68153FADD600C02010 /* HighlightedString.js in Sources */,
+				10888A71153FEC4200C02010 /* ChapterListVC.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
