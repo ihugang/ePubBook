@@ -10,6 +10,9 @@
 #import "AppShare.h"
 #import "EPub.h"
 #import "Chapter.h"
+#import "ResManager.h"
+#import "Book.h"
+
 @implementation ContentView
 @synthesize curLable,curWebView;
 - (void)dealloc{
@@ -93,7 +96,8 @@
 - (void)noteMenuPressed:(id)sender
 {
     //加载js文件
-    NSString *filePath  = [[NSBundle mainBundle] pathForResource:@"HighlightedString" ofType:@"js"];
+    NSString *filePath  =  resPath(@"HighlightedString.js");
+    
     NSLog(@"filepath:%@",filePath);
     NSData *fileData    = [NSData dataWithContentsOfFile:filePath];
     NSString *jsString  = [[NSMutableString alloc] initWithData:fileData encoding:NSUTF8StringEncoding];
@@ -130,35 +134,20 @@
 }
 
 -(void)showWithIndex:(int)aIndex{
-    self.curLable .text =[NSString stringWithFormat:@"%d",aIndex];
+    self.curLable.text =[NSString stringWithFormat:@"%d",aIndex];
     
-    int tempSpineIndex = 0;
-    int tempPageIndex = 0;
-    int tempTotalIndex = 0;
-    BOOL foundPosition = NO;
-    for (Chapter* chapter in share.ePub.spineArray) {
-        tempPageIndex = 0;
-        if (chapter.pageCount>0) {
-            for (int iIndex=0; iIndex<chapter.pageCount; iIndex++) {
-                if (tempTotalIndex==aIndex) {
-                    //found position   
-                    foundPosition = YES;
-                    break;
-                } 
-                tempPageIndex++;
-                tempTotalIndex++;
-            }
-        }else{
-            if (tempSpineIndex==aIndex) {
-                foundPosition = YES;
-                 break;
-            } 
-        }
- 
-        if (foundPosition) {
+    int tempSpineIndex = 0;//HTML
+    int tempPageIndex = 0;//Page
+    
+    int perTotalIndex = -1;//temp
+    int curTotalIndex = 0;//temp
+    for (Chapter* chapter in curBook.chapters) {        
+        curTotalIndex += chapter.pageCount;
+        if (aIndex>perTotalIndex && aIndex<=curTotalIndex) {
+            tempPageIndex = curTotalIndex-aIndex;
             break;
         }
-        
+        perTotalIndex+=curTotalIndex;
         tempSpineIndex++;
     }
     
@@ -170,7 +159,7 @@
     curSpineIndex = spineIndex;
     curPageIndex = pageIndex;
   //  pageCount, chapterIndex
-    Chapter* chapter = [share.ePub.spineArray objectAtIndex:spineIndex];
+    Chapter* chapter = [curBook.chapters objectAtIndex:spineIndex];
     
     //[self loadSpine:spineIndex atPageIndex:pageIndex highlightSearchResult:nil];
     NSURL *url = [NSURL fileURLWithPath:chapter.spinePath];

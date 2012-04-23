@@ -9,6 +9,8 @@
 #import "AppDelegate.h"
 
 #import "AppShare.h"
+#import "ResManager.h"
+#import "DemoDataParse.h"
 
 @implementation AppDelegate
 
@@ -22,13 +24,16 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
-    // Override point for customization after application launch.
-    self.window.backgroundColor = [UIColor whiteColor];
-    share.ePub = [[EPub alloc] initWithEPub:[NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"vhugo" ofType:@"epub"]]];
-    Chapter* c = [[share.ePub spineIndexArray] objectAtIndex:0];
-    NSLog(@"epub:  %@",c.spinePath);
     
+    /*解析成plist
+     
+     */
+  //  [DemoDataParse parse];
+    
+    application.statusBarHidden = NO;
+    self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
+    self.window.backgroundColor = [UIColor whiteColor];
+ 
     if (YES) {
         self.rootVC = [[RootVC alloc] init];
         self.window.rootViewController = rootVC;

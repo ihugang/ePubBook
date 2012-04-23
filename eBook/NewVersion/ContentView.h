@@ -17,4 +17,6 @@
 @property(nonatomic,assign)UILabel*  curLable;
 -(void)showWithIndex:(int)aIndex;
 
+//@private
+- (void) loadSpine:(int)spineIndex atPageIndex:(int)pageIndex;
 @end

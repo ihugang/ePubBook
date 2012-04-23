@@ -18,7 +18,6 @@
 
 @property(nonatomic,retain)  EPub* ePub;
 
-
 @property(nonatomic,assign)  BOOL isLandscape;
 
 @end

@@ -17,28 +17,13 @@
         spinePath = [theSpinePath retain];
         title = [theTitle retain];
         chapterIndex = theIndex;
-        
 		NSString* html = [[NSString alloc] initWithData:[NSData dataWithContentsOfURL:[NSURL fileURLWithPath:theSpinePath]] encoding:NSUTF8StringEncoding];
-//        NSLog(@"html-------》》》》%@",html);
 		text = [[html stringByConvertingHTMLToPlainText] retain];
         NSLog(@"text ------- >>>>>%@",text);
 		[html release];
     }
     return self;
 }
-
-//- (void)aaa
-//{
-//    fontPercentSize = 100;
-//    windowSize = CGRectMake(0, 0, 200, 200);
-//    //加载webView
-//    UIWebView *webView = [[UIWebView alloc] initWithFrame:windowSize];
-//    [webView setDelegate:self];
-//    //返回加载页面
-//    NSURLRequest *urlRequest = [NSURLRequest requestWithURL:[NSURL fileURLWithPath:spinePath]];
-//    [webView loadRequest:urlRequest];
-//
-//}
 
 //根据窗口大小加载页面
 - (void) loadChapterWithWindowSize:(CGRect)theWindowSize fontPercentSize:(int) theFontPercentSize

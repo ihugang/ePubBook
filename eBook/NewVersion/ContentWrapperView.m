@@ -23,7 +23,8 @@
         [view removeFromSuperview];
     }
  
-    if (share.isLandscape) {//two page
+    //if (share.isLandscape) {//two page
+    if (NO) { 
         CGSize s= CGSizeMake(self.frame.size.width/2,self.frame.size.height);
         ContentView* cv1 =[ContentView createWithSize:s];
         cv1.backgroundColor =[UIColor whiteColor];
@@ -37,9 +38,15 @@
     }
     else {//one page
         CGSize s= CGSizeMake(self.frame.size.width,self.frame.size.height);
+        s= CGSizeMake(s.width-20, s.height-20);
         ContentView* cv1 =[ContentView createWithSize:s];
+        cv1.centerX = self.width/2;
+        cv1.centerY = self.height/2;
         [self addSubview:cv1]; 
         [cv1 showWithIndex:aIndex];
+        
+        [cv1 setDebug:isLoyoutDebug];
+        
         cv1.backgroundColor =[UIColor scrollViewTexturedBackgroundColor];
     }
 }

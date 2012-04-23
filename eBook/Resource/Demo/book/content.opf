@@ -1,0 +1,327 @@
+<?xml version='1.0' encoding='utf-8'?>
+<package xmlns="http://www.idpf.org/2007/opf" version="2.0" unique-identifier="uuid_id">
+  <metadata xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:opf="http://www.idpf.org/2007/opf" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:calibre="http://calibre.kovidgoyal.net/2009/metadata" xmlns:dc="http://purl.org/dc/elements/1.1/">
+    <meta name="calibre:title_sort" content="创业36条军规"/>
+    <dc:language>zh</dc:language>
+    <dc:creator opf:file-as="Unknown" opf:role="aut">Unknown</dc:creator>
+    <meta name="calibre:timestamp" content="2011-12-30T05:35:55+00:00"/>
+    <dc:title>创业36条军规</dc:title>
+    <meta name="cover" content="cover"/>
+    <dc:date>2011-12-30T05:35:56+00:00</dc:date>
+    <dc:contributor opf:role="bkp">calibre (0.8.26) [http://calibre-ebook.com]</dc:contributor>
+    <dc:identifier id="uuid_id" opf:scheme="uuid">8d642be9-0185-46e2-867d-74c480b5108c</dc:identifier>
+  </metadata>
+  <manifest>
+    <item href="cover_image.jpg" id="cover" media-type="image/jpeg"/>
+    <item href="Chuang Ye 36Tiao Jun Gui _split_000.htm" id="html126" media-type="application/xhtml+xml"/>
+    <item href="Chuang Ye 36Tiao Jun Gui _split_001.htm" id="html125" media-type="application/xhtml+xml"/>
+    <item href="Chuang Ye 36Tiao Jun Gui _split_002.htm" id="html124" media-type="application/xhtml+xml"/>
+    <item href="Chuang Ye 36Tiao Jun Gui _split_003.htm" id="html123" media-type="application/xhtml+xml"/>
+    <item href="Chuang Ye 36Tiao Jun Gui _split_004.htm" id="html122" media-type="application/xhtml+xml"/>
+    <item href="Chuang Ye 36Tiao Jun Gui _split_005.htm" id="html121" media-type="application/xhtml+xml"/>
+    <item href="Chuang Ye 36Tiao Jun Gui _split_006.htm" id="html120" media-type="application/xhtml+xml"/>
+    <item href="Chuang Ye 36Tiao Jun Gui _split_007.htm" id="html119" media-type="application/xhtml+xml"/>
+    <item href="Chuang Ye 36Tiao Jun Gui _split_008.htm" id="html118" media-type="application/xhtml+xml"/>
+    <item href="Chuang Ye 36Tiao Jun Gui _split_009.htm" id="html117" media-type="application/xhtml+xml"/>
+    <item href="Chuang Ye 36Tiao Jun Gui _split_010.htm" id="html116" media-type="application/xhtml+xml"/>
+    <item href="Chuang Ye 36Tiao Jun Gui _split_011.htm" id="html115" media-type="application/xhtml+xml"/>
+    <item href="Chuang Ye 36Tiao Jun Gui _split_012.htm" id="html114" media-type="application/xhtml+xml"/>
+    <item href="Chuang Ye 36Tiao Jun Gui _split_013.htm" id="html113" media-type="application/xhtml+xml"/>
+    <item href="Chuang Ye 36Tiao Jun Gui _split_014.htm" id="html112" media-type="application/xhtml+xml"/>
+    <item href="Chuang Ye 36Tiao Jun Gui _split_015.htm" id="html111" media-type="application/xhtml+xml"/>
+    <item href="Chuang Ye 36Tiao Jun Gui _split_016.htm" id="html110" media-type="application/xhtml+xml"/>
+    <item href="Chuang Ye 36Tiao Jun Gui _split_017.htm" id="html109" media-type="application/xhtml+xml"/>
+    <item href="Chuang Ye 36Tiao Jun Gui _split_018.htm" id="html108" media-type="application/xhtml+xml"/>
+    <item href="Chuang Ye 36Tiao Jun Gui _split_019.htm" id="html107" media-type="application/xhtml+xml"/>
+    <item href="Chuang Ye 36Tiao Jun Gui _split_020.htm" id="html106" media-type="application/xhtml+xml"/>
+    <item href="Chuang Ye 36Tiao Jun Gui _split_021.htm" id="html105" media-type="application/xhtml+xml"/>
+    <item href="Chuang Ye 36Tiao Jun Gui _split_022.htm" id="html104" media-type="application/xhtml+xml"/>
+    <item href="Chuang Ye 36Tiao Jun Gui _split_023.htm" id="html103" media-type="application/xhtml+xml"/>
+    <item href="Chuang Ye 36Tiao Jun Gui _split_024.htm" id="html102" media-type="application/xhtml+xml"/>
+    <item href="Chuang Ye 36Tiao Jun Gui _split_025.htm" id="html101" media-type="application/xhtml+xml"/>
+    <item href="Chuang Ye 36Tiao Jun Gui _split_026.htm" id="html100" media-type="application/xhtml+xml"/>
+    <item href="Chuang Ye 36Tiao Jun Gui _split_027.htm" id="html99" media-type="application/xhtml+xml"/>
+    <item href="Chuang Ye 36Tiao Jun Gui _split_028.htm" id="html98" media-type="application/xhtml+xml"/>
+    <item href="Chuang Ye 36Tiao Jun Gui _split_029.htm" id="html97" media-type="application/xhtml+xml"/>
+    <item href="Chuang Ye 36Tiao Jun Gui _split_030.htm" id="html96" media-type="application/xhtml+xml"/>
+    <item href="Chuang Ye 36Tiao Jun Gui _split_031.htm" id="html95" media-type="application/xhtml+xml"/>
+    <item href="Chuang Ye 36Tiao Jun Gui _split_032.htm" id="html94" media-type="application/xhtml+xml"/>
+    <item href="Chuang Ye 36Tiao Jun Gui _split_033.htm" id="html93" media-type="application/xhtml+xml"/>
+    <item href="Chuang Ye 36Tiao Jun Gui _split_034.htm" id="html92" media-type="application/xhtml+xml"/>
+    <item href="Chuang Ye 36Tiao Jun Gui _split_035.htm" id="html91" media-type="application/xhtml+xml"/>
+    <item href="Chuang Ye 36Tiao Jun Gui _split_036.htm" id="html90" media-type="application/xhtml+xml"/>
+    <item href="Chuang Ye 36Tiao Jun Gui _split_037.htm" id="html89" media-type="application/xhtml+xml"/>
+    <item href="Chuang Ye 36Tiao Jun Gui _split_038.htm" id="html88" media-type="application/xhtml+xml"/>
+    <item href="Chuang Ye 36Tiao Jun Gui _split_039.htm" id="html87" media-type="application/xhtml+xml"/>
+    <item href="Chuang Ye 36Tiao Jun Gui _split_040.htm" id="html86" media-type="application/xhtml+xml"/>
+    <item href="Chuang Ye 36Tiao Jun Gui _split_041.htm" id="html85" media-type="application/xhtml+xml"/>
+    <item href="Chuang Ye 36Tiao Jun Gui _split_042.htm" id="html84" media-type="application/xhtml+xml"/>
+    <item href="Chuang Ye 36Tiao Jun Gui _split_043.htm" id="html83" media-type="application/xhtml+xml"/>
+    <item href="Chuang Ye 36Tiao Jun Gui _split_044.htm" id="html82" media-type="application/xhtml+xml"/>
+    <item href="Chuang Ye 36Tiao Jun Gui _split_045.htm" id="html81" media-type="application/xhtml+xml"/>
+    <item href="Chuang Ye 36Tiao Jun Gui _split_046.htm" id="html80" media-type="application/xhtml+xml"/>
+    <item href="Chuang Ye 36Tiao Jun Gui _split_047.htm" id="html79" media-type="application/xhtml+xml"/>
+    <item href="Chuang Ye 36Tiao Jun Gui _split_048.htm" id="html78" media-type="application/xhtml+xml"/>
+    <item href="Chuang Ye 36Tiao Jun Gui _split_049.htm" id="html77" media-type="application/xhtml+xml"/>
+    <item href="Chuang Ye 36Tiao Jun Gui _split_050.htm" id="html76" media-type="application/xhtml+xml"/>
+    <item href="Chuang Ye 36Tiao Jun Gui _split_051.htm" id="html75" media-type="application/xhtml+xml"/>
+    <item href="Chuang Ye 36Tiao Jun Gui _split_052.htm" id="html74" media-type="application/xhtml+xml"/>
+    <item href="Chuang Ye 36Tiao Jun Gui _split_053.htm" id="html73" media-type="application/xhtml+xml"/>
+    <item href="Chuang Ye 36Tiao Jun Gui _split_054.htm" id="html72" media-type="application/xhtml+xml"/>
+    <item href="Chuang Ye 36Tiao Jun Gui _split_055.htm" id="html71" media-type="application/xhtml+xml"/>
+    <item href="Chuang Ye 36Tiao Jun Gui _split_056.htm" id="html70" media-type="application/xhtml+xml"/>
+    <item href="Chuang Ye 36Tiao Jun Gui _split_057.htm" id="html69" media-type="application/xhtml+xml"/>
+    <item href="Chuang Ye 36Tiao Jun Gui _split_058.htm" id="html68" media-type="application/xhtml+xml"/>
+    <item href="Chuang Ye 36Tiao Jun Gui _split_059.htm" id="html67" media-type="application/xhtml+xml"/>
+    <item href="Chuang Ye 36Tiao Jun Gui _split_060.htm" id="html66" media-type="application/xhtml+xml"/>
+    <item href="Chuang Ye 36Tiao Jun Gui _split_061.htm" id="html65" media-type="application/xhtml+xml"/>
+    <item href="Chuang Ye 36Tiao Jun Gui _split_062.htm" id="html64" media-type="application/xhtml+xml"/>
+    <item href="Chuang Ye 36Tiao Jun Gui _split_063.htm" id="html63" media-type="application/xhtml+xml"/>
+    <item href="Chuang Ye 36Tiao Jun Gui _split_064.htm" id="html62" media-type="application/xhtml+xml"/>
+    <item href="Chuang Ye 36Tiao Jun Gui _split_065.htm" id="html61" media-type="application/xhtml+xml"/>
+    <item href="Chuang Ye 36Tiao Jun Gui _split_066.htm" id="html60" media-type="application/xhtml+xml"/>
+    <item href="Chuang Ye 36Tiao Jun Gui _split_067.htm" id="html59" media-type="application/xhtml+xml"/>
+    <item href="Chuang Ye 36Tiao Jun Gui _split_068.htm" id="html58" media-type="application/xhtml+xml"/>
+    <item href="Chuang Ye 36Tiao Jun Gui _split_069.htm" id="html57" media-type="application/xhtml+xml"/>
+    <item href="Chuang Ye 36Tiao Jun Gui _split_070.htm" id="html56" media-type="application/xhtml+xml"/>
+    <item href="Chuang Ye 36Tiao Jun Gui _split_071.htm" id="html55" media-type="application/xhtml+xml"/>
+    <item href="Chuang Ye 36Tiao Jun Gui _split_072.htm" id="html54" media-type="application/xhtml+xml"/>
+    <item href="Chuang Ye 36Tiao Jun Gui _split_073.htm" id="html53" media-type="application/xhtml+xml"/>
+    <item href="Chuang Ye 36Tiao Jun Gui _split_074.htm" id="html52" media-type="application/xhtml+xml"/>
+    <item href="Chuang Ye 36Tiao Jun Gui _split_075.htm" id="html51" media-type="application/xhtml+xml"/>
+    <item href="Chuang Ye 36Tiao Jun Gui _split_076.htm" id="html50" media-type="application/xhtml+xml"/>
+    <item href="Chuang Ye 36Tiao Jun Gui _split_077.htm" id="html49" media-type="application/xhtml+xml"/>
+    <item href="Chuang Ye 36Tiao Jun Gui _split_078.htm" id="html48" media-type="application/xhtml+xml"/>
+    <item href="Chuang Ye 36Tiao Jun Gui _split_079.htm" id="html47" media-type="application/xhtml+xml"/>
+    <item href="Chuang Ye 36Tiao Jun Gui _split_080.htm" id="html46" media-type="application/xhtml+xml"/>
+    <item href="Chuang Ye 36Tiao Jun Gui _split_081.htm" id="html45" media-type="application/xhtml+xml"/>
+    <item href="Chuang Ye 36Tiao Jun Gui _split_082.htm" id="html44" media-type="application/xhtml+xml"/>
+    <item href="Chuang Ye 36Tiao Jun Gui _split_083.htm" id="html43" media-type="application/xhtml+xml"/>
+    <item href="Chuang Ye 36Tiao Jun Gui _split_084.htm" id="html42" media-type="application/xhtml+xml"/>
+    <item href="Chuang Ye 36Tiao Jun Gui _split_085.htm" id="html41" media-type="application/xhtml+xml"/>
+    <item href="Chuang Ye 36Tiao Jun Gui _split_086.htm" id="html40" media-type="application/xhtml+xml"/>
+    <item href="Chuang Ye 36Tiao Jun Gui _split_087.htm" id="html39" media-type="application/xhtml+xml"/>
+    <item href="Chuang Ye 36Tiao Jun Gui _split_088.htm" id="html38" media-type="application/xhtml+xml"/>
+    <item href="Chuang Ye 36Tiao Jun Gui _split_089.htm" id="html37" media-type="application/xhtml+xml"/>
+    <item href="Chuang Ye 36Tiao Jun Gui _split_090.htm" id="html36" media-type="application/xhtml+xml"/>
+    <item href="Chuang Ye 36Tiao Jun Gui _split_091.htm" id="html35" media-type="application/xhtml+xml"/>
+    <item href="Chuang Ye 36Tiao Jun Gui _split_092.htm" id="html34" media-type="application/xhtml+xml"/>
+    <item href="Chuang Ye 36Tiao Jun Gui _split_093.htm" id="html33" media-type="application/xhtml+xml"/>
+    <item href="Chuang Ye 36Tiao Jun Gui _split_094.htm" id="html32" media-type="application/xhtml+xml"/>
+    <item href="Chuang Ye 36Tiao Jun Gui _split_095.htm" id="html31" media-type="application/xhtml+xml"/>
+    <item href="Chuang Ye 36Tiao Jun Gui _split_096.htm" id="html30" media-type="application/xhtml+xml"/>
+    <item href="Chuang Ye 36Tiao Jun Gui _split_097.htm" id="html29" media-type="application/xhtml+xml"/>
+    <item href="Chuang Ye 36Tiao Jun Gui _split_098.htm" id="html28" media-type="application/xhtml+xml"/>
+    <item href="Chuang Ye 36Tiao Jun Gui _split_099.htm" id="html27" media-type="application/xhtml+xml"/>
+    <item href="Chuang Ye 36Tiao Jun Gui _split_100.htm" id="html26" media-type="application/xhtml+xml"/>
+    <item href="Chuang Ye 36Tiao Jun Gui _split_101.htm" id="html25" media-type="application/xhtml+xml"/>
+    <item href="Chuang Ye 36Tiao Jun Gui _split_102.htm" id="html24" media-type="application/xhtml+xml"/>
+    <item href="Chuang Ye 36Tiao Jun Gui _split_103.htm" id="html23" media-type="application/xhtml+xml"/>
+    <item href="Chuang Ye 36Tiao Jun Gui _split_104.htm" id="html22" media-type="application/xhtml+xml"/>
+    <item href="Chuang Ye 36Tiao Jun Gui _split_105.htm" id="html21" media-type="application/xhtml+xml"/>
+    <item href="Chuang Ye 36Tiao Jun Gui _split_106.htm" id="html20" media-type="application/xhtml+xml"/>
+    <item href="Chuang Ye 36Tiao Jun Gui _split_107.htm" id="html19" media-type="application/xhtml+xml"/>
+    <item href="Chuang Ye 36Tiao Jun Gui _split_108.htm" id="html18" media-type="application/xhtml+xml"/>
+    <item href="Chuang Ye 36Tiao Jun Gui _split_109.htm" id="html17" media-type="application/xhtml+xml"/>
+    <item href="Chuang Ye 36Tiao Jun Gui _split_110.htm" id="html16" media-type="application/xhtml+xml"/>
+    <item href="Chuang Ye 36Tiao Jun Gui _split_111.htm" id="html15" media-type="application/xhtml+xml"/>
+    <item href="Chuang Ye 36Tiao Jun Gui _split_112.htm" id="html14" media-type="application/xhtml+xml"/>
+    <item href="Chuang Ye 36Tiao Jun Gui _split_113.htm" id="html13" media-type="application/xhtml+xml"/>
+    <item href="Chuang Ye 36Tiao Jun Gui _split_114.htm" id="html12" media-type="application/xhtml+xml"/>
+    <item href="Chuang Ye 36Tiao Jun Gui _split_115.htm" id="html11" media-type="application/xhtml+xml"/>
+    <item href="Chuang Ye 36Tiao Jun Gui _split_116.htm" id="html10" media-type="application/xhtml+xml"/>
+    <item href="Chuang Ye 36Tiao Jun Gui _split_117.htm" id="html9" media-type="application/xhtml+xml"/>
+    <item href="Chuang Ye 36Tiao Jun Gui _split_118.htm" id="html8" media-type="application/xhtml+xml"/>
+    <item href="Chuang Ye 36Tiao Jun Gui _split_119.htm" id="html7" media-type="application/xhtml+xml"/>
+    <item href="Chuang Ye 36Tiao Jun Gui _split_120.htm" id="html6" media-type="application/xhtml+xml"/>
+    <item href="Chuang Ye 36Tiao Jun Gui _split_121.htm" id="html5" media-type="application/xhtml+xml"/>
+    <item href="Chuang Ye 36Tiao Jun Gui _split_122.htm" id="html4" media-type="application/xhtml+xml"/>
+    <item href="Chuang Ye 36Tiao Jun Gui _split_123.htm" id="html3" media-type="application/xhtml+xml"/>
+    <item href="Chuang Ye 36Tiao Jun Gui _split_124.htm" id="html2" media-type="application/xhtml+xml"/>
+    <item href="Chuang Ye 36Tiao Jun Gui _split_125.htm" id="html1" media-type="application/xhtml+xml"/>
+    <item href="image001.png" id="added" media-type="image/png"/>
+    <item href="image002.png" id="added1" media-type="image/png"/>
+    <item href="image003.png" id="added2" media-type="image/png"/>
+    <item href="image004.png" id="added3" media-type="image/png"/>
+    <item href="image005.png" id="added4" media-type="image/png"/>
+    <item href="image006.png" id="added5" media-type="image/png"/>
+    <item href="image007.png" id="added6" media-type="image/png"/>
+    <item href="image008.png" id="added7" media-type="image/png"/>
+    <item href="image009.png" id="added8" media-type="image/png"/>
+    <item href="image010.png" id="added9" media-type="image/png"/>
+    <item href="image011.png" id="added10" media-type="image/png"/>
+    <item href="image012.png" id="added11" media-type="image/png"/>
+    <item href="image013.png" id="added12" media-type="image/png"/>
+    <item href="image014.png" id="added13" media-type="image/png"/>
+    <item href="image015.png" id="added14" media-type="image/png"/>
+    <item href="image016.png" id="added15" media-type="image/png"/>
+    <item href="image017.png" id="added16" media-type="image/png"/>
+    <item href="image018.png" id="added17" media-type="image/png"/>
+    <item href="image019.png" id="added18" media-type="image/png"/>
+    <item href="image020.png" id="added19" media-type="image/png"/>
+    <item href="image021.png" id="added20" media-type="image/png"/>
+    <item href="image022.png" id="added21" media-type="image/png"/>
+    <item href="image023.png" id="added22" media-type="image/png"/>
+    <item href="image024.png" id="added23" media-type="image/png"/>
+    <item href="image025.png" id="added24" media-type="image/png"/>
+    <item href="image026.png" id="added25" media-type="image/png"/>
+    <item href="image027.png" id="added26" media-type="image/png"/>
+    <item href="image028.png" id="added27" media-type="image/png"/>
+    <item href="image029.png" id="added28" media-type="image/png"/>
+    <item href="image030.png" id="added29" media-type="image/png"/>
+    <item href="image031.png" id="added30" media-type="image/png"/>
+    <item href="image032.png" id="added31" media-type="image/png"/>
+    <item href="image033.png" id="added32" media-type="image/png"/>
+    <item href="image034.png" id="added33" media-type="image/png"/>
+    <item href="image035.png" id="added34" media-type="image/png"/>
+    <item href="image036.png" id="added35" media-type="image/png"/>
+    <item href="image037.png" id="added36" media-type="image/png"/>
+    <item href="image038.png" id="added37" media-type="image/png"/>
+    <item href="image039.png" id="added38" media-type="image/png"/>
+    <item href="image040.png" id="added39" media-type="image/png"/>
+    <item href="image041.png" id="added40" media-type="image/png"/>
+    <item href="image042.png" id="added41" media-type="image/png"/>
+    <item href="image043.png" id="added42" media-type="image/png"/>
+    <item href="image044.png" id="added43" media-type="image/png"/>
+    <item href="image045.png" id="added44" media-type="image/png"/>
+    <item href="image046.png" id="added45" media-type="image/png"/>
+    <item href="image047.png" id="added46" media-type="image/png"/>
+    <item href="image048.png" id="added47" media-type="image/png"/>
+    <item href="image049.png" id="added48" media-type="image/png"/>
+    <item href="stylesheet.css" id="css" media-type="text/css"/>
+    <item href="titlepage.xhtml" id="titlepage" media-type="application/xhtml+xml"/>
+    <item href="toc.ncx" media-type="application/x-dtbncx+xml" id="ncx"/>
+  </manifest>
+  <spine toc="ncx">
+    <itemref idref="titlepage"/>
+    <itemref idref="html126"/>
+    <itemref idref="html125"/>
+    <itemref idref="html124"/>
+    <itemref idref="html123"/>
+    <itemref idref="html122"/>
+    <itemref idref="html121"/>
+    <itemref idref="html120"/>
+    <itemref idref="html119"/>
+    <itemref idref="html118"/>
+    <itemref idref="html117"/>
+    <itemref idref="html116"/>
+    <itemref idref="html115"/>
+    <itemref idref="html114"/>
+    <itemref idref="html113"/>
+    <itemref idref="html112"/>
+    <itemref idref="html111"/>
+    <itemref idref="html110"/>
+    <itemref idref="html109"/>
+    <itemref idref="html108"/>
+    <itemref idref="html107"/>
+    <itemref idref="html106"/>
+    <itemref idref="html105"/>
+    <itemref idref="html104"/>
+    <itemref idref="html103"/>
+    <itemref idref="html102"/>
+    <itemref idref="html101"/>
+    <itemref idref="html100"/>
+    <itemref idref="html99"/>
+    <itemref idref="html98"/>
+    <itemref idref="html97"/>
+    <itemref idref="html96"/>
+    <itemref idref="html95"/>
+    <itemref idref="html94"/>
+    <itemref idref="html93"/>
+    <itemref idref="html92"/>
+    <itemref idref="html91"/>
+    <itemref idref="html90"/>
+    <itemref idref="html89"/>
+    <itemref idref="html88"/>
+    <itemref idref="html87"/>
+    <itemref idref="html86"/>
+    <itemref idref="html85"/>
+    <itemref idref="html84"/>
+    <itemref idref="html83"/>
+    <itemref idref="html82"/>
+    <itemref idref="html81"/>
+    <itemref idref="html80"/>
+    <itemref idref="html79"/>
+    <itemref idref="html78"/>
+    <itemref idref="html77"/>
+    <itemref idref="html76"/>
+    <itemref idref="html75"/>
+    <itemref idref="html74"/>
+    <itemref idref="html73"/>
+    <itemref idref="html72"/>
+    <itemref idref="html71"/>
+    <itemref idref="html70"/>
+    <itemref idref="html69"/>
+    <itemref idref="html68"/>
+    <itemref idref="html67"/>
+    <itemref idref="html66"/>
+    <itemref idref="html65"/>
+    <itemref idref="html64"/>
+    <itemref idref="html63"/>
+    <itemref idref="html62"/>
+    <itemref idref="html61"/>
+    <itemref idref="html60"/>
+    <itemref idref="html59"/>
+    <itemref idref="html58"/>
+    <itemref idref="html57"/>
+    <itemref idref="html56"/>
+    <itemref idref="html55"/>
+    <itemref idref="html54"/>
+    <itemref idref="html53"/>
+    <itemref idref="html52"/>
+    <itemref idref="html51"/>
+    <itemref idref="html50"/>
+    <itemref idref="html49"/>
+    <itemref idref="html48"/>
+    <itemref idref="html47"/>
+    <itemref idref="html46"/>
+    <itemref idref="html45"/>
+    <itemref idref="html44"/>
+    <itemref idref="html43"/>
+    <itemref idref="html42"/>
+    <itemref idref="html41"/>
+    <itemref idref="html40"/>
+    <itemref idref="html39"/>
+    <itemref idref="html38"/>
+    <itemref idref="html37"/>
+    <itemref idref="html36"/>
+    <itemref idref="html35"/>
+    <itemref idref="html34"/>
+    <itemref idref="html33"/>
+    <itemref idref="html32"/>
+    <itemref idref="html31"/>
+    <itemref idref="html30"/>
+    <itemref idref="html29"/>
+    <itemref idref="html28"/>
+    <itemref idref="html27"/>
+    <itemref idref="html26"/>
+    <itemref idref="html25"/>
+    <itemref idref="html24"/>
+    <itemref idref="html23"/>
+    <itemref idref="html22"/>
+    <itemref idref="html21"/>
+    <itemref idref="html20"/>
+    <itemref idref="html19"/>
+    <itemref idref="html18"/>
+    <itemref idref="html17"/>
+    <itemref idref="html16"/>
+    <itemref idref="html15"/>
+    <itemref idref="html14"/>
+    <itemref idref="html13"/>
+    <itemref idref="html12"/>
+    <itemref idref="html11"/>
+    <itemref idref="html10"/>
+    <itemref idref="html9"/>
+    <itemref idref="html8"/>
+    <itemref idref="html7"/>
+    <itemref idref="html6"/>
+    <itemref idref="html5"/>
+    <itemref idref="html4"/>
+    <itemref idref="html3"/>
+    <itemref idref="html2"/>
+    <itemref idref="html1"/>
+  </spine>
+  <guide>
+    <reference href="titlepage.xhtml" type="cover" title="Title Page"/>
+  </guide>
+</package>

@@ -1,0 +1,333 @@
+<?xml version='1.0' encoding='utf-8'?>
+<ncx xmlns="http://www.daisy.org/z3986/2005/ncx/" version="2005-1" xml:lang="zho">
+  <head>
+    <meta content="8d642be9-0185-46e2-867d-74c480b5108c" name="dtb:uid"/>
+    <meta content="3" name="dtb:depth"/>
+    <meta content="calibre (0.8.26)" name="dtb:generator"/>
+    <meta content="0" name="dtb:totalPageCount"/>
+    <meta content="0" name="dtb:maxPageNumber"/>
+  </head>
+  <docTitle>
+    <text>创业36条军规</text>
+  </docTitle>
+  <navMap>
+    <navPoint id="95ad70de-4fd7-44e1-ab8e-5e0b80eff6d9" playOrder="1">
+      <navLabel>
+        <text>版权信息</text>
+      </navLabel>
+      <content src="Chuang Ye 36Tiao Jun Gui _split_000.htm"/>
+    </navPoint>
+    <navPoint id="089db387-2ef4-47b7-8472-c2083308a543" playOrder="2">
+      <navLabel>
+        <text>推荐序 1</text>
+      </navLabel>
+      <content src="Chuang Ye 36Tiao Jun Gui _split_002.htm"/>
+    </navPoint>
+    <navPoint id="76df518d-53bc-44e3-9171-08ca7615c5ae" playOrder="3">
+      <navLabel>
+        <text>推荐序 2</text>
+      </navLabel>
+      <content src="Chuang Ye 36Tiao Jun Gui _split_003.htm"/>
+    </navPoint>
+    <navPoint id="8bfb5e98-546a-43c3-8778-72ab6fbc1cbd" playOrder="4">
+      <navLabel>
+        <text>推荐序 3</text>
+      </navLabel>
+      <content src="Chuang Ye 36Tiao Jun Gui _split_004.htm"/>
+    </navPoint>
+    <navPoint id="404a3155-1779-4d53-908f-f11315ac9600" playOrder="5">
+      <navLabel>
+        <text>推荐序 4</text>
+      </navLabel>
+      <content src="Chuang Ye 36Tiao Jun Gui _split_005.htm"/>
+    </navPoint>
+    <navPoint id="d81cb79a-34cc-49dd-98f9-224ee20688ba" playOrder="6">
+      <navLabel>
+        <text>推荐序 5</text>
+      </navLabel>
+      <content src="Chuang Ye 36Tiao Jun Gui _split_006.htm"/>
+    </navPoint>
+    <navPoint id="4b8c38f7-3109-49d1-949d-33e8008e7278" playOrder="7">
+      <navLabel>
+        <text>自序</text>
+      </navLabel>
+      <content src="Chuang Ye 36Tiao Jun Gui _split_007.htm"/>
+    </navPoint>
+    <navPoint id="c3169317-d5a9-474b-af9b-c60515907f25" playOrder="8">
+      <navLabel>
+        <text>第一部分 创业是怎么回事</text>
+      </navLabel>
+      <content src="Chuang Ye 36Tiao Jun Gui _split_008.htm"/>
+      <navPoint id="5575285b-1494-4dab-9250-33e04f5bca32" playOrder="9">
+        <navLabel>
+          <text>军规 1 - 不是每个人都适合创业</text>
+        </navLabel>
+        <content src="Chuang Ye 36Tiao Jun Gui _split_009.htm"/>
+      </navPoint>
+      <navPoint id="6d0de0e7-7b70-4eb6-86d0-a322b515e170" playOrder="10">
+        <navLabel>
+          <text>军规 2 – 梦想是唯一的创业理由</text>
+        </navLabel>
+        <content src="Chuang Ye 36Tiao Jun Gui _split_012.htm"/>
+      </navPoint>
+    </navPoint>
+    <navPoint id="2588dd59-5d4c-4089-a1f2-ff2cbafd712e" playOrder="11">
+      <navLabel>
+        <text>第二部分 创业的三大天条</text>
+      </navLabel>
+      <content src="Chuang Ye 36Tiao Jun Gui _split_015.htm"/>
+      <navPoint id="69faa884-f44d-481b-b265-30eae51a70a2" playOrder="12">
+        <navLabel>
+          <text>军规 3 – 学先进，傍大款，走正道</text>
+        </navLabel>
+        <content src="Chuang Ye 36Tiao Jun Gui _split_016.htm"/>
+      </navPoint>
+      <navPoint id="3bf5cd3f-f67e-4c16-848c-2dc3b632a7b5" playOrder="13">
+        <navLabel>
+          <text>军规 4 – 创新是最好的武器</text>
+        </navLabel>
+        <content src="Chuang Ye 36Tiao Jun Gui _split_019.htm"/>
+      </navPoint>
+      <navPoint id="67c573c6-a0f7-48e2-8397-799bc13a3483" playOrder="14">
+        <navLabel>
+          <text>军规 5 – 放下身段死缠烂打</text>
+        </navLabel>
+        <content src="Chuang Ye 36Tiao Jun Gui _split_022.htm"/>
+      </navPoint>
+    </navPoint>
+    <navPoint id="a99cee6a-9116-46f4-a35e-2b5bcdc97a7d" playOrder="15">
+      <navLabel>
+        <text>第三部分 创业人七大须知</text>
+      </navLabel>
+      <content src="Chuang Ye 36Tiao Jun Gui _split_025.htm"/>
+      <navPoint id="60366b2f-c933-46a8-a36d-8ae65714db67" playOrder="16">
+        <navLabel>
+          <text>军规 6 – 凡事只能靠自己</text>
+        </navLabel>
+        <content src="Chuang Ye 36Tiao Jun Gui _split_026.htm"/>
+      </navPoint>
+      <navPoint id="139c0cbf-3b5e-4873-8cd2-26733483f6c5" playOrder="17">
+        <navLabel>
+          <text>军规 7 – 领导要有预见性</text>
+        </navLabel>
+        <content src="Chuang Ye 36Tiao Jun Gui _split_029.htm"/>
+      </navPoint>
+      <navPoint id="099971be-1956-4844-9c2b-59eb4e7655d1" playOrder="18">
+        <navLabel>
+          <text>军规 8 – 心力强大者胜</text>
+        </navLabel>
+        <content src="Chuang Ye 36Tiao Jun Gui _split_032.htm"/>
+      </navPoint>
+      <navPoint id="1218cbd3-7e90-4245-a350-87da152787ea" playOrder="19">
+        <navLabel>
+          <text>军规 9 – 要敢于冒险</text>
+        </navLabel>
+        <content src="Chuang Ye 36Tiao Jun Gui _split_035.htm"/>
+      </navPoint>
+      <navPoint id="078f77f1-2c6f-40f1-8e20-53e1e5a6929e" playOrder="20">
+        <navLabel>
+          <text>军规 10 – 相信直觉</text>
+        </navLabel>
+        <content src="Chuang Ye 36Tiao Jun Gui _split_038.htm"/>
+      </navPoint>
+      <navPoint id="7b4af481-7925-4708-8783-0c8b6c4967a3" playOrder="21">
+        <navLabel>
+          <text>军规 11 – 创业要靠团队</text>
+        </navLabel>
+        <content src="Chuang Ye 36Tiao Jun Gui _split_041.htm"/>
+      </navPoint>
+      <navPoint id="e5372a42-8afb-4947-914b-4d0fcf8c1d38" playOrder="22">
+        <navLabel>
+          <text>军规 12 – 干部要靠自己培养</text>
+        </navLabel>
+        <content src="Chuang Ye 36Tiao Jun Gui _split_044.htm"/>
+      </navPoint>
+    </navPoint>
+    <navPoint id="49a5cf36-7263-443c-9ffb-a85bb336b17f" playOrder="23">
+      <navLabel>
+        <text>第四部分 如何组建公司？</text>
+      </navLabel>
+      <content src="Chuang Ye 36Tiao Jun Gui _split_047.htm"/>
+      <navPoint id="14649bbf-1ea0-4a0b-9f3a-3b8d82eeceaf" playOrder="24">
+        <navLabel>
+          <text>军规 13 – 选对股东</text>
+        </navLabel>
+        <content src="Chuang Ye 36Tiao Jun Gui _split_048.htm"/>
+      </navPoint>
+      <navPoint id="e0d5c68b-71a8-4f75-a59d-18371b36f884" playOrder="25">
+        <navLabel>
+          <text>军规 14 – 搭好治理结构</text>
+        </navLabel>
+        <content src="Chuang Ye 36Tiao Jun Gui _split_051.htm"/>
+      </navPoint>
+      <navPoint id="3f73d0dc-1dfa-4031-8f12-1379798f0986" playOrder="26">
+        <navLabel>
+          <text>军规 15 – 事先要签股东协议</text>
+        </navLabel>
+        <content src="Chuang Ye 36Tiao Jun Gui _split_054.htm"/>
+      </navPoint>
+    </navPoint>
+    <navPoint id="2f4353f8-e601-4b74-a8fb-3cdaff97580c" playOrder="27">
+      <navLabel>
+        <text>第五部分 如何选择创业方向？</text>
+      </navLabel>
+      <content src="Chuang Ye 36Tiao Jun Gui _split_057.htm"/>
+      <navPoint id="0b11759e-553c-40db-9486-b228efd69bec" playOrder="28">
+        <navLabel>
+          <text>军规 16 – 做最肥的市场</text>
+        </navLabel>
+        <content src="Chuang Ye 36Tiao Jun Gui _split_058.htm"/>
+      </navPoint>
+      <navPoint id="07e79d18-1c22-456d-b9d8-98afd01c6309" playOrder="29">
+        <navLabel>
+          <text>军规 17 – 做减法</text>
+        </navLabel>
+        <content src="Chuang Ye 36Tiao Jun Gui _split_061.htm"/>
+      </navPoint>
+    </navPoint>
+    <navPoint id="67971307-d5ed-49ae-849c-2428ec60118e" playOrder="30">
+      <navLabel>
+        <text>第六部分 管理的九个问题</text>
+      </navLabel>
+      <content src="Chuang Ye 36Tiao Jun Gui _split_064.htm"/>
+      <navPoint id="8b9b34bb-f1dc-46a0-aba9-01440ac0fc81" playOrder="31">
+        <navLabel>
+          <text>军规 18 – 好的商业模式是成功的一半</text>
+        </navLabel>
+        <content src="Chuang Ye 36Tiao Jun Gui _split_065.htm"/>
+      </navPoint>
+      <navPoint id="cf60e276-3199-4ebe-833f-e56efeb72ce6" playOrder="32">
+        <navLabel>
+          <text>军规 19 – 集中兵力突破重点</text>
+        </navLabel>
+        <content src="Chuang Ye 36Tiao Jun Gui _split_068.htm"/>
+      </navPoint>
+      <navPoint id="c1c2539e-78c7-4372-98cd-6ec019eb1ad3" playOrder="33">
+        <navLabel>
+          <text>军规 20 – 先赚到钱再考虑发展</text>
+        </navLabel>
+        <content src="Chuang Ye 36Tiao Jun Gui _split_071.htm"/>
+      </navPoint>
+      <navPoint id="a9485b33-aa80-44e8-af99-09c9dd13215e" playOrder="34">
+        <navLabel>
+          <text>军规 21 – 为公司找一个好的总经理</text>
+        </navLabel>
+        <content src="Chuang Ye 36Tiao Jun Gui _split_074.htm"/>
+      </navPoint>
+      <navPoint id="0b99c9e3-8be5-4a67-a74d-22df6fe4abac" playOrder="35">
+        <navLabel>
+          <text>军规 22 – 企业文化必须一开始就建立</text>
+        </navLabel>
+        <content src="Chuang Ye 36Tiao Jun Gui _split_077.htm"/>
+      </navPoint>
+      <navPoint id="f0cb1ce9-3b18-4c86-a2f4-04852302e5af" playOrder="36">
+        <navLabel>
+          <text>军规 23 – 管理是一门专业</text>
+        </navLabel>
+        <content src="Chuang Ye 36Tiao Jun Gui _split_080.htm"/>
+      </navPoint>
+      <navPoint id="217abea6-7182-4be2-ad83-12367c5cee91" playOrder="37">
+        <navLabel>
+          <text>军规 24 – 建班子是管理的首要问题</text>
+        </navLabel>
+        <content src="Chuang Ye 36Tiao Jun Gui _split_083.htm"/>
+      </navPoint>
+      <navPoint id="ffee64c5-6f70-4e12-bb52-605f68f80010" playOrder="38">
+        <navLabel>
+          <text>军规 25 – 坚持战略和定战略同样重要</text>
+        </navLabel>
+        <content src="Chuang Ye 36Tiao Jun Gui _split_086.htm"/>
+      </navPoint>
+      <navPoint id="29714a0c-a6b6-4bbe-b0f6-710b18da0a68" playOrder="39">
+        <navLabel>
+          <text>军规 26 – 打造一支铁军</text>
+        </navLabel>
+        <content src="Chuang Ye 36Tiao Jun Gui _split_089.htm"/>
+      </navPoint>
+    </navPoint>
+    <navPoint id="3a924ffd-7a8f-4191-aafc-8b2386e33ec0" playOrder="40">
+      <navLabel>
+        <text>第七部分 业务的五个问题</text>
+      </navLabel>
+      <content src="Chuang Ye 36Tiao Jun Gui _split_092.htm"/>
+      <navPoint id="27069941-b7f6-4170-acbf-6c20b4e3c8d4" playOrder="41">
+        <navLabel>
+          <text>军规 27 – 物质激励是第一位的</text>
+        </navLabel>
+        <content src="Chuang Ye 36Tiao Jun Gui _split_093.htm"/>
+      </navPoint>
+      <navPoint id="ef4bf7ad-db1b-42b1-8009-8cb5b718af73" playOrder="42">
+        <navLabel>
+          <text>军规 28 – 不要搞大跃进</text>
+        </navLabel>
+        <content src="Chuang Ye 36Tiao Jun Gui _split_096.htm"/>
+      </navPoint>
+      <navPoint id="64345057-5e89-4be5-af78-53883b804072" playOrder="43">
+        <navLabel>
+          <text>军规 29 – 先试点再推广</text>
+        </navLabel>
+        <content src="Chuang Ye 36Tiao Jun Gui _split_099.htm"/>
+      </navPoint>
+      <navPoint id="85b0b551-1cf0-4e5d-bc8a-539aeafafa2f" playOrder="44">
+        <navLabel>
+          <text>军规 30 – 坚持是必须的，维持是没有意义的</text>
+        </navLabel>
+        <content src="Chuang Ye 36Tiao Jun Gui _split_102.htm"/>
+      </navPoint>
+      <navPoint id="add1b637-a10d-4bee-88e3-3990a556e2ad" playOrder="45">
+        <navLabel>
+          <text>军规 31 – 成功后不折腾</text>
+        </navLabel>
+        <content src="Chuang Ye 36Tiao Jun Gui _split_105.htm"/>
+      </navPoint>
+    </navPoint>
+    <navPoint id="8dc2f0b4-48a9-4655-93e7-764a7d04169a" playOrder="46">
+      <navLabel>
+        <text>第八部分 资本的五个问题</text>
+      </navLabel>
+      <content src="Chuang Ye 36Tiao Jun Gui _split_108.htm"/>
+      <navPoint id="008b9c54-3230-4e1f-83e9-93447c99491b" playOrder="47">
+        <navLabel>
+          <text>军规 32 – 借助资本的力量创业</text>
+        </navLabel>
+        <content src="Chuang Ye 36Tiao Jun Gui _split_109.htm"/>
+      </navPoint>
+      <navPoint id="6494b48e-8025-4444-9bf2-cfcf094d6fc0" playOrder="48">
+        <navLabel>
+          <text>军规 33 – 融资时要敢于吃亏</text>
+        </navLabel>
+        <content src="Chuang Ye 36Tiao Jun Gui _split_112.htm"/>
+      </navPoint>
+      <navPoint id="c3c054e8-187d-4a23-bacf-e89ae1ae73b2" playOrder="49">
+        <navLabel>
+          <text>军规 34 – 风险投资只是你的一段情</text>
+        </navLabel>
+        <content src="Chuang Ye 36Tiao Jun Gui _split_115.htm"/>
+      </navPoint>
+      <navPoint id="9e8413e2-fa2e-48f1-8b3a-269a2f44021e" playOrder="50">
+        <navLabel>
+          <text>军规 35 – 任何时候都不要让投资人替你决策</text>
+        </navLabel>
+        <content src="Chuang Ye 36Tiao Jun Gui _split_118.htm"/>
+      </navPoint>
+      <navPoint id="49003511-95bc-4ab2-b441-d6f186bfc42f" playOrder="51">
+        <navLabel>
+          <text>军规 36 – 不要为了上市而上市</text>
+        </navLabel>
+        <content src="Chuang Ye 36Tiao Jun Gui _split_121.htm"/>
+      </navPoint>
+    </navPoint>
+    <navPoint id="6b1fa07e-ebe8-47ef-a41f-ca4742b9529b" playOrder="52">
+      <navLabel>
+        <text>代跋 1</text>
+      </navLabel>
+      <content src="Chuang Ye 36Tiao Jun Gui _split_124.htm"/>
+    </navPoint>
+    <navPoint id="c0f4856a-5dca-427e-a7c9-d4de669c766b" playOrder="53">
+      <navLabel>
+        <text>代跋 2</text>
+      </navLabel>
+      <content src="Chuang Ye 36Tiao Jun Gui _split_125.htm"/>
+    </navPoint>
+  </navMap>
+</ncx>

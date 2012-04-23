@@ -10,10 +10,7 @@
 #import "ATPagingView.h"
 
 @interface RootVC : BaseVC<ATPagingViewDelegate>
-{
-    UISlider *pageSlider;
-    UIPopoverController *chaptersPopover;
-    UIButton *menuButton;
+{ 
 }
 
 @property(nonatomic,retain) ATPagingView* pageView;
