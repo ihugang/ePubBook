@@ -8,10 +8,13 @@
 
 #import "BaseVC.h"
 #import "ATPagingView.h"
+#import "OperView.h"
+#import "NavView.h"
 
-@interface RootVC : BaseVC<ATPagingViewDelegate>
+@interface RootVC : BaseVC<ATPagingViewDelegate,NavViewDelegate,OperViewDelegate>
 { 
     BOOL parsing;
+    BOOL operViewShowed;
 }
 
 @property(nonatomic,retain) ATPagingView* pageView;

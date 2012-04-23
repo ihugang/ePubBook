@@ -25,12 +25,12 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     
-    /*解析成plist
+    /*
+     解析成plist
      [DemoDataParse parse];
      return YES;
      */
-    
-    application.statusBarHidden = NO;
+    application.statusBarHidden=NO;
     self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
     self.window.backgroundColor = [UIColor whiteColor];
  

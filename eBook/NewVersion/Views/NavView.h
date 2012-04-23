@@ -8,8 +8,23 @@
 
 #import "BaseView.h"
 
+@class NavView;
+@protocol NavViewDelegate <NSObject>
+
+-(void)navView:(NavView*)navView changeToIndex:(int)pageIndex;
+
+@end
+
+
 @interface NavView : BaseView{
-        UISlider *pageSlider;
+    UISlider *pageSlider;
+    
 }
+
+@property(nonatomic,assign)int count;
+
+@property(nonatomic,assign)id<NavViewDelegate>delegate;
+
+
 
 @end

@@ -9,11 +9,17 @@
 #import "NavView.h"
 
 @implementation NavView
+@synthesize delegate,count;
+- (void)dealloc {
+    self.delegate = nil;
+    [super dealloc];
+}
 
 -(void)initLayout{
     CGRect frame =  [[UIScreen mainScreen] bounds];
     self.size =CGSizeMake(frame.size.width, 44);
- 
+    self.backgroundColor =[UIColor colorWithPatternImage:skinImage(@"navbar/b008.png")];
+    
     pageSlider = [[UISlider alloc] initWithFrame:CGRectMake(20, 10, self.bounds.size.width - 40, 10)];
     //滑块图片
     [pageSlider setThumbImage:[UIImage imageNamed:@"slider_ball.png"] forState:UIControlStateNormal];
@@ -27,6 +33,11 @@
     [self addSubview:pageSlider];
 }
 
+-(void)setCount:(int)aCount{ 
+    count = aCount;
+    pageSlider.maximumValue = count>0?:0;
+}
+
 - (void)sliderValueChanged:(id)sender
 {
     NSLog(@"sliderValueChanged");
@@ -35,6 +46,9 @@
 - (void)slidingEnded:(id)sender
 {
     NSLog(@"slidingEnded");
+    if (self.delegate) {
+        [self.delegate navView:self changeToIndex:pageSlider.value];
+    }
 }
 
 @end

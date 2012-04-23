@@ -8,8 +8,19 @@
 
 #import "BaseView.h"
 
+@class OperView;
+@protocol OperViewDelegate <NSObject>
+
+-(void)operView:(OperView*)navView changeToIndex:(int)pageIndex;
+
+@end
+
 @interface OperView : BaseView{
-      UIButton *menuButton;
+   
 }
 
+@property(nonatomic,assign)UIViewController* rootVC;
+
+
+@property(nonatomic,assign)id<OperViewDelegate>delegate;
 @end

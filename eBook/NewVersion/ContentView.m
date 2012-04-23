@@ -67,6 +67,9 @@
     [copyMenu release];
     [noteMenu release];
     [bookPickMenu release];
+    
+    
+    curWebView.userInteractionEnabled = NO;
 }
 
 //设置-(BOOL) canBecomeFirstResponder的返回值为YES
@@ -172,7 +175,13 @@
     
     DebugLog(@"=====第%d页,第%d页", curSpineIndex,curPageIndex);
     
-	float pageOffset = pageIndex*curWebView.bounds.size.width + pageIndex *15;
+	float pageOffset = 0;
+    if (!mf_IsPad || !share.isLandscape) {
+    pageOffset = pageIndex*curWebView.bounds.size.width ;
+    }
+    else{
+        pageOffset = pageIndex*curWebView.bounds.size.width + pageIndex *15;
+    }
     //设置页面依X轴来滚动
 	NSString* goToOffsetFunc = [NSString stringWithFormat:@" function pageScroll(xOffset){ window.scroll(xOffset,0); } "];
 	NSString* goTo =[NSString stringWithFormat:@"pageScroll(%f)", pageOffset]; 
@@ -189,41 +198,39 @@
 
 }
 - (void)webViewDidFinishLoad:(UIWebView *)webView{
-   /* 
-    NSString *varMySheet = @"var mySheet = document.styleSheets[0];";
-	
-	NSString *addCSSRule =  @"function addCSSRule(selector, newRule) {"
-	"if (mySheet.addRule) {"
-	"mySheet.addRule(selector, newRule);"								// For Internet Explorer
-	"} else {"
-	"ruleIndex = mySheet.cssRules.length;"
-	"mySheet.insertRule(selector + '{' + newRule + ';}', ruleIndex);"   // For Firefox, Chrome, etc.
-	"}"
-	"}";
-	
-	NSString *insertRule1 = [NSString stringWithFormat:@"addCSSRule('html', 'padding: 0px; height: %fpx; -webkit-column-gap: 0px; -webkit-column-width: %fpx;')", webView.frame.size.height, webView.frame.size.width];
-	NSString *insertRule2 = [NSString stringWithFormat:@"addCSSRule('p', 'text-align: justify;')"];
-	//NSString *setTextSizeRule = [NSString stringWithFormat:@"addCSSRule('body', '-webkit-text-size-adjust: %d%%;')", 94];
-	NSString *setHighlightColorRule = [NSString stringWithFormat:@"addCSSRule('highlight', 'background-color: yellow;')"];
+   /* */
     
-	
-	[webView stringByEvaluatingJavaScriptFromString:varMySheet];
-	
-	[webView stringByEvaluatingJavaScriptFromString:addCSSRule];
-    
-	[webView stringByEvaluatingJavaScriptFromString:insertRule1];
-	
-	[webView stringByEvaluatingJavaScriptFromString:insertRule2];
-	
-	//[webView stringByEvaluatingJavaScriptFromString:setTextSizeRule];
-	
-	[webView stringByEvaluatingJavaScriptFromString:setHighlightColorRule];
-    */
-    
-   
-    
-    //加载css文件
-    if (share.isLandscape) {
+    if (!mf_IsPad || !share.isLandscape) {
+        NSString *varMySheet = @"var mySheet = document.styleSheets[0];";
+        
+        NSString *addCSSRule =  @"function addCSSRule(selector, newRule) {"
+        "if (mySheet.addRule) {"
+        "mySheet.addRule(selector, newRule);"								// For Internet Explorer
+        "} else {"
+        "ruleIndex = mySheet.cssRules.length;"
+        "mySheet.insertRule(selector + '{' + newRule + ';}', ruleIndex);"   // For Firefox, Chrome, etc.
+        "}"
+        "}";
+        
+        NSString *insertRule1 = [NSString stringWithFormat:@"addCSSRule('html', 'padding: 0px; height: %fpx; -webkit-column-gap: 0px; -webkit-column-width: %fpx;')", webView.frame.size.height, webView.frame.size.width];
+        NSString *insertRule2 = [NSString stringWithFormat:@"addCSSRule('p', 'text-align: justify;')"];
+        //NSString *setTextSizeRule = [NSString stringWithFormat:@"addCSSRule('body', '-webkit-text-size-adjust: %d%%;')", 94];
+        NSString *setHighlightColorRule = [NSString stringWithFormat:@"addCSSRule('highlight', 'background-color: yellow;')"];
+        
+        
+        [webView stringByEvaluatingJavaScriptFromString:varMySheet];
+        
+        [webView stringByEvaluatingJavaScriptFromString:addCSSRule];
+        
+        [webView stringByEvaluatingJavaScriptFromString:insertRule1];
+        
+        [webView stringByEvaluatingJavaScriptFromString:insertRule2];
+        
+        //[webView stringByEvaluatingJavaScriptFromString:setTextSizeRule];
+        
+        [webView stringByEvaluatingJavaScriptFromString:setHighlightColorRule];
+    }
+    else {  //加载css文件
         NSString *filePath  =  resPath(@"loadRes.js"); 
         NSData *fileData    = [NSData dataWithContentsOfFile:filePath];
         NSString *jsString  = [[NSMutableString alloc] initWithData:fileData encoding:NSUTF8StringEncoding];

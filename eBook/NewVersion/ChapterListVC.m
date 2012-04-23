@@ -9,7 +9,8 @@
 #import "ChapterListVC.h"
 #import "AppShare.h"
 #import "ContentView.h"
-
+#import "AllHeader.h"
+#import "Book.h"
 @interface ChapterListVC ()
 
 @end
@@ -37,8 +38,9 @@
 #pragma mark -
 #pragma mark TableView Methods
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-    return [share.ePub.spineIndexArray count];
+{ 
+    return  curBook.ChapterCount;
+//    return [share.ePub.spineIndexArray count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -53,7 +55,8 @@
     cell.textLabel.lineBreakMode = UILineBreakModeMiddleTruncation;
     cell.textLabel.adjustsFontSizeToFitWidth = YES;
     //设置每行显示的数据
-    cell.textLabel.text = [[share.ePub.spineIndexArray objectAtIndex:[indexPath row]] title];
+    cell.textLabel.text = [NSString stringWithFormat:@"%d",indexPath.row];
+    //cell.textLabel.text = [[share.ePub.spineIndexArray objectAtIndex:[indexPath row]] title];
     return cell;
 }
 
