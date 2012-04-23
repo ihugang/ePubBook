@@ -16,7 +16,16 @@
 SYNTHESIZE_SINGLETON_FOR_CLASS(Book);
 
 -(void)prepareBook{ 
-    NSString* path = [ResManager docPath:@"PageBreak~iPhone@2x.plist"];
+
+    NSString* path = nil;
+    if (mf_IsPad) {
+        path = [ResManager docPath:@"PageBreak~iPad@2x.plist"]; 
+    }
+    else{
+        path = [ResManager docPath:@"PageBreak~iPhone@2x.plist"];
+        
+    }
+    
     self.currentBookInfo =[NSDictionary dictionaryWithContentsOfFile:path];
     BodyFontSize = DI(self.currentBookInfo, @"BodyFontSize");
     PageWidth = DI(self.currentBookInfo, @"PageWidth");
@@ -28,6 +37,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(Book);
         NSString* path = resPath(shortPath);
         NSString* title = shortPath.lastPathComponent;
         Chapter* chapter = [[[Chapter alloc] initWithPath:path title:title chapterIndex:index] autorelease];
+       
         chapter.pageCount = item.count; 
         [cs addObject:chapter];
         index++;  

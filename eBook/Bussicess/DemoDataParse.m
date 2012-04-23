@@ -21,7 +21,8 @@
 +(void)parse{
 
     DemoDataParse* ssp =[[[DemoDataParse alloc] init] autorelease];
-    NSString* path = resPath(@"PageBreak~iPhone@2x.xml");
+    //NSString* path = resPath(@"PageBreak~iPhone@2x.xml");
+    NSString* path = resPath(@"PageBreak~iPad@2x.xml");
     [ssp parseWithPath:path];
 }
 
@@ -131,7 +132,7 @@
                 }
             }
             [item setValue:breaskPosList forKey:@"PageBreakSet"]; 
-            [item writeToFile:[ResManager docPath:@"PageBreak~iPhone@2x.plist" forSave:YES] atomically:YES];
+            [item writeToFile:[ResManager docPath:@"PageBreak~iPad@2x.plist" forSave:YES] atomically:YES];
             break;//demo just get one
         }
     }

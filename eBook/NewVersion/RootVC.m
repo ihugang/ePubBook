@@ -19,6 +19,8 @@
     [super dealloc];
 }
 
+
+
 -(void)addUI{
     [self.pageView removeFromSuperview];
     self.pageView =[[[ATPagingView alloc] initWithFrame:self.view.bounds] autorelease];
@@ -33,17 +35,21 @@
 
 - (void)viewDidLoad{
     [super viewDidLoad]; 
+    self.view.backgroundColor =[UIColor scrollViewTexturedBackgroundColor];
+   
     //提示下载
-    //[MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    MBProgressHUD* hud =[MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    [hud setLabelText:@"正在解析"];
+    parsing = NO;
     [Bussicess fetchBookInfo:^{
-        [self addUI];     
-    }];
-    
+        [hud setHidden:YES];
+        parsing = YES;
+        [self addUI]; 
+    }]; 
 }
 
 - (NSInteger)numberOfPagesInPagingView:(ATPagingView *)pagingView{
     return curBook.PageCount;
-    //return self.datasoucre.count;
 }
 
 - (UIView *)viewForPageInPagingView:(ATPagingView *)pagingView atIndex:(NSInteger)index{
@@ -54,7 +60,13 @@
 
 -(void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation{
     [super didRotateFromInterfaceOrientation:fromInterfaceOrientation];
-    [self addUI];
+    if (!parsing) {
+        return;
+    }
+    int iCurIndex = self.pageView.currentPageIndex;
+    [self addUI]; 
+    self.pageView.currentPageIndex =  iCurIndex;
+
 }
 
 @end

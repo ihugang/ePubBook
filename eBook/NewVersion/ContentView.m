@@ -23,9 +23,11 @@
     curWebView = [[UIWebView alloc] init];
 
     //    [webView setBounds:CGRectMake(0, 0, 320, 480)];
-    [curWebView setFrame:CGRectMake(40, 60, self.bounds.size.width, self.bounds.size.height)];
+//    [curWebView setFrame:CGRectMake(40, 60, self.bounds.size.width, self.bounds.size.height)];
+    [curWebView setFrame:CGRectMake(10, 10, self.bounds.size.width-20, self.bounds.size.height-20)];
     [curWebView setDelegate:self];
     [curWebView setAutoresizesSubviews:YES];
+
     [curWebView setBackgroundColor:[UIColor clearColor]];//设置背景颜色
     [curWebView setOpaque:NO];//设置透明
     [curWebView setAutoresizingMask:UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleRightMargin];
@@ -41,12 +43,9 @@
 	}
       [self addSubview:curWebView]; 
     self.curLable = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 50, 50)];
+    self.curLable.backgroundColor =[UIColor clearColor];
     [self addSubview:curLable]; 
-    
-    
-    
-    
-   
+ 
     //给页面添加UIMenuController
     UIMenuController *menuController = [UIMenuController sharedMenuController];
     UIMenuItem *copyMenu = [[UIMenuItem alloc] initWithTitle:@"复制" action:@selector(copyMenuPressed:)];
@@ -134,20 +133,21 @@
 }
 
 -(void)showWithIndex:(int)aIndex{
+   
     self.curLable.text =[NSString stringWithFormat:@"%d",aIndex];
     
     int tempSpineIndex = 0;//HTML
     int tempPageIndex = 0;//Page
     
-    int perTotalIndex = -1;//temp
+    int perTotalIndex = 0;//temp
     int curTotalIndex = 0;//temp
     for (Chapter* chapter in curBook.chapters) {        
         curTotalIndex += chapter.pageCount;
-        if (aIndex>perTotalIndex && aIndex<=curTotalIndex) {
-            tempPageIndex = curTotalIndex-aIndex;
+        if (aIndex>=perTotalIndex && aIndex<curTotalIndex) {
+            tempPageIndex = aIndex - perTotalIndex;
             break;
         }
-        perTotalIndex+=curTotalIndex;
+        perTotalIndex=curTotalIndex;
         tempSpineIndex++;
     }
     
@@ -169,7 +169,10 @@
 	//currentSpineIndex = spineIndex;
 }
 - (void) gotoPageInCurrentSpine:(int)pageIndex{ 
-	float pageOffset = pageIndex*curWebView.bounds.size.width;
+    
+    DebugLog(@"=====第%d页,第%d页", curSpineIndex,curPageIndex);
+    
+	float pageOffset = pageIndex*curWebView.bounds.size.width + pageIndex *15;
     //设置页面依X轴来滚动
 	NSString* goToOffsetFunc = [NSString stringWithFormat:@" function pageScroll(xOffset){ window.scroll(xOffset,0); } "];
 	NSString* goTo =[NSString stringWithFormat:@"pageScroll(%f)", pageOffset]; 
@@ -186,7 +189,52 @@
 
 }
 - (void)webViewDidFinishLoad:(UIWebView *)webView{
-      [self gotoPageInCurrentSpine:curPageIndex];
+   /* 
+    NSString *varMySheet = @"var mySheet = document.styleSheets[0];";
+	
+	NSString *addCSSRule =  @"function addCSSRule(selector, newRule) {"
+	"if (mySheet.addRule) {"
+	"mySheet.addRule(selector, newRule);"								// For Internet Explorer
+	"} else {"
+	"ruleIndex = mySheet.cssRules.length;"
+	"mySheet.insertRule(selector + '{' + newRule + ';}', ruleIndex);"   // For Firefox, Chrome, etc.
+	"}"
+	"}";
+	
+	NSString *insertRule1 = [NSString stringWithFormat:@"addCSSRule('html', 'padding: 0px; height: %fpx; -webkit-column-gap: 0px; -webkit-column-width: %fpx;')", webView.frame.size.height, webView.frame.size.width];
+	NSString *insertRule2 = [NSString stringWithFormat:@"addCSSRule('p', 'text-align: justify;')"];
+	//NSString *setTextSizeRule = [NSString stringWithFormat:@"addCSSRule('body', '-webkit-text-size-adjust: %d%%;')", 94];
+	NSString *setHighlightColorRule = [NSString stringWithFormat:@"addCSSRule('highlight', 'background-color: yellow;')"];
+    
+	
+	[webView stringByEvaluatingJavaScriptFromString:varMySheet];
+	
+	[webView stringByEvaluatingJavaScriptFromString:addCSSRule];
+    
+	[webView stringByEvaluatingJavaScriptFromString:insertRule1];
+	
+	[webView stringByEvaluatingJavaScriptFromString:insertRule2];
+	
+	//[webView stringByEvaluatingJavaScriptFromString:setTextSizeRule];
+	
+	[webView stringByEvaluatingJavaScriptFromString:setHighlightColorRule];
+    */
+    
+   
+    
+    //加载css文件
+    if (share.isLandscape) {
+        NSString *filePath  =  resPath(@"loadRes.js"); 
+        NSData *fileData    = [NSData dataWithContentsOfFile:filePath];
+        NSString *jsString  = [[NSMutableString alloc] initWithData:fileData encoding:NSUTF8StringEncoding];
+        [curWebView stringByEvaluatingJavaScriptFromString:jsString];
+
+        [curWebView stringByEvaluatingJavaScriptFromString:@"loadCss('split')"];
+        
+    }
+    
+    [self gotoPageInCurrentSpine:curPageIndex];
+    
 }
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error{
 

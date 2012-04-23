@@ -11,6 +11,7 @@
 
 @interface RootVC : BaseVC<ATPagingViewDelegate>
 { 
+    BOOL parsing;
 }
 
 @property(nonatomic,retain) ATPagingView* pageView;

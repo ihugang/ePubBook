@@ -26,9 +26,9 @@
 {
     
     /*解析成plist
-     
+     [DemoDataParse parse];
+     return YES;
      */
-  //  [DemoDataParse parse];
     
     application.statusBarHidden = NO;
     self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
