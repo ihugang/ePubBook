@@ -7,6 +7,8 @@
 // 导航操作
 
 #import "BaseView.h"
+#import "ChapterListVC.h"
+#import "FontView.h"
 
 @class OperView;
 @protocol OperViewDelegate <NSObject>
@@ -15,8 +17,8 @@
 
 @end
 
-@interface OperView : BaseView<UIGestureRecognizerDelegate>{
-   
+@interface OperView : BaseView<ChapterListVCDelegate>{
+    
 }
 
 @property(nonatomic,assign)UIViewController* rootVC;

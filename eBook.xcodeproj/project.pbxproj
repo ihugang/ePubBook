@@ -22,6 +22,9 @@
 		1087FF02153679A900862D76 /* zip.c in Sources */ = {isa = PBXBuildFile; fileRef = 1087FEFB153679A900862D76 /* zip.c */; };
 		1087FF03153679A900862D76 /* ZipArchive.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1087FEFE153679A900862D76 /* ZipArchive.mm */; };
 		10888A71153FEC4200C02010 /* ChapterListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 10888A70153FEC4200C02010 /* ChapterListVC.m */; };
+		108CF430154A81A7004860E3 /* MyTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 108CF42D154A81A7004860E3 /* MyTableCell.m */; };
+		108CF431154A81A7004860E3 /* MyTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 108CF42F154A81A7004860E3 /* MyTableViewCell.m */; };
+		108CF435154A81E7004860E3 /* FontView.m in Sources */ = {isa = PBXBuildFile; fileRef = 108CF434154A81E7004860E3 /* FontView.m */; };
 		109CA1D81536A054007A3F68 /* CXMLDocument_CreationExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 109CA1BD1536A054007A3F68 /* CXMLDocument_CreationExtensions.m */; };
 		109CA1D91536A054007A3F68 /* CXMLNode_CreationExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 109CA1BF1536A054007A3F68 /* CXMLNode_CreationExtensions.m */; };
 		109CA1DA1536A054007A3F68 /* CXHTMLDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = 109CA1C11536A054007A3F68 /* CXHTMLDocument.m */; };
@@ -157,6 +160,12 @@
 		1087FEFE153679A900862D76 /* ZipArchive.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ZipArchive.mm; sourceTree = "<group>"; };
 		10888A6F153FEC4100C02010 /* ChapterListVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChapterListVC.h; sourceTree = "<group>"; };
 		10888A70153FEC4200C02010 /* ChapterListVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChapterListVC.m; sourceTree = "<group>"; };
+		108CF42C154A81A7004860E3 /* MyTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyTableCell.h; sourceTree = "<group>"; };
+		108CF42D154A81A7004860E3 /* MyTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyTableCell.m; sourceTree = "<group>"; };
+		108CF42E154A81A7004860E3 /* MyTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyTableViewCell.h; sourceTree = "<group>"; };
+		108CF42F154A81A7004860E3 /* MyTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyTableViewCell.m; sourceTree = "<group>"; };
+		108CF433154A81E7004860E3 /* FontView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FontView.h; sourceTree = "<group>"; };
+		108CF434154A81E7004860E3 /* FontView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FontView.m; sourceTree = "<group>"; };
 		109CA1BC1536A054007A3F68 /* CXMLDocument_CreationExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CXMLDocument_CreationExtensions.h; sourceTree = "<group>"; };
 		109CA1BD1536A054007A3F68 /* CXMLDocument_CreationExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CXMLDocument_CreationExtensions.m; sourceTree = "<group>"; };
 		109CA1BE1536A054007A3F68 /* CXMLNode_CreationExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CXMLNode_CreationExtensions.h; sourceTree = "<group>"; };
@@ -534,6 +543,8 @@
 		18013AAB15413E7D00F8B17B /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				108CF433154A81E7004860E3 /* FontView.h */,
+				108CF434154A81E7004860E3 /* FontView.m */,
 				18013AB015413E9C00F8B17B /* OperView.h */,
 				18013AB115413E9C00F8B17B /* OperView.m */,
 				18013AAD15413E9200F8B17B /* NavView.h */,
@@ -809,6 +820,10 @@
 		181AC6CF153D18CF00177AE6 /* NewVersion */ = {
 			isa = PBXGroup;
 			children = (
+				108CF42C154A81A7004860E3 /* MyTableCell.h */,
+				108CF42D154A81A7004860E3 /* MyTableCell.m */,
+				108CF42E154A81A7004860E3 /* MyTableViewCell.h */,
+				108CF42F154A81A7004860E3 /* MyTableViewCell.m */,
 				18171F341544ECAC00CD83A8 /* Base */,
 				181AC6D1153D18DE00177AE6 /* RootVC.h */,
 				181AC6D2153D18DE00177AE6 /* RootVC.m */,
@@ -993,6 +1008,9 @@
 				18013AAF15413E9200F8B17B /* NavView.m in Sources */,
 				18013AB215413E9C00F8B17B /* OperView.m in Sources */,
 				18171F391544EDDB00CD83A8 /* MBProgressHUD.m in Sources */,
+				108CF430154A81A7004860E3 /* MyTableCell.m in Sources */,
+				108CF431154A81A7004860E3 /* MyTableViewCell.m in Sources */,
+				108CF435154A81E7004860E3 /* FontView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
