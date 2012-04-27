@@ -18,6 +18,12 @@
 
 @implementation DemoDataParse
 
+
++(void)parseTitles{
+    
+    
+}
+
 +(void)parse{
 
     DemoDataParse* ssp =[[[DemoDataParse alloc] init] autorelease];

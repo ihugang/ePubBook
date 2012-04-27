@@ -11,14 +11,18 @@
 #import "OperView.h"
 #import "NavView.h"
 
-@interface RootVC : BaseVC<ATPagingViewDelegate,NavViewDelegate,OperViewDelegate>
+@interface RootVC : BaseVC<ATPagingViewDelegate,NavViewDelegate,OperViewDelegate,UIGestureRecognizerDelegate>
 { 
     BOOL parsing;
     BOOL operViewShowed;
+    OperView* operView;
+    NavView* navView;
 }
 
 @property(nonatomic,retain) ATPagingView* pageView;
 
 @property(nonatomic,retain)NSArray* datasoucre;
+
+-(void)swichUI:(BOOL)showOperView;
 
 @end

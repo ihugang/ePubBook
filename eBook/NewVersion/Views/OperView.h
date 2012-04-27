@@ -15,7 +15,7 @@
 
 @end
 
-@interface OperView : BaseView{
+@interface OperView : BaseView<UIGestureRecognizerDelegate>{
    
 }
 

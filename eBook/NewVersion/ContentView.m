@@ -177,7 +177,7 @@
     
 	float pageOffset = 0;
     if (!mf_IsPad || !share.isLandscape) {
-    pageOffset = pageIndex*curWebView.bounds.size.width ;
+        pageOffset = pageIndex*curWebView.bounds.size.width ;
     }
     else{
         pageOffset = pageIndex*curWebView.bounds.size.width + pageIndex *15;

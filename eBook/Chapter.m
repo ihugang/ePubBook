@@ -17,11 +17,11 @@
         spinePath = [theSpinePath retain];
         title = [theTitle retain];
         chapterIndex = theIndex;
-        /* 
+        /*
 		NSString* html = [[NSString alloc] initWithData:[NSData dataWithContentsOfURL:[NSURL fileURLWithPath:theSpinePath]] encoding:NSUTF8StringEncoding];
 		text = [[html stringByConvertingHTMLToPlainText] retain];
         NSLog(@"text ------- >>>>>%@",text);
-         
+      
 		[html release];
         */
     }

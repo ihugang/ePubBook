@@ -13,5 +13,7 @@
 
 +(void)parse;
 
++(void)parseTitles;
+
 
 @end

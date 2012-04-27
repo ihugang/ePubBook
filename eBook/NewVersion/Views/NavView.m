@@ -17,37 +17,44 @@
 
 -(void)initLayout{
     CGRect frame =  [[UIScreen mainScreen] bounds];
-    self.size =CGSizeMake(frame.size.width, 44);
-    self.backgroundColor =[UIColor colorWithPatternImage:skinImage(@"navbar/b008.png")];
+    self.size =CGSizeMake(frame.size.width, 40);
     
-    pageSlider = [[UISlider alloc] initWithFrame:CGRectMake(20, 10, self.bounds.size.width - 40, 10)];
+    UIImageView* iv = [UIImageView nodeWithImage:skinImage(@"navbar/b008.png")];
+    [self addSubview:iv];
+   // self.backgroundColor =[UIColor blueColor];
+    
+    pageSlider = [[UISlider alloc] initWithFrame:CGRectMake(0, 0, self.bounds.size.width - 40, 10)];
+    pageSlider.centerX = self.width/2;
+    pageSlider.top = 30;
     //滑块图片
-    [pageSlider setThumbImage:[UIImage imageNamed:@"slider_ball.png"] forState:UIControlStateNormal];
-	[pageSlider setMinimumTrackImage:[[UIImage imageNamed:@"orangeSlide.png"] stretchableImageWithLeftCapWidth:10 topCapHeight:0] forState:UIControlStateNormal];
-	[pageSlider setMaximumTrackImage:[[UIImage imageNamed:@"yellowSlide.png"] stretchableImageWithLeftCapWidth:10 topCapHeight:0] forState:UIControlStateNormal];
+    [pageSlider setThumbImage:skinImage(@"navbar/b010.png") forState:UIControlStateNormal];
+    
+	[pageSlider setMinimumTrackImage:[skinImage(@"navbar/b011.png") stretchableImageWithLeftCapWidth:10 topCapHeight:0] forState:UIControlStateNormal];
+	[pageSlider setMaximumTrackImage:[skinImage(@"navbar/b009.png")stretchableImageWithLeftCapWidth:10 topCapHeight:0] forState:UIControlStateNormal];
     //滑块拖动时的事件
     [pageSlider addTarget:self action:@selector(sliderValueChanged:) forControlEvents:UIControlEventValueChanged];
     //滑动拖动后的事件
     [pageSlider addTarget:self action:@selector(slidingEnded:) forControlEvents:UIControlEventTouchUpInside];
-    
     [self addSubview:pageSlider];
+    [pageSlider release];
 }
-
+ 
 -(void)setCount:(int)aCount{ 
     count = aCount;
-    pageSlider.maximumValue = count>0?:0;
+    pageSlider.maximumValue = count;
 }
 
 - (void)sliderValueChanged:(id)sender
 {
+    //show pop view
     NSLog(@"sliderValueChanged");
 }
 
-- (void)slidingEnded:(id)sender
+- (void)slidingEnded:(UISlider*)sender
 {
-    NSLog(@"slidingEnded");
+    NSLog(@"slidingEnded%1.2f---%1.2f",pageSlider.maximumValue,sender.value);
     if (self.delegate) {
-        [self.delegate navView:self changeToIndex:pageSlider.value];
+        [self.delegate navView:self changeToIndex:[NF(sender.value) intValue]];
     }
 }
 

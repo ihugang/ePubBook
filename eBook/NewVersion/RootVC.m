@@ -36,17 +36,16 @@
 
     float pos =  p.x/windowSize.width;
     
-    if (pos<0.2) {
-         
+    if (pos<0.2&&self.pageView.currentPageIndex>0) {
+         self.pageView.currentPageIndex-=1;
     }
     
-    if (pos>0.8) {
-        
+    if (pos>0.8 && self.pageView.currentPageIndex<curBook.PageCount) {
+        self.pageView.currentPageIndex+=1;
     }
     
     if (pos>0.4 && pos<0.6) {
-        //
-        operViewShowed=!operViewShowed;
+        [self swichUI:!operViewShowed];
     }
 }
 
@@ -56,12 +55,15 @@
     self.view.backgroundColor =[UIColor scrollViewTexturedBackgroundColor];
     
     OperView* ov =[OperView createWithSize:CGSizeMake(self.view.width, 44)];
+    ov.top = 20;
+    operView = ov;
     ov.rootVC = self;
     ov.delegate=self;
     [self.view addSubview:ov];
     [ov setAutoresizingMask:UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleRightMargin];
  
     NavView* nv =[NavView createWithSize:CGSizeMake(self.view.width, 44)];
+    navView = nv;
     nv.bottom = self.view.height;
     nv.delegate=self;
     [self.view addSubview:nv];
@@ -79,13 +81,30 @@
     }]; 
     
     //添加上面的view 
-    operViewShowed = NO;  
-    return;
+//    operViewShowed = NO; 
+    [self swichUI:NO];
+
     UITapGestureRecognizer* tapGesture =[[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(userTapOper:)] autorelease];
-    
+    tapGesture.delegate = self;
     [self.view addGestureRecognizer:tapGesture]; 
 }
 
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch {
+
+    if ([touch.view isKindOfClass:[UIButton class]]) 
+    { 
+		return NO;
+    } 
+    
+    if ([touch.view isDescendantOfView:navView]||
+        [touch.view isDescendantOfView:operView]
+        ) {
+        return NO;
+    }
+    return YES;
+}
+
+#pragma mark ATPagingView Delegate
 - (NSInteger)numberOfPagesInPagingView:(ATPagingView *)pagingView{
     return curBook.PageCount;
 }
@@ -96,7 +115,11 @@
     return cwv;
 }
 
+#pragma mark 旋转
 -(void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation{
+    if (!mf_IsPad) {
+        return;
+    }
     [super didRotateFromInterfaceOrientation:fromInterfaceOrientation];
     if (!parsing) {
         return;
@@ -106,12 +129,27 @@
     self.pageView.currentPageIndex =  iCurIndex;
 
 }
+#pragma mark 导航条
 -(void)navView:(NavView*)navView changeToIndex:(int)pageIndex{
     self.pageView.currentPageIndex = pageIndex;
+    [self swichUI:!operViewShowed];
 }
-
+#pragma mark 操作条
 -(void)operView:(OperView*)navView changeToIndex:(int)pageIndex{
-    
+//    [self swichUI:!operViewShowed];
+}
+#pragma mark 切换UI显示
+-(void)swichUI:(BOOL)showOperView{
+    operViewShowed = showOperView; 
+    operView.hidden = !showOperView;
+    navView.hidden = !showOperView;
+    [[UIApplication sharedApplication]  setStatusBarHidden:!operViewShowed withAnimation:UIStatusBarAnimationSlide];
+    if (showOperView) {
+        
+    }
+    else{
+        
+    } 
 }
 
 @end

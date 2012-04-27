@@ -8,6 +8,8 @@
 
 #import "OperView.h"
 #import "ChapterListVC.h"
+#import "RootVC.h"
+
 @implementation OperView
 @synthesize delegate,rootVC;
 - (void)dealloc {
@@ -21,7 +23,10 @@
     [self addSubview:iv];
     
     CGRect frame =  [[UIScreen mainScreen] bounds];
-    self.size =CGSizeMake(frame.size.width, frame.size.height - 44);
+    self.size =CGSizeMake(frame.size.width, frame.size.height - 64);
+    
+    self.backgroundColor =[UIColor grayColor];
+    
     UIButton* btnList =[UIButton nodeWithOnImage:nil offImage:skinImage(@"operbar/b003.png")];
     //btnList.size = CGSizeMake(btnList.width*2, btnList.height*2);
     btnList.left = 20;
@@ -59,12 +64,33 @@
     btnBooks.right = self.width - 10;
     btnBooks.top = 7;
     [btnBooks addEvent:@selector(btnBooksTapped:) atContainer:self];
-    [self addSubview:btnBooks]; 
-    
-    
-    
-    
+    [self addSubview:btnBooks];  
+  
+    UITapGestureRecognizer* tapGesture =[[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(userTapOper:)] autorelease];
+    tapGesture.delegate = self;
+    [self addGestureRecognizer:tapGesture]; 
 }
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch {
+    
+    if ([touch.view isKindOfClass:[UIButton class]]) 
+    { 
+		return NO;
+    } 
+ 
+    return YES;
+}
+
+-(void)userTapOper:(UITapGestureRecognizer*)gesture{
+   
+    CGPoint p  =   [gesture locationInView:self];
+    if (p.y<44) {
+        return;
+    }
+    
+    [(RootVC*)rootVC swichUI:NO];    
+}
+
 
 -(void)btnListTapped:(UIButton*)sender{
     DebugLog(@"%@", sender);
