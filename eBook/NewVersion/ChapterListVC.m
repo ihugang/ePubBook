@@ -60,6 +60,12 @@
     return cell;
 }
 
+//RootViewController.m
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+    return @"======== Section Title ========";
+}
+
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     //选中行的动画
