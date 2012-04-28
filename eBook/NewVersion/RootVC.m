@@ -61,7 +61,7 @@
     ov.delegate=self;
     [self.view addSubview:ov];
     [ov setAutoresizingMask:UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleRightMargin];
- 
+    
     NavView* nv =[NavView createWithSize:CGSizeMake(self.view.width, 44)];
     navView = nv;
     nv.bottom = self.view.height;

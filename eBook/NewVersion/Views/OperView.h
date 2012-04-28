@@ -18,7 +18,9 @@
 @end
 
 @interface OperView : BaseView<ChapterListVCDelegate>{
-    
+    UIButton* btnFontSize;
+    BOOL show;
+    FontView *fv;
 }
 
 @property(nonatomic,assign)UIViewController* rootVC;

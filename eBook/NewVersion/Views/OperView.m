@@ -30,7 +30,7 @@
     [btnList addTarget:self action:@selector(btnListTapped:) forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:btnList];
     
-    UIButton* btnFontSize =[UIButton nodeWithOnImage:nil offImage:skinImage(@"operbar/b004.png")];
+    btnFontSize =[UIButton nodeWithOnImage:nil offImage:skinImage(@"operbar/b004.png")];
     //btnFontSize.size = btnList.size;
     btnFontSize.left = btnList.right + 30;
     btnFontSize.top = btnList.top;
@@ -62,7 +62,7 @@
     [self addSubview:btnBooks]; 
     
     
-    
+
     
 }
 
@@ -74,9 +74,17 @@
 }
 
 -(void)btnFontSizeTapped:(UIButton*)sender{
-    DebugLog(@"%@", sender);
-    FontView *fv = [[FontView alloc] initWithFrame:CGRectMake(10, 25, 200, 100)] ;
-    [self.superview addSubview:fv];
+    DebugLog(@"%@",sender);
+    if (fv == nil) {
+        fv = [[FontView alloc] initWithFrame:CGRectMake(10,btnFontSize.frame.origin.y*4 , 200, 100)] ;
+        [self.superview addSubview:fv];
+    }else{    
+        if (fv.hidden == YES) {
+            fv.hidden = NO;
+        }else {
+            fv.hidden = YES;
+        }
+    }
 }
 
 -(void)btnSearchTapped:(UIButton*)sender{

@@ -9,5 +9,10 @@
 #import "BaseView.h"
 
 @interface FontView : BaseView
+{
+    UIButton *minButton;
+    UIButton *middleButton;
+    UIButton *maxButton;
+}
 
 @end

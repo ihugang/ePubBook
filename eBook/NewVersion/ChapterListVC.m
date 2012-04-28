@@ -209,7 +209,7 @@
     
     
     UIView * sectionView = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.bounds.size.width, 220)] autorelease];
-    [sectionView setBackgroundColor:[UIColor clearColor]];
+    [sectionView setBackgroundColor:[UIColor whiteColor]];
     [sectionView addSubview:label];
     [sectionView setAutoresizesSubviews:YES];
     [sectionView setAutoresizingMask:UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleRightMargin];
@@ -242,7 +242,7 @@
         [fenge setFrame:CGRectMake(0, cell.height-1, tableView.bounds.size.width, 1)];
         [cell.contentView addSubview:fenge];
         return cell;
-    }else {
+    }else{
         MyTableCell *cell = [tableView dequeueReusableCellWithIdentifier:tag];
         if (cell == nil) {
             cell = [[[MyTableCell alloc] init] autorelease];
@@ -255,6 +255,7 @@
         
         cell.content.highlightedTextColor = [UIColor whiteColor];
         cell.index.highlightedTextColor = [UIColor whiteColor];
+        
         [fenge setFrame:CGRectMake(0, cell.height-1, tableView.bounds.size.width, 1)];
         [cell.contentView addSubview:fenge];
         return cell;
