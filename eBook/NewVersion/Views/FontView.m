@@ -48,7 +48,7 @@
     [max setImage:skinImage(@"fontbar/c004.png")];
     [brightness addSubview:max];
     
-    UISlider *sliderA=[[UISlider alloc]initWithFrame:CGRectMake(20, 8, brightness.bounds.size.width - 40, 0)];
+    sliderA=[[UISlider alloc]initWithFrame:CGRectMake(20, 8, brightness.bounds.size.width - 40, 0)];
     sliderA.backgroundColor = [UIColor clearColor];
     sliderA.value=0.5;
     sliderA.minimumValue=0.0;
@@ -124,9 +124,13 @@
 
 - (void)sliderValueChanged:(id)sender
 {
-    NSLog(@"sliderValueChanged");
+    UISlider *slider = (UISlider *)sender;
+    float fBrightness = slider.value;
+    NSLog(@"sliderValueChanged:%f",fBrightness);
     
     //[[UIScreen mainScreen] setBrightness:0.5];//设置屏幕亮度
+    [[UIScreen mainScreen] setWantsSoftwareDimming:YES];
+    [[UIScreen mainScreen] setBrightness:fBrightness];
 }
 
 - (void)sliderDragUp:(id)sender

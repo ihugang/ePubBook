@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		10772A00154B9FA7006DA171 /* SearchVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 107729FF154B9FA6006DA171 /* SearchVC.m */; };
+		10772A04154BDFEC006DA171 /* SettingVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 10772A03154BDFEC006DA171 /* SettingVC.m */; };
 		1087FED115366CC000862D76 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1087FED015366CC000862D76 /* UIKit.framework */; };
 		1087FED315366CC000862D76 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1087FED215366CC000862D76 /* Foundation.framework */; };
 		1087FED515366CC000862D76 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1087FED415366CC000862D76 /* CoreGraphics.framework */; };
@@ -131,6 +133,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		107729FE154B9FA6006DA171 /* SearchVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchVC.h; sourceTree = "<group>"; };
+		107729FF154B9FA6006DA171 /* SearchVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchVC.m; sourceTree = "<group>"; };
+		10772A02154BDFEB006DA171 /* SettingVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingVC.h; sourceTree = "<group>"; };
+		10772A03154BDFEC006DA171 /* SettingVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingVC.m; sourceTree = "<group>"; };
 		1087FECC15366CC000862D76 /* eBook.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = eBook.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1087FED015366CC000862D76 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		1087FED215366CC000862D76 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -820,11 +826,11 @@
 		181AC6CF153D18CF00177AE6 /* NewVersion */ = {
 			isa = PBXGroup;
 			children = (
+				18171F341544ECAC00CD83A8 /* Base */,
 				108CF42C154A81A7004860E3 /* MyTableCell.h */,
 				108CF42D154A81A7004860E3 /* MyTableCell.m */,
 				108CF42E154A81A7004860E3 /* MyTableViewCell.h */,
 				108CF42F154A81A7004860E3 /* MyTableViewCell.m */,
-				18171F341544ECAC00CD83A8 /* Base */,
 				181AC6D1153D18DE00177AE6 /* RootVC.h */,
 				181AC6D2153D18DE00177AE6 /* RootVC.m */,
 				181AC6DA153D1AAB00177AE6 /* ContentWrapperView.h */,
@@ -833,6 +839,10 @@
 				181AC6D8153D1A9F00177AE6 /* ContentView.m */,
 				10888A6F153FEC4100C02010 /* ChapterListVC.h */,
 				10888A70153FEC4200C02010 /* ChapterListVC.m */,
+				107729FE154B9FA6006DA171 /* SearchVC.h */,
+				107729FF154B9FA6006DA171 /* SearchVC.m */,
+				10772A02154BDFEB006DA171 /* SettingVC.h */,
+				10772A03154BDFEC006DA171 /* SettingVC.m */,
 				18013AAB15413E7D00F8B17B /* Views */,
 			);
 			path = NewVersion;
@@ -1011,6 +1021,8 @@
 				108CF430154A81A7004860E3 /* MyTableCell.m in Sources */,
 				108CF431154A81A7004860E3 /* MyTableViewCell.m in Sources */,
 				108CF435154A81E7004860E3 /* FontView.m in Sources */,
+				10772A00154B9FA7006DA171 /* SearchVC.m in Sources */,
+				10772A04154BDFEC006DA171 /* SettingVC.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

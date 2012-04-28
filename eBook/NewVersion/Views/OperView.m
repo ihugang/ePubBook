@@ -8,6 +8,7 @@
 
 #import "OperView.h"
 #import "ChapterListVC.h"
+
 @implementation OperView
 @synthesize delegate,rootVC;
 - (void)dealloc {
@@ -62,14 +63,14 @@
     [self addSubview:btnBooks]; 
     
     
-
+    
     
 }
 
 -(void)btnListTapped:(UIButton*)sender{
     DebugLog(@"%@", sender);
     ChapterListVC* clv =[[[ChapterListVC alloc] init] autorelease];
-    [self.rootVC presentModalViewController:clv animated:NO];
+    [self.rootVC presentModalViewController:clv animated:YES];
     clv.delegate = self;
 }
 
@@ -89,10 +90,15 @@
 
 -(void)btnSearchTapped:(UIButton*)sender{
     DebugLog(@"%@", sender);
+    SearchVC *svc = [[[SearchVC alloc] init] autorelease];
+    [self.rootVC presentModalViewController:svc animated:YES];
+    svc.delegate = self;
 }
 
 -(void)btnSettingTapped:(UIButton*)sender{
     DebugLog(@"%@", sender);
+    SettingVC *set = [[[SettingVC alloc] init] autorelease];
+    [self.rootVC presentModalViewController:set animated:YES];
 }
 
 -(void)btnBooksTapped:(UIButton*)sender{
@@ -106,6 +112,11 @@
 }
 
 - (void)ChapterListClick
+{
+    [self.rootVC dismissModalViewControllerAnimated:YES];
+}
+
+- (void)showSearchVC
 {
     [self.rootVC dismissModalViewControllerAnimated:YES];
 }

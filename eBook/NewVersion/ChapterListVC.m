@@ -79,7 +79,7 @@
     [cataButton4 addTarget:self action:@selector(catalogSelected:) forControlEvents:UIControlEventTouchUpInside];
     [imageView addSubview:cataButton4];
     
-    chapterList = [[UITableView alloc] initWithFrame:CGRectMake(10, 90, self.view.bounds.size.width-20 , self.view.bounds.size.height) style:UITableViewStylePlain];
+    chapterList = [[UITableView alloc] initWithFrame:CGRectMake(10, 90, self.view.bounds.size.width-20 , self.view.bounds.size.height) style:UITableViewStyleGrouped];
     [chapterList setAutoresizesSubviews:YES];
     [chapterList setAutoresizingMask:UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight];
     [chapterList setDelegate:self];
@@ -153,11 +153,11 @@
     if (check == 0) {
         return 1;
     }else if (check == 1) {
-        return 1;
+        return 2;
     }else if (check == 2){
-        return 1;
+        return 2;
     }else {
-        return 1;
+        return 2;
     }
 }
 
@@ -174,21 +174,12 @@
         return 2;
     }
 }
-+ (void)setExtraCellLineHidden: (UITableView *)tableView
-{
-    UIView *view = [UIView new];
-    view.backgroundColor = [UIColor clearColor];
-    [tableView setTableFooterView:view];
-    [view release];
-}
 
-
-
-//RootViewController.m
+//设置标题
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    return @"======== Section Title ========";
+    return [NSString stringWithFormat:@"========    Section Title %d    ========",section];
 }
-
+//重新设置显示标题的View
 - (UIView *) tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     
@@ -197,19 +188,17 @@
         return  nil;
     }
     UILabel * label = [[[UILabel alloc] init] autorelease];
-    label.frame = CGRectMake(0, 0, 320, 22);
+    label.frame = CGRectMake(0, 20, tableView.bounds.size.width, 22);
     label.backgroundColor = [UIColor clearColor];
     label.textColor = [UIColor grayColor];
     [label setTextAlignment:UITextAlignmentCenter];
-    //    label.backgroundColor = [UIColor redColor];
-    label.font=[UIFont fontWithName:@"Helvetica-Bold" size:20];
+    label.font=[UIFont fontWithName:@"Helvetica-Bold" size:15];
     label.text = sectionTitle;
     [label setAutoresizesSubviews:YES];
     [label setAutoresizingMask:UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleRightMargin];
     
-    
-    UIView * sectionView = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.bounds.size.width, 220)] autorelease];
-    [sectionView setBackgroundColor:[UIColor whiteColor]];
+    UIView * sectionView = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.bounds.size.width, 50)] autorelease];
+    [sectionView setBackgroundColor:[UIColor clearColor]];
     [sectionView addSubview:label];
     [sectionView setAutoresizesSubviews:YES];
     [sectionView setAutoresizingMask:UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleRightMargin];
@@ -247,9 +236,6 @@
         if (cell == nil) {
             cell = [[[MyTableCell alloc] init] autorelease];
         }
-        //        cell.textLabel.text = [NSString stringWithFormat:@"%d",indexPath.row];
-        //        cell.detailTextLabel.text = @"detail";
-        //        cell.textLabel.highlightedTextColor = [UIColor whiteColor];
         cell.content.text = @"工作之余整";
         cell.index.text = [NSString stringWithFormat:@"%d",indexPath.row];
         
@@ -276,7 +262,7 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath 
 {
     if (check == 0) {
-        return 50.0;
+        return 45.0;
     }else {
         return 100.0;
     }

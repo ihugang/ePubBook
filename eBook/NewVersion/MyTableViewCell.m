@@ -15,14 +15,14 @@
 {
     [super init];
     if (self) {
-        [self setFrame:CGRectMake(0, 0, self.bounds.size.width, 110)];
-        self.backgroundColor = [UIColor blueColor];
+        [self setFrame:CGRectMake(0, 0, self.bounds.size.width, 100)];
+        self.backgroundColor = [UIColor clearColor];
         
         int height = 25 ;
         UIFont*  font = [UIFont systemFontOfSize:14.0];
         
         date = [[UILabel alloc] init];
-        [date setFrame:CGRectMake(15, 10, 200, height)];
+        [date setFrame:CGRectMake(15, 5, 200, height)];
         [date setFont:font];
         [date setBackgroundColor:[UIColor clearColor]];
         [date setAutoresizesSubviews:YES];
@@ -30,7 +30,7 @@
         [self addSubview:date];
         
         number = [[UILabel alloc] init];
-        [number setFrame:CGRectMake(self.bounds.size.width - 80, 10, 50, height)];
+        [number setFrame:CGRectMake(self.bounds.size.width - 80, 5, 50, height)];
         [number setFont:font];
         [number setBackgroundColor:[UIColor clearColor]];
         [number setTextAlignment:UITextAlignmentRight];

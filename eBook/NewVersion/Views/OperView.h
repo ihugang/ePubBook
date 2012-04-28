@@ -9,6 +9,8 @@
 #import "BaseView.h"
 #import "ChapterListVC.h"
 #import "FontView.h"
+#import "SearchVC.h"
+#import "SettingVC.h"
 
 @class OperView;
 @protocol OperViewDelegate <NSObject>
@@ -17,7 +19,7 @@
 
 @end
 
-@interface OperView : BaseView<ChapterListVCDelegate>{
+@interface OperView : BaseView<ChapterListVCDelegate,SearchVCDelegate>{
     UIButton* btnFontSize;
     BOOL show;
     FontView *fv;

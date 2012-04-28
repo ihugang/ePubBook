@@ -13,6 +13,8 @@
     UIButton *minButton;
     UIButton *middleButton;
     UIButton *maxButton;
+    
+    UISlider *sliderA;
 }
 
 @end
