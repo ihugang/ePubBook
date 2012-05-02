@@ -187,6 +187,7 @@
 	NSString* goTo =[NSString stringWithFormat:@"pageScroll(%f)", pageOffset]; 
 	[curWebView stringByEvaluatingJavaScriptFromString:goToOffsetFunc];
 	[curWebView stringByEvaluatingJavaScriptFromString:goTo];
+   
 	curWebView.hidden = NO;
 	
 }
@@ -244,6 +245,6 @@
     
 }
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error{
-
+    DebugLog(@"%@", @"ttt");
 }
 @end

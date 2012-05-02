@@ -65,14 +65,6 @@
 					<key>ParaIndex</key>
 					<integer>0</integer>
 				</dict>
-				<dict>
-					<key>AtomIndex</key>
-					<integer>0</integer>
-					<key>ChapterIndex</key>
-					<integer>7</integer>
-					<key>ParaIndex</key>
-					<integer>0</integer>
-				</dict>
 			</array>
 			<key>title</key>
 			<string>序言</string>
@@ -108,9 +100,33 @@
 					<key>ParaIndex</key>
 					<integer>0</integer>
 				</dict>
+				<dict>
+					<key>AtomIndex</key>
+					<integer>0</integer>
+					<key>ChapterIndex</key>
+					<integer>0</integer>
+					<key>ParaIndex</key>
+					<integer>0</integer>
+				</dict>
+				<dict>
+					<key>AtomIndex</key>
+					<integer>0</integer>
+					<key>ChapterIndex</key>
+					<integer>0</integer>
+					<key>ParaIndex</key>
+					<integer>0</integer>
+				</dict>
+				<dict>
+					<key>AtomIndex</key>
+					<integer>0</integer>
+					<key>ChapterIndex</key>
+					<integer>0</integer>
+					<key>ParaIndex</key>
+					<integer>0</integer>
+				</dict>
 			</array>
 			<key>title</key>
-			<string>第一章 德州扑克的发展</string>
+			<string>第一章德州扑克的发展历史</string>
 			<key>startIndx</key>
 			<integer>0</integer>
 			<key>path</key>
@@ -145,7 +161,7 @@
 				</dict>
 			</array>
 			<key>title</key>
-			<string>第二章 如何在德州扑克上赚钱</string>
+			<string>第二章如何在德州扑克上赚钱</string>
 			<key>startIndx</key>
 			<integer>0</integer>
 			<key>path</key>
@@ -180,7 +196,7 @@
 				</dict>
 			</array>
 			<key>title</key>
-			<string>第三章 德州扑克的规则和术语</string>
+			<string>第三章德州扑克的规则和术语</string>
 			<key>startIndx</key>
 			<integer>0</integer>
 			<key>path</key>
@@ -215,7 +231,7 @@
 				</dict>
 			</array>
 			<key>title</key>
-			<string>第四章 新手入门</string>
+			<string>第四章新手入门</string>
 			<key>startIndx</key>
 			<integer>0</integer>
 			<key>path</key>
@@ -250,7 +266,7 @@
 				</dict>
 			</array>
 			<key>title</key>
-			<string>第五章 了解你手中的底牌</string>
+			<string>第五章了解你手中的底牌</string>
 			<key>startIndx</key>
 			<integer>0</integer>
 			<key>path</key>
@@ -285,7 +301,7 @@
 				</dict>
 			</array>
 			<key>title</key>
-			<string>第六章 翻牌见分晓</string>
+			<string>第六章翻牌见分晓</string>
 			<key>startIndx</key>
 			<integer>0</integer>
 			<key>path</key>
@@ -320,7 +336,7 @@
 				</dict>
 			</array>
 			<key>title</key>
-			<string>第七章 低池比率和出牌比率</string>
+			<string>第七章低池比率和出牌比率</string>
 			<key>startIndx</key>
 			<integer>0</integer>
 			<key>path</key>
@@ -355,7 +371,7 @@
 				</dict>
 			</array>
 			<key>title</key>
-			<string>第八章 限注和无限注的差别</string>
+			<string>第八章限注和无限注的差别</string>
 			<key>startIndx</key>
 			<integer>0</integer>
 			<key>path</key>
@@ -390,7 +406,7 @@
 				</dict>
 			</array>
 			<key>title</key>
-			<string>第九章 德州扑克十大技巧</string>
+			<string>第九章德州扑克十大技巧</string>
 			<key>startIndx</key>
 			<integer>0</integer>
 			<key>path</key>
@@ -425,7 +441,7 @@
 				</dict>
 			</array>
 			<key>title</key>
-			<string>第十章 在河牌上加注</string>
+			<string>第十章在河牌上加注</string>
 			<key>startIndx</key>
 			<integer>0</integer>
 			<key>path</key>
@@ -460,7 +476,7 @@
 				</dict>
 			</array>
 			<key>title</key>
-			<string>第十一章 小对子赚大钱</string>
+			<string>第十一章小对子赚大钱</string>
 			<key>startIndx</key>
 			<integer>0</integer>
 			<key>path</key>
@@ -495,7 +511,7 @@
 				</dict>
 			</array>
 			<key>title</key>
-			<string>第十二章 中等的起手对子</string>
+			<string>第十二章中等的起手对子</string>
 			<key>startIndx</key>
 			<integer>0</integer>
 			<key>path</key>
@@ -530,7 +546,7 @@
 				</dict>
 			</array>
 			<key>title</key>
-			<string>第十三章 底牌一对A的为难</string>
+			<string>第十三章底牌一对A的为难</string>
 			<key>startIndx</key>
 			<integer>0</integer>
 			<key>path</key>
@@ -565,7 +581,7 @@
 				</dict>
 			</array>
 			<key>title</key>
-			<string>第十四章  盲注拿到好牌是否加注</string>
+			<string>第十四章 盲注拿到好牌是否加注</string>
 			<key>startIndx</key>
 			<integer>0</integer>
 			<key>path</key>
@@ -600,7 +616,7 @@
 				</dict>
 			</array>
 			<key>title</key>
-			<string>第十五章 翻牌下注转牌过牌</string>
+			<string>第十五章翻牌下注转牌过牌</string>
 			<key>startIndx</key>
 			<integer>0</integer>
 			<key>path</key>
@@ -635,7 +651,7 @@
 				</dict>
 			</array>
 			<key>title</key>
-			<string>第十六章 避免在转牌中慢打</string>
+			<string>第十六章避免在转牌中慢打</string>
 			<key>startIndx</key>
 			<integer>0</integer>
 			<key>path</key>
@@ -670,7 +686,7 @@
 				</dict>
 			</array>
 			<key>title</key>
-			<string>第十七章 半欺骗为攻击武器</string>
+			<string>第十七章半欺骗为攻击武器</string>
 			<key>startIndx</key>
 			<integer>0</integer>
 			<key>path</key>
@@ -705,7 +721,7 @@
 				</dict>
 			</array>
 			<key>title</key>
-			<string>第十八章 学好学精德州扑克</string>
+			<string>第十八章学好学精德州扑克</string>
 			<key>startIndx</key>
 			<integer>0</integer>
 			<key>path</key>
@@ -740,7 +756,7 @@
 				</dict>
 			</array>
 			<key>title</key>
-			<string>第十九章 扑克的谚语</string>
+			<string>第十九章扑克的谚语</string>
 			<key>startIndx</key>
 			<integer>0</integer>
 			<key>path</key>
@@ -775,7 +791,7 @@
 				</dict>
 			</array>
 			<key>title</key>
-			<string>第二十章 小心被出千欺骗</string>
+			<string>第二十章小心被出千欺骗</string>
 			<key>startIndx</key>
 			<integer>0</integer>
 			<key>path</key>
@@ -810,7 +826,7 @@
 				</dict>
 			</array>
 			<key>title</key>
-			<string>第二十一章 放下面子控制情绪</string>
+			<string>第二十一章放下面子控制情绪</string>
 			<key>startIndx</key>
 			<integer>0</integer>
 			<key>path</key>
@@ -845,7 +861,7 @@
 				</dict>
 			</array>
 			<key>title</key>
-			<string>第二十二章 赌博是一种文化</string>
+			<string>第二十二章赌博是一种文化</string>
 			<key>startIndx</key>
 			<integer>0</integer>
 			<key>path</key>
@@ -880,7 +896,7 @@
 				</dict>
 			</array>
 			<key>title</key>
-			<string>第二十三章 视赌博为投资</string>
+			<string>第二十三章视赌博为投资</string>
 			<key>startIndx</key>
 			<integer>0</integer>
 			<key>path</key>
@@ -915,7 +931,7 @@
 				</dict>
 			</array>
 			<key>title</key>
-			<string>第二十四章 走遍全球何处去赌</string>
+			<string>第二十四章走遍全球何处去赌</string>
 			<key>startIndx</key>
 			<integer>0</integer>
 			<key>path</key>
@@ -950,7 +966,7 @@
 				</dict>
 			</array>
 			<key>title</key>
-			<string>第二十五章 人生就是一场赌</string>
+			<string>第二十五章人生就是一场赌</string>
 			<key>startIndx</key>
 			<integer>0</integer>
 			<key>path</key>

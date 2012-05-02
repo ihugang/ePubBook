@@ -23,6 +23,7 @@
     [self.pageView removeFromSuperview];
     self.pageView =[[[ATPagingView alloc] initWithFrame:self.view.bounds] autorelease];
     self.pageView.delegate = self;
+    self.pageView.pagesToPreload = 0;
     self.pageView.backgroundColor =[UIColor scrollViewTexturedBackgroundColor];
     [self.view insertSubview:self.pageView atIndex:0];
     [self.pageView setAutoresizingMask:UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleRightMargin];
@@ -110,11 +111,20 @@
 }
 
 - (UIView *)viewForPageInPagingView:(ATPagingView *)pagingView atIndex:(NSInteger)index{
-    ContentWrapperView* cwv =[ContentWrapperView createWithSize:pagingView.frame.size];
+    ContentWrapperView* cwv = (ContentWrapperView*)[pageView dequeueReusablePage];
+    if (!cwv) {
+         cwv = [ContentWrapperView createWithSize:pagingView.frame.size];
+    }
     [cwv showWithPathIndex:index];
     return cwv;
 }
+-(void)pagesDidChangeInPagingView:(ATPagingView *)pagingView{
+    
+}
+-(void)currentPageDidChangeInPagingView:(ATPagingView *)pagingView{
+  
 
+}
 #pragma mark 旋转
 -(void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation{
     if (!mf_IsPad) {
