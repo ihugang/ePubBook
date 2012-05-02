@@ -1,18 +1,15 @@
 //
-//  SettingVC.m
+//  BooksListVC.m
 //  eBook
 //
-//  Created by LiuWu on 12-4-28.
+//  Created by LiuWu on 12-5-2.
 //  Copyright (c) 2012年 __MyCompanyName__. All rights reserved.
 //
 
-#import "SettingVC.h"
+#import "BooksListVC.h"
+#import "BooksCell.h"
 
-@interface SettingVC ()
-
-@end
-
-@implementation SettingVC
+@implementation BooksListVC
 
 - (void)dealloc
 {
@@ -31,25 +28,28 @@
     UINavigationItem *navigationItem = [[UINavigationItem alloc] initWithTitle:nil];    
     //创建一个左边按钮  
     UIBarButtonItem *leftButton = [[UIBarButtonItem alloc] initWithTitle:@"关闭"     
-                                                                   style:UIBarButtonItemStyleBordered     
+                                                                   style:UIBarButtonItemStylePlain    
                                                                   target:self     
                                                                   action:@selector(clickLeftButton)];    
     //创建一个右边按钮  
-    UIBarButtonItem *rightButton = [[UIBarButtonItem alloc] initWithTitle:@"Done"     
+    UIBarButtonItem *rightButton = [[UIBarButtonItem alloc] initWithTitle:@"续读"     
                                                                     style:UIBarButtonItemStyleDone     
                                                                    target:self     
                                                                    action:@selector(clickRightButton)];    
     //设置导航栏内容  
-    [navigationItem setTitle:@"设置"];  
+    [navigationItem setTitle:@"赌遍全球"];  
     //把导航栏集合添加入导航栏中，设置动画关闭  
     [navBar pushNavigationItem:navigationItem animated:YES];
     //把左右两个按钮添加入导航栏集合中  
     [navigationItem setLeftBarButtonItem:leftButton];   
     [navigationItem setRightBarButtonItem:rightButton]; 
     
-    UIView *baseView = [[UIView alloc] initWithFrame:CGRectMake(10, navBar.bounds.size.height+10, self.view.bounds.size.width - 20, (self.view.bounds.size.height- 44)/2)];
-    [baseView setBackgroundColor:[UIColor whiteColor]];
-    [self.view addSubview:baseView];
+    UITableView *booksList = [[UITableView alloc] initWithFrame:CGRectMake(0, navBar.frame.size.height, self.view.bounds.size.width, self.view.bounds.size.height - navBar.frame.size.height)];
+    [booksList setDelegate:self];
+    [booksList setDataSource:self];
+    [booksList setAutoresizesSubviews:YES];
+    [booksList setAutoresizingMask:UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleLeftMargin];
+    [self.view addSubview:booksList];
     
     //释放对象
     [navBar release];
@@ -73,6 +73,41 @@
     NSLog(@"clickRightButton");
 }  
 
+#pragma mark -
+#pragma mark TableView Methods
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return 3;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    static NSString *books = @"books";
+    BooksCell *cell = [tableView dequeueReusableCellWithIdentifier:books];
+    if (cell == nil) {
+//        cell = [[[MyTableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:books] autorelease];
+        cell = [[[BooksCell alloc] init] autorelease];
+    }
+    cell.bookIcon.image = skinImage(@"searchbar/d001.png");
+    cell.bookName.text = @"iphone 开发基础";
+    cell.bookAbout.text = @"能够在工作之余整理总结出这本书，也是他对自己多年经营和管理工作经验的一次复盘，我相信他总结出的经验和教训对于后来的创业者会有所启迪。陶然目前正在率领拉卡拉团队在金融服务";
+    
+    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 100;
+}
+
+
+
 - (void)viewDidUnload
 {
     [super viewDidUnload];
@@ -82,5 +117,6 @@
 -(void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation{
     [super didRotateFromInterfaceOrientation:fromInterfaceOrientation];
 }
+
 
 @end

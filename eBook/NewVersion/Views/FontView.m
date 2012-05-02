@@ -50,8 +50,8 @@
     
     sliderA=[[UISlider alloc]initWithFrame:CGRectMake(20, 8, brightness.bounds.size.width - 40, 0)];
     sliderA.backgroundColor = [UIColor clearColor];
-    sliderA.value=0.5;
-    sliderA.minimumValue=0.0;
+    sliderA.value= 1 - [[[NSUserDefaults standardUserDefaults] valueForKey:@"bookBrightness"] floatValue];
+    sliderA.minimumValue=0.2;
     sliderA.maximumValue=1.0;
     //左右轨的图片
     UIImage *stetchLeftTrack= skinImage(@"fontbar/c005.png");
@@ -66,7 +66,7 @@
     //滑块拖动时的事件
     [sliderA addTarget:self action:@selector(sliderValueChanged:) forControlEvents:UIControlEventValueChanged];
     //滑动拖动后的事件
-    [sliderA addTarget:self action:@selector(sliderDragUp:) forControlEvents:UIControlEventTouchUpInside];
+//    [sliderA addTarget:self action:@selector(sliderDragUp:) forControlEvents:UIControlEventTouchUpInside];
     [brightness addSubview:sliderA];
     
     UIImageView *fenge = [[UIImageView alloc] initWithFrame:CGRectMake(10,self.bounds.size.height/2 + 20,self.bounds.size.width,1)];
@@ -118,19 +118,20 @@
     UIImageView *line1 = [[UIImageView alloc] initWithFrame:CGRectMake((font.bounds.size.width-4)/3*2+2,0,1,font.bounds.size.height)];
     [line1 setImage:skinImage(@"fontbar/按钮间隔线.png")];
     [font addSubview:line1];
-    
-    NSLog(@"brightness -- > %f",[[UIScreen mainScreen] brightness]);
 }
 
 - (void)sliderValueChanged:(id)sender
 {
     UISlider *slider = (UISlider *)sender;
-    float fBrightness = slider.value;
-    NSLog(@"sliderValueChanged:%f",fBrightness);
-    
-    //[[UIScreen mainScreen] setBrightness:0.5];//设置屏幕亮度
-    [[UIScreen mainScreen] setWantsSoftwareDimming:YES];
-    [[UIScreen mainScreen] setBrightness:fBrightness];
+    float fBrightness = 1- slider.value;
+    NSLog(@"sliderValueChanged:%.1f",fBrightness);
+    //保存设置的屏幕亮度
+    [[NSUserDefaults standardUserDefaults] setValue:[NSString stringWithFormat:@"%.1f",fBrightness] forKey:@"bookBrightness"];
+    //发送通知，就是说此时要调用观察者处的方
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"brightness" object:[NSString stringWithFormat:@"%.1f",fBrightness]];
+    //设置当前屏幕亮度
+//    [[UIScreen mainScreen] setWantsSoftwareDimming:YES];
+//    [[UIScreen mainScreen] setBrightness:fBrightness];
 }
 
 - (void)sliderDragUp:(id)sender

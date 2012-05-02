@@ -19,7 +19,8 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(Book);
 
     NSString* path = nil;
     if (mf_IsPad) {
-        path = [ResManager docPath:@"PageBreak~iPad@2x.plist"]; 
+//        path = [ResManager docPath:@"PageBreak~iPad@2x.plist"]; 
+        path = [ResManager docPath:@"iPhone_2@2x.plist"]; 
     }
     else{
         path = [ResManager docPath:@"iPhone_2@2x.plist"]; 

@@ -13,6 +13,7 @@
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 {
     eBookViewController *eBook;
+    UIView *brightnessView;
 }
 
 @property (strong, nonatomic) UIWindow *window;

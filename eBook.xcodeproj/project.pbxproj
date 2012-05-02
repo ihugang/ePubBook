@@ -47,6 +47,8 @@
 		109CA2041537D662007A3F68 /* ATPagingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 109CA2031537D662007A3F68 /* ATPagingView.m */; };
 		109CA2071537D716007A3F68 /* EPubPageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 109CA2061537D716007A3F68 /* EPubPageView.m */; };
 		10D4C8931536957200426A56 /* libz.1.2.5.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 10D4C8921536957200426A56 /* libz.1.2.5.dylib */; };
+		10FB459815510A47001346EB /* BooksListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 10FB459715510A47001346EB /* BooksListVC.m */; };
+		10FB459B15511762001346EB /* BooksCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 10FB459A15511762001346EB /* BooksCell.m */; };
 		18013A9F1541005F00F8B17B /* DemoDataParse.m in Sources */ = {isa = PBXBuildFile; fileRef = 18013A9E1541005F00F8B17B /* DemoDataParse.m */; };
 		18013AA3154102D900F8B17B /* Book.m in Sources */ = {isa = PBXBuildFile; fileRef = 18013AA2154102D900F8B17B /* Book.m */; };
 		18013AA615410C9A00F8B17B /* BookPage.m in Sources */ = {isa = PBXBuildFile; fileRef = 18013AA515410C9A00F8B17B /* BookPage.m */; };
@@ -212,6 +214,10 @@
 		109CA2051537D716007A3F68 /* EPubPageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EPubPageView.h; path = ../../EPubPageView.h; sourceTree = "<group>"; };
 		109CA2061537D716007A3F68 /* EPubPageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EPubPageView.m; path = ../../EPubPageView.m; sourceTree = "<group>"; };
 		10D4C8921536957200426A56 /* libz.1.2.5.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.1.2.5.dylib; path = usr/lib/libz.1.2.5.dylib; sourceTree = SDKROOT; };
+		10FB459615510A47001346EB /* BooksListVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BooksListVC.h; sourceTree = "<group>"; };
+		10FB459715510A47001346EB /* BooksListVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BooksListVC.m; sourceTree = "<group>"; };
+		10FB459915511762001346EB /* BooksCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BooksCell.h; sourceTree = "<group>"; };
+		10FB459A15511762001346EB /* BooksCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BooksCell.m; sourceTree = "<group>"; };
 		18013A9D1541005F00F8B17B /* DemoDataParse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DemoDataParse.h; sourceTree = "<group>"; };
 		18013A9E1541005F00F8B17B /* DemoDataParse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DemoDataParse.m; sourceTree = "<group>"; };
 		18013AA1154102D900F8B17B /* Book.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Book.h; sourceTree = "<group>"; };
@@ -423,10 +429,10 @@
 		1087FED615366CC000862D76 /* eBook */ = {
 			isa = PBXGroup;
 			children = (
+				180D05FD15400834004B6270 /* Category */,
 				180D05FF154009DF004B6270 /* Resource */,
 				181AC6CF153D18CF00177AE6 /* NewVersion */,
 				180D05FE15400954004B6270 /* Common */,
-				180D05FD15400834004B6270 /* Category */,
 				180D05FC1540082F004B6270 /* Utilities */,
 				180D05F81540078C004B6270 /* ePub */,
 				180D05F71540078C004B6270 /* OpenSource */,
@@ -829,6 +835,8 @@
 				18171F341544ECAC00CD83A8 /* Base */,
 				108CF42C154A81A7004860E3 /* MyTableCell.h */,
 				108CF42D154A81A7004860E3 /* MyTableCell.m */,
+				10FB459915511762001346EB /* BooksCell.h */,
+				10FB459A15511762001346EB /* BooksCell.m */,
 				108CF42E154A81A7004860E3 /* MyTableViewCell.h */,
 				108CF42F154A81A7004860E3 /* MyTableViewCell.m */,
 				181AC6D1153D18DE00177AE6 /* RootVC.h */,
@@ -843,6 +851,8 @@
 				107729FF154B9FA6006DA171 /* SearchVC.m */,
 				10772A02154BDFEB006DA171 /* SettingVC.h */,
 				10772A03154BDFEC006DA171 /* SettingVC.m */,
+				10FB459615510A47001346EB /* BooksListVC.h */,
+				10FB459715510A47001346EB /* BooksListVC.m */,
 				18013AAB15413E7D00F8B17B /* Views */,
 			);
 			path = NewVersion;
@@ -1023,6 +1033,8 @@
 				108CF435154A81E7004860E3 /* FontView.m in Sources */,
 				10772A00154B9FA7006DA171 /* SearchVC.m in Sources */,
 				10772A04154BDFEC006DA171 /* SettingVC.m in Sources */,
+				10FB459815510A47001346EB /* BooksListVC.m in Sources */,
+				10FB459B15511762001346EB /* BooksCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1099,6 +1111,7 @@
 					"-lstdc++",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -1117,6 +1130,7 @@
 					"-lstdc++",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

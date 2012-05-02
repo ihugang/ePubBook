@@ -61,10 +61,6 @@
     btnBooks.top = 7;
     [btnBooks addEvent:@selector(btnBooksTapped:) atContainer:self];
     [self addSubview:btnBooks]; 
-    
-    
-    
-    
 }
 
 -(void)btnListTapped:(UIButton*)sender{
@@ -103,7 +99,8 @@
 
 -(void)btnBooksTapped:(UIButton*)sender{
     DebugLog(@"%@", sender);
-    
+    BooksListVC *booksList = [[[BooksListVC alloc] init] autorelease];
+    [self.rootVC presentModalViewController:booksList animated:YES];
     
 }
 
