@@ -52,6 +52,7 @@
 		10C52BB51557AAE400117172 /* UIWebView+SearchWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 10C52BB41557AAE400117172 /* UIWebView+SearchWebView.m */; };
 		10C52BB81557AB5000117172 /* SearchWebView.js in Sources */ = {isa = PBXBuildFile; fileRef = 10C52BB71557AB5000117172 /* SearchWebView.js */; };
 		10C52BC01557B37100117172 /* SearchWebView.js in Resources */ = {isa = PBXBuildFile; fileRef = 10C52BB71557AB5000117172 /* SearchWebView.js */; };
+		10C52BC31558BA0500117172 /* BookMark.m in Sources */ = {isa = PBXBuildFile; fileRef = 10C52BC21558BA0300117172 /* BookMark.m */; };
 		10D4C8931536957200426A56 /* libz.1.2.5.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 10D4C8921536957200426A56 /* libz.1.2.5.dylib */; };
 		10FB459815510A47001346EB /* BooksListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 10FB459715510A47001346EB /* BooksListVC.m */; };
 		10FB459B15511762001346EB /* BooksCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 10FB459A15511762001346EB /* BooksCell.m */; };
@@ -228,6 +229,8 @@
 		10C52BB31557AAE400117172 /* UIWebView+SearchWebView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIWebView+SearchWebView.h"; sourceTree = "<group>"; };
 		10C52BB41557AAE400117172 /* UIWebView+SearchWebView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIWebView+SearchWebView.m"; sourceTree = "<group>"; };
 		10C52BB71557AB5000117172 /* SearchWebView.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = SearchWebView.js; sourceTree = "<group>"; };
+		10C52BC11558BA0300117172 /* BookMark.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BookMark.h; sourceTree = "<group>"; };
+		10C52BC21558BA0300117172 /* BookMark.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BookMark.m; sourceTree = "<group>"; };
 		10D4C8921536957200426A56 /* libz.1.2.5.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.1.2.5.dylib; path = usr/lib/libz.1.2.5.dylib; sourceTree = SDKROOT; };
 		10FB459615510A47001346EB /* BooksListVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BooksListVC.h; sourceTree = "<group>"; };
 		10FB459715510A47001346EB /* BooksListVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BooksListVC.m; sourceTree = "<group>"; };
@@ -612,6 +615,8 @@
 				109CA2061537D716007A3F68 /* EPubPageView.m */,
 				10176DF81556CB4100BBA89C /* BookStore.h */,
 				10176DF91556CB4100BBA89C /* BookStore.m */,
+				10C52BC11558BA0300117172 /* BookMark.h */,
+				10C52BC21558BA0300117172 /* BookMark.m */,
 			);
 			name = ePub;
 			path = OpenSource/ePub;
@@ -1065,6 +1070,7 @@
 				10C52BAE15579F9A00117172 /* SearchResult.m in Sources */,
 				10C52BB51557AAE400117172 /* UIWebView+SearchWebView.m in Sources */,
 				10C52BB81557AB5000117172 /* SearchWebView.js in Sources */,
+				10C52BC31558BA0500117172 /* BookMark.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -12,14 +12,18 @@
 #import "Chapter.h"
 #import "ResManager.h"
 #import "Book.h"
+#import "BookMark.h"
+#import "SearchResult.h"
+#import "UIWebView+SearchWebView.h"
 
 @implementation ContentView
-@synthesize curLable,curWebView;
+@synthesize curLable,curWebView,currentSearchResult;
 - (void)dealloc{
     //释放掉通知
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"search" object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"pageLoad" object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"chapterListPageLoad" object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"addBookMark" object:nil];
     [super dealloc];
 }
 -(void)initLayout{
@@ -78,7 +82,42 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pageLoad:) name:@"pageLoad" object:nil];
     //监听目录跳转
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(chapterListPageLoad:) name:@"chapterListPageLoad" object:nil];
+    //搜索
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(searchPageLoad:) name:@"search" object:nil];
+    //添加书签
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addBookMark:) name:@"addBookMark" object:nil];
+    
+}
+//添加书签
+- (void)addBookMark:(NSNotification *)notification
+{
+    //获取书签列表
+    [bookMarks getBookMark];
+    NSString *nowPageIndex = [NSString stringWithFormat:@"%d",curPageIndex];
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    NSString *localTime=[formatter stringFromDate: [NSDate date]];
+    DebugLog(@"now  time ---> %@",localTime);
+    
+    if ([bookMarks.currentBookMark objectForKey:nowPageIndex] == nil) {
+        //给当前页面添加书签
+        NSDictionary *pageIndex = [[NSDictionary alloc] initWithObjectsAndKeys:nowPageIndex,@"pageIndex",localTime,@"time",@"asdfas",@"content", nil];
+        [bookMarks.bookmarks setValue:pageIndex forKey:nowPageIndex];
+        //排序
+//        [bookMarks.bookmarks keysSortedByValueUsingSelector:@selector(compare:)];
+        [bookMarks.bookmarks writeToFile:bookMarks.filename atomically:YES];
+        DebugLog(@"---%@",bookMarks.bookmarks);
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"pageChange" object:nowPageIndex];
+    }else {
+        DebugLog(@"remove bookmark");
+        //取消当前页面标签
+        [bookMarks.bookmarks removeObjectForKey:nowPageIndex];
+        [bookMarks.bookmarks writeToFile:bookMarks.filename atomically:YES];
+        //取消当前图片的书签
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"pageChange" object:nowPageIndex];
+    }
+    
+     [formatter release];
 }
 
 - (void)pageLoad:(NSNotification *)notification
@@ -89,18 +128,24 @@
 //    [self showWithIndex:curSpineIndex];
     [self loadSpine:curSpineIndex atPageIndex:curPageIndex];
 }
-
+//目录页面跳转
 - (void)chapterListPageLoad:(NSNotification *)notification
 {
-    [self loadSpine:[[notification object] intValue] atPageIndex:0];
+//    [self loadSpine:[[notification object] intValue] atPageIndex:0];
+    [self showWithIndex:[[notification object] intValue]];
 }
 
+//搜索页面跳转
 - (void)searchPageLoad:(NSNotification *)notification
 {
     int chapterIndex = [[notification.userInfo objectForKey:@"chapterIndex"] intValue];
     int pageIndex = [[notification.userInfo objectForKey:@"pageIndex"] intValue];
-    NSLog(@"searchPageLoad:  index:%d   page:%d",chapterIndex,pageIndex);
+//    NSLog(@"searchPageLoad:  index:%d   page:%d",chapterIndex,pageIndex);
+    SearchResult *search = [notification.userInfo objectForKey:@"searchResult"];
+    self.currentSearchResult = search;
     [self loadSpine:chapterIndex atPageIndex:pageIndex];
+    
+//    [[NSNotificationCenter defaultCenter] postNotificationName:@"pageChange" object:[NSString stringWithFormat:@"%@",chapterIndex]];
 }
 
 //设置-(BOOL) canBecomeFirstResponder的返回值为YES
@@ -170,6 +215,9 @@
     NSLog(@"contentView showWithIndex()");
     self.curLable.text =[NSString stringWithFormat:@"%d",aIndex];
     
+    NSString *nowIndex = [NSString stringWithFormat:@"%d",aIndex];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"pageChange" object:nowIndex];
+    
     int tempSpineIndex = 0;//HTML
     int tempPageIndex = 0;//Page
     
@@ -178,7 +226,7 @@
     for (Chapter* chapter in curBook.chapters) {   
         curTotalIndex += chapter.pageCount;
         
-        NSLog(@"contentview chapter path - >%@",chapter.spinePath);
+//        NSLog(@"contentview chapter path - >%@",chapter.spinePath);
         
         NSLog(@"Chapter.pageCount --- %d",chapter.pageCount);
         NSLog(@"contentView --> curTotalIndex : %d",curTotalIndex);
@@ -201,8 +249,7 @@
     NSLog(@"ContentView loadSpine atPageIndex");
     
     curSpineIndex = spineIndex;
-    curPageIndex = pageIndex;
-    
+    curPageIndex = pageIndex;  
     //添加当前选中的页面
     [[NSUserDefaults standardUserDefaults] setValue:[NSString stringWithFormat:@"%d",curSpineIndex] forKey:@"curSpineIndex"];
     
@@ -216,6 +263,7 @@
 	//currentPageInSpineIndex = pageIndex;
 	//currentSpineIndex = spineIndex;
 }
+
 - (void) gotoPageInCurrentSpine:(int)pageIndex{ 
     
     NSLog(@"ContentView gotoPageInCurrentSpine");
@@ -238,7 +286,6 @@
 	[curWebView stringByEvaluatingJavaScriptFromString:goTo];
    
 	curWebView.hidden = NO;
-	
 }
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType{
   
@@ -263,6 +310,8 @@
         "}"
         "}";
         
+        NSLog(@"================%f,%f",webView.frame.size.height,webView.frame.size.width);
+        
         NSString *insertRule1 = [NSString stringWithFormat:@"addCSSRule('html', 'padding: 0px; height: %fpx; -webkit-column-gap: 0px; -webkit-column-width: %fpx;')", webView.frame.size.height, webView.frame.size.width];
         NSString *insertRule2 = [NSString stringWithFormat:@"addCSSRule('p', 'text-align: justify;')"];
         //NSString *setTextSizeRule = [NSString stringWithFormat:@"addCSSRule('body', '-webkit-text-size-adjust: %d%%;')", 94];
@@ -286,12 +335,23 @@
         
         [webView stringByEvaluatingJavaScriptFromString:setHighlightColorRule];
         
+        //加亮显示搜索的内容
+        if(currentSearchResult!=nil){
+            //	NSLog(@"Highlighting %@", currentSearchResult.originatingQuery);
+            [webView highlightAllOccurencesOfString:currentSearchResult.originatingQuery];
+        }
+        
+        NSString *xml = [webView stringByEvaluatingJavaScriptFromString:@"document.body.innerText"];
+//        
+        DebugLog(@"+++++++++++++++++%@",xml);
+        
         //获取返回页面的总宽度
         int totalWidth = [[webView stringByEvaluatingJavaScriptFromString:@"document.documentElement.scrollWidth"] intValue];
         //计算文件的页数
         int pageCount = totalWidth / webView.bounds.size.width;
         
         NSLog(@"Chapter %d: title: -> 包含：%d pages", curSpineIndex, pageCount);
+        
         
     }
     else {  //加载css文件

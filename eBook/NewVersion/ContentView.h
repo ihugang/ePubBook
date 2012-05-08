@@ -7,14 +7,17 @@
 //
 
 #import "BaseView.h"
+@class SearchResult;
 
 @interface ContentView : BaseView<UIWebViewDelegate>{
     UIWebView* curWebView;
     int curSpineIndex;
     int curPageIndex;
+    SearchResult* currentSearchResult;
 }
 @property(nonatomic,assign)UIWebView*  curWebView;
 @property(nonatomic,assign)UILabel*  curLable;
+@property (nonatomic, retain) SearchResult* currentSearchResult;
 
 -(void)showWithIndex:(int)aIndex;
 

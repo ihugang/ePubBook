@@ -112,9 +112,13 @@
     SearchResult* hit = (SearchResult*)[results objectAtIndex:[indexPath row]];
 //    cell.textLabel.text = [NSString stringWithFormat:@"...%@...", hit.neighboringText];
 //    cell.detailTextLabel.text = [NSString stringWithFormat:@"Chapter %d - page %d", hit.chapterIndex, hit.pageIndex+1];
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    NSString *localTime=[formatter stringFromDate: [NSDate date]];
     
-    cell.date.text = [NSString stringWithFormat:@"index:%d - page:%d", hit.chapterIndex, hit.pageIndex+1];
-    cell.number.text = [NSString stringWithFormat:@"%d",indexPath.row];
+    cell.date.text = [NSString stringWithFormat:@"index:%d - page:%d", hit.chapterIndex, hit.pageIndex];
+//    cell.date.text = localTime;
+    cell.number.text = [NSString stringWithFormat:@"%d",hit.chapterPageIndex];
     cell.content.text = [NSString stringWithFormat:@"...%@...", hit.neighboringText];
 //    cell.content.text = @"然能够在工作之余整理总结出这本书，也是他对自己多年经营和管理工作经验的一次复盘，我相信他总结出的经验和教训对于后来的创业者会有所启迪。陶然目前正在率领拉卡拉团队在金融服务领域大展宏图，并且有可能成为联想控股旗下现代服务业的一个重要业务模块，代服务业的一个重要业务模块，成为联想正规军的队伍，我也在此祝愿他和他的团队能";
     
@@ -132,8 +136,8 @@
 //    [content showWithIndex:[indexPath row]];
 //    [content loadSpine:hit.chapterIndex atPageIndex:hit.pageIndex];
     
-//    [[NSNotificationCenter defaultCenter] postNotificationName:@"search" object:[NSString stringWithFormat:@"%d",hit.chapterIndex]];
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"search" object:nil userInfo:[NSDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"%d",hit.chapterIndex],@"chapterIndex", [NSString stringWithFormat:@"%d",hit.pageIndex+1],@"pageIndex",nil]];
+//    [[NSNotificationCenter defaultCenter] postNotificationName:@"search" object:[NSString stringWithFormat:@"%d",hit.chapterPageIndex]];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"search" object:nil userInfo:[NSDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"%d",hit.chapterIndex],@"chapterIndex", [NSString stringWithFormat:@"%d",hit.pageIndex],@"pageIndex",hit,@"searchResult",nil]];
      
     [tableView setSeparatorStyle:UITableViewCellSelectionStyleBlue];
     

@@ -8,11 +8,13 @@
 
 #import "OperView.h"
 #import "ChapterListVC.h"
+#import "BookMark.h"
 
 @implementation OperView
 @synthesize delegate,rootVC;
 - (void)dealloc {
     self.delegate =nil;
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"pageChange" object:nil];
     [super dealloc];
 }
 
@@ -58,6 +60,7 @@
     [bookMark addTarget:self action:@selector(addBookMark:) forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:bookMark];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(checkBookMark:) name:@"pageChange" object:nil];
     
     UIButton* btnBooks =[UIButton nodeWithTitle:@"赌遍全球" image:skinImage(@"operbar/b007.png")];
     [btnBooks setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
@@ -68,6 +71,21 @@
     btnBooks.top = 7;
     [btnBooks addEvent:@selector(btnBooksTapped:) atContainer:self];
     [self addSubview:btnBooks]; 
+}
+
+- (void)checkBookMark:(NSNotification *)notification
+{
+    [bookMarks getBookMark];
+//    [[notification object] stringValue]
+//    NSLog(@"boomark -------- %@",[notification object]);
+//    NSLog(@"============%@",[bookMarks.currentBookMark objectForKey:[notification object]]);
+    
+    if ([bookMarks.currentBookMark objectForKey: [notification object]] != nil) {
+//        //添加标签
+        [bookMark setImage:resImage(@"content/bookmark-blue.png") forState:UIControlStateNormal];
+    }else {
+        [bookMark setImage:resImage(@"content/bookmark.png") forState:UIControlStateNormal];
+    }
 }
 
 -(void)btnListTapped:(UIButton*)sender{
@@ -108,7 +126,8 @@
 
 - (void)addBookMark:(UIButton*)sender{
     //添加标签
-    [bookMark setImage:resImage(@"content/bookmark-blue.png") forState:UIControlStateNormal];
+//    [bookMark setImage:resImage(@"content/bookmark-blue.png") forState:UIControlStateNormal];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"addBookMark" object:nil];
 }
 
 -(void)btnBooksTapped:(UIButton*)sender{

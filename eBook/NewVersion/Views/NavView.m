@@ -12,6 +12,7 @@
 @synthesize delegate,count;
 - (void)dealloc {
     self.delegate = nil;
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"pageChange" object:nil];
     [super dealloc];
 }
 
@@ -38,6 +39,13 @@
     [pageSlider addTarget:self action:@selector(slidingEnded:) forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:pageSlider];
     [pageSlider release];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pageChange:) name:@"pageChange" object:nil];
+}
+
+- (void)pageChange:(NSNotification*)notification
+{
+    pageSlider.value = [[notification object] intValue];
 }
  
 -(void)setCount:(int)aCount{ 

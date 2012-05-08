@@ -14,6 +14,7 @@
 #import "MyTableViewCell.h"
 #import "MyTableCell.h"
 #import "Chapter.h"
+#import "BookMark.h"
 
 
 @interface ChapterListVC ()
@@ -165,7 +166,7 @@
     if (check == 0) {
         return 1;
     }else if (check == 1) {
-        return 2;
+        return 1;
     }else if (check == 2){
         return 2;
     }else {
@@ -179,7 +180,7 @@
     if (check == 0) {
         return curBook.ChapterCount;
     }else if (check == 1) {
-        return 1;
+        return bookMarks.currentBookMark.count;
     }else if(check == 2){
         return 8;
     }else {
@@ -232,9 +233,20 @@
         if (cell == nil) {
             cell = [[[MyTableViewCell alloc] init] autorelease];
         }
+        
         cell.date.text = @"2010.1.1";
         cell.number.text = [NSString stringWithFormat:@"%d",indexPath.row];
         cell.content.text = @"然能够在工作之余整理总结出这本书，也是他对自己多年经营和管理工作经验的一次复盘，我相信他总结出的经验和教训对于后来的创业者会有所启迪。陶然目前正在率领拉卡拉团队在金融服务领域大展宏图，并且有可能成为联想控股旗下现代服务业的一个重要业务模块，代服务业的一个重要业务模块，成为联想正规军的队伍，我也在此祝愿他和他的团队能";
+        
+        //书签
+        if (check == 1) {
+            cell.date.text = [[bookMarks.currentBookMark.allValues objectAtIndex:indexPath.row] objectForKey:@"time"];
+            cell.number.text = [[bookMarks.currentBookMark.allValues objectAtIndex:indexPath.row] objectForKey:@"pageIndex"];
+            cell.content.text = [[bookMarks.currentBookMark.allValues objectAtIndex:indexPath.row] objectForKey:@"content"];
+        }
+        //书摘
+        
+        //批注
         
         cell.date.highlightedTextColor = [UIColor whiteColor];
         cell.number.highlightedTextColor = [UIColor whiteColor];
@@ -251,7 +263,7 @@
         
         Chapter *chapter =  [curBook.chapters objectAtIndex:indexPath.row];
         cell.content.text = chapter.title;
-        cell.index.text = [NSString stringWithFormat:@"%d",indexPath.row];
+        cell.index.text = [NSString stringWithFormat:@"%d",chapter.chapterIndex];
 //        
 //        cell.content.text = @"工作之余整";
 //        cell.index.text = [NSString stringWithFormat:@"%d",indexPath.row];
@@ -272,8 +284,18 @@
 //    [content showWithIndex:[indexPath row]];
 //    [content loadSpine:[indexPath row] atPageIndex:0];
     [tableView setSeparatorStyle:UITableViewCellSelectionStyleBlue];
-    //发送通知，就是说此时要调用观察者处的方
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"chapterListPageLoad" object:[NSString stringWithFormat:@"%d",indexPath.row]];
+    if (check == 0) {
+        //目录
+        Chapter *chapter =  [curBook.chapters objectAtIndex:indexPath.row];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"chapterListPageLoad" object:[NSString stringWithFormat:@"%d",chapter.chapterIndex]];
+    }else if (check == 1) {
+        //书签
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"chapterListPageLoad" object:[[bookMarks.currentBookMark.allValues objectAtIndex:indexPath.row] objectForKey:@"pageIndex"]];
+    }else if(check == 2){
+        
+    }else {
+        
+    }
 
     
     [self.delegate ChapterListClick];
