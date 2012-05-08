@@ -24,6 +24,8 @@
     UIButton* btnFontSize;
     BOOL show;
     FontView *fv;
+    UINavigationController *navController;
+    UIButton *bookMark;
 }
 
 @property(nonatomic,assign)UIViewController* rootVC;

@@ -32,6 +32,15 @@
      */
     NSLog(@"didFinishLaunchingWithOptions");
     
+//    NSString *test = @"底牌为8T非同花，";
+//    NSString *all = @"无限注与有限注德州扑克的一个重要区别，";
+//    NSRange range = [all rangeOfString:test];
+//    int location = range.location;
+//    int leight = range.length;
+//    NSString *astring = [[NSString alloc] initWithString:[NSString stringWithFormat:@"Location:%i,Leight:%i",location,leight]];
+//    NSLog(@"astring:%@",astring);
+    
+    
     application.statusBarHidden=NO;
     self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
     self.window.backgroundColor = [UIColor whiteColor];
@@ -46,8 +55,7 @@
     }
     [self.window makeKeyAndVisible];
     
-    NSLog(@"self %f,%f",self.window.bounds.size.width,self.window.bounds.size.height);
-    
+    //屏幕亮度控制
     brightnessView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.window.bounds.size.width, self.window.bounds.size.height)];
     [brightnessView setBackgroundColor:[UIColor blackColor]];
     [brightnessView setUserInteractionEnabled:NO];
@@ -61,7 +69,7 @@
 
 - (void) setAlphaBrightness:(NSNotification*) notification
 {
-    NSLog(@"test ---- .> %@",[notification object]);
+//    NSLog(@"test ---- .> %@",[notification object]);
     //通过这个获取到传递的对象
     [brightnessView setAlpha:[[notification object] floatValue]];
     
@@ -97,7 +105,7 @@
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
-    NSLog(@"applicationDidBecomeActive");
+//    NSLog(@"applicationDidBecomeActive");
     NSLog(@"winBrightness----%.1f",[[UIScreen mainScreen] brightness]);    
     float winBrightness = [[UIScreen mainScreen] brightness];
     //记录屏幕当前亮度
@@ -106,9 +114,16 @@
     if ([[NSUserDefaults standardUserDefaults] valueForKey:@"bookBrightness"] == nil) {
         NSLog(@"first enter");
         //设置系统当前亮度
-        [[NSUserDefaults standardUserDefaults] setValue:[NSString stringWithFormat:@"%.1f",winBrightness] forKey:@"bookBrightness"];
-        [brightnessView setAlpha:1 - [[[NSUserDefaults standardUserDefaults] valueForKey:@"bookBrightness"] floatValue]];//设置alpha值
+        [[NSUserDefaults standardUserDefaults] setValue:[NSString stringWithFormat:@"%.1f",0.0] forKey:@"bookBrightness"];
+        //[brightnessView setAlpha:[[[NSUserDefaults standardUserDefaults] valueForKey:@"bookBrightness"] floatValue]];//设置alpha值
     }
+    
+    //设置第一次运行程序的字体
+    if ([[NSUserDefaults standardUserDefaults] valueForKey:@"bodyFontSize"] == nil) {
+        NSLog(@"first set fontsize");
+        [[NSUserDefaults standardUserDefaults] setValue:@"28" forKey:@"bodyFontSize"];
+    }
+    
     NSLog(@"nowbightness -- %f",[[[NSUserDefaults standardUserDefaults] valueForKey:@"bookBrightness"] floatValue]);
     //设置应用系统亮度
     //[[UIScreen mainScreen] setBrightness:[[[NSUserDefaults standardUserDefaults] valueForKey:@"bookBrightness"] floatValue]];

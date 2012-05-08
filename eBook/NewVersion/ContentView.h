@@ -15,6 +15,7 @@
 }
 @property(nonatomic,assign)UIWebView*  curWebView;
 @property(nonatomic,assign)UILabel*  curLable;
+
 -(void)showWithIndex:(int)aIndex;
 
 //@private

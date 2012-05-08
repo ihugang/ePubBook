@@ -19,13 +19,13 @@
     NSString *spinePath;
     NSString *title;
 	NSString *text;
-    id <ChapterDelegate> delegate;
+   // id <ChapterDelegate> delegate;
     int pageCount;
     int chapterIndex;
     CGRect windowSize;
     int fontPercentSize;
 }
-@property (nonatomic, assign) id delegate;
+@property (nonatomic, assign) id<ChapterDelegate> delegate;
 @property (nonatomic) int pageCount;
 @property (nonatomic, readonly) int  chapterIndex, fontPercentSize;
 @property (nonatomic, readonly) NSString *spinePath, *title, *text;

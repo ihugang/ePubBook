@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>books</key>
+	<array>
+		<dict>
+			<key>icon</key>
+			<string>bookicon/i001.jpg</string>
+			<key>name</key>
+			<string>aaa</string>
+			<key>description</key>
+			<string>asdfasdfasdf</string>
+			<key>path</key>
+			<string>www.google.com.cn</string>
+		</dict>
+		<dict>
+			<key>icon</key>
+			<string>bookicon/i002.jpg</string>
+			<key>name</key>
+			<string>iphone 开发基础教程</string>
+			<key>description</key>
+			<string>这是一本介绍iPhone开发的基础教程</string>
+			<key>path</key>
+			<string>www.baidu.com</string>
+		</dict>
+		<dict>
+			<key>icon</key>
+			<string>bookicon/i003.jpg</string>
+			<key>name</key>
+			<string>iphone 开发基础教程</string>
+			<key>description</key>
+			<string>这是一本介绍iPhone开发的基础教程</string>
+			<key>path</key>
+			<string>www.baidu.com</string>
+		</dict>
+		<dict>
+			<key>icon</key>
+			<string>bookicon/i004.jpg</string>
+			<key>name</key>
+			<string>iphone 开发基础教程</string>
+			<key>description</key>
+			<string>这是一本介绍iPhone开发的基础教程</string>
+			<key>path</key>
+			<string>www.baidu.com</string>
+		</dict>
+		<dict>
+			<key>icon</key>
+			<string>bookicon/i001.jpg</string>
+			<key>name</key>
+			<string>iphone 开发基础教程</string>
+			<key>description</key>
+			<string>这是一本介绍iPhone开发的基础教程</string>
+			<key>path</key>
+			<string>www.baidu.com</string>
+		</dict>
+		<dict>
+			<key>icon</key>
+			<string>bookicon/i002.jpg</string>
+			<key>name</key>
+			<string>iphone 开发基础教程</string>
+			<key>description</key>
+			<string>这是一本介绍iPhone开发的基础教程</string>
+			<key>path</key>
+			<string>www.baidu.com</string>
+		</dict>
+		<dict>
+			<key>icon</key>
+			<string>bookicon/i003.jpg</string>
+			<key>name</key>
+			<string>iphone 开发基础教程</string>
+			<key>description</key>
+			<string>这是一本介绍iPhone开发的基础教程</string>
+			<key>path</key>
+			<string>www.baidu.com</string>
+		</dict>
+	</array>
+</dict>
+</plist>

@@ -8,6 +8,13 @@
 
 #import "BaseVC.h"
 
-@interface SettingVC : BaseVC
+@interface SettingVC : BaseVC<UITableViewDataSource,UITableViewDelegate>
+{
+    UITableView *settingView;
+    NSArray *test;
+    UINavigationController *navControl;
+}
+@property (nonatomic,retain) NSArray *test;
+@property (nonatomic,retain) UINavigationController *navControl;
 
 @end

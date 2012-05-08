@@ -22,7 +22,7 @@
         UIFont*  font = [UIFont systemFontOfSize:14.0];
         
         date = [[UILabel alloc] init];
-        [date setFrame:CGRectMake(15, 5, 200, height)];
+        [date setFrame:CGRectMake(15, 5, 250, height)];
         [date setFont:font];
         [date setBackgroundColor:[UIColor clearColor]];
         [date setAutoresizesSubviews:YES];

@@ -24,6 +24,7 @@
    // self.backgroundColor =[UIColor blueColor];
     
     pageSlider = [[UISlider alloc] initWithFrame:CGRectMake(0, 0, self.bounds.size.width - 40, 10)];
+//    pageSlider.value = ;
     pageSlider.centerX = self.width/2;
     pageSlider.top = 30;
     //滑块图片

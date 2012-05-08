@@ -9,13 +9,18 @@
 #import "SearchVC.h"
 #import "ContentView.h"
 #import "MyTableViewCell.h"
+#import "Chapter.h"
+#import "Book.h"
+#import "NSString+HTML.h"
+#import "SearchResult.h"
+#import "UIWebView+SearchWebView.h"
 
 @interface SearchVC ()
 
 @end
 
 @implementation SearchVC
-@synthesize delegate;
+@synthesize delegate,currentQuery,results,resultTable;
 
 - (void)dealloc
 {
@@ -63,12 +68,12 @@
     UIButton *searchButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     [searchButton setTitle:@"search" forState:UIControlStateNormal];
     [searchButton setFrame:CGRectMake(searchView.bounds.size.width -70, 10, 60, 30)];
-    [searchButton addTarget:self action:@selector(search:) forControlEvents:UIControlEventTouchUpInside];
+    [searchButton addTarget:self action:@selector(searchString:) forControlEvents:UIControlEventTouchUpInside];
     [searchButton setAutoresizesSubviews:YES];
     [searchButton setAutoresizingMask:UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleRightMargin];
     [searchView addSubview:searchButton];
     
-    UITableView *resultTable = [[UITableView alloc] initWithFrame:CGRectMake(5, 5, resultView.bounds.size.width - 10, resultView.bounds.size.height - 20)];
+    resultTable = [[UITableView alloc] initWithFrame:CGRectMake(5, 5, resultView.bounds.size.width - 10, resultView.bounds.size.height - 20)];
     [resultTable setDataSource:self];
     [resultTable setDelegate:self];
     [resultTable setAutoresizesSubviews:YES];
@@ -92,7 +97,8 @@
 #pragma mark TableView Methods
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 { 
-    return 4;
+    DebugLog(@"result count - %d",results.count);
+    return results.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -102,9 +108,15 @@
     if (cell == nil) {
         cell = [[[MyTableViewCell alloc] init] autorelease];
     }
-    cell.date.text = @"2010.1.1";
+    
+    SearchResult* hit = (SearchResult*)[results objectAtIndex:[indexPath row]];
+//    cell.textLabel.text = [NSString stringWithFormat:@"...%@...", hit.neighboringText];
+//    cell.detailTextLabel.text = [NSString stringWithFormat:@"Chapter %d - page %d", hit.chapterIndex, hit.pageIndex+1];
+    
+    cell.date.text = [NSString stringWithFormat:@"index:%d - page:%d", hit.chapterIndex, hit.pageIndex+1];
     cell.number.text = [NSString stringWithFormat:@"%d",indexPath.row];
-    cell.content.text = @"然能够在工作之余整理总结出这本书，也是他对自己多年经营和管理工作经验的一次复盘，我相信他总结出的经验和教训对于后来的创业者会有所启迪。陶然目前正在率领拉卡拉团队在金融服务领域大展宏图，并且有可能成为联想控股旗下现代服务业的一个重要业务模块，代服务业的一个重要业务模块，成为联想正规军的队伍，我也在此祝愿他和他的团队能";
+    cell.content.text = [NSString stringWithFormat:@"...%@...", hit.neighboringText];
+//    cell.content.text = @"然能够在工作之余整理总结出这本书，也是他对自己多年经营和管理工作经验的一次复盘，我相信他总结出的经验和教训对于后来的创业者会有所启迪。陶然目前正在率领拉卡拉团队在金融服务领域大展宏图，并且有可能成为联想控股旗下现代服务业的一个重要业务模块，代服务业的一个重要业务模块，成为联想正规军的队伍，我也在此祝愿他和他的团队能";
     
     cell.date.highlightedTextColor = [UIColor whiteColor];
     cell.number.highlightedTextColor = [UIColor whiteColor];
@@ -115,8 +127,14 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    ContentView *content = [[ContentView alloc] init];
-    [content showWithIndex:[indexPath row]];
+    SearchResult* hit = (SearchResult*)[results objectAtIndex:[indexPath row]];
+//    ContentView *content = [[ContentView alloc] init];
+//    [content showWithIndex:[indexPath row]];
+//    [content loadSpine:hit.chapterIndex atPageIndex:hit.pageIndex];
+    
+//    [[NSNotificationCenter defaultCenter] postNotificationName:@"search" object:[NSString stringWithFormat:@"%d",hit.chapterIndex]];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"search" object:nil userInfo:[NSDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"%d",hit.chapterIndex],@"chapterIndex", [NSString stringWithFormat:@"%d",hit.pageIndex+1],@"pageIndex",nil]];
+     
     [tableView setSeparatorStyle:UITableViewCellSelectionStyleBlue];
     
     [self.delegate showSearchVC];
@@ -139,8 +157,142 @@
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
     [textField resignFirstResponder];
+    [self searchString:textField.text];
     return YES;
 }
+
+- (void)searchString:(NSString*)query
+{
+    self.results = [[NSMutableArray alloc] init];
+    self.currentQuery = searchField.text;
+    NSLog(@"query --> %@",currentQuery);   
+    [self searchString:currentQuery inChapterAtIndex:0];
+}
+
+- (void) searchString:(NSString *)query inChapterAtIndex:(int)index{
+    currentChapterIndex = index;
+    
+    Chapter* chapter = [curBook.chapters objectAtIndex:index];
+    if (query != nil) {
+        NSRange range = NSMakeRange(0, chapter.text.length);
+        range = [chapter.text rangeOfString:query options:NSCaseInsensitiveSearch range:range locale:nil];
+//        NSRange range = [chapter.text rangeOfString:query options:NSCaseInsensitiveSearch];
+        int hitCount=0;
+        while (range.location != NSNotFound) {
+            DebugLog(@"range location - %d",range.location);
+            DebugLog(@"chapter index - %d",index);
+            range = NSMakeRange(range.location+range.length, chapter.text.length-(range.location+range.length));
+            range = [chapter.text rangeOfString:query options:NSCaseInsensitiveSearch range:range locale:nil];
+            hitCount++;
+        }
+        if(hitCount!=0){
+            UIWebView* webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height)];
+            [webView setDelegate:self];
+            NSURLRequest* urlRequest = [NSURLRequest requestWithURL:[NSURL fileURLWithPath:chapter.spinePath]];
+            DebugLog(@"urlrequest --- %@",urlRequest);
+            [webView loadRequest:urlRequest];   
+        } else {
+            if ((index + 1) < curBook.ChapterCount) {
+                [self searchString:self.currentQuery inChapterAtIndex:(index + 1)];
+            }
+        }
+    }
+}
+
+- (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error{
+    NSLog(@"%@", error);
+	[webView release];
+}
+
+- (void) webViewDidFinishLoad:(UIWebView*)webView{
+    NSString *varMySheet = @"var mySheet = document.styleSheets[0];";
+	
+	NSString *addCSSRule =  @"function addCSSRule(selector, newRule) {"
+	"if (mySheet.addRule) {"
+    "mySheet.addRule(selector, newRule);"								// For Internet Explorer
+	"} else {"
+    "ruleIndex = mySheet.cssRules.length;"
+    "mySheet.insertRule(selector + '{' + newRule + ';}', ruleIndex);"   // For Firefox, Chrome, etc.
+    "}"
+	"}";
+	
+    //    NSLog(@"w:%f h:%f", webView.bounds.size.width, webView.bounds.size.height);
+	
+	NSString *insertRule1 = [NSString stringWithFormat:@"addCSSRule('html', 'padding: 0px; height: %fpx; -webkit-column-gap: 0px; -webkit-column-width: %fpx;')", webView.frame.size.height, webView.frame.size.width];
+	NSString *insertRule2 = [NSString stringWithFormat:@"addCSSRule('p', 'text-align: justify;')"];
+	NSString *setTextSizeRule = [NSString stringWithFormat:@"addCSSRule('body', '-webkit-text-size-adjust: %d%%;')",curBook.BodyFontSize];
+    DebugLog(@"setTextSizeRule -- %@",setTextSizeRule);
+	
+	[webView stringByEvaluatingJavaScriptFromString:varMySheet];
+	
+	[webView stringByEvaluatingJavaScriptFromString:addCSSRule];
+    
+	[webView stringByEvaluatingJavaScriptFromString:insertRule1];
+	
+	[webView stringByEvaluatingJavaScriptFromString:insertRule2];
+	
+    [webView stringByEvaluatingJavaScriptFromString:setTextSizeRule];
+    
+    [webView highlightAllOccurencesOfString:currentQuery];
+    
+    NSString* foundHits = [webView stringByEvaluatingJavaScriptFromString:@"results"];
+    
+    NSLog(@"foundHits --  %@", foundHits);
+    
+    NSMutableArray* objects = [[NSMutableArray alloc] init];
+    
+    NSArray* stringObjects = [foundHits componentsSeparatedByString:@";"];
+    for(int i=0; i<[stringObjects count]; i++){
+        NSArray* strObj = [[stringObjects objectAtIndex:i] componentsSeparatedByString:@","];
+        if([strObj count]==3){
+            [objects addObject:strObj];   
+        }
+    }
+    
+    NSArray* orderedRes = [objects sortedArrayUsingComparator:^(id obj1, id obj2){
+        int x1 = [[obj1 objectAtIndex:0] intValue];
+        int x2 = [[obj2 objectAtIndex:0] intValue];
+        int y1 = [[obj1 objectAtIndex:1] intValue];
+        int y2 = [[obj2 objectAtIndex:1] intValue];
+        if(y1<y2){
+            return NSOrderedAscending;
+        } else if(y1>y2){
+            return NSOrderedDescending;
+        } else {
+            if(x1<x2){
+                return NSOrderedAscending;
+            } else if (x1>x2){
+                return NSOrderedDescending;
+            } else {
+                return NSOrderedSame;
+            }
+        }
+    }];
+    
+    [objects release];
+    
+    NSLog(@"orderedRes count  -----》%d",[orderedRes count]);
+    
+    for(int i=0; i<[orderedRes count]; i++){
+        NSArray* currObj = [orderedRes objectAtIndex:i];
+//        NSLog(@"vvvvvvvv  -----》%d", );
+//        NSLog(@"dddddd - - %d",[[currObj objectAtIndex:1] intValue]);
+        NSLog(@"webView height: %f",webView.bounds.size.height);
+        SearchResult* searchRes = [[SearchResult alloc] initWithChapterIndex:currentChapterIndex pageIndex:([[currObj objectAtIndex:1] intValue]/webView.bounds.size.height) hitIndex:0 neighboringText:[webView stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"unescape('%@')", [currObj objectAtIndex:2]]] originatingQuery:currentQuery];
+        [results addObject:searchRes];
+		[searchRes release];
+    }
+    [webView dealloc];
+    
+    [resultTable performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
+    if((currentChapterIndex+1) < [curBook.chapters count]){
+        [self searchString:currentQuery inChapterAtIndex:(currentChapterIndex+1)];
+    } else {
+//        epubViewController.searching = NO;
+    }
+
+}
+
 
 - (void)viewDidUnload
 {

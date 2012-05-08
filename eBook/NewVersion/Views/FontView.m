@@ -8,6 +8,8 @@
 
 #import "FontView.h"
 #import <QuartzCore/QuartzCore.h>
+#import "Book.h"
+#import "ContentView.h"
 
 @implementation FontView
 
@@ -80,7 +82,7 @@
     
 //    UIButton *minButton = [UIButton nodeWithOnImage:skinImage(@"fontbar/c008-选中.png") offImage:skinImage(@"fontbar/c008.png")];
     minButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [minButton setBackgroundImage:skinImage(@"fontbar/c008-选中.png") forState:UIControlStateNormal];
+    [minButton setBackgroundImage:skinImage(@"fontbar/c008.png") forState:UIControlStateNormal];
     [minButton setFrame:CGRectMake(1,1,(font.bounds.size.width-4)/3,font.bounds.size.height-2)];
     [minButton setTitle:@"小字" forState:UIControlStateNormal];
     [minButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
@@ -118,13 +120,24 @@
     UIImageView *line1 = [[UIImageView alloc] initWithFrame:CGRectMake((font.bounds.size.width-4)/3*2+2,0,1,font.bounds.size.height)];
     [line1 setImage:skinImage(@"fontbar/按钮间隔线.png")];
     [font addSubview:line1];
+    
+    //判断默认旋转的是那一个字体
+    float fontSize = [[[NSUserDefaults standardUserDefaults] valueForKey:@"bodyFontSize"] floatValue];
+    if (fontSize == 28) {
+        [minButton setBackgroundImage:skinImage(@"fontbar/c008-选中.png") forState:UIControlStateNormal];
+    }else if(fontSize == 36)
+    {
+        [middleButton setBackgroundImage:skinImage(@"fontbar/c009-选中.png") forState:UIControlStateNormal];
+    }else {
+        [maxButton setBackgroundImage:skinImage(@"fontbar/c010-选中.png") forState:UIControlStateNormal];
+    }
 }
 
 - (void)sliderValueChanged:(id)sender
 {
     UISlider *slider = (UISlider *)sender;
     float fBrightness = 1- slider.value;
-    NSLog(@"sliderValueChanged:%.1f",fBrightness);
+//    NSLog(@"sliderValueChanged:%.1f",fBrightness);
     //保存设置的屏幕亮度
     [[NSUserDefaults standardUserDefaults] setValue:[NSString stringWithFormat:@"%.1f",fBrightness] forKey:@"bookBrightness"];
     //发送通知，就是说此时要调用观察者处的方
@@ -146,15 +159,21 @@
         [minButton setBackgroundImage:skinImage(@"fontbar/c008-选中.png") forState:UIControlStateNormal];
         [middleButton setBackgroundImage:skinImage(@"fontbar/c009.png") forState:UIControlStateNormal];
         [maxButton setBackgroundImage:skinImage(@"fontbar/c010.png") forState:UIControlStateNormal];
+        [[NSUserDefaults standardUserDefaults] setValue:@"28" forKey:@"bodyFontSize"];
     }else if(select.tag == 101){
         [minButton setBackgroundImage:skinImage(@"fontbar/c008.png") forState:UIControlStateNormal];
         [middleButton setBackgroundImage:skinImage(@"fontbar/c009-选中.png") forState:UIControlStateNormal];
         [maxButton setBackgroundImage:skinImage(@"fontbar/c010.png") forState:UIControlStateNormal];
+        [[NSUserDefaults standardUserDefaults] setValue:@"36" forKey:@"bodyFontSize"];
     }else {
         [minButton setBackgroundImage:skinImage(@"fontbar/c008.png") forState:UIControlStateNormal];
         [middleButton setBackgroundImage:skinImage(@"fontbar/c009.png") forState:UIControlStateNormal];
         [maxButton setBackgroundImage:skinImage(@"fontbar/c010-选中.png") forState:UIControlStateNormal];
+        [[NSUserDefaults standardUserDefaults] setValue:@"44" forKey:@"bodyFontSize"];
     }
+    [[Book sharedInstance] prepareBook];
+    //发送通知，就是说此时要调用观察者处的方
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"pageLoad" object:[NSString stringWithFormat:@"%d",select.tag]];
 }
 
 @end

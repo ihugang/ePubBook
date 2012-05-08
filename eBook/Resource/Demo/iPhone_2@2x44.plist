@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>BodyFontSize</key>
-	<integer>44</integer>
+	<integer>150</integer>
 	<key>PageBreakSet</key>
 	<array>
 		<dict>
@@ -19,59 +19,75 @@
 				</dict>
 				<dict>
 					<key>AtomIndex</key>
-					<integer>0</integer>
+					<integer>139</integer>
 					<key>ChapterIndex</key>
+					<integer>0</integer>
+					<key>ParaIndex</key>
+					<integer>0</integer>
+				</dict>
+				<dict>
+					<key>AtomIndex</key>
+					<integer>75</integer>
+					<key>ChapterIndex</key>
+					<integer>0</integer>
+					<key>ParaIndex</key>
 					<integer>1</integer>
-					<key>ParaIndex</key>
-					<integer>0</integer>
 				</dict>
 				<dict>
 					<key>AtomIndex</key>
-					<integer>0</integer>
+					<integer>20</integer>
 					<key>ChapterIndex</key>
+					<integer>0</integer>
+					<key>ParaIndex</key>
 					<integer>2</integer>
-					<key>ParaIndex</key>
+				</dict>
+				<dict>
+					<key>AtomIndex</key>
+					<integer>208</integer>
+					<key>ChapterIndex</key>
 					<integer>0</integer>
+					<key>ParaIndex</key>
+					<integer>2</integer>
 				</dict>
 				<dict>
 					<key>AtomIndex</key>
 					<integer>0</integer>
 					<key>ChapterIndex</key>
+					<integer>0</integer>
+					<key>ParaIndex</key>
 					<integer>3</integer>
-					<key>ParaIndex</key>
-					<integer>0</integer>
 				</dict>
 				<dict>
 					<key>AtomIndex</key>
-					<integer>0</integer>
+					<integer>41</integer>
 					<key>ChapterIndex</key>
+					<integer>0</integer>
+					<key>ParaIndex</key>
 					<integer>4</integer>
-					<key>ParaIndex</key>
-					<integer>0</integer>
 				</dict>
 				<dict>
 					<key>AtomIndex</key>
-					<integer>0</integer>
+					<integer>9</integer>
 					<key>ChapterIndex</key>
+					<integer>0</integer>
+					<key>ParaIndex</key>
 					<integer>5</integer>
-					<key>ParaIndex</key>
-					<integer>0</integer>
 				</dict>
 				<dict>
 					<key>AtomIndex</key>
-					<integer>0</integer>
+					<integer>196</integer>
 					<key>ChapterIndex</key>
+					<integer>0</integer>
+					<key>ParaIndex</key>
+					<integer>5</integer>
+				</dict>
+				<dict>
+					<key>AtomIndex</key>
+					<integer>74</integer>
+					<key>ChapterIndex</key>
+					<integer>0</integer>
+					<key>ParaIndex</key>
 					<integer>6</integer>
-					<key>ParaIndex</key>
-					<integer>0</integer>
-				</dict>
-				<dict>
-					<key>AtomIndex</key>
-					<integer>0</integer>
-					<key>ChapterIndex</key>
-					<integer>7</integer>
-					<key>ParaIndex</key>
-					<integer>0</integer>
 				</dict>
 			</array>
 			<key>title</key>
@@ -88,33 +104,257 @@
 					<key>AtomIndex</key>
 					<integer>0</integer>
 					<key>ChapterIndex</key>
-					<integer>0</integer>
+					<integer>1</integer>
 					<key>ParaIndex</key>
 					<integer>0</integer>
 				</dict>
 				<dict>
 					<key>AtomIndex</key>
-					<integer>0</integer>
+					<integer>119</integer>
 					<key>ChapterIndex</key>
-					<integer>0</integer>
+					<integer>1</integer>
 					<key>ParaIndex</key>
 					<integer>0</integer>
 				</dict>
 				<dict>
 					<key>AtomIndex</key>
+					<integer>20</integer>
+					<key>ChapterIndex</key>
+					<integer>1</integer>
+					<key>ParaIndex</key>
+					<integer>2</integer>
+				</dict>
+				<dict>
+					<key>AtomIndex</key>
+					<integer>99</integer>
+					<key>ChapterIndex</key>
+					<integer>1</integer>
+					<key>ParaIndex</key>
+					<integer>3</integer>
+				</dict>
+				<dict>
+					<key>AtomIndex</key>
+					<integer>177</integer>
+					<key>ChapterIndex</key>
+					<integer>1</integer>
+					<key>ParaIndex</key>
+					<integer>4</integer>
+				</dict>
+				<dict>
+					<key>AtomIndex</key>
+					<integer>144</integer>
+					<key>ChapterIndex</key>
+					<integer>1</integer>
+					<key>ParaIndex</key>
+					<integer>5</integer>
+				</dict>
+				<dict>
+					<key>AtomIndex</key>
+					<integer>87</integer>
+					<key>ChapterIndex</key>
+					<integer>1</integer>
+					<key>ParaIndex</key>
+					<integer>6</integer>
+				</dict>
+				<dict>
+					<key>AtomIndex</key>
+					<integer>67</integer>
+					<key>ChapterIndex</key>
+					<integer>1</integer>
+					<key>ParaIndex</key>
+					<integer>7</integer>
+				</dict>
+				<dict>
+					<key>AtomIndex</key>
+					<integer>89</integer>
+					<key>ChapterIndex</key>
+					<integer>1</integer>
+					<key>ParaIndex</key>
+					<integer>8</integer>
+				</dict>
+				<dict>
+					<key>AtomIndex</key>
+					<integer>33</integer>
+					<key>ChapterIndex</key>
+					<integer>1</integer>
+					<key>ParaIndex</key>
+					<integer>9</integer>
+				</dict>
+				<dict>
+					<key>AtomIndex</key>
+					<integer>44</integer>
+					<key>ChapterIndex</key>
+					<integer>1</integer>
+					<key>ParaIndex</key>
+					<integer>10</integer>
+				</dict>
+				<dict>
+					<key>AtomIndex</key>
+					<integer>30</integer>
+					<key>ChapterIndex</key>
+					<integer>1</integer>
+					<key>ParaIndex</key>
+					<integer>11</integer>
+				</dict>
+				<dict>
+					<key>AtomIndex</key>
+					<integer>232</integer>
+					<key>ChapterIndex</key>
+					<integer>1</integer>
+					<key>ParaIndex</key>
+					<integer>11</integer>
+				</dict>
+				<dict>
+					<key>AtomIndex</key>
+					<integer>64</integer>
+					<key>ChapterIndex</key>
+					<integer>1</integer>
+					<key>ParaIndex</key>
+					<integer>12</integer>
+				</dict>
+				<dict>
+					<key>AtomIndex</key>
+					<integer>33</integer>
+					<key>ChapterIndex</key>
+					<integer>1</integer>
+					<key>ParaIndex</key>
+					<integer>13</integer>
+				</dict>
+				<dict>
+					<key>AtomIndex</key>
+					<integer>259</integer>
+					<key>ChapterIndex</key>
+					<integer>1</integer>
+					<key>ParaIndex</key>
+					<integer>13</integer>
+				</dict>
+				<dict>
+					<key>AtomIndex</key>
+					<integer>449</integer>
+					<key>ChapterIndex</key>
+					<integer>1</integer>
+					<key>ParaIndex</key>
+					<integer>13</integer>
+				</dict>
+				<dict>
+					<key>AtomIndex</key>
+					<integer>166</integer>
+					<key>ChapterIndex</key>
+					<integer>1</integer>
+					<key>ParaIndex</key>
+					<integer>14</integer>
+				</dict>
+				<dict>
+					<key>AtomIndex</key>
+					<integer>31</integer>
+					<key>ChapterIndex</key>
+					<integer>1</integer>
+					<key>ParaIndex</key>
+					<integer>15</integer>
+				</dict>
+				<dict>
+					<key>AtomIndex</key>
+					<integer>241</integer>
+					<key>ChapterIndex</key>
+					<integer>1</integer>
+					<key>ParaIndex</key>
+					<integer>15</integer>
+				</dict>
+				<dict>
+					<key>AtomIndex</key>
+					<integer>9</integer>
+					<key>ChapterIndex</key>
+					<integer>1</integer>
+					<key>ParaIndex</key>
+					<integer>16</integer>
+				</dict>
+				<dict>
+					<key>AtomIndex</key>
+					<integer>204</integer>
+					<key>ChapterIndex</key>
+					<integer>1</integer>
+					<key>ParaIndex</key>
+					<integer>16</integer>
+				</dict>
+				<dict>
+					<key>AtomIndex</key>
+					<integer>131</integer>
+					<key>ChapterIndex</key>
+					<integer>1</integer>
+					<key>ParaIndex</key>
+					<integer>17</integer>
+				</dict>
+				<dict>
+					<key>AtomIndex</key>
+					<integer>326</integer>
+					<key>ChapterIndex</key>
+					<integer>1</integer>
+					<key>ParaIndex</key>
+					<integer>17</integer>
+				</dict>
+				<dict>
+					<key>AtomIndex</key>
+					<integer>511</integer>
+					<key>ChapterIndex</key>
+					<integer>1</integer>
+					<key>ParaIndex</key>
+					<integer>17</integer>
+				</dict>
+				<dict>
+					<key>AtomIndex</key>
+					<integer>702</integer>
+					<key>ChapterIndex</key>
+					<integer>1</integer>
+					<key>ParaIndex</key>
+					<integer>17</integer>
+				</dict>
+				<dict>
+					<key>AtomIndex</key>
+					<integer>118</integer>
+					<key>ChapterIndex</key>
+					<integer>1</integer>
+					<key>ParaIndex</key>
+					<integer>18</integer>
+				</dict>
+				<dict>
+					<key>AtomIndex</key>
+					<integer>308</integer>
+					<key>ChapterIndex</key>
+					<integer>1</integer>
+					<key>ParaIndex</key>
+					<integer>18</integer>
+				</dict>
+				<dict>
+					<key>AtomIndex</key>
+					<integer>82</integer>
+					<key>ChapterIndex</key>
+					<integer>1</integer>
+					<key>ParaIndex</key>
+					<integer>19</integer>
+				</dict>
+				<dict>
+					<key>AtomIndex</key>
 					<integer>0</integer>
 					<key>ChapterIndex</key>
-					<integer>0</integer>
+					<integer>1</integer>
 					<key>ParaIndex</key>
-					<integer>0</integer>
+					<integer>20</integer>
+				</dict>
+				<dict>
+					<key>AtomIndex</key>
+					<integer>184</integer>
+					<key>ChapterIndex</key>
+					<integer>1</integer>
+					<key>ParaIndex</key>
+					<integer>20</integer>
 				</dict>
 			</array>
 			<key>title</key>
-			<string>第一章德州扑克的发展</string>
+			<string>第一章德州扑克的发展历史</string>
 			<key>startIndx</key>
 			<integer>0</integer>
 			<key>path</key>
-			<string></string>
+			<string>第一章德州扑克的发展历史.html</string>
 		</dict>
 		<dict>
 			<key>pages</key>
@@ -149,7 +389,7 @@
 			<key>startIndx</key>
 			<integer>0</integer>
 			<key>path</key>
-			<string></string>
+			<string>第二章如何在德州扑克上赚钱.html</string>
 		</dict>
 		<dict>
 			<key>pages</key>

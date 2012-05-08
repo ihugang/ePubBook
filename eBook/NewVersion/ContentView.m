@@ -16,6 +16,10 @@
 @implementation ContentView
 @synthesize curLable,curWebView;
 - (void)dealloc{
+    //释放掉通知
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"search" object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"pageLoad" object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"chapterListPageLoad" object:nil];
     [super dealloc];
 }
 -(void)initLayout{
@@ -68,8 +72,35 @@
     [noteMenu release];
     [bookPickMenu release];
     
-    
     curWebView.userInteractionEnabled = NO;
+    
+    //添加通知监听
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pageLoad:) name:@"pageLoad" object:nil];
+    //监听目录跳转
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(chapterListPageLoad:) name:@"chapterListPageLoad" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(searchPageLoad:) name:@"search" object:nil];
+}
+
+- (void)pageLoad:(NSNotification *)notification
+{
+    NSLog(@"pageLoad --- %d",[[notification object] intValue]);
+    NSLog(@"loadSpine curSpineIndex:%d , curPageIndex : %d",curSpineIndex,curPageIndex);
+    //重新加载页面
+//    [self showWithIndex:curSpineIndex];
+    [self loadSpine:curSpineIndex atPageIndex:curPageIndex];
+}
+
+- (void)chapterListPageLoad:(NSNotification *)notification
+{
+    [self loadSpine:[[notification object] intValue] atPageIndex:0];
+}
+
+- (void)searchPageLoad:(NSNotification *)notification
+{
+    int chapterIndex = [[notification.userInfo objectForKey:@"chapterIndex"] intValue];
+    int pageIndex = [[notification.userInfo objectForKey:@"pageIndex"] intValue];
+    NSLog(@"searchPageLoad:  index:%d   page:%d",chapterIndex,pageIndex);
+    [self loadSpine:chapterIndex atPageIndex:pageIndex];
 }
 
 //设置-(BOOL) canBecomeFirstResponder的返回值为YES
@@ -136,7 +167,7 @@
 }
 
 -(void)showWithIndex:(int)aIndex{
-   
+    NSLog(@"contentView showWithIndex()");
     self.curLable.text =[NSString stringWithFormat:@"%d",aIndex];
     
     int tempSpineIndex = 0;//HTML
@@ -144,8 +175,13 @@
     
     int perTotalIndex = 0;//temp
     int curTotalIndex = 0;//temp
-    for (Chapter* chapter in curBook.chapters) {        
+    for (Chapter* chapter in curBook.chapters) {   
         curTotalIndex += chapter.pageCount;
+        
+        NSLog(@"contentview chapter path - >%@",chapter.spinePath);
+        
+        NSLog(@"Chapter.pageCount --- %d",chapter.pageCount);
+        NSLog(@"contentView --> curTotalIndex : %d",curTotalIndex);
         if (aIndex>=perTotalIndex && aIndex<curTotalIndex) {
             tempPageIndex = aIndex - perTotalIndex;
             break;
@@ -153,14 +189,23 @@
         perTotalIndex=curTotalIndex;
         tempSpineIndex++;
     }
+    NSLog(@"perTotalIndex --- %d",perTotalIndex);
+    NSLog(@"curTotalIndex --- %d",curTotalIndex);
+    NSLog(@"showWithIndex loadSpine: %d  atPageIndex: %d",tempSpineIndex,tempPageIndex);
     
     [self loadSpine:tempSpineIndex atPageIndex:tempPageIndex]; 
 }
 
 //加载分页
 - (void) loadSpine:(int)spineIndex atPageIndex:(int)pageIndex {
+    NSLog(@"ContentView loadSpine atPageIndex");
+    
     curSpineIndex = spineIndex;
     curPageIndex = pageIndex;
+    
+    //添加当前选中的页面
+    [[NSUserDefaults standardUserDefaults] setValue:[NSString stringWithFormat:@"%d",curSpineIndex] forKey:@"curSpineIndex"];
+    
   //  pageCount, chapterIndex
     Chapter* chapter = [curBook.chapters objectAtIndex:spineIndex];
     
@@ -173,6 +218,9 @@
 }
 - (void) gotoPageInCurrentSpine:(int)pageIndex{ 
     
+    NSLog(@"ContentView gotoPageInCurrentSpine");
+    NSLog(@"=====第%d页,第%d页", curSpineIndex,curPageIndex);
+    
     DebugLog(@"=====第%d页,第%d页", curSpineIndex,curPageIndex);
     
 	float pageOffset = 0;
@@ -182,6 +230,7 @@
     else{
         pageOffset = pageIndex*curWebView.bounds.size.width + pageIndex *15;
     }
+    NSLog(@"gotoPageInCurrentSpine pageOffset -> %f",pageOffset);
     //设置页面依X轴来滚动
 	NSString* goToOffsetFunc = [NSString stringWithFormat:@" function pageScroll(xOffset){ window.scroll(xOffset,0); } "];
 	NSString* goTo =[NSString stringWithFormat:@"pageScroll(%f)", pageOffset]; 
@@ -196,10 +245,11 @@
     return YES;
 }
 - (void)webViewDidStartLoad:(UIWebView *)webView{
-
+    NSLog(@"ContentView webViewDidStartLoad");
 }
 - (void)webViewDidFinishLoad:(UIWebView *)webView{
    /* */
+    NSLog(@"ContentView webViewDidFinishLoad");
     
     if (!mf_IsPad || !share.isLandscape) {
         NSString *varMySheet = @"var mySheet = document.styleSheets[0];";
@@ -218,6 +268,11 @@
         //NSString *setTextSizeRule = [NSString stringWithFormat:@"addCSSRule('body', '-webkit-text-size-adjust: %d%%;')", 94];
         NSString *setHighlightColorRule = [NSString stringWithFormat:@"addCSSRule('highlight', 'background-color: yellow;')"];
         
+        //设置页面字体
+        //设置页面文字尺寸
+        NSString *setTextSizeRule = [NSString stringWithFormat:@"addCSSRule('body', '-webkit-text-size-adjust: %d%%;')",curBook.BodyFontSize];
+        NSLog(@"curBook.BodyFontSize --- > %d",curBook.BodyFontSize);
+
         
         [webView stringByEvaluatingJavaScriptFromString:varMySheet];
         
@@ -227,9 +282,17 @@
         
         [webView stringByEvaluatingJavaScriptFromString:insertRule2];
         
-        //[webView stringByEvaluatingJavaScriptFromString:setTextSizeRule];
+        [webView stringByEvaluatingJavaScriptFromString:setTextSizeRule];
         
         [webView stringByEvaluatingJavaScriptFromString:setHighlightColorRule];
+        
+        //获取返回页面的总宽度
+        int totalWidth = [[webView stringByEvaluatingJavaScriptFromString:@"document.documentElement.scrollWidth"] intValue];
+        //计算文件的页数
+        int pageCount = totalWidth / webView.bounds.size.width;
+        
+        NSLog(@"Chapter %d: title: -> 包含：%d pages", curSpineIndex, pageCount);
+        
     }
     else {  //加载css文件
         NSString *filePath  =  resPath(@"loadRes.js"); 

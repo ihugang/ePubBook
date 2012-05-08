@@ -13,6 +13,7 @@
 #import "Book.h"
 #import "MyTableViewCell.h"
 #import "MyTableCell.h"
+#import "Chapter.h"
 
 
 @interface ChapterListVC ()
@@ -89,6 +90,11 @@
     [chapterList setSeparatorStyle:UITableViewCellSeparatorStyleNone];//设置没有分割线
     [self.view addSubview:chapterList];
     
+    ///设置默认选中的行
+    curSpineIndex = [[[NSUserDefaults standardUserDefaults] valueForKey:@"curSpineIndex"] intValue];
+    ip=[NSIndexPath indexPathForRow:curSpineIndex inSection:0];
+    [chapterList selectRowAtIndexPath:ip animated:YES scrollPosition:UITableViewScrollPositionBottom];
+    
     [self.view setBackgroundColor:[UIColor colorWithPatternImage:skinImage(@"catalogbar/h004.png")]];
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
@@ -114,7 +120,13 @@
             [cataButton2 setBackgroundImage:nil forState:UIControlStateNormal];
             [cataButton3 setBackgroundImage:nil forState:UIControlStateNormal];
             [cataButton4 setBackgroundImage:nil forState:UIControlStateNormal];
+            
             [chapterList reloadData];
+            ///设置默认选中的行
+            curSpineIndex = [[[NSUserDefaults standardUserDefaults] valueForKey:@"curSpineIndex"] intValue];
+            ip=[NSIndexPath indexPathForRow:curSpineIndex inSection:0];
+//            DebugLog(@"aaaaa - %d",curSpineIndex);
+            [chapterList selectRowAtIndexPath:ip animated:YES scrollPosition:UITableViewScrollPositionBottom]; 
             break;  
         case 1:  
             // 标签
@@ -236,8 +248,13 @@
         if (cell == nil) {
             cell = [[[MyTableCell alloc] init] autorelease];
         }
-        cell.content.text = @"工作之余整";
+        
+        Chapter *chapter =  [curBook.chapters objectAtIndex:indexPath.row];
+        cell.content.text = chapter.title;
         cell.index.text = [NSString stringWithFormat:@"%d",indexPath.row];
+//        
+//        cell.content.text = @"工作之余整";
+//        cell.index.text = [NSString stringWithFormat:@"%d",indexPath.row];
         
         cell.content.highlightedTextColor = [UIColor whiteColor];
         cell.index.highlightedTextColor = [UIColor whiteColor];
@@ -250,9 +267,14 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    ContentView *content = [[ContentView alloc] init];
-    [content showWithIndex:[indexPath row]];
+    DebugLog(@"selectIndex %d",[indexPath row]);
+//    ContentView *content = [[ContentView alloc] init];
+//    [content showWithIndex:[indexPath row]];
+//    [content loadSpine:[indexPath row] atPageIndex:0];
     [tableView setSeparatorStyle:UITableViewCellSelectionStyleBlue];
+    //发送通知，就是说此时要调用观察者处的方
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"chapterListPageLoad" object:[NSString stringWithFormat:@"%d",indexPath.row]];
+
     
     [self.delegate ChapterListClick];
     

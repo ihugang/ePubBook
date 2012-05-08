@@ -8,6 +8,7 @@
 
 #import "BooksListVC.h"
 #import "BooksCell.h"
+#import "BookStore.h"
 
 @implementation BooksListVC
 
@@ -51,6 +52,8 @@
     [booksList setAutoresizingMask:UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleLeftMargin];
     [self.view addSubview:booksList];
     
+    [bookStore getBook];
+    
     //释放对象
     [navBar release];
     [navigationItem release];    
@@ -77,7 +80,7 @@
 #pragma mark TableView Methods
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 3;
+    return [[bookStore books] count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -88,9 +91,15 @@
 //        cell = [[[MyTableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:books] autorelease];
         cell = [[[BooksCell alloc] init] autorelease];
     }
-    cell.bookIcon.image = skinImage(@"searchbar/d001.png");
-    cell.bookName.text = @"iphone 开发基础";
-    cell.bookAbout.text = @"能够在工作之余整理总结出这本书，也是他对自己多年经营和管理工作经验的一次复盘，我相信他总结出的经验和教训对于后来的创业者会有所启迪。陶然目前正在率领拉卡拉团队在金融服务";
+    int row = [indexPath row];
+//    cell.bookIcon.image = resImage(@"bookicon/d001.png");
+    cell.bookIcon.image = resImage([[[bookStore books] objectAtIndex:row] valueForKey:@"icon"]);
+    cell.bookName.text = [[[bookStore books] objectAtIndex:row] valueForKey:@"name"];
+    cell.bookAbout.text = [[[bookStore books] objectAtIndex:row] valueForKey:@"description"];
+    
+//    cell.bookIcon.image = skinImage(@"searchbar/d001.png");
+//    cell.bookName.text = @"iphone 开发基础";
+//    cell.bookAbout.text = @"能够在工作之余整理总结出这本书，也是他对自己多年经营和管理工作经验的一次复盘，我相信他总结出的经验和教训对于后来的创业者会有所启迪。陶然目前正在率领拉卡拉团队在金融服务";
     
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     return cell;
@@ -98,7 +107,11 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
+    NSString *path = [[[bookStore books] objectAtIndex:[indexPath row]] valueForKey:@"path"];
+    DebugLog(@"select path --> %@",path);
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://%@",path]];
+    //打开系统站点
+    [[UIApplication sharedApplication] openURL:url];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath

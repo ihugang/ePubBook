@@ -74,7 +74,7 @@
     MBProgressHUD* hud =[MBProgressHUD showHUDAddedTo:self.view animated:YES];
     [hud setLabelText:@"正在解析"];
     parsing = NO;
-    [Bussicess fetchBookInfo:^{
+    [Bussicess fetchBookInfo:^{///解析plist文件
         [hud setHidden:YES];
         parsing = YES;
         [self addUI]; 
@@ -107,6 +107,7 @@
 
 #pragma mark ATPagingView Delegate
 - (NSInteger)numberOfPagesInPagingView:(ATPagingView *)pagingView{
+    NSLog(@"RootVC ---- %d",curBook.PageCount);
     return curBook.PageCount;
 }
 

@@ -52,6 +52,13 @@
     [btnSetting addEvent:@selector(btnSettingTapped:) atContainer:self];
     [self addSubview:btnSetting];
     
+    bookMark = [UIButton buttonWithType:UIButtonTypeCustom];
+    [bookMark setImage:resImage(@"content/bookmark.png") forState:UIControlStateNormal];
+    [bookMark setFrame:CGRectMake(btnSetting.right + 15, 8, 20, 20)];
+    [bookMark addTarget:self action:@selector(addBookMark:) forControlEvents:UIControlEventTouchUpInside];
+    [self addSubview:bookMark];
+    
+    
     UIButton* btnBooks =[UIButton nodeWithTitle:@"赌遍全球" image:skinImage(@"operbar/b007.png")];
     [btnBooks setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     btnBooks.titleLabel.font =[UIFont systemFontOfSize:12];
@@ -94,7 +101,14 @@
 -(void)btnSettingTapped:(UIButton*)sender{
     DebugLog(@"%@", sender);
     SettingVC *set = [[[SettingVC alloc] init] autorelease];
-    [self.rootVC presentModalViewController:set animated:YES];
+//    [self.rootVC presentModalViewController:set animated:YES];
+    navController = [[[UINavigationController alloc] initWithRootViewController:set] autorelease];
+    [self.rootVC presentModalViewController:navController animated:YES];
+}
+
+- (void)addBookMark:(UIButton*)sender{
+    //添加标签
+    [bookMark setImage:resImage(@"content/bookmark-blue.png") forState:UIControlStateNormal];
 }
 
 -(void)btnBooksTapped:(UIButton*)sender{

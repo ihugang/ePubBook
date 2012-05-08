@@ -22,7 +22,7 @@
 }
 
 +(NSString*)getResPath:(NSString*)aPath{
-    NSString* path =  [[[self navResPath] stringByAppendingPathComponent:@"Demo"] stringByAppendingPathComponent:aPath];    
+    NSString* path =  [[[self navResPath] stringByAppendingPathComponent:@"Demo"] stringByAppendingPathComponent:aPath];
     return path;
 }
 +(NSString*)navResPath{

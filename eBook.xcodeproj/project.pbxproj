@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		10176DFA1556CB4100BBA89C /* BookStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 10176DF91556CB4100BBA89C /* BookStore.m */; };
 		10772A00154B9FA7006DA171 /* SearchVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 107729FF154B9FA6006DA171 /* SearchVC.m */; };
 		10772A04154BDFEC006DA171 /* SettingVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 10772A03154BDFEC006DA171 /* SettingVC.m */; };
 		1087FED115366CC000862D76 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1087FED015366CC000862D76 /* UIKit.framework */; };
@@ -46,6 +47,11 @@
 		109CA1F41536B925007A3F68 /* Chapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 109CA1F31536B925007A3F68 /* Chapter.m */; };
 		109CA2041537D662007A3F68 /* ATPagingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 109CA2031537D662007A3F68 /* ATPagingView.m */; };
 		109CA2071537D716007A3F68 /* EPubPageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 109CA2061537D716007A3F68 /* EPubPageView.m */; };
+		10C52BAA1557986600117172 /* AboutVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 10C52BA91557986500117172 /* AboutVC.m */; };
+		10C52BAE15579F9A00117172 /* SearchResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 10C52BAD15579F9900117172 /* SearchResult.m */; };
+		10C52BB51557AAE400117172 /* UIWebView+SearchWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 10C52BB41557AAE400117172 /* UIWebView+SearchWebView.m */; };
+		10C52BB81557AB5000117172 /* SearchWebView.js in Sources */ = {isa = PBXBuildFile; fileRef = 10C52BB71557AB5000117172 /* SearchWebView.js */; };
+		10C52BC01557B37100117172 /* SearchWebView.js in Resources */ = {isa = PBXBuildFile; fileRef = 10C52BB71557AB5000117172 /* SearchWebView.js */; };
 		10D4C8931536957200426A56 /* libz.1.2.5.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 10D4C8921536957200426A56 /* libz.1.2.5.dylib */; };
 		10FB459815510A47001346EB /* BooksListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 10FB459715510A47001346EB /* BooksListVC.m */; };
 		10FB459B15511762001346EB /* BooksCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 10FB459A15511762001346EB /* BooksCell.m */; };
@@ -135,6 +141,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		10176DF81556CB4100BBA89C /* BookStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BookStore.h; sourceTree = "<group>"; };
+		10176DF91556CB4100BBA89C /* BookStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BookStore.m; sourceTree = "<group>"; };
 		107729FE154B9FA6006DA171 /* SearchVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchVC.h; sourceTree = "<group>"; };
 		107729FF154B9FA6006DA171 /* SearchVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchVC.m; sourceTree = "<group>"; };
 		10772A02154BDFEB006DA171 /* SettingVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingVC.h; sourceTree = "<group>"; };
@@ -213,6 +221,13 @@
 		109CA2031537D662007A3F68 /* ATPagingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ATPagingView.m; sourceTree = "<group>"; };
 		109CA2051537D716007A3F68 /* EPubPageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EPubPageView.h; path = ../../EPubPageView.h; sourceTree = "<group>"; };
 		109CA2061537D716007A3F68 /* EPubPageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EPubPageView.m; path = ../../EPubPageView.m; sourceTree = "<group>"; };
+		10C52BA81557986500117172 /* AboutVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutVC.h; sourceTree = "<group>"; };
+		10C52BA91557986500117172 /* AboutVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutVC.m; sourceTree = "<group>"; };
+		10C52BAC15579F9900117172 /* SearchResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchResult.h; sourceTree = "<group>"; };
+		10C52BAD15579F9900117172 /* SearchResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchResult.m; sourceTree = "<group>"; };
+		10C52BB31557AAE400117172 /* UIWebView+SearchWebView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIWebView+SearchWebView.h"; sourceTree = "<group>"; };
+		10C52BB41557AAE400117172 /* UIWebView+SearchWebView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIWebView+SearchWebView.m"; sourceTree = "<group>"; };
+		10C52BB71557AB5000117172 /* SearchWebView.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = SearchWebView.js; sourceTree = "<group>"; };
 		10D4C8921536957200426A56 /* libz.1.2.5.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.1.2.5.dylib; path = usr/lib/libz.1.2.5.dylib; sourceTree = SDKROOT; };
 		10FB459615510A47001346EB /* BooksListVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BooksListVC.h; sourceTree = "<group>"; };
 		10FB459715510A47001346EB /* BooksListVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BooksListVC.m; sourceTree = "<group>"; };
@@ -414,8 +429,8 @@
 		1087FECF15366CC000862D76 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				109CA1E91536A0C5007A3F68 /* libxml2.dylib */,
 				10D4C8921536957200426A56 /* libz.1.2.5.dylib */,
+				109CA1E91536A0C5007A3F68 /* libxml2.dylib */,
 				1811CF9B154011B2001216C2 /* SystemConfiguration.framework */,
 				1811CF99154011AA001216C2 /* MobileCoreServices.framework */,
 				1811CF971540119D001216C2 /* QuartzCore.framework */,
@@ -595,6 +610,8 @@
 				1087FEEB15366DFE00862D76 /* EPubViewController.m */,
 				109CA2051537D716007A3F68 /* EPubPageView.h */,
 				109CA2061537D716007A3F68 /* EPubPageView.m */,
+				10176DF81556CB4100BBA89C /* BookStore.h */,
+				10176DF91556CB4100BBA89C /* BookStore.m */,
 			);
 			name = ePub;
 			path = OpenSource/ePub;
@@ -832,6 +849,7 @@
 		181AC6CF153D18CF00177AE6 /* NewVersion */ = {
 			isa = PBXGroup;
 			children = (
+				10C52BB71557AB5000117172 /* SearchWebView.js */,
 				18171F341544ECAC00CD83A8 /* Base */,
 				108CF42C154A81A7004860E3 /* MyTableCell.h */,
 				108CF42D154A81A7004860E3 /* MyTableCell.m */,
@@ -849,10 +867,16 @@
 				10888A70153FEC4200C02010 /* ChapterListVC.m */,
 				107729FE154B9FA6006DA171 /* SearchVC.h */,
 				107729FF154B9FA6006DA171 /* SearchVC.m */,
+				10C52BAC15579F9900117172 /* SearchResult.h */,
+				10C52BAD15579F9900117172 /* SearchResult.m */,
+				10C52BB31557AAE400117172 /* UIWebView+SearchWebView.h */,
+				10C52BB41557AAE400117172 /* UIWebView+SearchWebView.m */,
 				10772A02154BDFEB006DA171 /* SettingVC.h */,
 				10772A03154BDFEC006DA171 /* SettingVC.m */,
 				10FB459615510A47001346EB /* BooksListVC.h */,
 				10FB459715510A47001346EB /* BooksListVC.m */,
+				10C52BA81557986500117172 /* AboutVC.h */,
+				10C52BA91557986500117172 /* AboutVC.m */,
 				18013AAB15413E7D00F8B17B /* Views */,
 			);
 			path = NewVersion;
@@ -908,6 +932,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				10C52BC01557B37100117172 /* SearchWebView.js in Resources */,
 				1087FEDB15366CC000862D76 /* InfoPlist.strings in Resources */,
 				180D0600154009DF004B6270 /* Resource in Resources */,
 				180D060C15400B87004B6270 /* Default-Landscape~ipad.png in Resources */,
@@ -1035,6 +1060,11 @@
 				10772A04154BDFEC006DA171 /* SettingVC.m in Sources */,
 				10FB459815510A47001346EB /* BooksListVC.m in Sources */,
 				10FB459B15511762001346EB /* BooksCell.m in Sources */,
+				10176DFA1556CB4100BBA89C /* BookStore.m in Sources */,
+				10C52BAA1557986600117172 /* AboutVC.m in Sources */,
+				10C52BAE15579F9A00117172 /* SearchResult.m in Sources */,
+				10C52BB51557AAE400117172 /* UIWebView+SearchWebView.m in Sources */,
+				10C52BB81557AB5000117172 /* SearchWebView.js in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

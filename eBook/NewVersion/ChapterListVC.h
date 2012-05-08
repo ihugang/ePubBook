@@ -22,6 +22,9 @@
     UIButton *cataButton2;
     UIButton *cataButton3;
     UIButton *cataButton4;
+    
+    int curSpineIndex;
+    NSIndexPath *ip;
 }
 
 @property (nonatomic,assign) id<ChapterListVCDelegate>delegate;
