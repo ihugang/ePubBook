@@ -25,6 +25,15 @@
     
     CGRect frame =  [[UIScreen mainScreen] bounds];
     self.size =CGSizeMake(frame.size.width, frame.size.height - 44);
+ 
+    UIView* ivTapOper =[[[UIView alloc] initWithFrame:frame] autorelease];
+    ivTapOper.top = iv.bottom + 10;
+    [self addSubview:ivTapOper];
+    [ivTapOper whenTapped:^{
+         //switchTap
+        [self.delegate operViewTappedToDissmiss];
+    }];
+
     UIButton* btnList =[UIButton nodeWithOnImage:nil offImage:skinImage(@"operbar/b003.png")];
     //btnList.size = CGSizeMake(btnList.width*2, btnList.height*2);
     btnList.left = 20;

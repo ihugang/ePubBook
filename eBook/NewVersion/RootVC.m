@@ -49,12 +49,20 @@
         [self swichUI:!operViewShowed];
     }
 }
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    self.view.top = 0;
+    navView.bottom = self.view.height;
+}
 
+- (void)viewWillDisappear:(BOOL)animated{
+     [super viewWillDisappear:animated];
+    [self swichUI:NO];
+}
 
 - (void)viewDidLoad{
     [super viewDidLoad]; 
     self.view.backgroundColor =[UIColor scrollViewTexturedBackgroundColor];
-    
     OperView* ov =[OperView createWithSize:CGSizeMake(self.view.width, 44)];
     ov.top = 20;
     operView = ov;
@@ -90,6 +98,9 @@
     [self.view addGestureRecognizer:tapGesture]; 
 }
 
+-(void)operViewTappedToDissmiss{
+    [self swichUI:NO];
+}
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch {
 
     if ([touch.view isKindOfClass:[UIButton class]]) 

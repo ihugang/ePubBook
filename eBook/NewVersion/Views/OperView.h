@@ -17,6 +17,7 @@
 @protocol OperViewDelegate <NSObject>
 
 -(void)operView:(OperView*)navView changeToIndex:(int)pageIndex;
+-(void)operViewTappedToDissmiss;
 
 @end
 

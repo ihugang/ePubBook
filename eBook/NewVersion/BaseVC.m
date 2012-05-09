@@ -23,7 +23,11 @@
     }
     return self;
 }
-
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    
+     
+}
 - (void)didReceiveMemoryWarning
 {
     // Releases the view if it doesn't have a superview.
