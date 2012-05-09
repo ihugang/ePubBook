@@ -11,7 +11,7 @@
 #import "BookMark.h"
 
 @implementation OperView
-@synthesize delegate,rootVC;
+@synthesize delegate,rootVC,currentPageIndex;
 - (void)dealloc {
     self.delegate =nil;
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"pageChange" object:nil];
@@ -69,8 +69,6 @@
     [bookMark addTarget:self action:@selector(addBookMark:) forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:bookMark];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(checkBookMark:) name:@"pageChange" object:nil];
-    
     UIButton* btnBooks =[UIButton nodeWithTitle:@"赌遍全球" image:skinImage(@"operbar/b007.png")];
     [btnBooks setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     btnBooks.titleLabel.font =[UIFont systemFontOfSize:12];
@@ -80,15 +78,18 @@
     btnBooks.top = 7;
     [btnBooks addEvent:@selector(btnBooksTapped:) atContainer:self];
     [self addSubview:btnBooks]; 
+    
+    //监听每个页面，判断是否添加为书签
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(checkBookMark:) name:@"pageChange" object:nil];
 }
 
 - (void)checkBookMark:(NSNotification *)notification
 {
+    //设置当前页面
+    self.currentPageIndex = [notification object];
     [bookMarks getBookMark];
-//    [[notification object] stringValue]
-//    NSLog(@"boomark -------- %@",[notification object]);
-//    NSLog(@"============%@",[bookMarks.currentBookMark objectForKey:[notification object]]);
-    
+    DebugLog(@"operView  checkBookMark - %@",[notification object]);
+    DebugLog(@"aaaaa  -----> %@",[bookMarks.currentBookMark objectForKey: [notification object]]);
     if ([bookMarks.currentBookMark objectForKey: [notification object]] != nil) {
 //        //添加标签
         [bookMark setImage:resImage(@"content/bookmark-blue.png") forState:UIControlStateNormal];
@@ -136,7 +137,17 @@
 - (void)addBookMark:(UIButton*)sender{
     //添加标签
 //    [bookMark setImage:resImage(@"content/bookmark-blue.png") forState:UIControlStateNormal];
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"addBookMark" object:nil];
+    if ([bookMarks.currentBookMark objectForKey:currentPageIndex] == nil) {
+        //给当前页面添加书签
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"addBookMark" object:currentPageIndex];
+        [bookMark setImage:resImage(@"content/bookmark-blue.png") forState:UIControlStateNormal];
+    }else {
+        //删除当前页面书签
+        DebugLog(@"remove bookmark");
+        [bookMarks.bookmarks removeObjectForKey:currentPageIndex];
+        [bookMarks.bookmarks writeToFile:bookMarks.filename atomically:YES];
+        [bookMark setImage:resImage(@"content/bookmark.png") forState:UIControlStateNormal];
+    }
 }
 
 -(void)btnBooksTapped:(UIButton*)sender{

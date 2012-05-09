@@ -16,6 +16,9 @@
 @synthesize pageView,datasoucre;
 - (void)dealloc {
     self.datasoucre = nil;
+    //释放掉通知
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"searchPageIndex" object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"chapterListPageLoad" object:nil];
     [super dealloc];
 }
  
@@ -96,6 +99,25 @@
     UITapGestureRecognizer* tapGesture =[[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(userTapOper:)] autorelease];
     tapGesture.delegate = self;
     [self.view addGestureRecognizer:tapGesture]; 
+    
+    //监听目录跳转
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(chapterListPageLoad:) name:@"chapterListPageLoad" object:nil];
+    //搜索
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(searchPageLoad:) name:@"searchPageIndex" object:nil];
+    
+}
+
+//目录列表页面跳转
+- (void)chapterListPageLoad:(NSNotification *)notification
+{
+    self.pageView.currentPageIndex = [[notification object] intValue];
+}
+
+//搜索页面跳转
+- (void)searchPageLoad:(NSNotification *)notification
+{
+    self.pageView.currentPageIndex = [[[notification userInfo] objectForKey:@"chapterPageIndex"] intValue];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"searchText" object:[[notification userInfo] objectForKey:@"searchResult"]];
 }
 
 -(void)operViewTappedToDissmiss{
@@ -130,6 +152,7 @@
     [cwv showWithPathIndex:index];
     return cwv;
 }
+
 -(void)pagesDidChangeInPagingView:(ATPagingView *)pagingView{
     
 }

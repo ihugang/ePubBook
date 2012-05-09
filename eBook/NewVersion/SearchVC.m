@@ -9,10 +9,10 @@
 #import "SearchVC.h"
 #import "ContentView.h"
 #import "MyTableViewCell.h"
-#import "Chapter.h"
 #import "Book.h"
 #import "NSString+HTML.h"
 #import "SearchResult.h"
+#import "ResManager.h"
 #import "UIWebView+SearchWebView.h"
 
 @interface SearchVC ()
@@ -20,7 +20,7 @@
 @end
 
 @implementation SearchVC
-@synthesize delegate,currentQuery,results,resultTable;
+@synthesize delegate,currentQuery,results,resultTable,firstresults;
 
 - (void)dealloc
 {
@@ -37,7 +37,7 @@
     [searchView setAutoresizingMask:UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleRightMargin];
     [self.view addSubview:searchView];
     
-    UIView *resultView = [[UIView alloc] initWithFrame:CGRectMake(10, 80, self.view.bounds.size.width - 20, self.view.bounds.size.height - 100)];
+    UIView *resultView = [[UIView alloc] initWithFrame:CGRectMake(10, 80, self.view.bounds.size.width - 20, self.view.bounds.size.height - 80)];
     [resultView setBackgroundColor:[UIColor whiteColor]];
     [resultView setAutoresizesSubviews:YES];
     [resultView setAutoresizingMask:UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleRightMargin];
@@ -73,14 +73,15 @@
     [searchButton setAutoresizingMask:UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleRightMargin];
     [searchView addSubview:searchButton];
     
-    resultTable = [[UITableView alloc] initWithFrame:CGRectMake(5, 5, resultView.bounds.size.width - 10, resultView.bounds.size.height - 20)];
+    resultTable = [[UITableView alloc] initWithFrame:CGRectMake(5, 5, resultView.bounds.size.width - 10, resultView.bounds.size.height - 10)];
     [resultTable setDataSource:self];
     [resultTable setDelegate:self];
     [resultTable setAutoresizesSubviews:YES];
     [resultTable setAutoresizingMask:UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleRightMargin];
     [resultView addSubview:resultTable];
-
     
+//     resultTable.contentSize =CGSizeMake(320, 2000);
+
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
 }
@@ -97,7 +98,7 @@
 #pragma mark TableView Methods
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 { 
-    DebugLog(@"result count - %d",results.count);
+//    DebugLog(@"result count - %d",results.count);
     return results.count;
 }
 
@@ -116,11 +117,10 @@
     [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
     NSString *localTime=[formatter stringFromDate: [NSDate date]];
     
-    cell.date.text = [NSString stringWithFormat:@"index:%d - page:%d", hit.chapterIndex, hit.pageIndex];
-//    cell.date.text = localTime;
+//    cell.date.text = [NSString stringWithFormat:@"index:%d - page:%d", hit.chapterIndex, hit.pageIndex];
+    cell.date.text = localTime;
     cell.number.text = [NSString stringWithFormat:@"%d",hit.chapterPageIndex];
     cell.content.text = [NSString stringWithFormat:@"...%@...", hit.neighboringText];
-//    cell.content.text = @"然能够在工作之余整理总结出这本书，也是他对自己多年经营和管理工作经验的一次复盘，我相信他总结出的经验和教训对于后来的创业者会有所启迪。陶然目前正在率领拉卡拉团队在金融服务领域大展宏图，并且有可能成为联想控股旗下现代服务业的一个重要业务模块，代服务业的一个重要业务模块，成为联想正规军的队伍，我也在此祝愿他和他的团队能";
     
     cell.date.highlightedTextColor = [UIColor whiteColor];
     cell.number.highlightedTextColor = [UIColor whiteColor];
@@ -132,17 +132,46 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     SearchResult* hit = (SearchResult*)[results objectAtIndex:[indexPath row]];
-//    ContentView *content = [[ContentView alloc] init];
-//    [content showWithIndex:[indexPath row]];
-//    [content loadSpine:hit.chapterIndex atPageIndex:hit.pageIndex];
     
-//    [[NSNotificationCenter defaultCenter] postNotificationName:@"search" object:[NSString stringWithFormat:@"%d",hit.chapterPageIndex]];
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"search" object:nil userInfo:[NSDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"%d",hit.chapterIndex],@"chapterIndex", [NSString stringWithFormat:@"%d",hit.pageIndex],@"pageIndex",hit,@"searchResult",nil]];
-     
+    //发送通知跳转页面
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"searchPageIndex" object:nil userInfo:[NSDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"%d",hit.chapterPageIndex],@"chapterPageIndex",hit,@"searchResult", nil]];
     [tableView setSeparatorStyle:UITableViewCellSelectionStyleBlue];
     
     [self.delegate showSearchVC];
     
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section
+{
+    return nil;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
+{
+    UIView * sectionView = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.bounds.size.width,tableView.bounds.size.height)] autorelease];
+    //上拉刷新
+    _refreshHeaderView=[[EGORefreshTableHeaderView alloc] initWithFrame:
+                        CGRectMake(0,100, sectionView.bounds.size.width, sectionView.bounds.size.height)];
+    _refreshHeaderView.delegate=self;
+    [_refreshHeaderView refreshLastUpdatedDate];
+    
+    [sectionView setBackgroundColor:[UIColor clearColor]];
+    [sectionView addSubview:_refreshHeaderView];
+    [sectionView setAutoresizesSubviews:YES];
+    [sectionView setAutoresizingMask:UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleRightMargin];
+
+    if ([tableView numberOfRowsInSection:section] == 0) {
+        _refreshHeaderView.hidden = YES;
+    }else {
+        _refreshHeaderView.hidden = NO;
+    }
+    return sectionView;
+
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+{
+    return 100;
 }
 
 //设置cell每行间隔的高度
@@ -175,8 +204,9 @@
 
 - (void) searchString:(NSString *)query inChapterAtIndex:(int)index{
     currentChapterIndex = index;
+//    firstresults = results;
     
-    Chapter* chapter = [curBook.chapters objectAtIndex:index];
+    chapter = [curBook.chapters objectAtIndex:index];
     if (query != nil) {
         NSRange range = NSMakeRange(0, chapter.text.length);
         range = [chapter.text rangeOfString:query options:NSCaseInsensitiveSearch range:range locale:nil];
@@ -189,15 +219,19 @@
             range = [chapter.text rangeOfString:query options:NSCaseInsensitiveSearch range:range locale:nil];
             hitCount++;
         }
+        DebugLog(@"==============%d",firstresults.count);
         if(hitCount!=0){
             UIWebView* webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height)];
             [webView setDelegate:self];
             NSURLRequest* urlRequest = [NSURLRequest requestWithURL:[NSURL fileURLWithPath:chapter.spinePath]];
             DebugLog(@"urlrequest --- %@",urlRequest);
-            [webView loadRequest:urlRequest];   
+            [webView loadRequest:urlRequest];
+            
         } else {
-            if ((index + 1) < curBook.ChapterCount) {
-                [self searchString:self.currentQuery inChapterAtIndex:(index + 1)];
+            currentChapterIndex = currentChapterIndex + 1;
+            if (currentChapterIndex < curBook.ChapterCount) {
+                //重新加载下一个html
+                [self searchString:self.currentQuery inChapterAtIndex:currentChapterIndex];
             }
         }
     }
@@ -275,26 +309,90 @@
     
     [objects release];
     
-    NSLog(@"orderedRes count  -----》%d",[orderedRes count]);
-    
     for(int i=0; i<[orderedRes count]; i++){
         NSArray* currObj = [orderedRes objectAtIndex:i];
-//        NSLog(@"vvvvvvvv  -----》%d", );
-//        NSLog(@"dddddd - - %d",[[currObj objectAtIndex:1] intValue]);
-        NSLog(@"webView height: %f",webView.bounds.size.height);
         SearchResult* searchRes = [[SearchResult alloc] initWithChapterIndex:currentChapterIndex pageIndex:([[currObj objectAtIndex:1] intValue]/webView.bounds.size.height) hitIndex:0 neighboringText:[webView stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"unescape('%@')", [currObj objectAtIndex:2]]] originatingQuery:currentQuery];
         [results addObject:searchRes];
 		[searchRes release];
     }
     [webView dealloc];
+
+    DebugLog(@"=aa=============%d",first);
     
-    [resultTable performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
-    if((currentChapterIndex+1) < [curBook.chapters count]){
-        [self searchString:currentQuery inChapterAtIndex:(currentChapterIndex+1)];
-    } else {
-//        epubViewController.searching = NO;
+    if (results.count > 10 && results.count - first > 10 ) {
+        currentChapterIndex = currentChapterIndex + 1;
+        first = results.count;
+        DebugLog(@"=results=============%d",results.count);
+        [resultTable performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
+    }else {
+        DebugLog(@"=results=============%d",results.count );
+        [self searchString:currentQuery inChapterAtIndex:(currentChapterIndex + 1 )];
     }
 
+}
+
+//此方法是结束读取数据
+- (void)doneLoadingTableViewData{
+	first = results.count;
+    [self searchString:currentQuery inChapterAtIndex:currentChapterIndex];
+    
+	_reloading = NO;
+	[_refreshHeaderView egoRefreshScrollViewDataSourceDidFinishedLoading:resultTable];
+	NSLog(@"end");
+	
+}
+
+
+//此方法是开始读取数据
+- (void)reloadTableViewDataSource{
+	_reloading = YES;
+    search = YES;
+	NSLog(@"star");
+    [self performSelector:@selector(doneLoadingTableViewData) withObject:nil afterDelay:0];
+    
+	//打开线程，读取网络图片
+//	[NSThread detachNewThreadSelector:@selector(requestImage) toTarget:self withObject:nil];
+    
+}
+
+
+
+#pragma mark -
+#pragma mark UIScrollViewDelegate Methods
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView{	
+	
+	[_refreshHeaderView egoRefreshScrollViewDidScroll:resultTable];
+	
+}
+
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
+	
+	[_refreshHeaderView egoRefreshScrollViewDidEndDragging:resultTable];
+	
+}
+
+
+#pragma mark -
+#pragma mark EGORefreshTableHeaderDelegate Methods
+
+- (void)egoRefreshTableHeaderDidTriggerRefresh:(EGORefreshTableHeaderView*)view{
+	
+	[self reloadTableViewDataSource];
+	//[self performSelector:@selector(doneLoadingTableViewData) withObject:nil afterDelay:0.5];
+	
+}
+
+- (BOOL)egoRefreshTableHeaderDataSourceIsLoading:(EGORefreshTableHeaderView*)view{
+	
+	return _reloading; // should return if data source model is reloading
+	
+}
+
+- (NSDate*)egoRefreshTableHeaderDataSourceLastUpdated:(EGORefreshTableHeaderView*)view{
+	
+	return [NSDate date]; // should return date data source was last changed
+	
 }
 
 

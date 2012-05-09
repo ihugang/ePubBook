@@ -7,10 +7,10 @@
 //
 
 #import "ContentView.h"
+#import "AllHeader.h"
 #import "AppShare.h"
 #import "EPub.h"
 #import "Chapter.h"
-#import "ResManager.h"
 #import "Book.h"
 #import "BookMark.h"
 #import "SearchResult.h"
@@ -20,9 +20,8 @@
 @synthesize curLable,curWebView,currentSearchResult;
 - (void)dealloc{
     //释放掉通知
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"search" object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"searchText" object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"pageLoad" object:nil];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"chapterListPageLoad" object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"addBookMark" object:nil];
     [super dealloc];
 }
@@ -80,10 +79,8 @@
     
     //添加通知监听
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pageLoad:) name:@"pageLoad" object:nil];
-    //监听目录跳转
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(chapterListPageLoad:) name:@"chapterListPageLoad" object:nil];
     //搜索
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(searchPageLoad:) name:@"search" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(searchPageLoad:) name:@"searchText" object:nil];
     //添加书签
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addBookMark:) name:@"addBookMark" object:nil];
     
@@ -93,33 +90,20 @@
 {
     //获取书签列表
     [bookMarks getBookMark];
-    NSString *nowPageIndex = [NSString stringWithFormat:@"%d",curPageIndex];
+    NSString *nowPageIndex = [notification object];
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
     NSString *localTime=[formatter stringFromDate: [NSDate date]];
-    DebugLog(@"now  time ---> %@",localTime);
-    
-    if ([bookMarks.currentBookMark objectForKey:nowPageIndex] == nil) {
-        //给当前页面添加书签
-        NSDictionary *pageIndex = [[NSDictionary alloc] initWithObjectsAndKeys:nowPageIndex,@"pageIndex",localTime,@"time",@"asdfas",@"content", nil];
-        [bookMarks.bookmarks setValue:pageIndex forKey:nowPageIndex];
-        //排序
-//        [bookMarks.bookmarks keysSortedByValueUsingSelector:@selector(compare:)];
-        [bookMarks.bookmarks writeToFile:bookMarks.filename atomically:YES];
-        DebugLog(@"---%@",bookMarks.bookmarks);
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"pageChange" object:nowPageIndex];
-    }else {
-        DebugLog(@"remove bookmark");
-        //取消当前页面标签
-        [bookMarks.bookmarks removeObjectForKey:nowPageIndex];
-        [bookMarks.bookmarks writeToFile:bookMarks.filename atomically:YES];
-        //取消当前图片的书签
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"pageChange" object:nowPageIndex];
-    }
-    
-     [formatter release];
-}
 
+    //给当前页面添加书签
+    NSDictionary *pageIndex = [[NSDictionary alloc] initWithObjectsAndKeys:nowPageIndex,@"pageIndex",localTime,@"time",@"asdfas",@"content", nil];
+    [bookMarks.bookmarks setValue:pageIndex forKey:nowPageIndex];
+    [bookMarks.bookmarks writeToFile:bookMarks.filename atomically:YES];
+    
+    DebugLog(@"---%@",bookMarks.bookmarks);
+    [formatter release];
+}
+//字体改变，重新加载页面
 - (void)pageLoad:(NSNotification *)notification
 {
     NSLog(@"pageLoad --- %d",[[notification object] intValue]);
@@ -128,24 +112,14 @@
 //    [self showWithIndex:curSpineIndex];
     [self loadSpine:curSpineIndex atPageIndex:curPageIndex];
 }
-//目录页面跳转
-- (void)chapterListPageLoad:(NSNotification *)notification
-{
-//    [self loadSpine:[[notification object] intValue] atPageIndex:0];
-    [self showWithIndex:[[notification object] intValue]];
-}
 
 //搜索页面跳转
 - (void)searchPageLoad:(NSNotification *)notification
 {
-    int chapterIndex = [[notification.userInfo objectForKey:@"chapterIndex"] intValue];
-    int pageIndex = [[notification.userInfo objectForKey:@"pageIndex"] intValue];
-//    NSLog(@"searchPageLoad:  index:%d   page:%d",chapterIndex,pageIndex);
-    SearchResult *search = [notification.userInfo objectForKey:@"searchResult"];
+    SearchResult *search = [notification object];
+    DebugLog(@"searchPageLoad - SearchResult:%@",search);
     self.currentSearchResult = search;
-    [self loadSpine:chapterIndex atPageIndex:pageIndex];
-    
-//    [[NSNotificationCenter defaultCenter] postNotificationName:@"pageChange" object:[NSString stringWithFormat:@"%@",chapterIndex]];
+//    [self loadSpine:chapterIndex atPageIndex:pageIndex];
 }
 
 //设置-(BOOL) canBecomeFirstResponder的返回值为YES
@@ -211,12 +185,13 @@
    
 }
 
--(void)showWithIndex:(int)aIndex{
+-(void)showWithIndex:(int)aIndex {
     NSLog(@"contentView showWithIndex()");
     self.curLable.text =[NSString stringWithFormat:@"%d",aIndex];
     
-    NSString *nowIndex = [NSString stringWithFormat:@"%d",aIndex];
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"pageChange" object:nowIndex];
+    NSString *nowPageIndex = [NSString stringWithFormat:@"%d",aIndex];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"pageChange" object:nowPageIndex];
+    DebugLog(@"showWithIndex aIndex -- > %d",aIndex);
     
     int tempSpineIndex = 0;//HTML
     int tempPageIndex = 0;//Page
@@ -228,8 +203,8 @@
         
 //        NSLog(@"contentview chapter path - >%@",chapter.spinePath);
         
-        NSLog(@"Chapter.pageCount --- %d",chapter.pageCount);
-        NSLog(@"contentView --> curTotalIndex : %d",curTotalIndex);
+//        NSLog(@"Chapter.pageCount --- %d",chapter.pageCount);
+//        NSLog(@"contentView --> curTotalIndex : %d",curTotalIndex);
         if (aIndex>=perTotalIndex && aIndex<curTotalIndex) {
             tempPageIndex = aIndex - perTotalIndex;
             break;
@@ -237,8 +212,8 @@
         perTotalIndex=curTotalIndex;
         tempSpineIndex++;
     }
-    NSLog(@"perTotalIndex --- %d",perTotalIndex);
-    NSLog(@"curTotalIndex --- %d",curTotalIndex);
+//    NSLog(@"perTotalIndex --- %d",perTotalIndex);
+//    NSLog(@"curTotalIndex --- %d",curTotalIndex);
     NSLog(@"showWithIndex loadSpine: %d  atPageIndex: %d",tempSpineIndex,tempPageIndex);
     
     [self loadSpine:tempSpineIndex atPageIndex:tempPageIndex]; 
@@ -250,6 +225,7 @@
     
     curSpineIndex = spineIndex;
     curPageIndex = pageIndex;  
+    
     //添加当前选中的页面
     [[NSUserDefaults standardUserDefaults] setValue:[NSString stringWithFormat:@"%d",curSpineIndex] forKey:@"curSpineIndex"];
     
@@ -259,7 +235,7 @@
     //[self loadSpine:spineIndex atPageIndex:pageIndex highlightSearchResult:nil];
     NSURL *url = [NSURL fileURLWithPath:chapter.spinePath];
 	[curWebView loadRequest:[NSURLRequest requestWithURL:url]];
- 
+    
 	//currentPageInSpineIndex = pageIndex;
 	//currentSpineIndex = spineIndex;
 }
@@ -267,8 +243,6 @@
 - (void) gotoPageInCurrentSpine:(int)pageIndex{ 
     
     NSLog(@"ContentView gotoPageInCurrentSpine");
-    NSLog(@"=====第%d页,第%d页", curSpineIndex,curPageIndex);
-    
     DebugLog(@"=====第%d页,第%d页", curSpineIndex,curPageIndex);
     
 	float pageOffset = 0;

@@ -30,6 +30,7 @@
 }
 
 @property(nonatomic,assign)UIViewController* rootVC;
+@property(nonatomic,retain) NSString *currentPageIndex;
 
 
 @property(nonatomic,assign)id<OperViewDelegate>delegate;
