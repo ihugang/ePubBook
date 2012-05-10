@@ -90,19 +90,25 @@
 {
     //获取书签列表
     [bookMarks getBookMark];
-    NSString *nowPageIndex = [notification object];
+    NSString *npageIndex = [notification object];
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
     NSString *localTime=[formatter stringFromDate: [NSDate date]];
-
+    
+    DebugLog(@"addBookMark ----> %d",npageIndex);
+    Chapter* chapter = [curBook.chapters objectAtIndex:curSpineIndex];
+    DebugLog(@"title  ---- %@",chapter.title);
+    
     //给当前页面添加书签
-    NSDictionary *pageIndex = [[NSDictionary alloc] initWithObjectsAndKeys:nowPageIndex,@"pageIndex",localTime,@"time",@"asdfas",@"content", nil];
-    [bookMarks.bookmarks setValue:pageIndex forKey:nowPageIndex];
+    NSDictionary *pageIndex = [[NSDictionary alloc] initWithObjectsAndKeys:npageIndex,@"pageIndex",localTime,@"time",chapter.title,@"content", nil];
+    [bookMarks.bookmarks setValue:pageIndex forKey:npageIndex];
+    
+    DebugLog(@"array ---%@",bookMarks.bookmarks);
     [bookMarks.bookmarks writeToFile:bookMarks.filename atomically:YES];
     
-    DebugLog(@"---%@",bookMarks.bookmarks);
     [formatter release];
 }
+
 //字体改变，重新加载页面
 - (void)pageLoad:(NSNotification *)notification
 {
@@ -188,10 +194,10 @@
 -(void)showWithIndex:(int)aIndex {
     NSLog(@"contentView showWithIndex()");
     self.curLable.text =[NSString stringWithFormat:@"%d",aIndex];
-    
     NSString *nowPageIndex = [NSString stringWithFormat:@"%d",aIndex];
+    DebugLog(@"showWithIndex aIndex -- > %@",nowPageIndex);
+    
     [[NSNotificationCenter defaultCenter] postNotificationName:@"pageChange" object:nowPageIndex];
-    DebugLog(@"showWithIndex aIndex -- > %d",aIndex);
     
     int tempSpineIndex = 0;//HTML
     int tempPageIndex = 0;//Page
@@ -200,11 +206,6 @@
     int curTotalIndex = 0;//temp
     for (Chapter* chapter in curBook.chapters) {   
         curTotalIndex += chapter.pageCount;
-        
-//        NSLog(@"contentview chapter path - >%@",chapter.spinePath);
-        
-//        NSLog(@"Chapter.pageCount --- %d",chapter.pageCount);
-//        NSLog(@"contentView --> curTotalIndex : %d",curTotalIndex);
         if (aIndex>=perTotalIndex && aIndex<curTotalIndex) {
             tempPageIndex = aIndex - perTotalIndex;
             break;

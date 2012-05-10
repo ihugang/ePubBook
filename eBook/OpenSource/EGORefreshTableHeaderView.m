@@ -92,21 +92,23 @@
 	if ([_delegate respondsToSelector:@selector(egoRefreshTableHeaderDataSourceLastUpdated:)]) {
 		
 		NSDate *date = [_delegate egoRefreshTableHeaderDataSourceLastUpdated:self];
-		
-		NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-		[formatter setAMSymbol:@"上午"];
-		[formatter setPMSymbol:@"下午"];
-		[formatter setDateFormat:@"yyyy/MM/dd hh:mm:a"];
-		_lastUpdatedLabel.text = [NSString stringWithFormat:@"最后更新: %@", [formatter stringFromDate:date]];
-        
-		[[NSUserDefaults standardUserDefaults] setObject:_lastUpdatedLabel.text forKey:@"EGORefreshTableView_LastRefresh"];
-		[[NSUserDefaults standardUserDefaults] synchronize];
-		[formatter release];
-		
+		if (date != nil) {
+            NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+            [formatter setAMSymbol:@"上午"];
+            [formatter setPMSymbol:@"下午"];
+            [formatter setDateFormat:@"yyyy/MM/dd hh:mm:a"];
+            _lastUpdatedLabel.text = [NSString stringWithFormat:@"最后更新: %@", [formatter stringFromDate:date]];
+            
+            [[NSUserDefaults standardUserDefaults] setObject:_lastUpdatedLabel.text forKey:@"EGORefreshTableView_LastRefresh"];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+            [formatter release];
+
+        }else {
+            _lastUpdatedLabel.text = @"已没有匹配搜索结果！";
+        }
+				
 	} else {
-		
 		_lastUpdatedLabel.text = nil;
-		
 	}
 
 }

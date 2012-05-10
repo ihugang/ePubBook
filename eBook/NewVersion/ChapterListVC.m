@@ -22,7 +22,7 @@
 @end
 
 @implementation ChapterListVC
-@synthesize delegate;
+@synthesize delegate,sortedValues;
 
 - (void)dealloc {
     [chapterList release];
@@ -190,7 +190,16 @@
 
 //设置标题
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    return [NSString stringWithFormat:@"========    Section Title %d    ========",section];
+    if (check == 0) {
+        return @"";
+    }else if (check == 1) {
+        return @"";
+    }else if(check == 2){
+        return [NSString stringWithFormat:@"========    Section Title %d    ========",section];;
+    }else {
+        return [NSString stringWithFormat:@"========    Section Title %d    ========",section];;
+    }
+
 }
 //重新设置显示标题的View
 - (UIView *) tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
@@ -234,20 +243,39 @@
             cell = [[[MyTableViewCell alloc] init] autorelease];
         }
         
-        cell.date.text = @"2010.1.1";
-        cell.number.text = [NSString stringWithFormat:@"%d",indexPath.row];
-        cell.content.text = @"然能够在工作之余整理总结出这本书，也是他对自己多年经营和管理工作经验的一次复盘，我相信他总结出的经验和教训对于后来的创业者会有所启迪。陶然目前正在率领拉卡拉团队在金融服务领域大展宏图，并且有可能成为联想控股旗下现代服务业的一个重要业务模块，代服务业的一个重要业务模块，成为联想正规军的队伍，我也在此祝愿他和他的团队能";
-        
         //书签
         if (check == 1) {
-            cell.date.text = [[bookMarks.currentBookMark.allValues objectAtIndex:indexPath.row] objectForKey:@"time"];
-            cell.number.text = [[bookMarks.currentBookMark.allValues objectAtIndex:indexPath.row] objectForKey:@"pageIndex"];
-            cell.content.text = [[bookMarks.currentBookMark.allValues objectAtIndex:indexPath.row] objectForKey:@"content"];
+            //获取书签列表
+            [bookMarks getBookMark];            
+            //排序
+            NSArray *myKeys = [bookMarks.bookmarks allKeys];
+            NSArray *array = [myKeys sortedArrayUsingFunction:customSort context:nil];
+            
+            self.sortedValues = [[[NSMutableArray alloc] init] autorelease];
+            for(id key in array) {
+                id object = [bookMarks.bookmarks objectForKey:key];
+                [sortedValues addObject:object];
+            }
+            cell.date.text = [[sortedValues objectAtIndex:indexPath.row] objectForKey:@"time"];
+            cell.number.text = [[sortedValues objectAtIndex:indexPath.row] objectForKey:@"pageIndex"];
+            cell.content.text = [[sortedValues objectAtIndex:indexPath.row] objectForKey:@"content"];
+            
+//            cell.date.text = [[bookMarks.currentBookMark.allValues objectAtIndex:indexPath.row] objectForKey:@"time"];
+//            cell.number.text = [[bookMarks.currentBookMark.allValues objectAtIndex:indexPath.row] objectForKey:@"pageIndex"];
+//            cell.content.text = [[bookMarks.currentBookMark.allValues objectAtIndex:indexPath.row] objectForKey:@"content"];
         }
         //书摘
-        
+        if (check == 2) {
+            cell.date.text = @"2010.1.1";
+            cell.number.text = [NSString stringWithFormat:@"%d",indexPath.row];
+            cell.content.text = @"然能够在工作之余整理总结出这本书，也是他对自己多年经营和管理工作经验的一次复盘，我相信他总结出的经验和教训对于后来的创业者会有所启迪。陶然目前正在率领拉卡拉团队在金融服务领域大展宏图，并且有可能成为联想控股旗下现代服务业的一个重要业务模块，代服务业的一个重要业务模块，成为联想正规军的队伍，我也在此祝愿他和他的团队能";
+        }
         //批注
-        
+        if (check == 3) {
+            cell.date.text = @"2010.1.1";
+            cell.number.text = [NSString stringWithFormat:@"%d",indexPath.row];
+            cell.content.text = @"然能够在工作之余整理总结出这本书，也是他对自己多年经营和管理工作经验的一次复盘，我相信他总结出的经验和教训对于后来的创业者会有所启迪。陶然目前正在率领拉卡拉团队在金融服务领域大展宏图，并且有可能成为联想控股旗下现代服务业的一个重要业务模块，代服务业的一个重要业务模块，成为联想正规军的队伍，我也在此祝愿他和他的团队能";
+        }
         cell.date.highlightedTextColor = [UIColor whiteColor];
         cell.number.highlightedTextColor = [UIColor whiteColor];
         cell.content.highlightedTextColor = [UIColor whiteColor];
@@ -290,7 +318,7 @@
         [[NSNotificationCenter defaultCenter] postNotificationName:@"chapterListPageLoad" object:[NSString stringWithFormat:@"%d",chapter.chapterIndex]];
     }else if (check == 1) {
         //书签
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"chapterListPageLoad" object:[[bookMarks.currentBookMark.allValues objectAtIndex:indexPath.row] objectForKey:@"pageIndex"]];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"chapterListPageLoad" object:[[sortedValues objectAtIndex:indexPath.row] objectForKey:@"pageIndex"]];
     }else if(check == 2){
         
     }else {
@@ -310,6 +338,18 @@
     }else {
         return 100.0;
     }
+}
+
+//排序
+NSInteger customSort(id obj1, id obj2,void* context){
+    if ([obj1 integerValue] > [obj2 integerValue]) {
+        return (NSComparisonResult)NSOrderedDescending;
+    }
+    
+    if ([obj1 integerValue] < [obj2 integerValue]) {
+        return (NSComparisonResult)NSOrderedAscending;
+    }
+    return (NSComparisonResult)NSOrderedSame;
 }
 
 - (void)viewDidUnload

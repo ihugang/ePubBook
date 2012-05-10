@@ -88,7 +88,7 @@
     //设置当前页面
     self.currentPageIndex = [notification object];
     [bookMarks getBookMark];
-    DebugLog(@"operView  checkBookMark - %@",[notification object]);
+    DebugLog(@"checkBookMark - %@",[notification object]);
     DebugLog(@"aaaaa  -----> %@",[bookMarks.currentBookMark objectForKey: [notification object]]);
     if ([bookMarks.currentBookMark objectForKey: [notification object]] != nil) {
 //        //添加标签
@@ -140,13 +140,15 @@
     if ([bookMarks.currentBookMark objectForKey:currentPageIndex] == nil) {
         //给当前页面添加书签
         [[NSNotificationCenter defaultCenter] postNotificationName:@"addBookMark" object:currentPageIndex];
-        [bookMark setImage:resImage(@"content/bookmark-blue.png") forState:UIControlStateNormal];
+//        [bookMark setImage:resImage(@"content/bookmark-blue.png") forState:UIControlStateNormal];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"pageChange" object:currentPageIndex];
     }else {
         //删除当前页面书签
         DebugLog(@"remove bookmark");
         [bookMarks.bookmarks removeObjectForKey:currentPageIndex];
         [bookMarks.bookmarks writeToFile:bookMarks.filename atomically:YES];
-        [bookMark setImage:resImage(@"content/bookmark.png") forState:UIControlStateNormal];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"pageChange" object:currentPageIndex];
+//        [bookMark setImage:resImage(@"content/bookmark.png") forState:UIControlStateNormal];
     }
 }
 

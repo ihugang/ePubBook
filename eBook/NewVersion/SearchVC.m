@@ -148,10 +148,10 @@
 
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
 {
-    UIView * sectionView = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.bounds.size.width,tableView.bounds.size.height)] autorelease];
+    UIView * sectionView = [[[UIView alloc] initWithFrame:CGRectMake(0,50, tableView.bounds.size.width,tableView.bounds.size.height)] autorelease];
     //上拉刷新
     _refreshHeaderView=[[EGORefreshTableHeaderView alloc] initWithFrame:
-                        CGRectMake(0,100, sectionView.bounds.size.width, sectionView.bounds.size.height)];
+                        CGRectMake(0,170, sectionView.bounds.size.width, sectionView.bounds.size.height)];
     _refreshHeaderView.delegate=self;
     [_refreshHeaderView refreshLastUpdatedDate];
     
@@ -160,10 +160,10 @@
     [sectionView setAutoresizesSubviews:YES];
     [sectionView setAutoresizingMask:UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleRightMargin];
 
-    if ([tableView numberOfRowsInSection:section] == 0) {
-        _refreshHeaderView.hidden = YES;
-    }else {
+    if ([tableView numberOfRowsInSection:section] > 4) {
         _refreshHeaderView.hidden = NO;
+    }else {
+        _refreshHeaderView.hidden = YES;
     }
     return sectionView;
 
@@ -196,6 +196,7 @@
 
 - (void)searchString:(NSString*)query
 {
+    first = 0;
     self.results = [[NSMutableArray alloc] init];
     self.currentQuery = searchField.text;
     NSLog(@"query --> %@",currentQuery);   
@@ -232,6 +233,8 @@
             if (currentChapterIndex < curBook.ChapterCount) {
                 //重新加载下一个html
                 [self searchString:self.currentQuery inChapterAtIndex:currentChapterIndex];
+            }else {
+                DebugLog(@"NO chapter!");
             }
         }
     }
@@ -327,6 +330,7 @@
     }else {
         DebugLog(@"=results=============%d",results.count );
         [self searchString:currentQuery inChapterAtIndex:(currentChapterIndex + 1 )];
+        [resultTable performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
     }
 
 }
@@ -334,7 +338,11 @@
 //此方法是结束读取数据
 - (void)doneLoadingTableViewData{
 	first = results.count;
-    [self searchString:currentQuery inChapterAtIndex:currentChapterIndex];
+    if (currentChapterIndex < curBook.ChapterCount) {
+        [self searchString:currentQuery inChapterAtIndex:currentChapterIndex];
+    }else {
+        [_refreshHeaderView refreshLastUpdatedDate]; 
+    }
     
 	_reloading = NO;
 	[_refreshHeaderView egoRefreshScrollViewDataSourceDidFinishedLoading:resultTable];
@@ -391,8 +399,11 @@
 
 - (NSDate*)egoRefreshTableHeaderDataSourceLastUpdated:(EGORefreshTableHeaderView*)view{
 	
-	return [NSDate date]; // should return date data source was last changed
-	
+    if (currentChapterIndex < curBook.ChapterCount) {
+        return [NSDate date]; // should return date data source was last changed
+    }else {
+        return nil;
+    }
 }
 
 

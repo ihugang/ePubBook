@@ -16,7 +16,6 @@
 @property (nonatomic,retain) NSDictionary *currentBookMark;
 @property (nonatomic,retain) NSMutableDictionary *bookmarks;
 
-
 SYNTHESIZE_SINGLETON_FOR_CLASS_HEADER(BookMark);
 
 -(void)getBookMark;

@@ -23,4 +23,5 @@
 
 //@private
 - (void) loadSpine:(int)spineIndex atPageIndex:(int)pageIndex;
+
 @end

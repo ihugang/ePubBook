@@ -36,18 +36,6 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(BookMark);
         self.bookmarks = [[NSMutableDictionary alloc] init];
         [bookmarks writeToFile:filename atomically:YES];
     }
-    
-    
-    NSArray* keys = [currentBookMark allKeys];
-    NSArray* sortedArray = [keys sortedArrayUsingComparator:^(id a, id b) { 
-        return [a compare:b options:NSNumericSearch]; 
-    }]; 
-    
-    for( NSString* aStr in sortedArray ) {
-        NSLog( @"%@ has key %@", [currentBookMark objectForKey:aStr], aStr );
-    }
-
-    NSLog(@"  filename _> %@ ",filename);
 }
 
 @end
