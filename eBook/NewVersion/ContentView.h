@@ -14,10 +14,13 @@
     int curSpineIndex;
     int curPageIndex;
     SearchResult* currentSearchResult;
+    
+    BOOL injected;
 }
 @property(nonatomic,assign)UIWebView*  curWebView;
 @property(nonatomic,assign)UILabel*  curLable;
 @property (nonatomic, retain) SearchResult* currentSearchResult;
+@property (nonatomic, retain) NSString *jquery; 
 
 -(void)showWithIndex:(int)aIndex;
 

@@ -15,9 +15,11 @@
 #import "BookMark.h"
 #import "SearchResult.h"
 #import "UIWebView+SearchWebView.h"
+#import "Tags.h"
+#import "TagsHelper.h"
 
 @implementation ContentView
-@synthesize curLable,curWebView,currentSearchResult;
+@synthesize curLable,curWebView,currentSearchResult,jquery;
 - (void)dealloc{
     //释放掉通知
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"searchText" object:nil];
@@ -75,7 +77,7 @@
     [noteMenu release];
     [bookPickMenu release];
     
-    curWebView.userInteractionEnabled = NO;
+//    curWebView.userInteractionEnabled = NO;
     
     //添加通知监听
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pageLoad:) name:@"pageLoad" object:nil];
@@ -97,13 +99,13 @@
     
     DebugLog(@"addBookMark ----> %d",npageIndex);
     Chapter* chapter = [curBook.chapters objectAtIndex:curSpineIndex];
-    DebugLog(@"title  ---- %@",chapter.title);
+//    DebugLog(@"title  ---- %@",chapter.title);
     
     //给当前页面添加书签
     NSDictionary *pageIndex = [[NSDictionary alloc] initWithObjectsAndKeys:npageIndex,@"pageIndex",localTime,@"time",chapter.title,@"content", nil];
     [bookMarks.bookmarks setValue:pageIndex forKey:npageIndex];
     
-    DebugLog(@"array ---%@",bookMarks.bookmarks);
+//    DebugLog(@"array ---%@",bookMarks.bookmarks);
     [bookMarks.bookmarks writeToFile:bookMarks.filename atomically:YES];
     
     [formatter release];
@@ -174,6 +176,17 @@
 //    NSLog(@"Highlighted -- > %@",startSearch);
     [curWebView stringByEvaluatingJavaScriptFromString:startSearch];
     NSLog(@"noteMenuPressed");
+    
+    [self inject];
+    
+    NSString* js = [NSString stringWithFormat:@"loadBeforeTag('%@')",@"a"];
+    [curWebView stringByEvaluatingJavaScriptFromString:js];
+    //加载内容
+    NSArray* list =[[TagsHelper sharedInstanse] getTagsInfo];
+    for (Tags* tag in list) {
+        NSString* js = [NSString stringWithFormat:@"loadBeforeTag('%@')",tag.className];
+        [curWebView stringByEvaluatingJavaScriptFromString:js];
+    }
 }
 //书摘
 - (void)bookPickMenuPressed:(id)sender
@@ -236,9 +249,6 @@
     //[self loadSpine:spineIndex atPageIndex:pageIndex highlightSearchResult:nil];
     NSURL *url = [NSURL fileURLWithPath:chapter.spinePath];
 	[curWebView loadRequest:[NSURLRequest requestWithURL:url]];
-    
-	//currentPageInSpineIndex = pageIndex;
-	//currentSpineIndex = spineIndex;
 }
 
 - (void) gotoPageInCurrentSpine:(int)pageIndex{ 
@@ -263,7 +273,34 @@
 	curWebView.hidden = NO;
 }
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType{
-  
+    NSString *requestString = [[request URL] absoluteString];
+	NSArray *components = [requestString componentsSeparatedByString:@":"];
+    NSLog(@"requestString --> %@",requestString);
+    
+	if ([components count] > 2 && [requestString hasPrefix:@"ibooks:"]) {
+		// document.location = "iBooks:" + "tags:" + randomCssClass + ":" + selectText; 
+        NSString* clssId =[components objectAtIndex:2];
+        NSString* txt =[components objectAtIndex:3]; 
+        if (txt.length<10) {
+            return NO;
+        }
+        NSLog(@"classId -> %@",clssId);
+        NSLog(@"txt --> %@",txt);
+        
+        [[TagsHelper sharedInstanse] addTagWithClassId:clssId txt:txt];
+        //保存html－－
+        
+//        Chapter* chapter = [curBook.chapters objectAtIndex:curSpineIndex];
+        
+//        NSString* newHTML = [webView stringByEvaluatingJavaScriptFromString:@"document.body.outerHTML"];
+//         NSURL *url = [NSURL fileURLWithPath:chapter.spinePath];
+//        [curWebView loadRequest:[NSURLRequest requestWithURL:url]];
+//        [curWebView loadHTMLString:newHTML baseURL:url];
+//        NSString* path = docPath(@"Res/test.htm");
+//        [newHTML writeToFile:path atomically:YES encoding:4 error:nil];
+        NSLog(@"Save---%@",@"");
+		return NO;
+	}
     return YES;
 }
 - (void)webViewDidStartLoad:(UIWebView *)webView{
@@ -316,9 +353,9 @@
             [webView highlightAllOccurencesOfString:currentSearchResult.originatingQuery];
         }
         
-        NSString *xml = [webView stringByEvaluatingJavaScriptFromString:@"document.body.innerText"];
+//        NSString *xml = [webView stringByEvaluatingJavaScriptFromString:@"document.body.innerText"];
 //        
-        DebugLog(@"+++++++++++++++++%@",xml);
+//        DebugLog(@"+++++++++++++++++%@",xml);
         
         //获取返回页面的总宽度
         int totalWidth = [[webView stringByEvaluatingJavaScriptFromString:@"document.documentElement.scrollWidth"] intValue];
@@ -339,10 +376,80 @@
         
     }
     
+    [self inject];
+    //加载内容
+    NSArray* list =[[TagsHelper sharedInstanse] getTagsInfo];
+    for (Tags* tag in list) {
+        NSString* js = [NSString stringWithFormat:@"loadBeforeTag('%@')",tag.className];
+        [webView stringByEvaluatingJavaScriptFromString:js];
+    }
+    
     [self gotoPageInCurrentSpine:curPageIndex];
     
 }
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error{
-    DebugLog(@"%@", @"ttt");
+    DebugLog(@"%@", @"didFailLoadWithError");
 }
+
+- (void) inject{
+    if (!injected) {
+        [self setupJavascript]; 
+    }
+    
+	if (!injected) {
+		[curWebView stringByEvaluatingJavaScriptFromString:jquery];
+        [curWebView stringByEvaluatingJavaScriptFromString:@"loadjscssfile('css.css', 'css')"];
+		injected = YES; 
+	} 
+}
+
+- (void) setupJavascript {
+    /*
+     <script type="text/javascript" src="jquery-1.7.2.js"></script> 
+     <script type="text/javascript" src="rangy.js"></script>
+     <script type="text/javascript" src="injection.js"></script>
+     */
+	NSFileManager *fileManager = [NSFileManager defaultManager]; 
+    
+	NSString *jqueryFilePath =resPath(@"Res/jquery-1.7.2.js");
+	BOOL jqueryFileExists = [fileManager fileExistsAtPath:jqueryFilePath];
+	if (! jqueryFileExists) {
+		NSLog(@"The jquery file does not exist.");
+		return;
+	} 
+    
+    NSData *jqueryFileData = [fileManager contentsAtPath:jqueryFilePath];
+	NSString *jqueryFileContentsAsString = [[NSString alloc] initWithData:jqueryFileData encoding:NSASCIIStringEncoding]; 
+	// injection.js
+	NSString *injectionFilePath = resPath(@"Res/rangy.js");
+	
+	BOOL injectionFileExists = [fileManager fileExistsAtPath:injectionFilePath]; 
+	if (! injectionFileExists) {
+		NSLog(@"The injection file does not exist.");
+		return;
+	} 
+	NSData *injectionFileData = [fileManager contentsAtPath:injectionFilePath];
+	NSString *injectionFileContentsAsString = [[NSString alloc] initWithData:injectionFileData encoding:NSASCIIStringEncoding]; 
+    
+    self.jquery = [jqueryFileContentsAsString stringByAppendingString:injectionFileContentsAsString];
+    
+    jqueryFileData = [fileManager contentsAtPath:jqueryFilePath];
+    jqueryFileContentsAsString = [[NSString alloc] initWithData:jqueryFileData encoding:NSASCIIStringEncoding]; 
+	// injection.js
+    injectionFilePath = resPath(@"Res/injection.js");
+	
+	injectionFileExists = [fileManager fileExistsAtPath:injectionFilePath]; 
+	if (! injectionFileExists) {
+		NSLog(@"The injection file does not exist.");
+		return;
+	} 
+    
+    injectionFileData = [fileManager contentsAtPath:injectionFilePath];
+    injectionFileContentsAsString = [[NSString alloc] initWithData:injectionFileData encoding:NSASCIIStringEncoding];
+    
+	// concat the two files
+	self.jquery = [self.jquery stringByAppendingString:injectionFileContentsAsString];
+}
+
+
 @end

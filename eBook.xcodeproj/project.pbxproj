@@ -10,6 +10,8 @@
 		10176DFA1556CB4100BBA89C /* BookStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 10176DF91556CB4100BBA89C /* BookStore.m */; };
 		10772A00154B9FA7006DA171 /* SearchVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 107729FF154B9FA6006DA171 /* SearchVC.m */; };
 		10772A04154BDFEC006DA171 /* SettingVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 10772A03154BDFEC006DA171 /* SettingVC.m */; };
+		108109E3155BC46800815401 /* Tags.m in Sources */ = {isa = PBXBuildFile; fileRef = 108109E0155BC46700815401 /* Tags.m */; };
+		108109E4155BC46800815401 /* TagsHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 108109E2155BC46800815401 /* TagsHelper.m */; };
 		1081C662155A4B3E0072D275 /* EGORefreshTableHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1081C661155A4B3E0072D275 /* EGORefreshTableHeaderView.m */; };
 		1081C668155A4B930072D275 /* blackArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 1081C664155A4B930072D275 /* blackArrow.png */; };
 		1081C669155A4B930072D275 /* blackArrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1081C665155A4B930072D275 /* blackArrow@2x.png */; };
@@ -155,6 +157,10 @@
 		107729FF154B9FA6006DA171 /* SearchVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchVC.m; sourceTree = "<group>"; };
 		10772A02154BDFEB006DA171 /* SettingVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingVC.h; sourceTree = "<group>"; };
 		10772A03154BDFEC006DA171 /* SettingVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingVC.m; sourceTree = "<group>"; };
+		108109DF155BC46700815401 /* Tags.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tags.h; sourceTree = "<group>"; };
+		108109E0155BC46700815401 /* Tags.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Tags.m; sourceTree = "<group>"; };
+		108109E1155BC46800815401 /* TagsHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TagsHelper.h; sourceTree = "<group>"; };
+		108109E2155BC46800815401 /* TagsHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TagsHelper.m; sourceTree = "<group>"; };
 		1081C660155A4B3E0072D275 /* EGORefreshTableHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EGORefreshTableHeaderView.h; sourceTree = "<group>"; };
 		1081C661155A4B3E0072D275 /* EGORefreshTableHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EGORefreshTableHeaderView.m; sourceTree = "<group>"; };
 		1081C664155A4B930072D275 /* blackArrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = blackArrow.png; sourceTree = "<group>"; };
@@ -894,6 +900,10 @@
 		181AC6CF153D18CF00177AE6 /* NewVersion */ = {
 			isa = PBXGroup;
 			children = (
+				108109DF155BC46700815401 /* Tags.h */,
+				108109E0155BC46700815401 /* Tags.m */,
+				108109E1155BC46800815401 /* TagsHelper.h */,
+				108109E2155BC46800815401 /* TagsHelper.m */,
 				10C52BB71557AB5000117172 /* SearchWebView.js */,
 				18171F341544ECAC00CD83A8 /* Base */,
 				108CF42C154A81A7004860E3 /* MyTableCell.h */,
@@ -1118,6 +1128,8 @@
 				10C52BB81557AB5000117172 /* SearchWebView.js in Sources */,
 				10C52BC31558BA0500117172 /* BookMark.m in Sources */,
 				1081C662155A4B3E0072D275 /* EGORefreshTableHeaderView.m in Sources */,
+				108109E3155BC46800815401 /* Tags.m in Sources */,
+				108109E4155BC46800815401 /* TagsHelper.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
