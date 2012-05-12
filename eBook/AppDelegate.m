@@ -108,28 +108,32 @@
 //    NSLog(@"applicationDidBecomeActive");
     NSLog(@"winBrightness----%.1f",[[UIScreen mainScreen] brightness]);    
     float winBrightness = [[UIScreen mainScreen] brightness];
+    defaults = [NSUserDefaults standardUserDefaults];
     //记录屏幕当前亮度
-    [[NSUserDefaults standardUserDefaults] setValue:[NSString stringWithFormat:@"%.1f",winBrightness] forKey:@"winBrightness"];
+    [defaults setValue:[NSString stringWithFormat:@"%.1f",winBrightness] forKey:@"winBrightness"];
+    [defaults synchronize];//写入数据
     //第一次进入，
-    if ([[NSUserDefaults standardUserDefaults] valueForKey:@"bookBrightness"] == nil) {
+    if ([defaults valueForKey:@"bookBrightness"] == nil) {
         NSLog(@"first enter");
         //设置系统当前亮度
-        [[NSUserDefaults standardUserDefaults] setValue:[NSString stringWithFormat:@"%.1f",0.0] forKey:@"bookBrightness"];
+        [defaults setValue:[NSString stringWithFormat:@"%.1f",0.0] forKey:@"bookBrightness"];
+        [defaults synchronize];//写入数据
         //[brightnessView setAlpha:[[[NSUserDefaults standardUserDefaults] valueForKey:@"bookBrightness"] floatValue]];//设置alpha值
     }
     
     //设置第一次运行程序的字体
-    if ([[NSUserDefaults standardUserDefaults] valueForKey:@"bodyFontSize"] == nil) {
+    if ([defaults valueForKey:@"bodyFontSize"] == nil) {
         NSLog(@"first set fontsize");
-        [[NSUserDefaults standardUserDefaults] setValue:@"28" forKey:@"bodyFontSize"];
+        [defaults setValue:@"28" forKey:@"bodyFontSize"];
+        [defaults synchronize];//写入数据
     }
     
-    NSLog(@"nowbightness -- %f",[[[NSUserDefaults standardUserDefaults] valueForKey:@"bookBrightness"] floatValue]);
+    NSLog(@"nowbightness -- %f",[[defaults valueForKey:@"bookBrightness"] floatValue]);
     //设置应用系统亮度
     //[[UIScreen mainScreen] setBrightness:[[[NSUserDefaults standardUserDefaults] valueForKey:@"bookBrightness"] floatValue]];
     
     
-    [brightnessView setAlpha:[[[NSUserDefaults standardUserDefaults] valueForKey:@"bookBrightness"] floatValue]];//设置alpha值
+    [brightnessView setAlpha:[[defaults valueForKey:@"bookBrightness"] floatValue]];//设置alpha值
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application

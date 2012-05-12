@@ -25,10 +25,16 @@
     [self.view addSubview:navBar];
     [navBar setAutoresizesSubviews:YES];
     [navBar setAutoresizingMask:UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleRightMargin];
+    [navBar setTintColor:[UIColor colorWithPatternImage:skinImage(@"operbar/b002.png")]];
+    //给导航栏设置背景图片
+//    if ([navBar respondsToSelector:@selector(setBackgroundImage:forBarMetrics:)]) {
+//        [navBar setBackgroundImage:skinImage(@"operbar/b002.png") forBarMetrics:UIBarMetricsDefault];
+//    }
+    
     //创建一个导航栏集合  
     UINavigationItem *navigationItem = [[UINavigationItem alloc] initWithTitle:nil];    
     //创建一个左边按钮  
-    UIBarButtonItem *leftButton = [[UIBarButtonItem alloc] initWithTitle:@"关闭"     
+    UIBarButtonItem *leftButton = [[UIBarButtonItem alloc] initWithTitle:@"返回"     
                                                                    style:UIBarButtonItemStylePlain    
                                                                   target:self     
                                                                   action:@selector(clickLeftButton)];    
@@ -43,9 +49,9 @@
     [navBar pushNavigationItem:navigationItem animated:YES];
     //把左右两个按钮添加入导航栏集合中  
     [navigationItem setLeftBarButtonItem:leftButton];   
-    [navigationItem setRightBarButtonItem:rightButton]; 
+//    [navigationItem setRightBarButtonItem:rightButton]; 
     
-    UITableView *booksList = [[UITableView alloc] initWithFrame:CGRectMake(0, navBar.frame.size.height, self.view.bounds.size.width, self.view.bounds.size.height - navBar.frame.size.height)];
+    UITableView *booksList = [[UITableView alloc] initWithFrame:CGRectMake(0, navBar.frame.size.height, self.view.bounds.size.width, self.view.bounds.size.height - navBar.bounds.size.height)];
     [booksList setDelegate:self];
     [booksList setDataSource:self];
     [booksList setAutoresizesSubviews:YES];

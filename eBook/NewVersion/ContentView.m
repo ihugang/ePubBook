@@ -206,10 +206,13 @@
 
 -(void)showWithIndex:(int)aIndex {
     NSLog(@"contentView showWithIndex()");
+    //添加当前浏览的页面
+    [[NSUserDefaults standardUserDefaults] setValue:[NSString stringWithFormat:@"%d",aIndex] forKey:@"curPageIndex"];
+    [[NSUserDefaults standardUserDefaults] synchronize];//写入数据
+    
     self.curLable.text =[NSString stringWithFormat:@"%d",aIndex];
     NSString *nowPageIndex = [NSString stringWithFormat:@"%d",aIndex];
     DebugLog(@"showWithIndex aIndex -- > %@",nowPageIndex);
-    
     [[NSNotificationCenter defaultCenter] postNotificationName:@"pageChange" object:nowPageIndex];
     
     int tempSpineIndex = 0;//HTML
@@ -240,8 +243,9 @@
     curSpineIndex = spineIndex;
     curPageIndex = pageIndex;  
     
-    //添加当前选中的页面
+    //添加当前选中的页面，对应目录列表中当前选中的行
     [[NSUserDefaults standardUserDefaults] setValue:[NSString stringWithFormat:@"%d",curSpineIndex] forKey:@"curSpineIndex"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
     
   //  pageCount, chapterIndex
     Chapter* chapter = [curBook.chapters objectAtIndex:spineIndex];
@@ -450,6 +454,5 @@
 	// concat the two files
 	self.jquery = [self.jquery stringByAppendingString:injectionFileContentsAsString];
 }
-
 
 @end

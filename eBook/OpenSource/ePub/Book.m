@@ -23,6 +23,10 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(Book);
     
     float fontSize = [[[NSUserDefaults standardUserDefaults] valueForKey:@"bodyFontSize"] floatValue];
     NSLog(@"bodyFontSize --- > %f",fontSize);
+    //第一次程序加载，字体默认值
+    if (fontSize == 0) {
+        fontSize = 28;
+    }
     
     NSString* path = nil;
     if (mf_IsPad) {

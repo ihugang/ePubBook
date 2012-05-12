@@ -9,7 +9,7 @@
 #import "NavView.h"
 
 @implementation NavView
-@synthesize delegate,count;
+@synthesize delegate,count,pageSlider,value;
 - (void)dealloc {
     self.delegate = nil;
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"pageChange" object:nil];
@@ -25,7 +25,7 @@
    // self.backgroundColor =[UIColor blueColor];
     
     pageSlider = [[UISlider alloc] initWithFrame:CGRectMake(0, 0, self.bounds.size.width - 40, 10)];
-//    pageSlider.value = ;
+//    pageSlider.value = [[[NSUserDefaults standardUserDefaults] objectForKey:@"curPageIndex"] intValue];
     pageSlider.centerX = self.width/2;
     pageSlider.top = 30;
     //滑块图片
@@ -46,6 +46,11 @@
 - (void)pageChange:(NSNotification*)notification
 {
     pageSlider.value = [[notification object] intValue];
+}
+
+- (void)setValue:(int)aValue{
+    value = aValue;
+    pageSlider.value = value;
 }
  
 -(void)setCount:(int)aCount{ 

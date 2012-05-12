@@ -23,6 +23,7 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
+    [self.navigationItem setTitle:@"版权信息"];
     
     UIImageView *about = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height - 44)];
     [about setImage:resImage(@"content/g001.png")];

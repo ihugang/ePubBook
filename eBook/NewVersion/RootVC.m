@@ -13,7 +13,7 @@
 #import "Book.h"
 
 @implementation RootVC
-@synthesize pageView,datasoucre;
+@synthesize pageView,datasoucre,lastPage;
 - (void)dealloc {
     self.datasoucre = nil;
     //释放掉通知
@@ -23,22 +23,35 @@
 }
  
 -(void)addUI{
+    //最后一次加载的页面
+//    NSString *lastPage = [[NSUserDefaults standardUserDefaults] objectForKey:@"curPageIndex"];
+    DebugLog(@"lastPageIndex ---> %@",lastPage);
+//    if (lastPage == nil) {
+//        lastPage = @"0";//程序第一次加载，默认第0页开始
+//    }
     [self.pageView removeFromSuperview];
     self.pageView =[[[ATPagingView alloc] initWithFrame:self.view.bounds] autorelease];
     self.pageView.delegate = self;
     self.pageView.pagesToPreload = 0;
+    self.pageView.currentPageIndex = self.lastPage.intValue;//设置默认的加载页面
     self.pageView.backgroundColor =[UIColor scrollViewTexturedBackgroundColor];
     [self.view insertSubview:self.pageView atIndex:0];
     [self.pageView setAutoresizingMask:UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleRightMargin];
     [self.pageView reloadData];
  
+    
+    NSLog(@"addUI");
 }
 
 -(void)userTapOper:(UITapGestureRecognizer*)gesture{
     CGPoint p  =   [gesture locationInView:self.view];
     CGSize windowSize = self.view.bounds.size;
+    
+    DebugLog(@"userTapOper  p.x -> %f ",p.x);
+    DebugLog(@"windowSize _ > %f",windowSize.width);
 
     float pos =  p.x/windowSize.width;
+     DebugLog(@"pos _ > %f",windowSize.width);
     
     if (pos<0.2&&self.pageView.currentPageIndex>0) {
          self.pageView.currentPageIndex-=1;
@@ -74,12 +87,18 @@
     [self.view addSubview:ov];
     [ov setAutoresizingMask:UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleRightMargin];
     
+    
     NavView* nv =[NavView createWithSize:CGSizeMake(self.view.width, 44)];
     navView = nv;
     nv.bottom = self.view.height;
     nv.delegate=self;
     [self.view addSubview:nv];
     [nv setAutoresizingMask:UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleRightMargin];
+    
+    self.lastPage = [[NSUserDefaults standardUserDefaults] objectForKey:@"curPageIndex"];
+    if (lastPage == nil) {
+        self.lastPage = @"0";//程序第一次加载，默认第0页开始
+    }
     
     //提示下载
     MBProgressHUD* hud =[MBProgressHUD showHUDAddedTo:self.view animated:YES];
@@ -90,12 +109,13 @@
         parsing = YES;
         [self addUI]; 
         nv.count = curBook.PageCount;
+        //设置拖动条的默认值
+        nv.value = self.lastPage.intValue;
     }]; 
     
     //添加上面的view 
 //    operViewShowed = NO; 
     [self swichUI:NO];
-
     UITapGestureRecognizer* tapGesture =[[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(userTapOper:)] autorelease];
     tapGesture.delegate = self;
     [self.view addGestureRecognizer:tapGesture]; 
@@ -125,6 +145,10 @@
 }
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch {
 
+    if (touch.tapCount == 2) {
+        [self swichUI:!operViewShowed];
+        return NO;
+    }
     if ([touch.view isKindOfClass:[UIButton class]]) 
     { 
 		return NO;
@@ -133,8 +157,11 @@
     if ([touch.view isDescendantOfView:navView]||
         [touch.view isDescendantOfView:operView]
         ) {
+        //隐藏掉字体设置窗体
+        [self.view viewWithTag:1001].hidden = YES;
         return NO;
     }
+    
     return YES;
 }
 
@@ -150,14 +177,16 @@
          cwv = [ContentWrapperView createWithSize:pagingView.frame.size];
     }
     [cwv showWithPathIndex:index];
+    NSLog(@"viewForPageInPagingView");
     return cwv;
 }
 
 -(void)pagesDidChangeInPagingView:(ATPagingView *)pagingView{
-    
+//    self.pageView.currentPageIndex = 5;
+    NSLog(@"pagesDidChangeInPagingView");
 }
 -(void)currentPageDidChangeInPagingView:(ATPagingView *)pagingView{
-  
+   NSLog(@"currentPageDidChangeInPagingView");
 
 }
 #pragma mark 旋转

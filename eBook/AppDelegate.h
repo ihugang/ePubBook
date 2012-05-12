@@ -14,6 +14,7 @@
 {
     eBookViewController *eBook;
     UIView *brightnessView;
+    NSUserDefaults *defaults;
 }
 
 @property (strong, nonatomic) UIWindow *window;

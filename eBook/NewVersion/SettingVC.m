@@ -13,6 +13,13 @@
 
 @end
 
+@implementation UINavigationBar (CustomImage)
+-(void)drawRect:(CGRect)rect {
+    UIImage *image = skinImage(@"operbar/b002.png");
+    [image drawInRect:CGRectMake(0,0,self.frame.size.width,self.frame.size.height)];
+}
+@end
+
 @implementation SettingVC
 @synthesize test,navControl;
 
@@ -23,6 +30,7 @@
     [super dealloc];
 }
 
+
 - (void)viewDidLoad
 {
     [self.view setBackgroundColor:[UIColor scrollViewTexturedBackgroundColor]];
@@ -31,7 +39,11 @@
 ////    [self.view addSubview:navBar];
 //    [navBar setAutoresizesSubviews:YES];
 //    [navBar setAutoresizingMask:UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleRightMargin];
-        
+    self.navigationController.navigationBar.tintColor = [UIColor colorWithPatternImage:skinImage(@"operbar/b002.png")];
+//    [self.navigationController.navigationBar setFrame:CGRectMake(0, 0, self.view.bounds.size.width, 44)];
+    
+    //    //创建一个导航栏集合  
+    //    UINavigationItem *navigationItem = [[UINavigationItem alloc] initWithTitle:nil];
     //创建一个左边按钮  
     UIBarButtonItem *leftButton = [[UIBarButtonItem alloc] initWithTitle:@"返回"     
                                                                    style:UIBarButtonItemStyleBordered     
@@ -45,10 +57,9 @@
     self.navigationItem.title = @"设置";
     //添加按钮
     [self.navigationItem setLeftBarButtonItem:leftButton];
-    [self.navigationItem setRightBarButtonItem:rightButton];
+//    [self.navigationItem setRightBarButtonItem:rightButton];
     
-//    //创建一个导航栏集合  
-//    UINavigationItem *navigationItem = [[UINavigationItem alloc] initWithTitle:nil];
+
 //    //设置导航栏内容  
 //    [navigationItem setTitle:@"设置"]; 
 //    //把导航栏集合添加入导航栏中，设置动画关闭  

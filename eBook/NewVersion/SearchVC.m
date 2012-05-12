@@ -31,13 +31,39 @@
 {
     [self.view setBackgroundColor:[UIColor scrollViewTexturedBackgroundColor]];
     
-    UIView *searchView = [[UIView alloc] initWithFrame:CGRectMake(10, 20, self.view.bounds.size.width - 20, 50)];
+    UINavigationBar *navBar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 44)];
+    [self.view addSubview:navBar];
+    [navBar setAutoresizesSubviews:YES];
+    [navBar setAutoresizingMask:UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleRightMargin];
+    
+    [navBar setTintColor:[UIColor colorWithPatternImage:skinImage(@"operbar/b002.png")]];
+    //给导航栏设置背景图片
+    //    if ([navBar respondsToSelector:@selector(setBackgroundImage:forBarMetrics:)]) {
+    //        [navBar setBackgroundImage:skinImage(@"operbar/b002.png") forBarMetrics:UIBarMetricsDefault];
+    //    }
+    
+    //创建一个导航栏集合  
+    UINavigationItem *navigationItem = [[UINavigationItem alloc] initWithTitle:nil];    
+    //创建一个左边按钮  
+    UIBarButtonItem *leftButton = [[UIBarButtonItem alloc] initWithTitle:@"返回"     
+                                                                   style:UIBarButtonItemStylePlain    
+                                                                  target:self     
+                                                                  action:@selector(clickLeftButton)];      
+    //设置导航栏内容  
+    [navigationItem setTitle:@"搜 索"];  
+    //把导航栏集合添加入导航栏中，设置动画关闭  
+    [navBar pushNavigationItem:navigationItem animated:YES];
+    //把左右两个按钮添加入导航栏集合中  
+    [navigationItem setLeftBarButtonItem:leftButton];
+    
+    
+    UIView *searchView = [[UIView alloc] initWithFrame:CGRectMake(10, navBar.bounds.size.height+10, self.view.bounds.size.width - 20, 50)];
     [searchView setBackgroundColor:[UIColor whiteColor]];
     [searchView setAutoresizesSubviews:YES];
     [searchView setAutoresizingMask:UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleRightMargin];
     [self.view addSubview:searchView];
     
-    UIView *resultView = [[UIView alloc] initWithFrame:CGRectMake(10, 80, self.view.bounds.size.width - 20, self.view.bounds.size.height - 80)];
+    UIView *resultView = [[UIView alloc] initWithFrame:CGRectMake(10, navBar.bounds.size.height + searchView.bounds.size.height + 20, self.view.bounds.size.width - 20, self.view.bounds.size.height - navBar.bounds.size.height - searchView.bounds.size.height - 10)];
     [resultView setBackgroundColor:[UIColor whiteColor]];
     [resultView setAutoresizesSubviews:YES];
     [resultView setAutoresizingMask:UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleRightMargin];
@@ -85,6 +111,12 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
 }
+
+-(void)clickLeftButton  
+{  
+    NSLog(@"clickLeftButton");
+    [self dismissModalViewControllerAnimated:YES];
+} 
 
 - (void)search:(id)sender
 {

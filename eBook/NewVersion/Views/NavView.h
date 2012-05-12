@@ -20,7 +20,8 @@
     UISlider *pageSlider;
     
 }
-
+@property(nonatomic,retain) UISlider *pageSlider;
+@property(nonatomic,assign)int value;
 @property(nonatomic,assign)int count;
 
 @property(nonatomic,assign)id<NavViewDelegate>delegate;

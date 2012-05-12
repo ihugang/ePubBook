@@ -81,7 +81,7 @@
     [cataButton4 addTarget:self action:@selector(catalogSelected:) forControlEvents:UIControlEventTouchUpInside];
     [imageView addSubview:cataButton4];
     
-    chapterList = [[UITableView alloc] initWithFrame:CGRectMake(10, 90, self.view.bounds.size.width-20 , self.view.bounds.size.height) style:UITableViewStyleGrouped];
+    chapterList = [[UITableView alloc] initWithFrame:CGRectMake(10, 90, self.view.bounds.size.width-20 , self.view.bounds.size.height - imageView.bounds.size.height) style:UITableViewStyleGrouped];
     [chapterList setAutoresizesSubviews:YES];
     [chapterList setAutoresizingMask:UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight];
     [chapterList setDelegate:self];
@@ -90,23 +90,51 @@
     [chapterList setSeparatorColor:[UIColor clearColor]];//去掉背景
     [chapterList setSeparatorStyle:UITableViewCellSeparatorStyleNone];//设置没有分割线
     [self.view addSubview:chapterList];
+    //设置目录当前选中的行
+    [self setRowSeclectAndScroll];
     
-    ///设置默认选中的行
-    curSpineIndex = [[[NSUserDefaults standardUserDefaults] valueForKey:@"curSpineIndex"] intValue];
-    ip=[NSIndexPath indexPathForRow:curSpineIndex inSection:0];
-    [chapterList selectRowAtIndexPath:ip animated:YES scrollPosition:UITableViewScrollPositionBottom];
+    //添加一个返回的view 
+    UIView *backView = [[UIView alloc] initWithFrame:CGRectMake(self.view.bounds.size.width - 40, self.view.bounds.size.height/2 - 30,40, 70)];
+    [backView setBackgroundColor:[UIColor grayColor]];
+    [backView setAlpha:0.5];
+    [self.view addSubview:backView];
+    
+    UIButton *backButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [backButton setFrame:CGRectMake(0, 0, backView.bounds.size.width, backView.bounds.size.height)];
+    [backButton addTarget:self action:@selector(backTo:) forControlEvents:UIControlEventTouchUpInside];
+    [backView addSubview:backButton];
+    
+    UIImageView *backImage = [[UIImageView alloc] initWithFrame:CGRectMake(10, 15, 35, 35)];
+    [backImage setImage:skinImage(@"catalogbar/箭头2.png")];
+    [backButton addSubview:backImage];
     
     [self.view setBackgroundColor:[UIColor colorWithPatternImage:skinImage(@"catalogbar/h004.png")]];
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
 }
 
-- (void)buttonClick:(id)sender
+//返回页面
+- (void)backTo:(id)sender
 {
     NSLog(@"buttonClick");
-    
-    UIButton *button = (UIButton *)sender;
-    NSLog(@"button %d",button.tag);
+//    infoViewController.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
+//    [self presentModalViewController:infoViewController animated:YES];
+//    
+//    [UIView beginAnimations:nil context:nil];
+//    [UIView setAnimationCurve:UIViewAnimationCurveLinear];
+//    [UIView setAnimationDuration:5];
+//    [UIView setAnimationTransition:UIViewAnimationTransitionFlipFromLeft forView:self.view cache:YES];
+    [self setModalTransitionStyle:UIModalTransitionStyleFlipHorizontal];
+    [self dismissModalViewControllerAnimated:YES];
+//    [UIView commitAnimations];
+}
+
+///设置默认选中的行
+- (void)setRowSeclectAndScroll
+{
+    curSpineIndex = [[[NSUserDefaults standardUserDefaults] valueForKey:@"curSpineIndex"] intValue];
+    ip=[NSIndexPath indexPathForRow:curSpineIndex inSection:0];
+    [chapterList selectRowAtIndexPath:ip animated:YES scrollPosition:UITableViewScrollPositionMiddle];
 }
 
 - (void)catalogSelected:(id)sender
@@ -121,13 +149,8 @@
             [cataButton2 setBackgroundImage:nil forState:UIControlStateNormal];
             [cataButton3 setBackgroundImage:nil forState:UIControlStateNormal];
             [cataButton4 setBackgroundImage:nil forState:UIControlStateNormal];
-            
             [chapterList reloadData];
-            ///设置默认选中的行
-            curSpineIndex = [[[NSUserDefaults standardUserDefaults] valueForKey:@"curSpineIndex"] intValue];
-            ip=[NSIndexPath indexPathForRow:curSpineIndex inSection:0];
-//            DebugLog(@"aaaaa - %d",curSpineIndex);
-            [chapterList selectRowAtIndexPath:ip animated:YES scrollPosition:UITableViewScrollPositionBottom]; 
+            [self setRowSeclectAndScroll];
             break;  
         case 1:  
             // 标签
@@ -292,9 +315,6 @@
         Chapter *chapter =  [curBook.chapters objectAtIndex:indexPath.row];
         cell.content.text = chapter.title;
         cell.index.text = [NSString stringWithFormat:@"%d",chapter.chapterIndex];
-//        
-//        cell.content.text = @"工作之余整";
-//        cell.index.text = [NSString stringWithFormat:@"%d",indexPath.row];
         
         cell.content.highlightedTextColor = [UIColor whiteColor];
         cell.index.highlightedTextColor = [UIColor whiteColor];
@@ -324,7 +344,6 @@
     }else {
         
     }
-
     
     [self.delegate ChapterListClick];
     

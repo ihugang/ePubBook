@@ -140,6 +140,7 @@
 //    NSLog(@"sliderValueChanged:%.1f",fBrightness);
     //保存设置的屏幕亮度
     [[NSUserDefaults standardUserDefaults] setValue:[NSString stringWithFormat:@"%.1f",fBrightness] forKey:@"bookBrightness"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
     //发送通知，就是说此时要调用观察者处的方
     [[NSNotificationCenter defaultCenter] postNotificationName:@"brightness" object:[NSString stringWithFormat:@"%.1f",fBrightness]];
     //设置当前屏幕亮度
@@ -171,6 +172,8 @@
         [maxButton setBackgroundImage:skinImage(@"fontbar/c010-选中.png") forState:UIControlStateNormal];
         [[NSUserDefaults standardUserDefaults] setValue:@"44" forKey:@"bodyFontSize"];
     }
+    //写入数据
+    [[NSUserDefaults standardUserDefaults] synchronize];
     [[Book sharedInstance] prepareBook];
     //发送通知，就是说此时要调用观察者处的方
     [[NSNotificationCenter defaultCenter] postNotificationName:@"pageLoad" object:[NSString stringWithFormat:@"%d",select.tag]];
