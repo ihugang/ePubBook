@@ -34,66 +34,47 @@
         [self.delegate operViewTappedToDissmiss];
     }];
     
-    
-    UIButton *btnlist = [UIButton buttonWithType:UIButtonTypeCustom];
-    [btnlist setFrame:CGRectMake(20,10, 18, 18)];
-    [btnlist setBackgroundImage:skinImage(@"operbar/b003.png") forState:UIControlStateNormal];
-    [btnlist addTarget:self action:@selector(btnListTapped:) forControlEvents:UIControlEventTouchUpInside];
-    [self addSubview:btnlist];
-    
     UIButton* btnList =[UIButton nodeWithOnImage:nil offImage:skinImage(@"operbar/b003.png")];
     //btnList.size = CGSizeMake(btnList.width*2, btnList.height*2);
     btnList.left = 20;
     btnList.top = 12;
     //    [btnList addEvent:@selector(btnListTapped:) atContainer:self];
     [btnList addTarget:self action:@selector(btnListTapped:) forControlEvents:UIControlEventTouchUpInside];
-//    [self addSubview:btnList];
-    
-    fontsize = [UIButton buttonWithType:UIButtonTypeCustom];
-    [fontsize setFrame:CGRectMake(btnlist.right + 20 ,10, 21, 18)];
-    [fontsize setBackgroundImage:skinImage(@"operbar/b004.png") forState:UIControlStateNormal];
-    [fontsize addTarget:self action:@selector(btnFontSizeTapped:) forControlEvents:UIControlEventTouchUpInside];
-    [self addSubview:fontsize];
+    [self addSubview:btnList];
     
     btnFontSize =[UIButton nodeWithOnImage:nil offImage:skinImage(@"operbar/b004.png")];
     //btnFontSize.size = btnList.size;
-    btnFontSize.left = btnList.right + 30;
+    btnFontSize.left = btnList.right + 20;
     btnFontSize.top = btnList.top;
     [btnFontSize addEvent:@selector(btnFontSizeTapped:) atContainer:self];
-//    [self addSubview:btnFontSize];
-    
-    
-    UIButton *btnsearch = [UIButton buttonWithType:UIButtonTypeCustom];
-    [btnsearch setFrame:CGRectMake(fontsize.right + 20 ,10, 20, 20)];
-    [btnsearch setBackgroundImage:skinImage(@"operbar/b005.png") forState:UIControlStateNormal];
-    [btnsearch addTarget:self action:@selector(btnSearchTapped:) forControlEvents:UIControlEventTouchUpInside];
-    [self addSubview:btnsearch];
+    [self addSubview:btnFontSize];
     
     UIButton* btnSearch =[UIButton nodeWithOnImage:nil offImage:skinImage(@"operbar/b005.png")];
     // btnSearch.size = btnList.size;
-    btnSearch.left = btnFontSize.right + 30;
+    btnSearch.left = btnFontSize.right + 20;
     btnSearch.top = btnList.top;
     [btnSearch addEvent:@selector(btnSearchTapped:) atContainer:self];
-//    [self addSubview:btnSearch];
-    
-    UIButton *btnset = [UIButton buttonWithType:UIButtonTypeCustom];
-    [btnset setFrame:CGRectMake(btnsearch.right + 20 ,9, 20, 20)];
-    [btnset setBackgroundImage:skinImage(@"operbar/b006.png") forState:UIControlStateNormal];
-    [btnset addTarget:self action:@selector(btnSettingTapped:) forControlEvents:UIControlEventTouchUpInside];
-    [self addSubview:btnset];
+    [self addSubview:btnSearch];
     
     UIButton* btnSetting =[UIButton nodeWithOnImage:nil offImage:skinImage(@"operbar/b006.png")];
     // btnSetting.size = btnList.size;
-    btnSetting.left = btnSearch.right + 30;
+    btnSetting.left = btnSearch.right + 20;
     btnSetting.top = btnList.top;
     [btnSetting addEvent:@selector(btnSettingTapped:) atContainer:self];
-//    [self addSubview:btnSetting];
+    [self addSubview:btnSetting];
     
-    bookMark = [UIButton buttonWithType:UIButtonTypeCustom];
-    [bookMark setImage:resImage(@"content/bookmark.png") forState:UIControlStateNormal];
-    [bookMark setFrame:CGRectMake(btnSetting.right + 15, 8, 20, 20)];
-    [bookMark addTarget:self action:@selector(addBookMark:) forControlEvents:UIControlEventTouchUpInside];
+    bookMark = [UIButton nodeWithOnImage:nil offImage:resImage(@"content/bookmark.png")];
+    bookMark.left = btnSetting.right + 20;
+    bookMark.top = 7;
+    [bookMark addEvent:@selector(addBookMark:) atContainer:self];
+//    [bookMark addTarget:self action:@selector(addBookMark:) forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:bookMark];
+    
+//    bookMark = [UIButton buttonWithType:UIButtonTypeCustom];
+//    [bookMark setImage:resImage(@"content/bookmark.png") forState:UIControlStateNormal];
+//    [bookMark setFrame:CGRectMake(btnSetting.right + 15, 8, 20, 25)];
+//    [bookMark addTarget:self action:@selector(addBookMark:) forControlEvents:UIControlEventTouchUpInside];
+//    [self addSubview:bookMark];
     
     UIButton* btnBooks =[UIButton nodeWithTitle:@"赌遍全球" image:skinImage(@"operbar/b007.png")];
     [btnBooks setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
@@ -145,7 +126,7 @@
 -(void)btnFontSizeTapped:(UIButton*)sender{
     DebugLog(@"%@",sender);
     if (fv == nil) {
-        fv = [[FontView alloc] initWithFrame:CGRectMake(10,fontsize.bottom + 20 , 200, 100)] ;
+        fv = [[FontView alloc] initWithFrame:CGRectMake(10,btnFontSize.bottom + 20 , 200, 100)] ;
         fv.tag = 1001;
 //        [self.superview addSubview:fv];
         [self.rootVC.view addSubview:fv];

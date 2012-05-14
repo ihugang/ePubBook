@@ -106,11 +106,11 @@
 {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
 //    NSLog(@"applicationDidBecomeActive");
-    NSLog(@"winBrightness----%.1f",[[UIScreen mainScreen] brightness]);    
-    float winBrightness = [[UIScreen mainScreen] brightness];
+//    NSLog(@"winBrightness----%.1f",[[UIScreen mainScreen] brightness]);    
+//    float winBrightness = [[UIScreen mainScreen] brightness];
     defaults = [NSUserDefaults standardUserDefaults];
     //记录屏幕当前亮度
-    [defaults setValue:[NSString stringWithFormat:@"%.1f",winBrightness] forKey:@"winBrightness"];
+//    [defaults setValue:[NSString stringWithFormat:@"%.1f",winBrightness] forKey:@"winBrightness"];
     [defaults synchronize];//写入数据
     //第一次进入，
     if ([defaults valueForKey:@"bookBrightness"] == nil) {

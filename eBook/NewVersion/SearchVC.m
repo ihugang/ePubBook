@@ -14,6 +14,7 @@
 #import "SearchResult.h"
 #import "ResManager.h"
 #import "UIWebView+SearchWebView.h"
+#import "CustomNavigationBar.h"
 
 @interface SearchVC ()
 
@@ -36,26 +37,49 @@
     [navBar setAutoresizesSubviews:YES];
     [navBar setAutoresizingMask:UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleRightMargin];
     
-    [navBar setTintColor:[UIColor colorWithPatternImage:skinImage(@"operbar/b002.png")]];
     //给导航栏设置背景图片
-    //    if ([navBar respondsToSelector:@selector(setBackgroundImage:forBarMetrics:)]) {
-    //        [navBar setBackgroundImage:skinImage(@"operbar/b002.png") forBarMetrics:UIBarMetricsDefault];
-    //    }
+    if ([navBar respondsToSelector:@selector(setBackgroundImage:forBarMetrics:)]) {
+        [navBar setBackgroundImage:skinImage(@"navbar/b002.png") forBarMetrics:UIBarMetricsDefault];
+    }
+    
+//    [navBar setTintColor:[UIColor colorWithPatternImage:skinImage(@"operbar/b002.png")]];
     
     //创建一个导航栏集合  
     UINavigationItem *navigationItem = [[UINavigationItem alloc] initWithTitle:nil];    
     //创建一个左边按钮  
-    UIBarButtonItem *leftButton = [[UIBarButtonItem alloc] initWithTitle:@"返回"     
-                                                                   style:UIBarButtonItemStylePlain    
-                                                                  target:self     
-                                                                  action:@selector(clickLeftButton)];      
+//    UIBarButtonItem *leftButton = [[UIBarButtonItem alloc] initWithTitle:@"返回"     
+//                                                                   style:UIBarButtonItemStylePlain    
+//                                                                  target:self     
+//                                                                  action:@selector(clickLeftButton)];   
+    //自定义返回按钮
+    UIButton *button = [UIButton buttonWithType: UIButtonTypeCustom]; 
+    [button setTitle:@"返 回" forState:UIControlStateNormal];
+    [button.titleLabel setFont:[UIFont boldSystemFontOfSize:12]];
+    // Set its background image for some states...
+    [button setBackgroundImage: skinImage(@"operbar/b007.png") forState:UIControlStateNormal];  
+    // Add target to receive Action
+    [button addTarget: self action:@selector(clickLeftButton) forControlEvents:UIControlEventTouchUpInside]; 
+    // Set frame width, height
+    button.frame = CGRectMake(0, 0, 50, 26);  
+    // Add this UIButton as a custom view to the self.navigationItem.leftBarButtonItem
+    UIBarButtonItem *customButton = [[[UIBarButtonItem alloc] initWithCustomView: button] autorelease]; 
+    
     //设置导航栏内容  
     [navigationItem setTitle:@"搜 索"];  
+    
+//    UILabel *title = [[UILabel alloc] initWithFrame:CGRectMake(0, 5, navBar.bounds.size.width,navBar.bounds.size.height)];
+//    [title setText:@"搜 索"];
+//    [title setTextAlignment:UITextAlignmentCenter];
+//    [title setFont:[UIFont boldSystemFontOfSize:20]];
+//    [title setTextColor:[UIColor redColor]];
+////    [title setBackgroundColor:[UIColor clearColor]];
+//    [navigationItem setTitleView:title];
+    
     //把导航栏集合添加入导航栏中，设置动画关闭  
     [navBar pushNavigationItem:navigationItem animated:YES];
     //把左右两个按钮添加入导航栏集合中  
-    [navigationItem setLeftBarButtonItem:leftButton];
-    
+//    [navigationItem setLeftBarButtonItem:leftButton];
+    [navigationItem setLeftBarButtonItem:customButton];
     
     UIView *searchView = [[UIView alloc] initWithFrame:CGRectMake(10, navBar.bounds.size.height+10, self.view.bounds.size.width - 20, 50)];
     [searchView setBackgroundColor:[UIColor whiteColor]];
@@ -91,8 +115,10 @@
     [searchField setDelegate:self];
     [bg addSubview:searchField];
     
-    UIButton *searchButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    [searchButton setTitle:@"search" forState:UIControlStateNormal];
+    UIButton *searchButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [searchButton setBackgroundImage: skinImage(@"operbar/b007.png") forState:UIControlStateNormal];  
+    [searchButton setTitle:@"搜 索" forState:UIControlStateNormal];
+    [searchButton.titleLabel setFont:[UIFont boldSystemFontOfSize:14]];
     [searchButton setFrame:CGRectMake(searchView.bounds.size.width -70, 10, 60, 30)];
     [searchButton addTarget:self action:@selector(searchString:) forControlEvents:UIControlEventTouchUpInside];
     [searchButton setAutoresizesSubviews:YES];
@@ -105,9 +131,6 @@
     [resultTable setAutoresizesSubviews:YES];
     [resultTable setAutoresizingMask:UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleRightMargin];
     [resultView addSubview:resultTable];
-    
-//     resultTable.contentSize =CGSizeMake(320, 2000);
-
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
 }

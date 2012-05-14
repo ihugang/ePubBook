@@ -1,12 +1,12 @@
 $(document).ready(function() {
     
-                  $(this).addEaddEventListener("mousedown", function () {alert("test"));
+//                  $(this).addEaddEventListener("mousedown", function () {alert("test"));
                  // $('span').click(function(){alert('dd');});
                   $(document).mouseup(function(){
                                       longtouchedFire($(this));
                                       });   
                   
-//                  setInterval("longtouchedFire('a')", 2000);
+                  setInterval("longtouchedFire('a')", 2000);
  });
 
 function longtouchedFire(obj){
@@ -89,7 +89,6 @@ function getSelectedText() {
 function loadBeforeTag(tagid){
     $("." + tagid).addClass("underline"); 
 }
-
 
 function loadjscssfile(filename, filetype){
     if (filetype=="js"){ //if filename is a external JavaScript file

@@ -288,20 +288,38 @@
         if (txt.length<10) {
             return NO;
         }
+        
+        
         NSLog(@"classId -> %@",clssId);
         NSLog(@"txt --> %@",txt);
+        
         
         [[TagsHelper sharedInstanse] addTagWithClassId:clssId txt:txt];
         //保存html－－
         
-//        Chapter* chapter = [curBook.chapters objectAtIndex:curSpineIndex];
+        Chapter* chapter = [curBook.chapters objectAtIndex:curSpineIndex];
+        NSLog(@"now ----> %@",chapter.spinePath);
+        NSString *aa = [NSString stringWithContentsOfFile:chapter.spinePath encoding:NSUTF8StringEncoding error:nil];
         
-//        NSString* newHTML = [webView stringByEvaluatingJavaScriptFromString:@"document.body.outerHTML"];
+//        NSString* newHTML = [webView stringByEvaluatingJavaScriptFromString:@"document.body.outerHTML"];//获取页面所有代码
+//        NSString* newHTML = [webView stringByEvaluatingJavaScriptFromString:@"document.body.innerHTML"];
+        NSLog(@"newHtml text --> %@",aa);
 //         NSURL *url = [NSURL fileURLWithPath:chapter.spinePath];
 //        [curWebView loadRequest:[NSURLRequest requestWithURL:url]];
 //        [curWebView loadHTMLString:newHTML baseURL:url];
+//        
+//        NSString *filePath  =  resPath(@"loadRes.js"); 
+//        NSData *fileData    = [NSData dataWithContentsOfFile:filePath];
+//        NSString *jsString  = [[NSMutableString alloc] initWithData:fileData encoding:NSUTF8StringEncoding];
+//        [curWebView stringByEvaluatingJavaScriptFromString:jsString];
+//        
+//        [curWebView stringByEvaluatingJavaScriptFromString:@"loadCss('css_0')"];
+//        [curWebView stringByEvaluatingJavaScriptFromString:@"loadCss('css_1')"];
+//        [curWebView stringByEvaluatingJavaScriptFromString:@"loadCss('css_2')"];
+//        [curWebView stringByEvaluatingJavaScriptFromString:@"loadCss('split')"];
+        
 //        NSString* path = docPath(@"Res/test.htm");
-//        [newHTML writeToFile:path atomically:YES encoding:4 error:nil];
+//        [newHTML writeToFile:chapter.spinePath atomically:YES encoding:4 error:nil];
         NSLog(@"Save---%@",@"");
 		return NO;
 	}
@@ -309,6 +327,7 @@
 }
 - (void)webViewDidStartLoad:(UIWebView *)webView{
     NSLog(@"ContentView webViewDidStartLoad");
+    
 }
 - (void)webViewDidFinishLoad:(UIWebView *)webView{
    /* */
@@ -385,7 +404,7 @@
     NSArray* list =[[TagsHelper sharedInstanse] getTagsInfo];
     for (Tags* tag in list) {
         NSString* js = [NSString stringWithFormat:@"loadBeforeTag('%@')",tag.className];
-        [webView stringByEvaluatingJavaScriptFromString:js];
+        [curWebView stringByEvaluatingJavaScriptFromString:js];
     }
     
     [self gotoPageInCurrentSpine:curPageIndex];
@@ -416,6 +435,8 @@
 	NSFileManager *fileManager = [NSFileManager defaultManager]; 
     
 	NSString *jqueryFilePath =resPath(@"Res/jquery-1.7.2.js");
+    NSLog(@"jqueryFilePath  %@",jqueryFilePath);
+    
 	BOOL jqueryFileExists = [fileManager fileExistsAtPath:jqueryFilePath];
 	if (! jqueryFileExists) {
 		NSLog(@"The jquery file does not exist.");
@@ -426,6 +447,7 @@
 	NSString *jqueryFileContentsAsString = [[NSString alloc] initWithData:jqueryFileData encoding:NSASCIIStringEncoding]; 
 	// injection.js
 	NSString *injectionFilePath = resPath(@"Res/rangy.js");
+    NSLog(@"injectionFilePath  %@",injectionFilePath);
 	
 	BOOL injectionFileExists = [fileManager fileExistsAtPath:injectionFilePath]; 
 	if (! injectionFileExists) {

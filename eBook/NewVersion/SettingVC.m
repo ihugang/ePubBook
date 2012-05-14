@@ -13,9 +13,12 @@
 
 @end
 
+@interface UINavigationBar (CustomImage)
+- (void) drawRect:(CGRect)rect;
+@end
 @implementation UINavigationBar (CustomImage)
 -(void)drawRect:(CGRect)rect {
-    UIImage *image = skinImage(@"operbar/b002.png");
+    UIImage *image = skinImage(@"navbar/b002.png");
     [image drawInRect:CGRectMake(0,0,self.frame.size.width,self.frame.size.height)];
 }
 @end
@@ -34,16 +37,20 @@
 - (void)viewDidLoad
 {
     [self.view setBackgroundColor:[UIColor scrollViewTexturedBackgroundColor]];
+     //iOS 5 new UINavigationBar custom background 
+    if([self.navigationController.navigationBar respondsToSelector:@selector(setBackgroundImage:forBarMetrics:)] ) {
+        [self.navigationController.navigationBar setBackgroundImage:skinImage(@"navbar/b002.png") forBarMetrics: UIBarMetricsDefault]; 
+    } 
     
-//    UINavigationBar *navBar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 44)];
-////    [self.view addSubview:navBar];
-//    [navBar setAutoresizesSubviews:YES];
-//    [navBar setAutoresizingMask:UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleRightMargin];
-    self.navigationController.navigationBar.tintColor = [UIColor colorWithPatternImage:skinImage(@"operbar/b002.png")];
-//    [self.navigationController.navigationBar setFrame:CGRectMake(0, 0, self.view.bounds.size.width, 44)];
+    UIButton *button = [UIButton buttonWithType: UIButtonTypeCustom]; 
+    [button setTitle:@"返 回" forState:UIControlStateNormal];
+    [button.titleLabel setFont:[UIFont boldSystemFontOfSize:12]];
+    [button setBackgroundImage: skinImage(@"operbar/b007.png") forState:UIControlStateNormal];  
+    [button addTarget: self action:@selector(clickLeftButton) forControlEvents:UIControlEventTouchUpInside]; 
+    button.frame = CGRectMake(0, 0, 50, 26);  
+    UIBarButtonItem *customButton = [[[UIBarButtonItem alloc] initWithCustomView: button] autorelease]; 
+    self.navigationItem.leftBarButtonItem = customButton;
     
-    //    //创建一个导航栏集合  
-    //    UINavigationItem *navigationItem = [[UINavigationItem alloc] initWithTitle:nil];
     //创建一个左边按钮  
     UIBarButtonItem *leftButton = [[UIBarButtonItem alloc] initWithTitle:@"返回"     
                                                                    style:UIBarButtonItemStyleBordered     
@@ -54,9 +61,10 @@
                                                                     style:UIBarButtonItemStyleDone     
                                                                    target:self     
                                                                    action:@selector(clickRightButton)]; 
-    self.navigationItem.title = @"设置";
+    //设置标题
+    self.navigationItem.title = @"设 置";
     //添加按钮
-    [self.navigationItem setLeftBarButtonItem:leftButton];
+//    [self.navigationItem setLeftBarButtonItem:leftButton];
 //    [self.navigationItem setRightBarButtonItem:rightButton];
     
 
@@ -193,6 +201,7 @@
 {  
     NSLog(@"clickLeftButton");
     [self dismissModalViewControllerAnimated:YES];
+//    [self.navigationController popViewControllerAnimated:YES];
 }  
 
 -(void)clickRightButton  

@@ -9,6 +9,7 @@
 #import "BooksListVC.h"
 #import "BooksCell.h"
 #import "BookStore.h"
+#import "CustomNavigationBar.h"
 
 @implementation BooksListVC
 
@@ -21,18 +22,37 @@
 {
     [self.view setBackgroundColor:[UIColor scrollViewTexturedBackgroundColor]];
     
+    
+    
     UINavigationBar *navBar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 44)];
     [self.view addSubview:navBar];
+//    CustomNavigationBar *bar = (CustomNavigationBar *)navBar;
+//    CustomNavigationBar *bar = [[CustomNavigationBar alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 44)];
+//    [self.view addSubview:bar];
     [navBar setAutoresizesSubviews:YES];
     [navBar setAutoresizingMask:UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleRightMargin];
-    [navBar setTintColor:[UIColor colorWithPatternImage:skinImage(@"operbar/b002.png")]];
+//    [navBar setTintColor:[UIColor colorWithPatternImage:skinImage(@"operbar/b002.png")]];
     //给导航栏设置背景图片
-//    if ([navBar respondsToSelector:@selector(setBackgroundImage:forBarMetrics:)]) {
-//        [navBar setBackgroundImage:skinImage(@"operbar/b002.png") forBarMetrics:UIBarMetricsDefault];
-//    }
+    if ([navBar respondsToSelector:@selector(setBackgroundImage:forBarMetrics:)]) {
+        [navBar setBackgroundImage:skinImage(@"navbar/b002.png") forBarMetrics:UIBarMetricsDefault];
+    }
+    
+    
+    
+    UIButton *button = [UIButton buttonWithType: UIButtonTypeCustom]; 
+    [button setTitle:@"返 回" forState:UIControlStateNormal];
+    [button.titleLabel setFont:[UIFont boldSystemFontOfSize:12]];
+    // Set its background image for some states...
+    [button setBackgroundImage: skinImage(@"operbar/b007.png") forState:UIControlStateNormal];  
+    // Add target to receive Action
+    [button addTarget: self action:@selector(clickLeftButton) forControlEvents:UIControlEventTouchUpInside]; 
+    // Set frame width, height
+    button.frame = CGRectMake(0, 0, 50, 26);  
+    // Add this UIButton as a custom view to the self.navigationItem.leftBarButtonItem
+    UIBarButtonItem *customButton = [[[UIBarButtonItem alloc] initWithCustomView: button] autorelease]; 
     
     //创建一个导航栏集合  
-    UINavigationItem *navigationItem = [[UINavigationItem alloc] initWithTitle:nil];    
+    UINavigationItem *navigationItem = [[UINavigationItem alloc] initWithTitle:nil];
     //创建一个左边按钮  
     UIBarButtonItem *leftButton = [[UIBarButtonItem alloc] initWithTitle:@"返回"     
                                                                    style:UIBarButtonItemStylePlain    
@@ -47,11 +67,14 @@
     [navigationItem setTitle:@"赌遍全球"];  
     //把导航栏集合添加入导航栏中，设置动画关闭  
     [navBar pushNavigationItem:navigationItem animated:YES];
+//    [bar pushNavigationItem:navigationItem animated:YES];
+    
     //把左右两个按钮添加入导航栏集合中  
-    [navigationItem setLeftBarButtonItem:leftButton];   
+     [navigationItem setLeftBarButtonItem:customButton];
+//    [navigationItem setLeftBarButtonItem:leftButton];   
 //    [navigationItem setRightBarButtonItem:rightButton]; 
     
-    UITableView *booksList = [[UITableView alloc] initWithFrame:CGRectMake(0, navBar.frame.size.height, self.view.bounds.size.width, self.view.bounds.size.height - navBar.bounds.size.height)];
+    UITableView *booksList = [[UITableView alloc] initWithFrame:CGRectMake(0, navBar.frame.size.height, self.view.bounds.size.width, self.view.bounds.size.height - 20)];
     [booksList setDelegate:self];
     [booksList setDataSource:self];
     [booksList setAutoresizesSubviews:YES];
