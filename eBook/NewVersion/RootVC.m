@@ -19,6 +19,7 @@
     //释放掉通知
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"searchPageIndex" object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"chapterListPageLoad" object:nil];
+//    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"fontChange" object:nil];
     [super dealloc];
 }
  
@@ -34,7 +35,8 @@
     self.pageView.delegate = self;
     self.pageView.pagesToPreload = 0;
     self.pageView.currentPageIndex = self.lastPage.intValue;//设置默认的加载页面
-    self.pageView.backgroundColor =[UIColor scrollViewTexturedBackgroundColor];
+//    self.pageView.backgroundColor =[UIColor whiteColor];
+    self.pageView.backgroundColor = baseColor;
     [self.view insertSubview:self.pageView atIndex:0];
     [self.pageView setAutoresizingMask:UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleRightMargin];
     [self.pageView reloadData];
@@ -78,9 +80,10 @@
 
 - (void)viewDidLoad{
     [super viewDidLoad]; 
-    self.view.backgroundColor =[UIColor scrollViewTexturedBackgroundColor];
+    self.view.backgroundColor = baseColor;
+//    self.view.backgroundColor = [UIColor whiteColor];
     OperView* ov =[OperView createWithSize:CGSizeMake(self.view.width, 44)];
-    ov.top = 20;
+    ov.top = 19;
     operView = ov;
     ov.rootVC = self;
     ov.delegate=self;
@@ -124,7 +127,15 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(chapterListPageLoad:) name:@"chapterListPageLoad" object:nil];
     //搜索
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(searchPageLoad:) name:@"searchPageIndex" object:nil];
+    //字体改变
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(fontChange:) name:@"fontChange" object:nil];
     
+}
+
+//目录列表页面跳转
+- (void)fontChange:(NSNotification *)notification
+{
+    self.pageView.currentPageIndex = [[notification object] intValue];
 }
 
 //目录列表页面跳转

@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		10176DFA1556CB4100BBA89C /* BookStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 10176DF91556CB4100BBA89C /* BookStore.m */; };
 		10183E1A1560A54D0097A0DB /* CustomNavigationBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 10183E191560A54D0097A0DB /* CustomNavigationBar.m */; };
+		102CC4741562627E008A6507 /* BookPick.m in Sources */ = {isa = PBXBuildFile; fileRef = 102CC4731562627E008A6507 /* BookPick.m */; };
 		10772A00154B9FA7006DA171 /* SearchVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 107729FF154B9FA6006DA171 /* SearchVC.m */; };
 		10772A04154BDFEC006DA171 /* SettingVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 10772A03154BDFEC006DA171 /* SettingVC.m */; };
 		108109E3155BC46800815401 /* Tags.m in Sources */ = {isa = PBXBuildFile; fileRef = 108109E0155BC46700815401 /* Tags.m */; };
@@ -156,6 +157,8 @@
 		10176DF91556CB4100BBA89C /* BookStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BookStore.m; sourceTree = "<group>"; };
 		10183E181560A54D0097A0DB /* CustomNavigationBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomNavigationBar.h; sourceTree = "<group>"; };
 		10183E191560A54D0097A0DB /* CustomNavigationBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomNavigationBar.m; sourceTree = "<group>"; };
+		102CC4721562627E008A6507 /* BookPick.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BookPick.h; sourceTree = "<group>"; };
+		102CC4731562627E008A6507 /* BookPick.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BookPick.m; sourceTree = "<group>"; };
 		107729FE154B9FA6006DA171 /* SearchVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchVC.h; sourceTree = "<group>"; };
 		107729FF154B9FA6006DA171 /* SearchVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchVC.m; sourceTree = "<group>"; };
 		10772A02154BDFEB006DA171 /* SettingVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingVC.h; sourceTree = "<group>"; };
@@ -666,6 +669,8 @@
 				10176DF91556CB4100BBA89C /* BookStore.m */,
 				10C52BC11558BA0300117172 /* BookMark.h */,
 				10C52BC21558BA0300117172 /* BookMark.m */,
+				102CC4721562627E008A6507 /* BookPick.h */,
+				102CC4731562627E008A6507 /* BookPick.m */,
 			);
 			name = ePub;
 			path = OpenSource/ePub;
@@ -1136,6 +1141,7 @@
 				108109E3155BC46800815401 /* Tags.m in Sources */,
 				108109E4155BC46800815401 /* TagsHelper.m in Sources */,
 				10183E1A1560A54D0097A0DB /* CustomNavigationBar.m in Sources */,
+				102CC4741562627E008A6507 /* BookPick.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

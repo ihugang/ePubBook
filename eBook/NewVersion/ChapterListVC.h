@@ -27,7 +27,8 @@
     NSIndexPath *ip;
 }
 
-@property (nonatomic,retain) NSMutableArray *sortedValues;
+@property (nonatomic,retain) NSMutableArray *bookMarkSortedValues;
+@property (nonatomic,retain) NSArray *bookPickSortedValues;
 @property (nonatomic,assign) id<ChapterListVCDelegate>delegate;
 
 @end

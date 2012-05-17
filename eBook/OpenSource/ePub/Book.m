@@ -55,15 +55,22 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(Book);
     int index = 0,iAllPageCount = 0;
     for (NSDictionary* item in DA(currentBookInfo, @"PageBreakSet")) {
         NSString* title = DO(item, @"title");        
-        NSString* shortPath =[NSString stringWithFormat:@"book/%@.html",title];
+        NSString* shortPath =[NSString stringWithFormat:@"%@.html",title];
 //        NSString *shortPath = @"book/第四章新手入门.html";
         
-        NSString* path = resPath(shortPath);
+        //获取document目录路径
+        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask,YES);
+        NSString *path=[paths objectAtIndex:0];
+        NSString *filename=[path stringByAppendingPathComponent:shortPath];
+        
+        
+//        NSString* filename = resPath(shortPath);
+        
 //        NSLog(@"shortpath - %@",shortPath);
 //        NSString *path1 = DO(item, @"path");
 //        NSLog(@"Book path - > %@",path);
         
-        Chapter* chapter = [[[Chapter alloc] initWithPath:path title:title chapterIndex:iAllPageCount ] autorelease];
+        Chapter* chapter = [[[Chapter alloc] initWithPath:filename title:title chapterIndex:iAllPageCount ] autorelease];
         //title
         chapter.pageCount = DA(item, @"pages").count; 
         

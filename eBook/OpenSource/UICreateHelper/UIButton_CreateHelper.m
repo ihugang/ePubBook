@@ -33,7 +33,7 @@
 +(UIButton*)nodeWithTitle:(NSString*)aTitle onImage:(UIImage*)onImage offImage:(UIImage*)offImage{
     UIButton* btn = [UIButton buttonWithType:UIButtonTypeCustom];
  
-    DebugLog(@"----- %f  ,----  %f",offImage.size.width,offImage.size.height);
+//    DebugLog(@"----- %f  ,----  %f",offImage.size.width,offImage.size.height);
     btn.size = CGSizeMake(offImage.size.width, offImage.size.height);
     [btn setTitle:aTitle forState:UIControlStateNormal];
  

@@ -15,6 +15,7 @@
 #import "MyTableCell.h"
 #import "Chapter.h"
 #import "BookMark.h"
+#import "BookPick.h"
 
 
 @interface ChapterListVC ()
@@ -22,7 +23,7 @@
 @end
 
 @implementation ChapterListVC
-@synthesize delegate,sortedValues;
+@synthesize delegate,bookMarkSortedValues,bookPickSortedValues;
 
 - (void)dealloc {
     [chapterList release];
@@ -158,6 +159,8 @@
             [cataButton1 setBackgroundImage:nil forState:UIControlStateNormal];
             [cataButton3 setBackgroundImage:nil forState:UIControlStateNormal];
             [cataButton4 setBackgroundImage:nil forState:UIControlStateNormal];
+            //获取书签列表
+            [bookMarks getBookMark];
             [chapterList reloadData];
             break;  
         case 2:  
@@ -166,6 +169,8 @@
             [cataButton1 setBackgroundImage:nil forState:UIControlStateNormal];
             [cataButton2 setBackgroundImage:nil forState:UIControlStateNormal];
             [cataButton4 setBackgroundImage:nil forState:UIControlStateNormal];
+            //获取书摘列表
+            [bookPick getBookPick];
             [chapterList reloadData];
             break; 
         case 3:
@@ -191,7 +196,7 @@
     }else if (check == 1) {
         return 1;
     }else if (check == 2){
-        return 2;
+        return 1;
     }else {
         return 2;
     }
@@ -205,7 +210,7 @@
     }else if (check == 1) {
         return bookMarks.currentBookMark.count;
     }else if(check == 2){
-        return 8;
+        return bookPick.currentBookPick.count;
     }else {
         return 2;
     }
@@ -218,9 +223,9 @@
     }else if (check == 1) {
         return @"";
     }else if(check == 2){
-        return [NSString stringWithFormat:@"========    Section Title %d    ========",section];;
+        return @"";
     }else {
-        return [NSString stringWithFormat:@"========    Section Title %d    ========",section];;
+        return [NSString stringWithFormat:@"========    Section Title %d    ========",section];
     }
 
 }
@@ -268,20 +273,18 @@
         
         //书签
         if (check == 1) {
-            //获取书签列表
-            [bookMarks getBookMark];            
-            //排序
+            //根据页面index排序
             NSArray *myKeys = [bookMarks.bookmarks allKeys];
             NSArray *array = [myKeys sortedArrayUsingFunction:customSort context:nil];
             
-            self.sortedValues = [[[NSMutableArray alloc] init] autorelease];
+            self.bookMarkSortedValues = [[[NSMutableArray alloc] init] autorelease];
             for(id key in array) {
                 id object = [bookMarks.bookmarks objectForKey:key];
-                [sortedValues addObject:object];
+                [bookMarkSortedValues addObject:object];
             }
-            cell.date.text = [[sortedValues objectAtIndex:indexPath.row] objectForKey:@"time"];
-            cell.number.text = [[sortedValues objectAtIndex:indexPath.row] objectForKey:@"pageIndex"];
-            cell.content.text = [[sortedValues objectAtIndex:indexPath.row] objectForKey:@"content"];
+            cell.date.text = [[bookMarkSortedValues objectAtIndex:indexPath.row] objectForKey:@"time"];
+            cell.number.text = [[bookMarkSortedValues objectAtIndex:indexPath.row] objectForKey:@"pageIndex"];
+            cell.content.text = [[bookMarkSortedValues objectAtIndex:indexPath.row] objectForKey:@"content"];
             
 //            cell.date.text = [[bookMarks.currentBookMark.allValues objectAtIndex:indexPath.row] objectForKey:@"time"];
 //            cell.number.text = [[bookMarks.currentBookMark.allValues objectAtIndex:indexPath.row] objectForKey:@"pageIndex"];
@@ -289,9 +292,22 @@
         }
         //书摘
         if (check == 2) {
-            cell.date.text = @"2010.1.1";
-            cell.number.text = [NSString stringWithFormat:@"%d",indexPath.row];
-            cell.content.text = @"然能够在工作之余整理总结出这本书，也是他对自己多年经营和管理工作经验的一次复盘，我相信他总结出的经验和教训对于后来的创业者会有所启迪。陶然目前正在率领拉卡拉团队在金融服务领域大展宏图，并且有可能成为联想控股旗下现代服务业的一个重要业务模块，代服务业的一个重要业务模块，成为联想正规军的队伍，我也在此祝愿他和他的团队能";
+            //对Value中的数组字典中的pageIndex进行排序
+            NSArray *keys = [bookPick.currentBookPick allValues];
+//            DebugLog(@"keys --->  %@",keys);
+            NSSortDescriptor *lastDescriptor =
+            [[[NSSortDescriptor alloc]
+              initWithKey:@"pageIndex"
+              ascending:YES
+              selector:@selector(localizedCaseInsensitiveCompare:)] autorelease];    
+            
+            NSArray * descriptors = [NSArray arrayWithObjects:lastDescriptor, nil];
+            self.bookPickSortedValues = [keys sortedArrayUsingDescriptors:descriptors]; 
+//            DebugLog(@"sortedArray --->  %@",bookPickSortedValues);
+            
+            cell.date.text = [[bookPickSortedValues objectAtIndex:indexPath.row] objectForKey:@"time"];
+            cell.number.text = [[bookPickSortedValues objectAtIndex:indexPath.row] objectForKey:@"pageIndex"];
+            cell.content.text = [[bookPickSortedValues objectAtIndex:indexPath.row] objectForKey:@"content"];
         }
         //批注
         if (check == 3) {
@@ -338,8 +354,10 @@
         [[NSNotificationCenter defaultCenter] postNotificationName:@"chapterListPageLoad" object:[NSString stringWithFormat:@"%d",chapter.chapterIndex]];
     }else if (check == 1) {
         //书签
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"chapterListPageLoad" object:[[sortedValues objectAtIndex:indexPath.row] objectForKey:@"pageIndex"]];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"chapterListPageLoad" object:[[bookMarkSortedValues objectAtIndex:indexPath.row] objectForKey:@"pageIndex"]];
     }else if(check == 2){
+        //书摘
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"chapterListPageLoad" object:[[bookPickSortedValues objectAtIndex:indexPath.row] objectForKey:@"pageIndex"]];
         
     }else {
         

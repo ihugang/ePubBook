@@ -12,6 +12,8 @@
 #import "NavView.h"
 #import "FontView.h"
 
+#define baseColor ([UIColor scrollViewTexturedBackgroundColor]);
+
 @interface RootVC : BaseVC<ATPagingViewDelegate,NavViewDelegate,OperViewDelegate,UIGestureRecognizerDelegate>
 { 
     BOOL parsing;

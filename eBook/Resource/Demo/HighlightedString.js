@@ -11,19 +11,25 @@ function getHighlightedString() {
 }
 
 // ...
-function stylizeHighlightedString() {
-    
+function stylizeHighlightedString(className) {
     var range               = window.getSelection().getRangeAt(0);
     var selectionContents   = range.extractContents();
     var span                = document.createElement("span");
     
     span.appendChild(selectionContents);
     
-    span.setAttribute("class","uiWebviewHighlight");
+//    span.setAttribute("class","uiWebviewHighlight"+ (+new Date()));
+    span.setAttribute("class",className);
     span.style.backgroundColor  = "black";
     span.style.color            = "white";
     
     range.insertNode(span);
+}
+
+document.addEventListener("pause", onPause, false);
+
+function onPause() {
+    alert("pause");
 }
 
 

@@ -1,13 +1,63 @@
 $(document).ready(function() {
-    
+//    alert("aa");
 //                  $(this).addEaddEventListener("mousedown", function () {alert("test"));
                  // $('span').click(function(){alert('dd');});
-                  $(document).mouseup(function(){
-                                      longtouchedFire($(this));
-                                      });   
+//                  $(document).mouseup(function(){
+//                                      longtouchedFire($(this));
+////                                      
+//                                      });   
                   
-                  setInterval("longtouchedFire('a')", 2000);
+//                  setInterval("longtouchedFire('a')", 2000);
+                  
+//                  $('span').click(function(event){
+//                                    alert('asd');
+//                                  alert(event.target.nodeName);
+//                                  alert(event.target.textContent);
+//                                  alert(event.target.attributes.item(0).textContent);
+//                                  alert(event.target.attributes.item(1).textContent);
+//                                  
+//                                    document.location = "iBooks:" + "tags:" + randomCssClass + ":" + selectText;
+//                                    });
+                  
+                  
+                  $('span').bind("click", function(event) {
+                                 //alert('The mouse cursor is at(' + event.pageX + ',' + event.pageY + ')');
+//                                 alert("bind");
+                                 if(event.target.nodeName.toLowerCase() == "span"&&event.target.attributes.length != 0){
+//                                     alert(event.target.nodeName);
+//                                     alert(event.target.textContent);
+//                                     alert(event.target.attributes.item(0).textContent);
+//                                     alert(event.target.attributes.item(1).textContent);
+                                     //                                 alert(event.target.hasAttributes());
+                                     //                                 alert(document.activeElement.nodeName);
+                                     var thisNodeName = event.target.nodeName;//当前标签名字
+                                     var txt = event.target.textContent;//标签包含的内容
+                                     var className = event.target.attributes.item(0).textContent;//标签 class 内容
+                                     var styleText = event.target.attributes.item(1).textContent;//标签style样式
+                                     //                                 document.location = "iBooks:"+"tags:"+className+":"text;
+                                    var x=event.clientX;
+                                    var y=event.clientY;
+                                     make(className,txt,x,y);
+                                 }
+                    });
  });
+
+function make(name,txt,x,y) {
+//    alert("make");
+//    alert(name);
+    document.location = "iBooks:" + "tags:" + name + ":" + txt + ":" + x + ":"+ y;
+//    removetheClass(name);
+}
+
+//删除样式
+function removetheClass(name)
+{
+//    alert(name);
+    $("."+name).removeAttr("style");
+    $("."+name).removeAttr("class");
+//    $("."+name).detach();
+//    $("."+name).parentNode.removeChild(node);
+}
 
 function longtouchedFire(obj){
     /*
@@ -87,7 +137,7 @@ function getSelectedText() {
 }
 
 function loadBeforeTag(tagid){
-    $("." + tagid).addClass("underline"); 
+//    $("." + tagid).addClass("underline"); 
 }
 
 function loadjscssfile(filename, filetype){

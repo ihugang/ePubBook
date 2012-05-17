@@ -13,13 +13,15 @@
 #import "Chapter.h"
 #import "Book.h"
 #import "BookMark.h"
+#import "BookPick.h"
 #import "SearchResult.h"
 #import "UIWebView+SearchWebView.h"
 #import "Tags.h"
 #import "TagsHelper.h"
+#import <QuartzCore/QuartzCore.h>
 
 @implementation ContentView
-@synthesize curLable,curWebView,currentSearchResult,jquery;
+@synthesize curLable,curWebView,currentSearchResult,jquery,menuController,classId,contentText;
 - (void)dealloc{
     //释放掉通知
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"searchText" object:nil];
@@ -56,28 +58,36 @@
     [self addSubview:curLable]; 
  
     //给页面添加UIMenuController
-    UIMenuController *menuController = [UIMenuController sharedMenuController];
+    self.menuController = [UIMenuController sharedMenuController];
     UIMenuItem *copyMenu = [[UIMenuItem alloc] initWithTitle:@"复制" action:@selector(copyMenuPressed:)];
-    UIMenuItem *noteMenu = [[UIMenuItem alloc] initWithTitle:@"重点" action:@selector(noteMenuPressed:)];
-    UIMenuItem *bookPickMenu = [[UIMenuItem alloc] initWithTitle:@"书摘" action:@selector(bookPickMenuPressed:)];
+    UIMenuItem *noteMenu = [[UIMenuItem alloc] initWithTitle:@"书摘" action:@selector(bookPickMenuPressed:)];
+    UIMenuItem *bookPickMenu = [[UIMenuItem alloc] initWithTitle:@"批注" action:@selector(commentPressed:)];
+    UIMenuItem *removeMenu = [[UIMenuItem alloc] initWithTitle:@"删除" action:@selector(removePressed:)];
     //becomFirstResponder方法，使view或者viewController的self成为第一响应者，可以在相应文件的任意地方调用实现该方法，不过建议与UIMenuController放在一起。
 //    [self becomeFirstResponder];
-
-    //添加menu到 UIMenuController中
-    [menuController setMenuItems:[NSArray arrayWithObjects:copyMenu,noteMenu,bookPickMenu, nil]];
-    [menuController setArrowDirection:UIMenuControllerArrowDown];
     //设置大小
-//    [menuController setTargetRect:[self frame] inView: self];
+//    CGRect selectionRect = CGRectMake(100, 100, 100,30);
+//    [menuController setTargetRect:selectionRect inView: self.superview];
+    
     //设置显示的菜单，默认是第一菜单，要直接显示第二菜单，设置为NO
-    [menuController setMenuVisible:NO animated:YES];
+//    [menuController setMenuVisible:NO animated:YES];
     //菜单项被选中时，菜单会自动隐藏，如果你不想让它自动隐藏
-    menuController.menuVisible = YES;
-
+    //    menuController.menuVisible = NO;
+    //添加menu到 UIMenuController中
+    [menuController setMenuItems:[NSArray arrayWithObjects:copyMenu,noteMenu,bookPickMenu,removeMenu, nil]];
+    [menuController setArrowDirection:UIMenuControllerArrowDown];
+    
     [copyMenu release];
     [noteMenu release];
     [bookPickMenu release];
-    
+    [removeMenu release];
+       
 //    curWebView.userInteractionEnabled = NO;
+    
+    //给webView添加UIGestureRecognizer
+    UILongPressGestureRecognizer *longPressGesture = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPressWebView:)];
+    [self.curWebView addGestureRecognizer:longPressGesture];
+//    [longPressGesture release];
     
     //添加通知监听
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pageLoad:) name:@"pageLoad" object:nil];
@@ -87,6 +97,21 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addBookMark:) name:@"addBookMark" object:nil];
     
 }
+
+- (void)longPressWebView:(UILongPressGestureRecognizer *)gestureRecognizer {
+    NSLog(@"LONG PRESS");
+    if ([gestureRecognizer state] == UIGestureRecognizerStateBegan) {
+        [self becomeFirstResponder];
+         CGPoint location = [gestureRecognizer locationInView:[gestureRecognizer view]];
+         [self.menuController setTargetRect:CGRectMake(location.x, location.y, 0, 0) inView:[gestureRecognizer view]];
+        //    CGRect selectionRect = CGRectMake(mouseX, mouseY, 30,20);
+        //    [menuController setTargetRect:selectionRect inView: self];
+        //设置显示位置  
+        //    //        [menuController setTargetRect:self.frame inView: self];
+        [self.menuController setMenuVisible:YES animated:YES];
+    }
+}
+
 //添加书签
 - (void)addBookMark:(NSNotification *)notification
 {
@@ -118,6 +143,9 @@
     NSLog(@"loadSpine curSpineIndex:%d , curPageIndex : %d",curSpineIndex,curPageIndex);
     //重新加载页面
 //    [self showWithIndex:curSpineIndex];
+    
+    //发送通知，就是说此时要调用观察者处的方
+//    [[NSNotificationCenter defaultCenter] postNotificationName:@"fontChange" object:[[NSUserDefaults standardUserDefaults] objectForKey:@"curPageIndex"]];
     [self loadSpine:curSpineIndex atPageIndex:curPageIndex];
 }
 
@@ -133,17 +161,19 @@
 //设置-(BOOL) canBecomeFirstResponder的返回值为YES
 - (BOOL)canBecomeFirstResponder
 {
-//    [super canBecomeFirstResponder];
+    [super canBecomeFirstResponder];
     return YES;
 }
 //重载函数,设置要显示的菜单项，返回值为YES。若不进行任何限制，则将显示系统自带的所有菜单项
 - (BOOL)canPerformAction:(SEL)action withSender:(id)sender
 {
     [super canPerformAction:action withSender:sender];
-    if (action == @selector(copyMenuPressed:)||action == @selector(noteMenuPressed:)||action == @selector(bookPickMenuPressed:)) {
+    if (action == @selector(copyMenuPressed:)||action == @selector(commentPressed:)||action == @selector(bookPickMenuPressed:)||action == @selector(removePressed:)) {
         return YES;
+    }else {
+//        [super canPerformAction:action withSender:sender];
+        return NO; //隐藏系统默认的菜单项
     }
-    return NO; //隐藏系统默认的菜单项
 }
 //复制
 - (void)copyMenuPressed:(id)sender
@@ -152,8 +182,8 @@
     //    [pasteboard setString:[[self textLabel]text]];
     NSLog(@"copyMenuPressed");
 }
-//重点
-- (void)noteMenuPressed:(id)sender
+//书摘
+- (void)bookPickMenuPressed:(id)sender
 {
     //加载js文件
     NSString *filePath  =  resPath(@"HighlightedString.js");
@@ -172,27 +202,84 @@
     NSLog(@"selectedTextString: ---  > %@",highlightedString);
     
     // 把选中的文本样式改变
-    NSString *startSearch   = [NSString stringWithFormat:@"stylizeHighlightedString()"];
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"yyyyMMddHHmmss"];
+    NSString *classTime=[formatter stringFromDate: [NSDate date]];
+    [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    NSString *localTime = [formatter stringFromDate:[NSDate date]];
+    NSLog(@"----> %@",localTime);
+    
+    NSString *className =  [@"uiWebviewHighlight" stringByAppendingFormat:classTime];
+    NSString *startSearch   = [NSString stringWithFormat:@"stylizeHighlightedString('%@')",className];
 //    NSLog(@"Highlighted -- > %@",startSearch);
     [curWebView stringByEvaluatingJavaScriptFromString:startSearch];
     NSLog(@"noteMenuPressed");
     
-    [self inject];
+    //获取书摘列表
+    [bookPick getBookPick];
     
-    NSString* js = [NSString stringWithFormat:@"loadBeforeTag('%@')",@"a"];
-    [curWebView stringByEvaluatingJavaScriptFromString:js];
-    //加载内容
-    NSArray* list =[[TagsHelper sharedInstanse] getTagsInfo];
-    for (Tags* tag in list) {
-        NSString* js = [NSString stringWithFormat:@"loadBeforeTag('%@')",tag.className];
+    NSString *npageIndex = [[NSUserDefaults standardUserDefaults] objectForKey:@"curPageIndex"];
+    NSLog(@" npageIndex --> %@",npageIndex);
+    //给当前页面添加书摘
+    NSDictionary *pageIndex = [[NSDictionary alloc] initWithObjectsAndKeys:npageIndex,@"pageIndex",className,@"className",localTime,@"time",highlightedString,@"content", nil];
+    [bookPick.currentBookPick setValue:pageIndex forKey:className];
+    //写入document文件
+    [bookPick.currentBookPick writeToFile:bookPick.filename atomically:YES];
+    
+    //把html保存到原来的html
+    NSString* newHTML = [curWebView stringByEvaluatingJavaScriptFromString:@"document.documentElement.innerHTML"];
+    NSLog(@"newHtml text --> %@",newHTML);
+    Chapter* chapter = [curBook.chapters objectAtIndex:curSpineIndex];
+    //把修改后的文件保存到原来的html
+    [newHTML writeToFile:chapter.spinePath atomically:YES encoding:4 error:nil];
+    
+}
+//批注
+- (void)commentPressed:(id)sender
+{
+    NSLog(@"commentPressed");
+    UITextView *textView = [[[UITextView alloc] initWithFrame:CGRectMake(self.bounds.size.width/2 - 100, mouseY-10, 200, -100  )] autorelease];
+    textView.textColor = [UIColor blackColor];//设置textview里面的字体颜色
+    textView.font = [UIFont fontWithName:@"Arial" size:18.0];//设置字体名字和字体大小
+    textView.layer.cornerRadius = 6;
+    textView.tag = 999;
+    textView.layer.masksToBounds = YES;
+//    textView.delegate = self;//设置它的委托方法
+    textView.editable = YES; //是否可编辑
+    [textView becomeFirstResponder];
+    textView.backgroundColor = [UIColor orangeColor];//设置它的背景颜色
+    textView.returnKeyType = UIReturnKeyDefault;//返回键的类型
+    textView.keyboardType = UIKeyboardTypeDefault;//键盘类型
+    [self addSubview:textView];
+    
+}
+
+//删除
+- (void)removePressed:(id)sender
+{
+    DebugLog(@"classname --> %@",classId);
+    DebugLog(@"contentText --> %@",contentText);
+    if (classId != nil && contentText != nil) {
+        NSString* js = [NSString stringWithFormat:@"removetheClass('%@')",classId];
         [curWebView stringByEvaluatingJavaScriptFromString:js];
+        NSString* newHTML = [curWebView stringByEvaluatingJavaScriptFromString:@"document.documentElement.innerHTML"];
+        NSLog(@"newHtml text --> %@",newHTML);
+        
+        //获取书摘列表
+        //    [bookPick getBookPick];
+        //    [bookPick.currentBookPick removeObjectForKey:classId];
+        //    //写入document文件
+        //    [bookPick.currentBookPick writeToFile:bookPick.filename atomically:YES];
+        //    
+        //    //把html保存到原来的html
+        //    Chapter* chapter = [curBook.chapters objectAtIndex:curSpineIndex];
+        //    //把修改后的文件保存到原来的html
+        //    [newHTML writeToFile:chapter.spinePath atomically:YES encoding:4 error:nil];
+    }else {
+        NSLog(@"None to delete!");
     }
 }
-//书摘
-- (void)bookPickMenuPressed:(id)sender
-{
-    NSLog(@"bookPickMenuPressed");
-}
+
 //删除
 - (void)removeAllHighlights
 {
@@ -276,34 +363,47 @@
    
 	curWebView.hidden = NO;
 }
+
+//这个方法是网页中的每一个请求都会被触发的 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType{
+    NSLog(@"test -------------》 ");
     NSString *requestString = [[request URL] absoluteString];
 	NSArray *components = [requestString componentsSeparatedByString:@":"];
     NSLog(@"requestString --> %@",requestString);
-    
+
 	if ([components count] > 2 && [requestString hasPrefix:@"ibooks:"]) {
 		// document.location = "iBooks:" + "tags:" + randomCssClass + ":" + selectText; 
-        NSString* clssId =[components objectAtIndex:2];
+        NSString* clssName =[components objectAtIndex:2];
         NSString* txt =[components objectAtIndex:3]; 
+        mouseX = [[components objectAtIndex:4] floatValue];
+        mouseY = [[components objectAtIndex:5] floatValue];
         if (txt.length<10) {
             return NO;
         }
         
+        self.classId = clssName;
+        self.contentText = txt;
+//        UIMenuController *theMenu = [UIMenuController sharedMenuController];
+       
+//        [theMenu setTargetRect:selectionRect inView:self];
+//        [theMenu setMenuVisible:YES animated:YES];
+        [self becomeFirstResponder];
+        CGRect selectionRect = CGRectMake(mouseX, mouseY, 30,20);
+        [menuController setTargetRect:selectionRect inView: self];
+        //设置显示位置  
+//        [menuController setTargetRect:self.frame inView: self];
+        [self.menuController setMenuVisible:YES animated:YES];
         
-        NSLog(@"classId -> %@",clssId);
-        NSLog(@"txt --> %@",txt);
-        
-        
-        [[TagsHelper sharedInstanse] addTagWithClassId:clssId txt:txt];
+//        [[TagsHelper sharedInstanse] addTagWithClassId:clssName txt:txt];
         //保存html－－
         
-        Chapter* chapter = [curBook.chapters objectAtIndex:curSpineIndex];
-        NSLog(@"now ----> %@",chapter.spinePath);
-        NSString *aa = [NSString stringWithContentsOfFile:chapter.spinePath encoding:NSUTF8StringEncoding error:nil];
+//        Chapter* chapter = [curBook.chapters objectAtIndex:curSpineIndex];
+//        NSLog(@"now ----> %@",chapter.spinePath);
+//        NSString *aa = [NSString stringWithContentsOfFile:chapter.spinePath encoding:NSUTF8StringEncoding error:nil];
         
 //        NSString* newHTML = [webView stringByEvaluatingJavaScriptFromString:@"document.body.outerHTML"];//获取页面所有代码
-//        NSString* newHTML = [webView stringByEvaluatingJavaScriptFromString:@"document.body.innerHTML"];
-        NSLog(@"newHtml text --> %@",aa);
+//        NSString* newHTML = [webView stringByEvaluatingJavaScriptFromString:@"document.documentElement.innerHTML"];
+//        NSLog(@"newHtml text --> %@",newHTML);
 //         NSURL *url = [NSURL fileURLWithPath:chapter.spinePath];
 //        [curWebView loadRequest:[NSURLRequest requestWithURL:url]];
 //        [curWebView loadHTMLString:newHTML baseURL:url];
@@ -435,7 +535,7 @@
 	NSFileManager *fileManager = [NSFileManager defaultManager]; 
     
 	NSString *jqueryFilePath =resPath(@"Res/jquery-1.7.2.js");
-    NSLog(@"jqueryFilePath  %@",jqueryFilePath);
+//    NSLog(@"jqueryFilePath  %@",jqueryFilePath);
     
 	BOOL jqueryFileExists = [fileManager fileExistsAtPath:jqueryFilePath];
 	if (! jqueryFileExists) {
@@ -447,7 +547,7 @@
 	NSString *jqueryFileContentsAsString = [[NSString alloc] initWithData:jqueryFileData encoding:NSASCIIStringEncoding]; 
 	// injection.js
 	NSString *injectionFilePath = resPath(@"Res/rangy.js");
-    NSLog(@"injectionFilePath  %@",injectionFilePath);
+//    NSLog(@"injectionFilePath  %@",injectionFilePath);
 	
 	BOOL injectionFileExists = [fileManager fileExistsAtPath:injectionFilePath]; 
 	if (! injectionFileExists) {

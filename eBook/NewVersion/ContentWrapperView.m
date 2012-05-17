@@ -31,7 +31,8 @@
     [cv1 showWithIndex:aIndex]; 
     [cv1 setDebug:isLoyoutDebug];
     
-    cv1.backgroundColor =[UIColor scrollViewTexturedBackgroundColor];
+//    cv1.backgroundColor =[UIColor scrollViewTexturedBackgroundColor];
+    cv1.backgroundColor = [UIColor whiteColor];
 }
 
 @end

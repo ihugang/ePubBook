@@ -15,12 +15,18 @@
     int curPageIndex;
     SearchResult* currentSearchResult;
     
+    UIMenuController *menuController;
     BOOL injected;
+    float mouseX;
+    float mouseY;
 }
 @property(nonatomic,assign)UIWebView*  curWebView;
 @property(nonatomic,assign)UILabel*  curLable;
 @property (nonatomic, retain) SearchResult* currentSearchResult;
 @property (nonatomic, retain) NSString *jquery; 
+@property(nonatomic,assign)UIMenuController *menuController;
+@property (nonatomic, retain) NSString *classId; 
+@property (nonatomic, retain) NSString *contentText; 
 
 -(void)showWithIndex:(int)aIndex;
 
