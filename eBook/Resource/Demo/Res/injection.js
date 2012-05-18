@@ -9,19 +9,8 @@ $(document).ready(function() {
                   
 //                  setInterval("longtouchedFire('a')", 2000);
                   
-//                  $('span').click(function(event){
-//                                    alert('asd');
-//                                  alert(event.target.nodeName);
-//                                  alert(event.target.textContent);
-//                                  alert(event.target.attributes.item(0).textContent);
-//                                  alert(event.target.attributes.item(1).textContent);
-//                                  
-//                                    document.location = "iBooks:" + "tags:" + randomCssClass + ":" + selectText;
-//                                    });
-                  
                   
                   $('span').bind("click", function(event) {
-                                 //alert('The mouse cursor is at(' + event.pageX + ',' + event.pageY + ')');
 //                                 alert("bind");
                                  if(event.target.nodeName.toLowerCase() == "span"&&event.target.attributes.length != 0){
 //                                     alert(event.target.nodeName);
@@ -30,6 +19,7 @@ $(document).ready(function() {
 //                                     alert(event.target.attributes.item(1).textContent);
                                      //                                 alert(event.target.hasAttributes());
                                      //                                 alert(document.activeElement.nodeName);
+//                                 alert(event.target.parentNode.nodeName);
                                      var thisNodeName = event.target.nodeName;//当前标签名字
                                      var txt = event.target.textContent;//标签包含的内容
                                      var className = event.target.attributes.item(0).textContent;//标签 class 内容
@@ -43,20 +33,26 @@ $(document).ready(function() {
  });
 
 function make(name,txt,x,y) {
-//    alert("make");
 //    alert(name);
+    //传递数据给webview
     document.location = "iBooks:" + "tags:" + name + ":" + txt + ":" + x + ":"+ y;
-//    removetheClass(name);
 }
 
 //删除样式
 function removetheClass(name)
 {
-//    alert(name);
-    $("."+name).removeAttr("style");
-    $("."+name).removeAttr("class");
-//    $("."+name).detach();
-//    $("."+name).parentNode.removeChild(node);
+//    alert("span ."+name);
+    var test = $("."+name).text();
+//    alert(test);
+    $("."+name).replaceWith(test);//替换内容
+
+    //删除属性
+//    $("."+name).removeAttr("style");
+//    $("."+name).removeAttr("class");
+    
+    //    $('span').remove('.'+ name); 
+    //    document.body.removeChild($("span ."+name));
+    
 }
 
 function longtouchedFire(obj){
@@ -146,12 +142,12 @@ function loadjscssfile(filename, filetype){
         fileref.setAttribute("type","text/javascript")
         fileref.setAttribute("src", filename)
     }
-    else if (filetype=="css"){ //if filename is an external CSS file
-        var fileref=document.createElement("link")
-        fileref.setAttribute("rel", "stylesheet")
-        fileref.setAttribute("type", "text/css")
-        fileref.setAttribute("href", filename)
-    }
+//    else if (filetype=="css"){ //if filename is an external CSS file
+//        var fileref=document.createElement("link")
+//        fileref.setAttribute("rel", "stylesheet")
+//        fileref.setAttribute("type", "text/css")
+//        fileref.setAttribute("href", filename)
+//    }
     if (typeof fileref!="undefined")
         document.getElementsByTagName("head")[0].appendChild(fileref)
 }

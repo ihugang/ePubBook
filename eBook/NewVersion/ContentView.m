@@ -14,19 +14,25 @@
 #import "Book.h"
 #import "BookMark.h"
 #import "BookPick.h"
+#import "BookComment.h"
 #import "SearchResult.h"
 #import "UIWebView+SearchWebView.h"
 #import "Tags.h"
 #import "TagsHelper.h"
 #import <QuartzCore/QuartzCore.h>
+#import "CommentVC.h"
 
 @implementation ContentView
-@synthesize curLable,curWebView,currentSearchResult,jquery,menuController,classId,contentText;
+@synthesize curLable,curWebView,currentSearchResult,jquery,menuController,classId,contentText,rootVC;
 - (void)dealloc{
     //释放掉通知
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"searchText" object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"pageLoad" object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"addBookMark" object:nil];
+     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"removeComment" object:nil];
+    
+    [self.classId release];
+    [self.contentText release];
     [super dealloc];
 }
 -(void)initLayout{
@@ -95,6 +101,29 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(searchPageLoad:) name:@"searchText" object:nil];
     //添加书签
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addBookMark:) name:@"addBookMark" object:nil];
+    //监听删除批注
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(removeComment:) name:@"removeComment" object:nil];
+    
+}
+
+- (void)removeComment:(NSNotification *)notification
+{
+    NSString *className = [notification object];
+    //获取书摘列表
+    [bookPick getBookPick];
+    //如果在书摘列表中没有当前的class,可以取消高亮显示
+    if ([bookPick.currentBookPick objectForKey:className] == nil) {
+        NSString* js = [NSString stringWithFormat:@"removetheClass('%@')",className];
+        [curWebView stringByEvaluatingJavaScriptFromString:js];
+        NSString* newHTML = [curWebView stringByEvaluatingJavaScriptFromString:@"document.documentElement.innerHTML"];
+        NSLog(@"newHtml text --> %@",newHTML);
+        
+        //把html保存到原来的html
+        Chapter* chapter = [curBook.chapters objectAtIndex:curSpineIndex];
+        DebugLog(@"spinpath-- %@",chapter.spinePath);
+        //把修改后的文件保存到原来的html
+        [newHTML writeToFile:chapter.spinePath atomically:YES encoding:4 error:nil];
+    }
     
 }
 
@@ -168,7 +197,7 @@
 - (BOOL)canPerformAction:(SEL)action withSender:(id)sender
 {
     [super canPerformAction:action withSender:sender];
-    if (action == @selector(copyMenuPressed:)||action == @selector(commentPressed:)||action == @selector(bookPickMenuPressed:)||action == @selector(removePressed:)) {
+    if (/*action == @selector(copyMenuPressed:)||*/action == @selector(commentPressed:)||action == @selector(bookPickMenuPressed:)||action == @selector(removePressed:)) {
         return YES;
     }else {
 //        [super canPerformAction:action withSender:sender];
@@ -185,22 +214,65 @@
 //书摘
 - (void)bookPickMenuPressed:(id)sender
 {
-    //加载js文件
-    NSString *filePath  =  resPath(@"HighlightedString.js");
-    
-    NSLog(@"filepath:%@",filePath);
-    NSData *fileData    = [NSData dataWithContentsOfFile:filePath];
-    NSString *jsString  = [[NSMutableString alloc] initWithData:fileData encoding:NSUTF8StringEncoding];
-    [curWebView stringByEvaluatingJavaScriptFromString:jsString];
-    
-    // 获取选取的文本
-    NSString *startSearch1   = [NSString stringWithFormat:@"getHighlightedString()"];
-    [curWebView stringByEvaluatingJavaScriptFromString:startSearch1];
-    
-    NSString *selectedText   = [NSString stringWithFormat:@"selectedText"];
-    NSString * highlightedString = [curWebView stringByEvaluatingJavaScriptFromString:selectedText];
-    NSLog(@"selectedTextString: ---  > %@",highlightedString);
-    
+    if (self.classId != nil && self.contentText != nil) {
+        self.classId = nil;
+        self.contentText = nil;
+        DebugLog(@"not nil!");
+    }else {
+        //加载js文件
+        NSString *filePath  =  resPath(@"HighlightedString.js");
+        
+        NSLog(@"filepath:%@",filePath);
+        NSData *fileData    = [NSData dataWithContentsOfFile:filePath];
+        NSString *jsString  = [[NSMutableString alloc] initWithData:fileData encoding:NSUTF8StringEncoding];
+        [curWebView stringByEvaluatingJavaScriptFromString:jsString];
+        
+        // 获取选取的文本
+        NSString *startSearch1   = [NSString stringWithFormat:@"getHighlightedString()"];
+        [curWebView stringByEvaluatingJavaScriptFromString:startSearch1];
+        
+        NSString *selectedText   = [NSString stringWithFormat:@"selectedText"];
+        NSString * highlightedString = [curWebView stringByEvaluatingJavaScriptFromString:selectedText];
+        NSLog(@"selectedTextString: ---  > %@",highlightedString);
+        
+        
+        // 把选中的文本样式改变
+        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+        [formatter setDateFormat:@"yyyyMMddHHmmss"];
+        NSString *classTime=[formatter stringFromDate: [NSDate date]];
+        [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+        NSString *localTime = [formatter stringFromDate:[NSDate date]];
+        NSLog(@"----> %@",localTime);
+        
+        NSString *className =  [@"uiWebviewHighlight" stringByAppendingFormat:classTime];
+        NSString *startSearch   = [NSString stringWithFormat:@"stylizeHighlightedString('%@')",className];
+        //    NSLog(@"Highlighted -- > %@",startSearch);
+        [curWebView stringByEvaluatingJavaScriptFromString:startSearch];
+        NSLog(@"noteMenuPressed");
+        
+        //获取书摘列表
+        [bookPick getBookPick];
+        
+        NSString *npageIndex = [[NSUserDefaults standardUserDefaults] objectForKey:@"curPageIndex"];
+        NSLog(@" npageIndex --> %@",npageIndex);
+        //给当前页面添加书摘
+        NSDictionary *pageIndex = [[NSDictionary alloc] initWithObjectsAndKeys:npageIndex,@"pageIndex",className,@"className",localTime,@"time",highlightedString,@"content", nil];
+        [bookPick.currentBookPick setValue:pageIndex forKey:className];
+        //写入document文件
+        [bookPick.currentBookPick writeToFile:bookPick.filename atomically:YES];
+        
+        //把html保存到原来的html
+        NSString* newHTML = [curWebView stringByEvaluatingJavaScriptFromString:@"document.documentElement.innerHTML"];
+        NSLog(@"newHtml text --> %@",newHTML);
+        Chapter* chapter = [curBook.chapters objectAtIndex:curSpineIndex];
+        //把修改后的文件保存到原来的html
+        [newHTML writeToFile:chapter.spinePath atomically:YES encoding:4 error:nil];
+    }
+}
+
+//批注
+- (void)commentPressed:(id)sender
+{
     // 把选中的文本样式改变
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     [formatter setDateFormat:@"yyyyMMddHHmmss"];
@@ -209,49 +281,84 @@
     NSString *localTime = [formatter stringFromDate:[NSDate date]];
     NSLog(@"----> %@",localTime);
     
-    NSString *className =  [@"uiWebviewHighlight" stringByAppendingFormat:classTime];
-    NSString *startSearch   = [NSString stringWithFormat:@"stylizeHighlightedString('%@')",className];
-//    NSLog(@"Highlighted -- > %@",startSearch);
-    [curWebView stringByEvaluatingJavaScriptFromString:startSearch];
-    NSLog(@"noteMenuPressed");
+    CommentVC *comment = [[[CommentVC alloc] init] autorelease];
+//    NSLog(@"commentPressed");
+    if (self.classId != nil && self.contentText != nil) {
+        //调用添加批注的页面
+        [self.rootVC presentModalViewController:comment animated:YES];
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"comment" object:classId];
+        
+        //获取批注列表
+        [bookComment getBookComment];
+        
+        NSString *npageIndex = [[NSUserDefaults standardUserDefaults] objectForKey:@"curPageIndex"];
+        NSLog(@" npageIndex --> %@",npageIndex);
+        //给当前页面添加书摘
+        NSDictionary *pageIndex = [[NSDictionary alloc] initWithObjectsAndKeys:npageIndex,@"pageIndex",self.classId,@"className",localTime,@"time",self.contentText,@"content", nil];
+        [bookComment.currentBookComment setValue:pageIndex forKey:classId];
+        //写入document文件
+        [bookComment.currentBookComment writeToFile:bookComment.filename atomically:YES];
+        
+        self.classId = nil;
+        self.contentText = nil;
+        DebugLog(@"not nil!");
+    }else {
+        //加载js文件
+        NSString *filePath  =  resPath(@"HighlightedString.js");
+        NSLog(@"filepath:%@",filePath);
+        NSData *fileData    = [NSData dataWithContentsOfFile:filePath];
+        NSString *jsString  = [[NSMutableString alloc] initWithData:fileData encoding:NSUTF8StringEncoding];
+        [curWebView stringByEvaluatingJavaScriptFromString:jsString];
+        
+        // 获取选取的文本
+        NSString *startSearch1   = [NSString stringWithFormat:@"getHighlightedString()"];
+        [curWebView stringByEvaluatingJavaScriptFromString:startSearch1];
+        
+        NSString *selectedText   = [NSString stringWithFormat:@"selectedText"];
+        NSString * highlightedString = [curWebView stringByEvaluatingJavaScriptFromString:selectedText];
+        NSLog(@"selectedTextString: ---  > %@",highlightedString);
     
-    //获取书摘列表
-    [bookPick getBookPick];
-    
-    NSString *npageIndex = [[NSUserDefaults standardUserDefaults] objectForKey:@"curPageIndex"];
-    NSLog(@" npageIndex --> %@",npageIndex);
-    //给当前页面添加书摘
-    NSDictionary *pageIndex = [[NSDictionary alloc] initWithObjectsAndKeys:npageIndex,@"pageIndex",className,@"className",localTime,@"time",highlightedString,@"content", nil];
-    [bookPick.currentBookPick setValue:pageIndex forKey:className];
-    //写入document文件
-    [bookPick.currentBookPick writeToFile:bookPick.filename atomically:YES];
-    
-    //把html保存到原来的html
-    NSString* newHTML = [curWebView stringByEvaluatingJavaScriptFromString:@"document.documentElement.innerHTML"];
-    NSLog(@"newHtml text --> %@",newHTML);
-    Chapter* chapter = [curBook.chapters objectAtIndex:curSpineIndex];
-    //把修改后的文件保存到原来的html
-    [newHTML writeToFile:chapter.spinePath atomically:YES encoding:4 error:nil];
-    
+        
+        NSString *className =  [@"uiWebviewHighlight" stringByAppendingFormat:classTime];
+        NSString *startSearch   = [NSString stringWithFormat:@"stylizeHighlightedString('%@')",className];
+        //    NSLog(@"Highlighted -- > %@",startSearch);
+        [curWebView stringByEvaluatingJavaScriptFromString:startSearch];
+        NSLog(@"noteMenuPressed");
+        
+        //调用添加批注的页面
+        [self.rootVC presentModalViewController:comment animated:YES];
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"comment" object:className];
+        
+        //获取批注列表
+        [bookComment getBookComment];
+        
+        NSString *npageIndex = [[NSUserDefaults standardUserDefaults] objectForKey:@"curPageIndex"];
+        NSLog(@" npageIndex --> %@",npageIndex);
+        //给当前页面添加书摘
+        NSDictionary *pageIndex = [[NSDictionary alloc] initWithObjectsAndKeys:npageIndex,@"pageIndex",className,@"className",localTime,@"time",highlightedString,@"content", nil];
+        [bookComment.currentBookComment setValue:pageIndex forKey:className];
+        //写入document文件
+        [bookComment.currentBookComment writeToFile:bookComment.filename atomically:YES];
+        
+        //把html保存到原来的html
+        NSString* newHTML = [curWebView stringByEvaluatingJavaScriptFromString:@"document.documentElement.innerHTML"];
+        NSLog(@"newHtml text --> %@",newHTML);
+        Chapter* chapter = [curBook.chapters objectAtIndex:curSpineIndex];
+        //把修改后的文件保存到原来的html
+        [newHTML writeToFile:chapter.spinePath atomically:YES encoding:4 error:nil];
+    }
 }
-//批注
-- (void)commentPressed:(id)sender
+
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    NSLog(@"commentPressed");
-    UITextView *textView = [[[UITextView alloc] initWithFrame:CGRectMake(self.bounds.size.width/2 - 100, mouseY-10, 200, -100  )] autorelease];
-    textView.textColor = [UIColor blackColor];//设置textview里面的字体颜色
-    textView.font = [UIFont fontWithName:@"Arial" size:18.0];//设置字体名字和字体大小
-    textView.layer.cornerRadius = 6;
-    textView.tag = 999;
-    textView.layer.masksToBounds = YES;
-//    textView.delegate = self;//设置它的委托方法
-    textView.editable = YES; //是否可编辑
-    [textView becomeFirstResponder];
-    textView.backgroundColor = [UIColor orangeColor];//设置它的背景颜色
-    textView.returnKeyType = UIReturnKeyDefault;//返回键的类型
-    textView.keyboardType = UIKeyboardTypeDefault;//键盘类型
-    [self addSubview:textView];
-    
+    NSLog(@"asdfasdf");
+}
+
+- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    NSLog(@"end");
 }
 
 //删除
@@ -266,15 +373,28 @@
         NSLog(@"newHtml text --> %@",newHTML);
         
         //获取书摘列表
-        //    [bookPick getBookPick];
-        //    [bookPick.currentBookPick removeObjectForKey:classId];
-        //    //写入document文件
-        //    [bookPick.currentBookPick writeToFile:bookPick.filename atomically:YES];
+        [bookPick getBookPick];
+        [bookPick.currentBookPick removeObjectForKey:classId];
+        //写入document文件
+        [bookPick.currentBookPick writeToFile:bookPick.filename atomically:YES];
+        
+        //获取批注列表
+        [bookComment getBookComment];
+        [bookComment.currentBookComment removeObjectForKey:classId];
+        //写入documen
+        [bookComment.currentBookComment writeToFile:bookComment.filename atomically:YES];
+        
+//        DebugLog(@"-- %@",bookPick.currentBookPick);
         //    
-        //    //把html保存到原来的html
-        //    Chapter* chapter = [curBook.chapters objectAtIndex:curSpineIndex];
-        //    //把修改后的文件保存到原来的html
-        //    [newHTML writeToFile:chapter.spinePath atomically:YES encoding:4 error:nil];
+        //把html保存到原来的html
+        Chapter* chapter = [curBook.chapters objectAtIndex:curSpineIndex];
+        DebugLog(@"spinpath-- %@",chapter.spinePath);
+        //把修改后的文件保存到原来的html
+        [newHTML writeToFile:chapter.spinePath atomically:YES encoding:4 error:nil];
+        
+        self.classId = nil;
+        self.contentText = nil;
+        
     }else {
         NSLog(@"None to delete!");
     }
@@ -366,7 +486,6 @@
 
 //这个方法是网页中的每一个请求都会被触发的 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType{
-    NSLog(@"test -------------》 ");
     NSString *requestString = [[request URL] absoluteString];
 	NSArray *components = [requestString componentsSeparatedByString:@":"];
     NSLog(@"requestString --> %@",requestString);
@@ -377,16 +496,20 @@
         NSString* txt =[components objectAtIndex:3]; 
         mouseX = [[components objectAtIndex:4] floatValue];
         mouseY = [[components objectAtIndex:5] floatValue];
+        //中文乱码转换
+        NSString *string = [txt stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
         if (txt.length<10) {
             return NO;
         }
-        
         self.classId = clssName;
-        self.contentText = txt;
+        self.contentText = string;
 //        UIMenuController *theMenu = [UIMenuController sharedMenuController];
        
 //        [theMenu setTargetRect:selectionRect inView:self];
 //        [theMenu setMenuVisible:YES animated:YES];
+        
+        DebugLog(@"string ----> %@",string);
+        
         [self becomeFirstResponder];
         CGRect selectionRect = CGRectMake(mouseX, mouseY, 30,20);
         [menuController setTargetRect:selectionRect inView: self];
@@ -501,11 +624,11 @@
     
     [self inject];
     //加载内容
-    NSArray* list =[[TagsHelper sharedInstanse] getTagsInfo];
-    for (Tags* tag in list) {
-        NSString* js = [NSString stringWithFormat:@"loadBeforeTag('%@')",tag.className];
-        [curWebView stringByEvaluatingJavaScriptFromString:js];
-    }
+//    NSArray* list =[[TagsHelper sharedInstanse] getTagsInfo];
+//    for (Tags* tag in list) {
+//        NSString* js = [NSString stringWithFormat:@"loadBeforeTag('%@')",tag.className];
+//        [curWebView stringByEvaluatingJavaScriptFromString:js];
+//    }
     
     [self gotoPageInCurrentSpine:curPageIndex];
     

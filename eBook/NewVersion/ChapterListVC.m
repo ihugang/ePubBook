@@ -16,14 +16,14 @@
 #import "Chapter.h"
 #import "BookMark.h"
 #import "BookPick.h"
-
+#import "BookComment.h"
 
 @interface ChapterListVC ()
 
 @end
 
 @implementation ChapterListVC
-@synthesize delegate,bookMarkSortedValues,bookPickSortedValues;
+@synthesize delegate,bookMarkSortedValues,bookPickSortedValues,bookCommentSortedValues;
 
 - (void)dealloc {
     [chapterList release];
@@ -179,6 +179,8 @@
             [cataButton1 setBackgroundImage:nil forState:UIControlStateNormal];
             [cataButton2 setBackgroundImage:nil forState:UIControlStateNormal];
             [cataButton3 setBackgroundImage:nil forState:UIControlStateNormal];
+            //获取批注列表
+            [bookComment getBookComment];
             [chapterList reloadData];
             break;
         default:  
@@ -198,7 +200,7 @@
     }else if (check == 2){
         return 1;
     }else {
-        return 2;
+        return 1;
     }
 }
 
@@ -212,7 +214,7 @@
     }else if(check == 2){
         return bookPick.currentBookPick.count;
     }else {
-        return 2;
+        return bookComment.currentBookComment.count;
     }
 }
 
@@ -225,7 +227,7 @@
     }else if(check == 2){
         return @"";
     }else {
-        return [NSString stringWithFormat:@"========    Section Title %d    ========",section];
+        return @"";
     }
 
 }
@@ -285,10 +287,6 @@
             cell.date.text = [[bookMarkSortedValues objectAtIndex:indexPath.row] objectForKey:@"time"];
             cell.number.text = [[bookMarkSortedValues objectAtIndex:indexPath.row] objectForKey:@"pageIndex"];
             cell.content.text = [[bookMarkSortedValues objectAtIndex:indexPath.row] objectForKey:@"content"];
-            
-//            cell.date.text = [[bookMarks.currentBookMark.allValues objectAtIndex:indexPath.row] objectForKey:@"time"];
-//            cell.number.text = [[bookMarks.currentBookMark.allValues objectAtIndex:indexPath.row] objectForKey:@"pageIndex"];
-//            cell.content.text = [[bookMarks.currentBookMark.allValues objectAtIndex:indexPath.row] objectForKey:@"content"];
         }
         //书摘
         if (check == 2) {
@@ -311,9 +309,27 @@
         }
         //批注
         if (check == 3) {
-            cell.date.text = @"2010.1.1";
-            cell.number.text = [NSString stringWithFormat:@"%d",indexPath.row];
-            cell.content.text = @"然能够在工作之余整理总结出这本书，也是他对自己多年经营和管理工作经验的一次复盘，我相信他总结出的经验和教训对于后来的创业者会有所启迪。陶然目前正在率领拉卡拉团队在金融服务领域大展宏图，并且有可能成为联想控股旗下现代服务业的一个重要业务模块，代服务业的一个重要业务模块，成为联想正规军的队伍，我也在此祝愿他和他的团队能";
+            //对Value中的数组字典中的pageIndex进行排序
+            NSArray *keys = [bookComment.currentBookComment allValues];
+            //            DebugLog(@"keys --->  %@",keys);
+            NSSortDescriptor *lastDescriptor =
+            [[[NSSortDescriptor alloc]
+              initWithKey:@"pageIndex"
+              ascending:YES
+              selector:@selector(localizedCaseInsensitiveCompare:)] autorelease];    
+            
+            NSArray * descriptors = [NSArray arrayWithObjects:lastDescriptor, nil];
+            self.bookCommentSortedValues = [keys sortedArrayUsingDescriptors:descriptors]; 
+            //            DebugLog(@"sortedArray --->  %@",bookPickSortedValues);
+            
+            cell.date.text = [[bookCommentSortedValues objectAtIndex:indexPath.row] objectForKey:@"commentText"];
+            cell.number.text = [[bookCommentSortedValues objectAtIndex:indexPath.row] objectForKey:@"pageIndex"];
+            cell.content.text = [[bookCommentSortedValues objectAtIndex:indexPath.row] objectForKey:@"content"];
+            
+            
+//            cell.date.text = @"2010.1.1";
+//            cell.number.text = [NSString stringWithFormat:@"%d",indexPath.row];
+//            cell.content.text = @"然能够在工作之余整理总结出这本书，也是他对自己多年经营和管理工作经验的一次复盘，我相信他总结出的经验和教训对于后来的创业者会有所启迪。陶然目前正在率领拉卡拉团队在金融服务领域大展宏图，并且有可能成为联想控股旗下现代服务业的一个重要业务模块，代服务业的一个重要业务模块，成为联想正规军的队伍，我也在此祝愿他和他的团队能";
         }
         cell.date.highlightedTextColor = [UIColor whiteColor];
         cell.number.highlightedTextColor = [UIColor whiteColor];
@@ -358,9 +374,9 @@
     }else if(check == 2){
         //书摘
         [[NSNotificationCenter defaultCenter] postNotificationName:@"chapterListPageLoad" object:[[bookPickSortedValues objectAtIndex:indexPath.row] objectForKey:@"pageIndex"]];
-        
     }else {
-        
+        //书摘
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"chapterListPageLoad" object:[[bookCommentSortedValues objectAtIndex:indexPath.row] objectForKey:@"pageIndex"]];
     }
     
     [self.delegate ChapterListClick];

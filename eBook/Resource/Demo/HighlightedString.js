@@ -18,10 +18,19 @@ function stylizeHighlightedString(className) {
     
     span.appendChild(selectionContents);
     
+//background:url(../Res/underline.gif) repeat-x 0 bottom;
+//padding-bottom:5px;
+//text-decoration:none; background:url(k003.png) repeat-x 0 bottom; color:#000000;padding-bottom:4px;text-decoration:none;
+//color:#e6e6fa;
+    alert("test");
 //    span.setAttribute("class","uiWebviewHighlight"+ (+new Date()));
     span.setAttribute("class",className);
     span.style.backgroundColor  = "black";
-    span.style.color            = "white";
+    span.style.color            = "#000000";
+    span.style.background = "url(k003.png) repeat-x 0 bottom";
+//    span.style.padding-bottom = "4px";
+//    span.style.text-decoration = "none";
+    
     
     range.insertNode(span);
 }

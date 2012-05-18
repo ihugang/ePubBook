@@ -29,6 +29,7 @@
 
 @property (nonatomic,retain) NSMutableArray *bookMarkSortedValues;
 @property (nonatomic,retain) NSArray *bookPickSortedValues;
+@property (nonatomic,retain) NSArray *bookCommentSortedValues;
 @property (nonatomic,assign) id<ChapterListVCDelegate>delegate;
 
 @end

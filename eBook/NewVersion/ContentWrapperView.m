@@ -10,6 +10,7 @@
 #import "AppShare.h"
 #import "ContentView.h"
 @implementation ContentWrapperView
+@synthesize rootVC;
 
 -(void)initLayout{
     
@@ -30,7 +31,7 @@
     [self addSubview:cv1]; 
     [cv1 showWithIndex:aIndex]; 
     [cv1 setDebug:isLoyoutDebug];
-    
+    cv1.rootVC = self.rootVC;
 //    cv1.backgroundColor =[UIColor scrollViewTexturedBackgroundColor];
     cv1.backgroundColor = [UIColor whiteColor];
 }

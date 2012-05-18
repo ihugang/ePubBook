@@ -187,6 +187,7 @@
     if (!cwv) {
          cwv = [ContentWrapperView createWithSize:pagingView.frame.size];
     }
+    cwv.rootVC = self;
     [cwv showWithPathIndex:index];
     NSLog(@"viewForPageInPagingView");
     return cwv;

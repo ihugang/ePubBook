@@ -9,7 +9,7 @@
 #import "BaseView.h"
 @class SearchResult;
 
-@interface ContentView : BaseView<UIWebViewDelegate>{
+@interface ContentView : BaseView<UIWebViewDelegate,UITextViewDelegate>{
     UIWebView* curWebView;
     int curSpineIndex;
     int curPageIndex;
@@ -27,6 +27,7 @@
 @property(nonatomic,assign)UIMenuController *menuController;
 @property (nonatomic, retain) NSString *classId; 
 @property (nonatomic, retain) NSString *contentText; 
+@property(nonatomic,assign)UIViewController *rootVC;
 
 -(void)showWithIndex:(int)aIndex;
 

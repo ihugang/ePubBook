@@ -11,6 +11,7 @@
 @interface ContentWrapperView : BaseView{
     
 }
+@property(nonatomic,assign)UIViewController *rootVC;
 
 //显示第几页（横版两页算，竖版一页算）
 -(void)showWithPathIndex:(int)aIndex;
