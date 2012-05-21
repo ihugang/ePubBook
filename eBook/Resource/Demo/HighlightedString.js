@@ -27,7 +27,7 @@ function stylizeHighlightedString(className) {
     span.setAttribute("class",className);
     span.style.backgroundColor  = "black";
     span.style.color            = "#000000";
-    span.style.background = "url(k003.png) repeat-x 0 bottom";
+    span.style.background = "url(./k003.png) repeat-x 0 bottom";
 //    span.style.padding-bottom = "4px";
 //    span.style.text-decoration = "none";
     

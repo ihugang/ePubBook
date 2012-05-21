@@ -39,11 +39,9 @@
     [imageView setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
     [self.view addSubview:imageView];
     
-    float win = self.view.bounds.size.width/4.0 - 20;
-    
     cataButton1 = [UIButton buttonWithType:UIButtonTypeCustom];
     [cataButton1 setBackgroundImage:skinImage(@"catalogbar/h003.png") forState:UIControlStateNormal];
-    [cataButton1 setFrame:CGRectMake(30, 20, win, 25)];
+//    [cataButton1 setFrame:CGRectMake(30, 20, win, 25)];
     [cataButton1 setTitle:@"目录" forState:UIControlStateNormal];
     [cataButton1.titleLabel setFont:[UIFont systemFontOfSize:12]];
     [cataButton1 setAutoresizesSubviews:YES];
@@ -53,7 +51,7 @@
     [imageView addSubview:cataButton1];
     
     cataButton2 = [UIButton buttonWithType:UIButtonTypeCustom];
-    [cataButton2 setFrame:CGRectMake(91, 20, win, 25)];
+//    [cataButton2 setFrame:CGRectMake(91, 20, win, 25)];
     [cataButton2 setTitle:@"书签" forState:UIControlStateNormal];
     [cataButton2.titleLabel setFont:[UIFont systemFontOfSize:12]];
     [cataButton2 setAutoresizesSubviews:YES];
@@ -63,7 +61,7 @@
     [imageView addSubview:cataButton2];
     
     cataButton3 = [UIButton buttonWithType:UIButtonTypeCustom];
-    [cataButton3 setFrame:CGRectMake(152, 20, win, 25)];
+//    [cataButton3 setFrame:CGRectMake(152, 20, win, 25)];
     [cataButton3 setTitle:@"书摘" forState:UIControlStateNormal];
     [cataButton3.titleLabel setFont:[UIFont systemFontOfSize:12]];
     [cataButton3 setAutoresizesSubviews:YES];
@@ -73,7 +71,7 @@
     [imageView addSubview:cataButton3];
     
     cataButton4 = [UIButton buttonWithType:UIButtonTypeCustom];
-    [cataButton4 setFrame:CGRectMake(214, 20, win, 25)];
+//    [cataButton4 setFrame:CGRectMake(214, 20, win, 25)];
     [cataButton4 setTitle:@"批注" forState:UIControlStateNormal];
     [cataButton4.titleLabel setFont:[UIFont systemFontOfSize:12]];
     [cataButton4 setAutoresizesSubviews:YES];
@@ -88,14 +86,30 @@
     [chapterList setDelegate:self];
     [chapterList setDataSource:self];
     [chapterList setBackgroundColor:[UIColor clearColor]];
-    [chapterList setSeparatorColor:[UIColor clearColor]];//去掉背景
+    [chapterList setSeparatorColor:[UIColor clearColor]];//去掉分割线背景
     [chapterList setSeparatorStyle:UITableViewCellSeparatorStyleNone];//设置没有分割线
     [self.view addSubview:chapterList];
     //设置目录当前选中的行
     [self setRowSeclectAndScroll];
     
+     if (mf_IsPad) {
+         float win = self.view.bounds.size.width/4.0 ;
+         [cataButton1 setFrame:CGRectMake(72, 21, win - 41, 24)];
+         [cataButton2 setFrame:CGRectMake(cataButton1.right+3, 21, win - 41, 24)];
+         [cataButton3 setFrame:CGRectMake(cataButton2.right+3, 21, win - 41, 24)];
+         [cataButton4 setFrame:CGRectMake(cataButton3.right+2, 21, win - 42, 24)];
+     }else {
+         float win = self.view.bounds.size.width/4.0 - 20;
+         [cataButton1 setFrame:CGRectMake(29, 21, win, 24)];
+         [cataButton2 setFrame:CGRectMake(91, 21, win, 24)];
+         [cataButton3 setFrame:CGRectMake(152, 21, win, 24)];
+         [cataButton4 setFrame:CGRectMake(214, 21, win, 24)];
+     }
+    
     //添加一个返回的view 
-    UIView *backView = [[UIView alloc] initWithFrame:CGRectMake(self.view.bounds.size.width - 40, self.view.bounds.size.height/2 - 30,40, 70)];
+    UIView *backView = [[UIView alloc] initWithFrame:CGRectMake(self.view.bounds.size.width - 40, self.view.bounds.size.height/2 - 35,40, 70)];
+    [backView setAutoresizesSubviews:YES];
+    [backView setAutoresizingMask:UIViewAutoresizingFlexibleRightMargin|UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleTopMargin|UIViewAutoresizingFlexibleBottomMargin];
     [backView setBackgroundColor:[UIColor grayColor]];
     [backView setAlpha:0.5];
     [self.view addSubview:backView];
@@ -107,6 +121,8 @@
     
     UIImageView *backImage = [[UIImageView alloc] initWithFrame:CGRectMake(10, 15, 35, 35)];
     [backImage setImage:skinImage(@"catalogbar/箭头2.png")];
+    [backImage setAutoresizesSubviews:YES];
+    [backImage setAutoresizingMask:UIViewAutoresizingFlexibleRightMargin|UIViewAutoresizingFlexibleLeftMargin];
     [backButton addSubview:backImage];
     
     [self.view setBackgroundColor:[UIColor colorWithPatternImage:skinImage(@"catalogbar/h004.png")]];
@@ -142,7 +158,7 @@
 {
     UIButton *button = (UIButton *)sender;
     check = button.tag;
-    NSLog(@"button tag:%d",check);
+//    NSLog(@"button tag:%d",check);
     switch (button.tag) {  
         case 0:  
             // 目录

@@ -22,7 +22,7 @@
         UIFont*  font = [UIFont systemFontOfSize:14.0];
 
         content = [[UILabel alloc] init];
-        [content setFrame:CGRectMake(15, 10 , self.bounds.size.width - 60, height)];
+        [content setFrame:CGRectMake(20, 10 , self.bounds.size.width - 60, height)];
 //        [content setNumberOfLines:0];//必须写，让label可以自动换行
         [content setBackgroundColor:[UIColor clearColor]];
         [content setFont:font];
@@ -32,7 +32,7 @@
         [self addSubview:content];
         
         index = [[UILabel alloc] init];
-        [index setFrame:CGRectMake(self.bounds.size.width - 50, 10, 30, height)];
+        [index setFrame:CGRectMake(self.bounds.size.width - 60, 10, 30, height)];
         [index setFont:font];
         [index setBackgroundColor:[UIColor clearColor]];
         [index setTextAlignment:UITextAlignmentRight];

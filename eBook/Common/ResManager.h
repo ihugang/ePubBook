@@ -12,6 +12,7 @@
 #define resImage(_path) ([ResManager getResImage:_path])
 #define resPath(_path) ([ResManager getResPath:_path])
 #define config(_pageid)([ResManager getPageConfig:_pageid])
+#define documentPath ([ResManager getDocumentPath])
 
 @interface ResManager : NSObject
 
@@ -22,6 +23,8 @@
 +(NSString*)getResPath:(NSString*)aPath;
 
 +(NSString*)navResPath;
+
++(NSString*)getDocumentPath;
  
 +(NSString*)docPath:(NSString*)aPath;
 +(NSString*)docPath:(NSString*)aPath forSave:(BOOL)isSave;

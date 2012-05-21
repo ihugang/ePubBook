@@ -22,7 +22,7 @@
         UIFont*  font = [UIFont systemFontOfSize:14.0];
         
         date = [[UILabel alloc] init];
-        [date setFrame:CGRectMake(15, 5, 250, height)];
+        [date setFrame:CGRectMake(25, 5, 250, height)];
         [date setFont:font];
         [date setBackgroundColor:[UIColor clearColor]];
         [date setAutoresizesSubviews:YES];
@@ -39,7 +39,7 @@
         [self addSubview:number];
         
         content = [[UILabel alloc] init];
-        [content setFrame:CGRectMake(15, height + 15, self.bounds.size.width - 30, 50)];
+        [content setFrame:CGRectMake(25, height + 15, self.bounds.size.width - 40, 50)];
         [content setNumberOfLines:0];//必须写，让label可以自动换行
         [content setBackgroundColor:[UIColor clearColor]];
         [content setFont:font];

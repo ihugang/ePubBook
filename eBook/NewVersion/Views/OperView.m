@@ -19,8 +19,11 @@
 }
 
 -(void)initLayout{ 
-    //    self.backgroundColor =[UIColor colorWithPatternImage:skinImage(@"operbar/b002.png")];
-    UIImageView* iv =[UIImageView nodeWithImage:skinImage(@"operbar/b002.png")];
+//    self.backgroundColor = [UIColor redColor];
+//    //    self.backgroundColor =[UIColor colorWithPatternImage:skinImage(@"operbar/b002.png")];
+//    UIImageView* iv =[UIImageView nodeWithImage:skinImage(@"operbar/b002.png")];
+    UIImageView *iv = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.bounds.size.width, self.bounds.size.height)];
+    [iv setImage:skinImage(@"navbar/b002.png")];
     [self addSubview:iv];
     
     CGRect frame =  [[UIScreen mainScreen] bounds];
@@ -37,7 +40,7 @@
     UIButton* btnList =[UIButton nodeWithOnImage:nil offImage:skinImage(@"operbar/b003.png")];
     //btnList.size = CGSizeMake(btnList.width*2, btnList.height*2);
     btnList.left = 20;
-    btnList.top = 12;
+    btnList.top = 14;
     //    [btnList addEvent:@selector(btnListTapped:) atContainer:self];
     [btnList addTarget:self action:@selector(btnListTapped:) forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:btnList];
@@ -65,7 +68,7 @@
     
     bookMark = [UIButton nodeWithOnImage:nil offImage:resImage(@"content/bookmark.png")];
     bookMark.left = btnSetting.right + 20;
-    bookMark.top = 7;
+    bookMark.top = 10;
     [bookMark addEvent:@selector(addBookMark:) atContainer:self];
 //    [bookMark addTarget:self action:@selector(addBookMark:) forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:bookMark];
@@ -82,7 +85,7 @@
     btnBooks.width = 90;
     btnBooks.height = 25;
     btnBooks.right = self.width - 10;
-    btnBooks.top = 7;
+    btnBooks.top = 10;
     [btnBooks addEvent:@selector(btnBooksTapped:) atContainer:self];
     [self addSubview:btnBooks]; 
     

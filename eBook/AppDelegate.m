@@ -55,6 +55,31 @@
     }
     [self.window makeKeyAndVisible];
     
+    //检查问价是否存在，拷贝文件到document目录
+    NSString *docPath = documentPath;
+    DebugLog(@"documentPaht ---> %@",docPath);
+    NSString *path = resPath(@"/book");
+    DebugLog(@"path --->  %@",path);
+    NSString *newPath = [NSString stringWithFormat:@"%@/book",docPath];
+    if ([[NSFileManager defaultManager] fileExistsAtPath:newPath] == NO) {
+        //先创建文件夹
+        [[NSFileManager defaultManager] createDirectoryAtPath:newPath withIntermediateDirectories:NO attributes:nil error:nil];
+        //拷贝文件
+        NSArray *files =  [[NSFileManager defaultManager] contentsOfDirectoryAtPath:path error:nil];
+        for (NSString* obj in files){
+            NSError* error;
+            if (![[NSFileManager defaultManager] 
+                  copyItemAtPath:[path stringByAppendingPathComponent:obj] 
+                  toPath:[newPath stringByAppendingPathComponent:obj]
+                  error:&error])
+                DebugLog(@"%@", [error localizedDescription]);
+            DebugLog(@"file --> %@",[path stringByAppendingPathComponent:obj] );
+            DebugLog(@"fileto --> %@",[newPath stringByAppendingPathComponent:obj]);
+        }
+    }else {
+        DebugLog(@"files has be copy to document!");
+    }
+        
     //屏幕亮度控制
     brightnessView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.window.bounds.size.width, self.window.bounds.size.height)];
     [brightnessView setBackgroundColor:[UIColor blackColor]];
@@ -66,6 +91,16 @@
     
     return YES;
 }
+
+//获取某文件夹下的所有文件
+-(NSArray*)GetFilesName:(NSString*)path
+{
+    //创建文件管理器
+    NSFileManager *fileManager = [NSFileManager defaultManager];   
+    NSArray *files = [fileManager subpathsAtPath: path ];
+    return  files;
+}
+
 
 - (void) setAlphaBrightness:(NSNotification*) notification
 {

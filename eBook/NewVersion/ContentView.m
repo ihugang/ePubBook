@@ -78,7 +78,7 @@
     //设置显示的菜单，默认是第一菜单，要直接显示第二菜单，设置为NO
 //    [menuController setMenuVisible:NO animated:YES];
     //菜单项被选中时，菜单会自动隐藏，如果你不想让它自动隐藏
-    //    menuController.menuVisible = NO;
+    menuController.menuVisible = YES;
     //添加menu到 UIMenuController中
     [menuController setMenuItems:[NSArray arrayWithObjects:copyMenu,noteMenu,bookPickMenu,removeMenu, nil]];
     [menuController setArrowDirection:UIMenuControllerArrowDown];

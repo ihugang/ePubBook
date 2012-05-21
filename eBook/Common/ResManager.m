@@ -29,6 +29,12 @@
     return [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"Resource"];
 }
 
++(NSString*)getDocumentPath
+{
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    return [paths objectAtIndex:0];
+}
+
 +(NSString*)docPath:(NSString*)aPath{
     NSString* path = [DOCUMENTS_DIR stringByAppendingPathComponent:aPath];
      

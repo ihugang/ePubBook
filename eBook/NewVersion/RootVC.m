@@ -95,6 +95,7 @@
     navView = nv;
     nv.bottom = self.view.height;
     nv.delegate=self;
+//    [nv setBackgroundColor:[UIColor grayColor]];
     [self.view addSubview:nv];
     [nv setAutoresizingMask:UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleRightMargin];
     

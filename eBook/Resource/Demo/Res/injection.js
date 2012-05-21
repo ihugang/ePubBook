@@ -11,7 +11,7 @@ $(document).ready(function() {
                   
                   
                   $('span').bind("click", function(event) {
-//                                 alert("bind");
+                                 alert("bind");
                                  if(event.target.nodeName.toLowerCase() == "span"&&event.target.attributes.length != 0){
 //                                     alert(event.target.nodeName);
 //                                     alert(event.target.textContent);

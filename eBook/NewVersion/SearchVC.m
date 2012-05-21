@@ -206,7 +206,7 @@
     UIView * sectionView = [[[UIView alloc] initWithFrame:CGRectMake(0,50, tableView.bounds.size.width,tableView.bounds.size.height)] autorelease];
     //上拉刷新
     _refreshHeaderView=[[EGORefreshTableHeaderView alloc] initWithFrame:
-                        CGRectMake(0,170, sectionView.bounds.size.width, sectionView.bounds.size.height)];
+                        CGRectMake(0,100, sectionView.bounds.size.width, sectionView.bounds.size.height)];
     _refreshHeaderView.delegate=self;
     [_refreshHeaderView refreshLastUpdatedDate];
     
@@ -226,7 +226,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
-    return 100;
+    return 30;
 }
 
 //设置cell每行间隔的高度
