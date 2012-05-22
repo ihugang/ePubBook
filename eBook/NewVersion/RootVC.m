@@ -85,6 +85,7 @@
     OperView* ov =[OperView createWithSize:CGSizeMake(self.view.width, 44)];
     ov.top = 19;
     operView = ov;
+//    [ov setAlpha:0.5];
     ov.rootVC = self;
     ov.delegate=self;
     [self.view addSubview:ov];
@@ -94,6 +95,7 @@
     NavView* nv =[NavView createWithSize:CGSizeMake(self.view.width, 44)];
     navView = nv;
     nv.bottom = self.view.height;
+    [nv setAlpha:0.5];
     nv.delegate=self;
 //    [nv setBackgroundColor:[UIColor grayColor]];
     [self.view addSubview:nv];

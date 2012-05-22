@@ -73,14 +73,6 @@
 					<key>ParaIndex</key>
 					<integer>5</integer>
 				</dict>
-				<dict>
-					<key>AtomIndex</key>
-					<integer>157</integer>
-					<key>ChapterIndex</key>
-					<integer>0</integer>
-					<key>ParaIndex</key>
-					<integer>6</integer>
-				</dict>
 			</array>
 			<key>title</key>
 			<string>序言</string>

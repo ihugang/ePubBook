@@ -34,6 +34,15 @@
     cv1.rootVC = self.rootVC;
 //    cv1.backgroundColor =[UIColor scrollViewTexturedBackgroundColor];
     cv1.backgroundColor = [UIColor whiteColor];
+    if (!mf_IsPad || !share.isLandscape) {
+        
+    }else {
+//        cv1.backgroundColor = [UIColor colorWithPatternImage:skinImage(@"fontbar/5003.png")];
+//        
+//        UIImageView *customBackground = [[UIImageView alloc] initWithImage:skinImage(@"fontbar/5003.png")];
+//        [cv1 addSubview:customBackground];
+//        [cv1 sendSubviewToBack:customBackground];
+    }
 }
 
 @end

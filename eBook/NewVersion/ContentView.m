@@ -21,6 +21,7 @@
 #import "TagsHelper.h"
 #import <QuartzCore/QuartzCore.h>
 #import "CommentVC.h"
+#import "ChapterTitlePageView.h"
 
 @implementation ContentView
 @synthesize curLable,curWebView,currentSearchResult,jquery,menuController,classId,contentText,rootVC;
@@ -41,13 +42,20 @@
 
     //    [webView setBounds:CGRectMake(0, 0, 320, 480)];
 //    [curWebView setFrame:CGRectMake(40, 60, self.bounds.size.width, self.bounds.size.height)];
-    [curWebView setFrame:CGRectMake(10, 10, self.bounds.size.width-20, self.bounds.size.height-20)];
+    
     [curWebView setDelegate:self];
     [curWebView setAutoresizesSubviews:YES];
 
     [curWebView setBackgroundColor:[UIColor clearColor]];//设置背景颜色
     [curWebView setOpaque:NO];//设置透明
     [curWebView setAutoresizingMask:UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleRightMargin];
+    
+    if (mf_IsPad) {
+        [curWebView setFrame:CGRectMake(40, 50, self.bounds.size.width-80, self.bounds.size.height-80)];
+    }else {
+        [curWebView setFrame:CGRectMake(10, 10, self.bounds.size.width-20, self.bounds.size.height-20)];
+    }
+    
     //    [self.view addSubview:webView];
     //去除webview中的scrollview
     UIScrollView* sv = nil;
@@ -413,14 +421,14 @@
 
 -(void)showWithIndex:(int)aIndex {
     NSLog(@"contentView showWithIndex()");
-    //添加当前浏览的页面
-    [[NSUserDefaults standardUserDefaults] setValue:[NSString stringWithFormat:@"%d",aIndex] forKey:@"curPageIndex"];
-    [[NSUserDefaults standardUserDefaults] synchronize];//写入数据
-    
     self.curLable.text =[NSString stringWithFormat:@"%d",aIndex];
     NSString *nowPageIndex = [NSString stringWithFormat:@"%d",aIndex];
     DebugLog(@"showWithIndex aIndex -- > %@",nowPageIndex);
     [[NSNotificationCenter defaultCenter] postNotificationName:@"pageChange" object:nowPageIndex];
+    
+    //添加当前浏览的页面
+    [[NSUserDefaults standardUserDefaults] setValue:[NSString stringWithFormat:@"%d",aIndex] forKey:@"curPageIndex"];
+    [[NSUserDefaults standardUserDefaults] synchronize];//写入数据
     
     int tempSpineIndex = 0;//HTML
     int tempPageIndex = 0;//Page
@@ -439,8 +447,27 @@
 //    NSLog(@"perTotalIndex --- %d",perTotalIndex);
 //    NSLog(@"curTotalIndex --- %d",curTotalIndex);
     NSLog(@"showWithIndex loadSpine: %d  atPageIndex: %d",tempSpineIndex,tempPageIndex);
+    //等于0，加载页面扉页
+    if (tempPageIndex == 0) {
+        ChapterTitlePageView *titlePage = [[[ChapterTitlePageView alloc] initWithFrame:CGRectMake(0, 0, self.bounds.size.width, self.bounds.size.height)] autorelease];
+        [self addSubview:titlePage];
+        
+        Chapter* chapter = [curBook.chapters objectAtIndex:tempSpineIndex];
+        NSRange range = [chapter.title rangeOfString:@"章"]; 
+        if(range.location != NSNotFound) 
+        { 
+            titlePage.chapterIndex.text = [chapter.title substringToIndex:range.location+1];
+            titlePage.chapterName.text = [chapter.title substringFromIndex:range.location+1];
+        }else {
+             titlePage.chapterIndex.text = chapter.title;
+        }
+    }else {
+        [self loadSpine:tempSpineIndex atPageIndex:tempPageIndex-1];
+    }
     
-    [self loadSpine:tempSpineIndex atPageIndex:tempPageIndex]; 
+    //添加当前选中的页面，对应目录列表中当前选中的行
+    [[NSUserDefaults standardUserDefaults] setValue:[NSString stringWithFormat:@"%d",tempSpineIndex] forKey:@"curSpineIndex"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 //加载分页
@@ -448,11 +475,7 @@
     NSLog(@"ContentView loadSpine atPageIndex");
     
     curSpineIndex = spineIndex;
-    curPageIndex = pageIndex;  
-    
-    //添加当前选中的页面，对应目录列表中当前选中的行
-    [[NSUserDefaults standardUserDefaults] setValue:[NSString stringWithFormat:@"%d",curSpineIndex] forKey:@"curSpineIndex"];
-    [[NSUserDefaults standardUserDefaults] synchronize];
+    curPageIndex = pageIndex; 
     
   //  pageCount, chapterIndex
     Chapter* chapter = [curBook.chapters objectAtIndex:spineIndex];
@@ -473,6 +496,7 @@
     }
     else{
         pageOffset = pageIndex*curWebView.bounds.size.width + pageIndex *15;
+//        pageOffset = pageIndex*curWebView.bounds.size.width;
     }
     NSLog(@"gotoPageInCurrentSpine pageOffset -> %f",pageOffset);
     //设置页面依X轴来滚动
@@ -556,7 +580,7 @@
    /* */
     NSLog(@"ContentView webViewDidFinishLoad");
     
-    if (!mf_IsPad || !share.isLandscape) {
+    
         NSString *varMySheet = @"var mySheet = document.styleSheets[0];";
         
         NSString *addCSSRule =  @"function addCSSRule(selector, newRule) {"
@@ -568,7 +592,7 @@
         "}"
         "}";
         
-        NSLog(@"================%f,%f",webView.frame.size.height,webView.frame.size.width);
+        NSLog(@"webViewDidFinishLoad=========%f,%f",webView.frame.size.height,webView.frame.size.width);
         
         NSString *insertRule1 = [NSString stringWithFormat:@"addCSSRule('html', 'padding: 0px; height: %fpx; -webkit-column-gap: 0px; -webkit-column-width: %fpx;')", webView.frame.size.height, webView.frame.size.width];
         NSString *insertRule2 = [NSString stringWithFormat:@"addCSSRule('p', 'text-align: justify;')"];
@@ -609,7 +633,7 @@
         int pageCount = totalWidth / webView.bounds.size.width;
         
         NSLog(@"Chapter %d: title: -> 包含：%d pages", curSpineIndex, pageCount);
-        
+    if (!mf_IsPad || !share.isLandscape) { 
         
     }
     else {  //加载css文件

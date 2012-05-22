@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		10033D7C156B3898006A89EC /* ChapterTitlePageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 10033D7B156B3897006A89EC /* ChapterTitlePageView.m */; };
 		10176DFA1556CB4100BBA89C /* BookStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 10176DF91556CB4100BBA89C /* BookStore.m */; };
 		10183E1A1560A54D0097A0DB /* CustomNavigationBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 10183E191560A54D0097A0DB /* CustomNavigationBar.m */; };
 		101B20D91565EC8D00AFF761 /* CommentVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 101B20D81565EC8D00AFF761 /* CommentVC.m */; };
@@ -155,6 +156,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		10033D7A156B3896006A89EC /* ChapterTitlePageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ChapterTitlePageView.h; path = ../ChapterTitlePageView.h; sourceTree = "<group>"; };
+		10033D7B156B3897006A89EC /* ChapterTitlePageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ChapterTitlePageView.m; path = ../ChapterTitlePageView.m; sourceTree = "<group>"; };
 		10176DF81556CB4100BBA89C /* BookStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BookStore.h; sourceTree = "<group>"; };
 		10176DF91556CB4100BBA89C /* BookStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BookStore.m; sourceTree = "<group>"; };
 		10183E181560A54D0097A0DB /* CustomNavigationBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomNavigationBar.h; sourceTree = "<group>"; };
@@ -629,6 +632,8 @@
 		18013AAB15413E7D00F8B17B /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				10033D7A156B3896006A89EC /* ChapterTitlePageView.h */,
+				10033D7B156B3897006A89EC /* ChapterTitlePageView.m */,
 				108CF433154A81E7004860E3 /* FontView.h */,
 				108CF434154A81E7004860E3 /* FontView.m */,
 				18013AB015413E9C00F8B17B /* OperView.h */,
@@ -1154,6 +1159,7 @@
 				102CC4741562627E008A6507 /* BookPick.m in Sources */,
 				101B20D91565EC8D00AFF761 /* CommentVC.m in Sources */,
 				101B20DD1566170900AFF761 /* BookComment.m in Sources */,
+				10033D7C156B3898006A89EC /* ChapterTitlePageView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

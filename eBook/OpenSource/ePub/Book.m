@@ -78,7 +78,8 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(Book);
         
         Chapter* chapter = [[[Chapter alloc] initWithPath:filename title:title chapterIndex:iAllPageCount ] autorelease];
         //title
-        chapter.pageCount = DA(item, @"pages").count; 
+        //加1,给页面扉页留位置
+        chapter.pageCount = DA(item, @"pages").count + 1; 
         
 //        DebugLog(@"chapter:%d pagecount -- %d",index,iAllPageCount);
         [cs addObject:chapter];
