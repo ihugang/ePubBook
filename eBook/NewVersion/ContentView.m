@@ -42,12 +42,11 @@
 
     //    [webView setBounds:CGRectMake(0, 0, 320, 480)];
 //    [curWebView setFrame:CGRectMake(40, 60, self.bounds.size.width, self.bounds.size.height)];
-    
-    [curWebView setDelegate:self];
-    [curWebView setAutoresizesSubviews:YES];
-
     [curWebView setBackgroundColor:[UIColor clearColor]];//设置背景颜色
     [curWebView setOpaque:NO];//设置透明
+    [curWebView setDelegate:self];
+    
+    [curWebView setAutoresizesSubviews:YES];
     [curWebView setAutoresizingMask:UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleRightMargin];
     
     if (mf_IsPad) {
@@ -73,7 +72,7 @@
  
     //给页面添加UIMenuController
     self.menuController = [UIMenuController sharedMenuController];
-    UIMenuItem *copyMenu = [[UIMenuItem alloc] initWithTitle:@"复制" action:@selector(copyMenuPressed:)];
+//    UIMenuItem *copyMenu = [[UIMenuItem alloc] initWithTitle:@"复制" action:@selector(copyMenuPressed:)];
     UIMenuItem *noteMenu = [[UIMenuItem alloc] initWithTitle:@"书摘" action:@selector(bookPickMenuPressed:)];
     UIMenuItem *bookPickMenu = [[UIMenuItem alloc] initWithTitle:@"批注" action:@selector(commentPressed:)];
     UIMenuItem *removeMenu = [[UIMenuItem alloc] initWithTitle:@"删除" action:@selector(removePressed:)];
@@ -84,14 +83,14 @@
 //    [menuController setTargetRect:selectionRect inView: self.superview];
     
     //设置显示的菜单，默认是第一菜单，要直接显示第二菜单，设置为NO
-//    [menuController setMenuVisible:NO animated:YES];
+    [menuController setMenuVisible:NO animated:YES];
     //菜单项被选中时，菜单会自动隐藏，如果你不想让它自动隐藏
-    menuController.menuVisible = YES;
+//    menuController.menuVisible = YES;
     //添加menu到 UIMenuController中
-    [menuController setMenuItems:[NSArray arrayWithObjects:copyMenu,noteMenu,bookPickMenu,removeMenu, nil]];
+    [menuController setMenuItems:[NSArray arrayWithObjects:noteMenu,bookPickMenu,removeMenu, nil]];
     [menuController setArrowDirection:UIMenuControllerArrowDown];
     
-    [copyMenu release];
+//    [copyMenu release];
     [noteMenu release];
     [bookPickMenu release];
     [removeMenu release];
@@ -99,8 +98,8 @@
 //    curWebView.userInteractionEnabled = NO;
     
     //给webView添加UIGestureRecognizer
-    UILongPressGestureRecognizer *longPressGesture = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPressWebView:)];
-    [self.curWebView addGestureRecognizer:longPressGesture];
+//    UILongPressGestureRecognizer *longPressGesture = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPressWebView:)];
+//    [self.curWebView addGestureRecognizer:longPressGesture];
 //    [longPressGesture release];
     
     //添加通知监听
@@ -114,6 +113,7 @@
     
 }
 
+//删除书摘
 - (void)removeComment:(NSNotification *)notification
 {
     NSString *className = [notification object];
@@ -198,19 +198,23 @@
 //设置-(BOOL) canBecomeFirstResponder的返回值为YES
 - (BOOL)canBecomeFirstResponder
 {
-    [super canBecomeFirstResponder];
+//    [super canBecomeFirstResponder];
     return YES;
 }
 //重载函数,设置要显示的菜单项，返回值为YES。若不进行任何限制，则将显示系统自带的所有菜单项
 - (BOOL)canPerformAction:(SEL)action withSender:(id)sender
 {
-    [super canPerformAction:action withSender:sender];
-    if (/*action == @selector(copyMenuPressed:)||*/action == @selector(commentPressed:)||action == @selector(bookPickMenuPressed:)||action == @selector(removePressed:)) {
+//    [super canPerformAction:action withSender:sender];
+    if (/*action == @selector(copyMenuPressed:)||*/action == @selector(commentPressed:)||
+        action == @selector(bookPickMenuPressed:)||action == @selector(removePressed:)) {
         return YES;
-    }else {
-//        [super canPerformAction:action withSender:sender];
-        return NO; //隐藏系统默认的菜单项
     }
+    else if (action == @selector(copy:))
+    {
+        return NO;
+    }
+//    return NO; //隐藏系统默认的菜单项
+    return [super canPerformAction:action withSender:sender];
 }
 //复制
 - (void)copyMenuPressed:(id)sender
@@ -477,12 +481,11 @@
     curSpineIndex = spineIndex;
     curPageIndex = pageIndex; 
     
-  //  pageCount, chapterIndex
+    //  pageCount, chapterIndex
     Chapter* chapter = [curBook.chapters objectAtIndex:spineIndex];
-    
     //[self loadSpine:spineIndex atPageIndex:pageIndex highlightSearchResult:nil];
     NSURL *url = [NSURL fileURLWithPath:chapter.spinePath];
-	[curWebView loadRequest:[NSURLRequest requestWithURL:url]];
+    [curWebView loadRequest:[NSURLRequest requestWithURL:url]];
 }
 
 - (void) gotoPageInCurrentSpine:(int)pageIndex{ 
@@ -603,7 +606,9 @@
         //设置页面文字尺寸
         NSString *setTextSizeRule = [NSString stringWithFormat:@"addCSSRule('body', '-webkit-text-size-adjust: %d%%;')",curBook.BodyFontSize];
         NSLog(@"curBook.BodyFontSize --- > %d",curBook.BodyFontSize);
-
+        //设置页面不能选择文本
+//        [webView stringByEvaluatingJavaScriptFromString:@"document.body.style.webkitTouchCallout='none';"];
+//        [webView stringByEvaluatingJavaScriptFromString:@"document.documentElement.style.webkitTouchCallout='none';"];
         
         [webView stringByEvaluatingJavaScriptFromString:varMySheet];
         

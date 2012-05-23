@@ -38,6 +38,7 @@
 //    self.pageView.backgroundColor =[UIColor whiteColor];
     self.pageView.backgroundColor = baseColor;
     [self.view insertSubview:self.pageView atIndex:0];
+    [self.pageView setAutoresizesSubviews:YES];
     [self.pageView setAutoresizingMask:UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleRightMargin];
     [self.pageView reloadData];
  
@@ -85,21 +86,23 @@
     OperView* ov =[OperView createWithSize:CGSizeMake(self.view.width, 44)];
     ov.top = 19;
     operView = ov;
-//    [ov setAlpha:0.5];
+//    [ov setAlpha:0.9];
     ov.rootVC = self;
     ov.delegate=self;
     [self.view addSubview:ov];
+    [ov setAutoresizesSubviews:YES];
     [ov setAutoresizingMask:UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleRightMargin];
     
-    
-    NavView* nv =[NavView createWithSize:CGSizeMake(self.view.width, 44)];
+    NavView* nv =[NavView createWithSize:CGSizeMake(self.view.width, 70)];
+//    nv.bottom = self.view.height;
+    nv.top = self.view.height - 70;
     navView = nv;
-    nv.bottom = self.view.height;
-    [nv setAlpha:0.5];
+//    [nv setAlpha:0.9];
     nv.delegate=self;
 //    [nv setBackgroundColor:[UIColor grayColor]];
     [self.view addSubview:nv];
-    [nv setAutoresizingMask:UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleRightMargin];
+    [nv setAutoresizesSubviews:YES];
+    [nv setAutoresizingMask:UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleTopMargin|UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleRightMargin];
     
     self.lastPage = [[NSUserDefaults standardUserDefaults] objectForKey:@"curPageIndex"];
     if (lastPage == nil) {
@@ -181,7 +184,7 @@
 
 #pragma mark ATPagingView Delegate
 - (NSInteger)numberOfPagesInPagingView:(ATPagingView *)pagingView{
-    NSLog(@"RootVC ---- %d",curBook.PageCount);
+    NSLog(@"RootVC all pages ---- %d",curBook.PageCount);
     return curBook.PageCount;
 }
 
@@ -201,21 +204,21 @@
     NSLog(@"pagesDidChangeInPagingView");
 }
 -(void)currentPageDidChangeInPagingView:(ATPagingView *)pagingView{
-   NSLog(@"currentPageDidChangeInPagingView");
+   NSLog(@"currentPageDidChangeInPagingView  --> %d",pagingView.currentPageIndex);
 
 }
 #pragma mark 旋转
 -(void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation{
-    if (!mf_IsPad) {
-        return;
-    }
+//    if (!mf_IsPad) {//设置iphone不能旋转
+//        return;
+//    }
     [super didRotateFromInterfaceOrientation:fromInterfaceOrientation];
     if (!parsing) {
         return;
     }
     int iCurIndex = self.pageView.currentPageIndex;
-    [self addUI]; 
     self.pageView.currentPageIndex =  iCurIndex;
+    [self addUI]; 
 
 }
 #pragma mark 导航条

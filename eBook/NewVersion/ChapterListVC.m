@@ -101,9 +101,9 @@
      }else {
          float win = self.view.bounds.size.width/4.0 - 20;
          [cataButton1 setFrame:CGRectMake(29, 21, win, 24)];
-         [cataButton2 setFrame:CGRectMake(91, 21, win, 24)];
-         [cataButton3 setFrame:CGRectMake(152, 21, win, 24)];
-         [cataButton4 setFrame:CGRectMake(214, 21, win, 24)];
+         [cataButton2 setFrame:CGRectMake(cataButton1.right+2, 21, win, 24)];
+         [cataButton3 setFrame:CGRectMake(cataButton2.right+2, 21, win, 24)];
+         [cataButton4 setFrame:CGRectMake(cataButton3.right+2, 21, win, 24)];
      }
     
     //添加一个返回的view 

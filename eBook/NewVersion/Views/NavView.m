@@ -19,19 +19,22 @@
 -(void)initLayout{
 //    CGRect frame =  [[UIScreen mainScreen] bounds];
 //    self.size =CGSizeMake(frame.size.width, 55);
-//    self.backgroundColor = [UIColor redColor];
+//    self.backgroundColor = [UIColor greenColor];
     
 //    UIImageView* iv = [UIImageView nodeWithImage:skinImage(@"navbar/b008.png")];
-    UIImageView *iv = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.bounds.size.width, 65)];
+    UIImageView *iv = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.bounds.size.width, 75)];
     [iv setImage:skinImage(@"navbar/b008.png")];
     [iv setUserInteractionEnabled:YES];
+    [iv setAutoresizingMask:UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleRightMargin];
     [self addSubview:iv];
    // self.backgroundColor =[UIColor blueColor];
     
     pageSlider = [[UISlider alloc] initWithFrame:CGRectMake(0, 0, self.bounds.size.width - 40, 0)];
+    
+    [pageSlider setAutoresizingMask:UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleRightMargin];
 //    pageSlider.value = [[[NSUserDefaults standardUserDefaults] objectForKey:@"curPageIndex"] intValue];
     pageSlider.centerX = self.width/2;
-    pageSlider.top = 33;
+    pageSlider.top = 40;
     //滑块图片
     [pageSlider setThumbImage:skinImage(@"navbar/b010.png") forState:UIControlStateNormal];
     

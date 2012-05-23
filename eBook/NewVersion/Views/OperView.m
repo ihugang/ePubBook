@@ -24,13 +24,16 @@
 //    UIImageView* iv =[UIImageView nodeWithImage:skinImage(@"operbar/b002.png")];
     UIImageView *iv = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.bounds.size.width, self.bounds.size.height)];
     [iv setImage:skinImage(@"navbar/b002.png")];
+    [iv setAutoresizingMask:UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleRightMargin];
     [self addSubview:iv];
     
     CGRect frame =  [[UIScreen mainScreen] bounds];
     self.size =CGSizeMake(frame.size.width, frame.size.height - 44);
- 
+    
     UIView* ivTapOper =[[[UIView alloc] initWithFrame:frame] autorelease];
+//    [ivTapOper setBackgroundColor:[UIColor blueColor]];
     ivTapOper.top = iv.bottom + 10;
+    [ivTapOper setAutoresizingMask:UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleRightMargin];
     [self addSubview:ivTapOper];
     [ivTapOper whenTapped:^{
          //switchTap
@@ -42,6 +45,7 @@
     btnList.left = 20;
     btnList.top = 14;
     //    [btnList addEvent:@selector(btnListTapped:) atContainer:self];
+    [btnList setAutoresizingMask:UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleRightMargin];
     [btnList addTarget:self action:@selector(btnListTapped:) forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:btnList];
     
@@ -49,6 +53,7 @@
     //btnFontSize.size = btnList.size;
     btnFontSize.left = btnList.right + 20;
     btnFontSize.top = btnList.top;
+    [btnFontSize setAutoresizingMask:UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleRightMargin];
     [btnFontSize addEvent:@selector(btnFontSizeTapped:) atContainer:self];
     [self addSubview:btnFontSize];
     
@@ -56,6 +61,7 @@
     // btnSearch.size = btnList.size;
     btnSearch.left = btnFontSize.right + 20;
     btnSearch.top = btnList.top;
+    [btnSearch setAutoresizingMask:UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleRightMargin];
     [btnSearch addEvent:@selector(btnSearchTapped:) atContainer:self];
     [self addSubview:btnSearch];
     
@@ -63,12 +69,14 @@
     // btnSetting.size = btnList.size;
     btnSetting.left = btnSearch.right + 20;
     btnSetting.top = btnList.top;
+    [btnSetting setAutoresizingMask:UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleRightMargin];
     [btnSetting addEvent:@selector(btnSettingTapped:) atContainer:self];
     [self addSubview:btnSetting];
     
     bookMark = [UIButton nodeWithOnImage:nil offImage:resImage(@"content/bookmark.png")];
     bookMark.left = btnSetting.right + 20;
     bookMark.top = 10;
+    [bookMark setAutoresizingMask:UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleRightMargin];
     [bookMark addEvent:@selector(addBookMark:) atContainer:self];
 //    [bookMark addTarget:self action:@selector(addBookMark:) forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:bookMark];
@@ -86,6 +94,7 @@
     btnBooks.height = 25;
     btnBooks.right = self.width - 10;
     btnBooks.top = 10;
+    [btnBooks setAutoresizingMask:UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleRightMargin];
     [btnBooks addEvent:@selector(btnBooksTapped:) atContainer:self];
     [self addSubview:btnBooks]; 
     
@@ -129,7 +138,8 @@
 -(void)btnFontSizeTapped:(UIButton*)sender{
     DebugLog(@"%@",sender);
     if (fv == nil) {
-        fv = [[FontView alloc] initWithFrame:CGRectMake(10,btnFontSize.bottom + 20 , 200, 100)] ;
+        fv = [[FontView alloc] initWithFrame:CGRectMake(10,btnFontSize.bottom + 22 , 200, 100)] ;
+        [fv setAutoresizingMask:UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleRightMargin];
         fv.tag = 1001;
 //        [self.superview addSubview:fv];
         [self.rootVC.view addSubview:fv];

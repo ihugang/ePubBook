@@ -86,6 +86,7 @@
     textView.scrollEnabled = YES;//是否可以拖动
     //设置圆角
     [textView.layer setCornerRadius:10];
+    [textView setAutoresizingMask:UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleRightMargin];
     [self.view addSubview:textView];
 //    [textView resignFirstResponder];
     [textView becomeFirstResponder];

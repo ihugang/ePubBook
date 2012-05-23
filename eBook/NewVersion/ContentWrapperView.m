@@ -32,6 +32,8 @@
     [cv1 showWithIndex:aIndex]; 
     [cv1 setDebug:isLoyoutDebug];
     cv1.rootVC = self.rootVC;
+    
+    [cv1 setAutoresizingMask:UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleRightMargin];
 //    cv1.backgroundColor =[UIColor scrollViewTexturedBackgroundColor];
     cv1.backgroundColor = [UIColor whiteColor];
     if (!mf_IsPad || !share.isLandscape) {
