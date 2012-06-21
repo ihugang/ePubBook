@@ -27,7 +27,7 @@
 {
     [self.view setBackgroundColor:[UIColor scrollViewTexturedBackgroundColor]];
     
-    UINavigationBar *navBar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 44)];
+    UINavigationBar *navBar = [[[UINavigationBar alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 44)] autorelease];
     [self.view addSubview:navBar];
     //    CustomNavigationBar *bar = (CustomNavigationBar *)navBar;
     //    CustomNavigationBar *bar = [[CustomNavigationBar alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 44)];
@@ -55,17 +55,17 @@
     UIBarButtonItem *customButton = [[[UIBarButtonItem alloc] initWithCustomView: button] autorelease]; 
     
     //创建一个导航栏集合  
-    UINavigationItem *navigationItem = [[UINavigationItem alloc] initWithTitle:nil];
+    UINavigationItem *navigationItem = [[[UINavigationItem alloc] initWithTitle:nil] autorelease];
     //创建一个左边按钮  
 //    UIBarButtonItem *leftButton = [[UIBarButtonItem alloc] initWithTitle:@"返回"     
 //                                                                   style:UIBarButtonItemStylePlain    
 //                                                                  target:self     
 //                                                                  action:@selector(clickLeftButton)];    
 //    //创建一个右边按钮  
-    UIBarButtonItem *rightButton = [[UIBarButtonItem alloc] initWithTitle:@"添加"     
+    UIBarButtonItem *rightButton = [[[UIBarButtonItem alloc] initWithTitle:@"添加"     
                                                                     style:UIBarButtonItemStyleDone     
                                                                    target:self     
-                                                                   action:@selector(clickRightButton)];    
+                                                                   action:@selector(clickRightButton)] autorelease];    
     //设置导航栏内容  
     [navigationItem setTitle:@"添加批注"];  
     //把导航栏集合添加入导航栏中，设置动画关闭  

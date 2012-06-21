@@ -24,7 +24,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(BookMark);
     //    self.path = [ResManager docPath:@"bookmark.plist"];
 //    self.currentBookMark = [NSDictionary dictionaryWithContentsOfFile:filename];
     
-    NSFileManager *fileManager = [[NSFileManager alloc] init] ;
+    NSFileManager *fileManager = [[[NSFileManager alloc] init] autorelease] ;
     //判断文件是否存在
     if ([fileManager fileExistsAtPath:filename]) {
         //文件存在
@@ -32,8 +32,8 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(BookMark);
         self.bookmarks = [NSMutableDictionary dictionaryWithContentsOfFile:filename];
     }else {
         NSLog(@"has no file");
-        self.currentBookMark = [[NSDictionary alloc] init];
-        self.bookmarks = [[NSMutableDictionary alloc] init];
+        self.currentBookMark = [[[NSDictionary alloc] init] autorelease];
+        self.bookmarks = [[[NSMutableDictionary alloc] init] autorelease];
         [bookmarks writeToFile:filename atomically:YES];
     }
 }

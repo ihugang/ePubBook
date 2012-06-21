@@ -39,14 +39,14 @@
     [layer addSublayer:imageLayer];
     
     //亮度设置View
-    UIView *brightness = [[UIView alloc] initWithFrame:CGRectMake(20, 25, self.bounds.size.width - 20, 40)];
+    UIView *brightness = [[[UIView alloc] initWithFrame:CGRectMake(20, 25, self.bounds.size.width - 20, 40)] autorelease];
     [self addSubview:brightness];
     
-    UIImageView *min = [[UIImageView alloc] initWithFrame:CGRectMake(0, 11, 15, 15)];
+    UIImageView *min = [[[UIImageView alloc] initWithFrame:CGRectMake(0, 11, 15, 15)] autorelease];
     [min setImage:skinImage(@"fontbar/c003.png")];
     [brightness addSubview:min];
     
-    UIImageView *max = [[UIImageView alloc] initWithFrame:CGRectMake(brightness.bounds.size.width - 20, 10, 20, 20)];
+    UIImageView *max = [[[UIImageView alloc] initWithFrame:CGRectMake(brightness.bounds.size.width - 20, 10, 20, 20)] autorelease];
     [max setImage:skinImage(@"fontbar/c004.png")];
     [brightness addSubview:max];
     
@@ -71,11 +71,11 @@
 //    [sliderA addTarget:self action:@selector(sliderDragUp:) forControlEvents:UIControlEventTouchUpInside];
     [brightness addSubview:sliderA];
     
-    UIImageView *fenge = [[UIImageView alloc] initWithFrame:CGRectMake(10,self.bounds.size.height/2 + 20,self.bounds.size.width,1)];
+    UIImageView *fenge = [[[UIImageView alloc] initWithFrame:CGRectMake(10,self.bounds.size.height/2 + 20,self.bounds.size.width,1)] autorelease];
     [fenge setImage:skinImage(@"catalogbar/h005.png")];
     [self addSubview:fenge];
     
-    UIImageView *font = [[UIImageView alloc] initWithFrame:CGRectMake(30,self.bounds.size.height/2 + 30,self.bounds.size.width - 40,30)];
+    UIImageView *font = [[[UIImageView alloc] initWithFrame:CGRectMake(30,self.bounds.size.height/2 + 30,self.bounds.size.width - 40,30)] autorelease];
     [font setImage:skinImage(@"fontbar/c007.png")];
     [font setUserInteractionEnabled:YES];
     [self addSubview:font];
@@ -113,11 +113,11 @@
     [maxButton addTarget:self action:@selector(fontSelect:) forControlEvents:UIControlEventTouchUpInside];
     [font addSubview:maxButton];
     
-    UIImageView *line = [[UIImageView alloc] initWithFrame:CGRectMake((font.bounds.size.width-4)/3+1,0,1,font.bounds.size.height)];
+    UIImageView *line = [[[UIImageView alloc] initWithFrame:CGRectMake((font.bounds.size.width-4)/3+1,0,1,font.bounds.size.height)] autorelease];
     [line setImage:skinImage(@"fontbar/按钮间隔线.png")];
     [font addSubview:line];
     
-    UIImageView *line1 = [[UIImageView alloc] initWithFrame:CGRectMake((font.bounds.size.width-4)/3*2+2,0,1,font.bounds.size.height)];
+    UIImageView *line1 = [[[UIImageView alloc] initWithFrame:CGRectMake((font.bounds.size.width-4)/3*2+2,0,1,font.bounds.size.height)] autorelease];
     [line1 setImage:skinImage(@"fontbar/按钮间隔线.png")];
     [font addSubview:line1];
     

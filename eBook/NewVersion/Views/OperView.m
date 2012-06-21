@@ -22,7 +22,7 @@
 //    self.backgroundColor = [UIColor redColor];
 //    //    self.backgroundColor =[UIColor colorWithPatternImage:skinImage(@"operbar/b002.png")];
 //    UIImageView* iv =[UIImageView nodeWithImage:skinImage(@"operbar/b002.png")];
-    UIImageView *iv = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.bounds.size.width, self.bounds.size.height)];
+    UIImageView *iv = [[[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.bounds.size.width, self.bounds.size.height)] autorelease];
     [iv setImage:skinImage(@"navbar/b002.png")];
     [iv setAutoresizingMask:UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleRightMargin];
     [self addSubview:iv];
@@ -108,7 +108,6 @@
     self.currentPageIndex = [notification object];
     [bookMarks getBookMark];
     DebugLog(@"checkBookMark - %@",[notification object]);
-    DebugLog(@"aaaaa  -----> %@",[bookMarks.currentBookMark objectForKey: [notification object]]);
     if ([bookMarks.currentBookMark objectForKey: [notification object]] != nil) {
 //        //添加标签
         [bookMark setImage:resImage(@"content/bookmark-blue.png") forState:UIControlStateNormal];

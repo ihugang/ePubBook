@@ -80,7 +80,7 @@
     [cataButton4 addTarget:self action:@selector(catalogSelected:) forControlEvents:UIControlEventTouchUpInside];
     [imageView addSubview:cataButton4];
     
-    chapterList = [[UITableView alloc] initWithFrame:CGRectMake(10, 90, self.view.bounds.size.width-20 , self.view.bounds.size.height - imageView.bounds.size.height) style:UITableViewStyleGrouped];
+    chapterList = [[UITableView alloc] initWithFrame:CGRectMake(10, 90, self.view.bounds.size.width-20 , self.view.bounds.size.height - imageView.bounds.size.height) style:UITableViewStylePlain];
     [chapterList setAutoresizesSubviews:YES];
     [chapterList setAutoresizingMask:UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight];
     [chapterList setDelegate:self];
@@ -107,7 +107,7 @@
      }
     
     //添加一个返回的view 
-    UIView *backView = [[UIView alloc] initWithFrame:CGRectMake(self.view.bounds.size.width - 40, self.view.bounds.size.height/2 - 35,40, 70)];
+    UIView *backView = [[[UIView alloc] initWithFrame:CGRectMake(self.view.bounds.size.width - 40, self.view.bounds.size.height/2 - 35,40, 70)] autorelease];
     [backView setAutoresizesSubviews:YES];
     [backView setAutoresizingMask:UIViewAutoresizingFlexibleRightMargin|UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleTopMargin|UIViewAutoresizingFlexibleBottomMargin];
     [backView setBackgroundColor:[UIColor grayColor]];
@@ -119,7 +119,7 @@
     [backButton addTarget:self action:@selector(backTo:) forControlEvents:UIControlEventTouchUpInside];
     [backView addSubview:backButton];
     
-    UIImageView *backImage = [[UIImageView alloc] initWithFrame:CGRectMake(10, 15, 35, 35)];
+    UIImageView *backImage = [[[UIImageView alloc] initWithFrame:CGRectMake(10, 15, 35, 35)] autorelease];
     [backImage setImage:skinImage(@"catalogbar/箭头2.png")];
     [backImage setAutoresizesSubviews:YES];
     [backImage setAutoresizingMask:UIViewAutoresizingFlexibleRightMargin|UIViewAutoresizingFlexibleLeftMargin];
@@ -278,7 +278,7 @@
     static NSString *tag = @"cell";//由于用了两种界面模式所以两个tag
     static NSString *tag1 = @"cell1";
     
-    UILabel *fenge = [[UILabel alloc] init];
+    UILabel *fenge = [[[UILabel alloc] init] autorelease];
     [fenge setBackgroundColor:[UIColor colorWithPatternImage:skinImage(@"catalogbar/h005.png")]];
     [fenge setAutoresizesSubviews:YES];
     [fenge setAutoresizingMask:UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleRightMargin];
@@ -309,14 +309,13 @@
             //对Value中的数组字典中的pageIndex进行排序
             NSArray *keys = [bookPick.currentBookPick allValues];
 //            DebugLog(@"keys --->  %@",keys);
-            NSSortDescriptor *lastDescriptor =
-            [[[NSSortDescriptor alloc]
-              initWithKey:@"pageIndex"
-              ascending:YES
-              selector:@selector(localizedCaseInsensitiveCompare:)] autorelease];    
+//            NSSortDescriptor *lastDescriptor =[[[NSSortDescriptor alloc] initWithKey:@"pageIndex" ascending:YES selector:@selector(localizedCaseInsensitiveCompare:)] autorelease]; 
             
-            NSArray * descriptors = [NSArray arrayWithObjects:lastDescriptor, nil];
-            self.bookPickSortedValues = [keys sortedArrayUsingDescriptors:descriptors]; 
+//            NSSortDescriptor *lastDescriptor =[[[NSSortDescriptor alloc] initWithKey:@"pageIndex" ascending:YES] autorelease]; 
+            
+//            NSArray * descriptors = [NSArray arrayWithObjects:lastDescriptor, nil];
+//            self.bookPickSortedValues = [keys sortedArrayUsingDescriptors:descriptors]; 
+            self.bookPickSortedValues = [keys sortedArrayUsingFunction:customSort2 context:nil];
 //            DebugLog(@"sortedArray --->  %@",bookPickSortedValues);
             
             cell.date.text = [[bookPickSortedValues objectAtIndex:indexPath.row] objectForKey:@"time"];
@@ -328,14 +327,15 @@
             //对Value中的数组字典中的pageIndex进行排序
             NSArray *keys = [bookComment.currentBookComment allValues];
             //            DebugLog(@"keys --->  %@",keys);
-            NSSortDescriptor *lastDescriptor =
-            [[[NSSortDescriptor alloc]
-              initWithKey:@"pageIndex"
-              ascending:YES
-              selector:@selector(localizedCaseInsensitiveCompare:)] autorelease];    
+//            NSSortDescriptor *lastDescriptor =
+//            [[[NSSortDescriptor alloc]
+//              initWithKey:@"pageIndex"
+//              ascending:YES
+//              selector:@selector(localizedCaseInsensitiveCompare:)] autorelease];    
             
-            NSArray * descriptors = [NSArray arrayWithObjects:lastDescriptor, nil];
-            self.bookCommentSortedValues = [keys sortedArrayUsingDescriptors:descriptors]; 
+//            NSArray * descriptors = [NSArray arrayWithObjects:lastDescriptor, nil];
+//            self.bookCommentSortedValues = [keys sortedArrayUsingDescriptors:descriptors]; 
+            self.bookCommentSortedValues = [keys sortedArrayUsingFunction:customSort2 context:nil];
             //            DebugLog(@"sortedArray --->  %@",bookPickSortedValues);
             
             cell.date.text = [[bookCommentSortedValues objectAtIndex:indexPath.row] objectForKey:@"commentText"];
@@ -416,6 +416,17 @@ NSInteger customSort(id obj1, id obj2,void* context){
     }
     
     if ([obj1 integerValue] < [obj2 integerValue]) {
+        return (NSComparisonResult)NSOrderedAscending;
+    }
+    return (NSComparisonResult)NSOrderedSame;
+}
+
+NSInteger customSort2(id obj1, id obj2,void* context){
+    if ([[obj1 objectForKey:@"pageIndex"] intValue] > [[obj2 objectForKey:@"pageIndex"] intValue]) {
+        return (NSComparisonResult)NSOrderedDescending;
+    }
+    
+    if ([[obj1 objectForKey:@"pageIndex"] intValue] < [[obj2 objectForKey:@"pageIndex"] intValue]) {
         return (NSComparisonResult)NSOrderedAscending;
     }
     return (NSComparisonResult)NSOrderedSame;

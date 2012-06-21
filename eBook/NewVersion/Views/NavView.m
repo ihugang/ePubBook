@@ -22,7 +22,7 @@
 //    self.backgroundColor = [UIColor greenColor];
     
 //    UIImageView* iv = [UIImageView nodeWithImage:skinImage(@"navbar/b008.png")];
-    UIImageView *iv = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.bounds.size.width, 75)];
+    UIImageView *iv = [[[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.bounds.size.width, 75)] autorelease];
     [iv setImage:skinImage(@"navbar/b008.png")];
     [iv setUserInteractionEnabled:YES];
     [iv setAutoresizingMask:UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleRightMargin];

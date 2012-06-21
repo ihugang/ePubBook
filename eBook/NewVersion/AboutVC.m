@@ -41,7 +41,7 @@
     self.navigationItem.leftBarButtonItem = customButton;
 //    self.navigationItem.backBarButtonItem = customButton;
     
-    UIImageView *about = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height - 44)];
+    UIImageView *about = [[[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height - 44)] autorelease];
     [about setImage:resImage(@"content/g001.png")];
     [self.view addSubview:about];
     [about setAutoresizesSubviews:YES];

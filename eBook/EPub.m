@@ -124,7 +124,7 @@ static EPub *myEPub = nil;
     NSString *manifestFilePath = [NSString stringWithFormat:@"%@/UnzippedEpub/META-INF/container.xml",[self applicationDocumentsDirectory]];
     NSLog(@"manifestFilePath:%@",manifestFilePath);
     //判断文件是否存在
-    NSFileManager *fileManager = [[NSFileManager alloc] init];
+    NSFileManager *fileManager = [[[NSFileManager alloc] init] autorelease];
     if ([fileManager fileExistsAtPath:manifestFilePath]) {
         //开始解析,使用TouchXML解析
         CXMLDocument *manifestFile = [[[CXMLDocument alloc] initWithContentsOfURL:[NSURL fileURLWithPath:manifestFilePath] options:0 error:nil] autorelease];
@@ -153,7 +153,7 @@ static EPub *myEPub = nil;
     self.title = [[dcTitle objectAtIndex:0] stringValue];
     
     //获取ncx文件
-    NSString *ncxFileName;
+    NSString *ncxFileName = nil;
     NSMutableDictionary* itemDictionary = [[NSMutableDictionary alloc] init];
     //循环判断节点
     for(CXMLElement *element in itemsArray)

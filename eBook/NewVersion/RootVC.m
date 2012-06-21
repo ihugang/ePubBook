@@ -20,6 +20,7 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"searchPageIndex" object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"chapterListPageLoad" object:nil];
 //    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"fontChange" object:nil];
+//    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"landScape" object:nil];
     [super dealloc];
 }
  
@@ -33,8 +34,8 @@
     [self.pageView removeFromSuperview];
     self.pageView =[[[ATPagingView alloc] initWithFrame:self.view.bounds] autorelease];
     self.pageView.delegate = self;
-    self.pageView.pagesToPreload = 0;
     self.pageView.currentPageIndex = self.lastPage.intValue;//设置默认的加载页面
+    self.pageView.pagesToPreload = 0;//前后方向加载不可见页数，第一次设置为0，只加载当前页面
 //    self.pageView.backgroundColor =[UIColor whiteColor];
     self.pageView.backgroundColor = baseColor;
     [self.view insertSubview:self.pageView atIndex:0];
@@ -52,7 +53,7 @@
     
     DebugLog(@"userTapOper  p.x -> %f ",p.x);
     DebugLog(@"windowSize _ > %f",windowSize.width);
-
+    
     float pos =  p.x/windowSize.width;
      DebugLog(@"pos _ > %f",windowSize.width);
     
@@ -108,6 +109,13 @@
     if (lastPage == nil) {
         self.lastPage = @"0";//程序第一次加载，默认第0页开始
     }
+    NSString *nowPageIndex = [[NSUserDefaults standardUserDefaults] objectForKey:@"currentPageIndex"];
+    DebugLog(@"lastpage : %@,nowpage: %@ ",self.lastPage,nowPageIndex);
+    if (nowPageIndex==nil || ![nowPageIndex isEqualToString:self.lastPage]) {
+        //添加当前加载的页面
+        [[NSUserDefaults standardUserDefaults] setValue:self.lastPage forKey:@"currentPageIndex"];
+        [[NSUserDefaults standardUserDefaults] synchronize];//写入数据
+    }
     
     //提示下载
     MBProgressHUD* hud =[MBProgressHUD showHUDAddedTo:self.view animated:YES];
@@ -136,23 +144,36 @@
     //字体改变
 //    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(fontChange:) name:@"fontChange" object:nil];
     
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(test:) name:@"landScape" object:nil];
+
+    
+}
+
+- (void)test:(NSNotification *)notification
+{
+    DebugLog(@"test ---> %d",[[notification object] intValue]);
+    parsing = NO;
+    self.pageView.currentPageIndex = [[notification object] intValue];
 }
 
 //目录列表页面跳转
 - (void)fontChange:(NSNotification *)notification
 {
+    parsing = NO;
     self.pageView.currentPageIndex = [[notification object] intValue];
 }
 
 //目录列表页面跳转
 - (void)chapterListPageLoad:(NSNotification *)notification
 {
+    parsing = NO;
     self.pageView.currentPageIndex = [[notification object] intValue];
 }
 
 //搜索页面跳转
 - (void)searchPageLoad:(NSNotification *)notification
 {
+    parsing = NO;
     self.pageView.currentPageIndex = [[[notification userInfo] objectForKey:@"chapterPageIndex"] intValue];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"searchText" object:[[notification userInfo] objectForKey:@"searchResult"]];
 }
@@ -178,7 +199,6 @@
         [self.view viewWithTag:1001].hidden = YES;
         return NO;
     }
-    
     return YES;
 }
 
@@ -195,7 +215,7 @@
     }
     cwv.rootVC = self;
     [cwv showWithPathIndex:index];
-    NSLog(@"viewForPageInPagingView");
+    NSLog(@"viewForPageInPagingView currentpageIndex --%d",self.pageView.currentPageIndex);
     return cwv;
 }
 
@@ -204,25 +224,58 @@
     NSLog(@"pagesDidChangeInPagingView");
 }
 -(void)currentPageDidChangeInPagingView:(ATPagingView *)pagingView{
+    if (parsing) {
+        self.pageView.pagesToPreload = 2;//前后方向加载不可见页数
+    }else {
+        self.pageView.pagesToPreload = 0;//前后方向加载不可见页数
+    }
    NSLog(@"currentPageDidChangeInPagingView  --> %d",pagingView.currentPageIndex);
-
+    if (share.isLandscape) {
+//        self.pageView.currentPageIndex = pagingView.currentPageIndex+2;
+        //添加当前加载的页面
+        [[NSUserDefaults standardUserDefaults] setValue:[NSString stringWithFormat:@"%d",pagingView.currentPageIndex] forKey:@"currentPageIndex"];
+    }else {
+        [[NSUserDefaults standardUserDefaults] setValue:[NSString stringWithFormat:@"%d",pagingView.currentPageIndex] forKey:@"currentPageIndex"];
+    }
+    
+    [[NSUserDefaults standardUserDefaults] synchronize];//写入数据
 }
 #pragma mark 旋转
 -(void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation{
 //    if (!mf_IsPad) {//设置iphone不能旋转
 //        return;
 //    }
+//    if (fromInterfaceOrientation == UIInterfaceOrientationLandscapeLeft || fromInterfaceOrientation == UIInterfaceOrientationLandscapeRight) {
+//        NSLog(@"===========> landscaptte ----");
+//        
+//        [self.view viewWithTag:300].hidden = NO;
+//        [self.view viewWithTag:301].hidden = NO;
+//        [self.view viewWithTag:301].frame = CGRectMake([self.view viewWithTag:302].right+40, 50, (self.view.bounds.size.width-80)/2.0-20, self.view.bounds.size.height-90);
+//        [self.view viewWithTag:302].frame = CGRectMake(40, 50, (self.view.bounds.size.width-80)/2.0-20, self.view.bounds.size.height-90);
+//    } else {
+//        [self.view viewWithTag:300].hidden = YES;
+//        [self.view viewWithTag:301].hidden = YES;
+//    }
+    
+    NSString *nowPageIndex = [[NSUserDefaults standardUserDefaults] objectForKey:@"currentPageIndex"];
+    //    int iCurIndex = self.pageView.currentPageIndex;
+    //加载当前index也页面
+    
+    
+    int iCurIndex = [nowPageIndex intValue];
+    DebugLog(@"Root didRotateFromInterfaceOrientation --> %d",iCurIndex);
+    self.pageView.currentPageIndex =  iCurIndex;
+    self.lastPage = nowPageIndex;
     [super didRotateFromInterfaceOrientation:fromInterfaceOrientation];
+    [self addUI];
     if (!parsing) {
         return;
     }
-    int iCurIndex = self.pageView.currentPageIndex;
-    self.pageView.currentPageIndex =  iCurIndex;
-    [self addUI]; 
-
+    
 }
 #pragma mark 导航条
 -(void)navView:(NavView*)navView changeToIndex:(int)pageIndex{
+    parsing = NO;
     self.pageView.currentPageIndex = pageIndex;
     [self swichUI:!operViewShowed];
 }

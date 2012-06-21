@@ -32,7 +32,7 @@
         [self addSubview:content];
         
         index = [[UILabel alloc] init];
-        [index setFrame:CGRectMake(self.bounds.size.width - 60, 10, 30, height)];
+        [index setFrame:CGRectMake(self.bounds.size.width - 50, 10, 30, height)];
         [index setFont:font];
         [index setBackgroundColor:[UIColor clearColor]];
         [index setTextAlignment:UITextAlignmentRight];

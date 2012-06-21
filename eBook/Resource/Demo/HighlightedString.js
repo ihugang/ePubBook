@@ -8,11 +8,22 @@ var selectedText = "";
 function getHighlightedString() {
     var text        = window.getSelection();
     selectedText    = text.anchorNode.textContent.substr(text.anchorOffset, text.focusOffset - text.anchorOffset);
+    
+    alert(text.focusNode.parentNode.offsetParent);
+    
+    //js获取当前p所在页面的index
+    $("p").mouseup(function(){
+                    $(this).each(function () {
+                        alert($(this).index());
+                    });
+    });
 }
 
 // ...
 function stylizeHighlightedString(className) {
     var range               = window.getSelection().getRangeAt(0);
+    alert(range.startOffset);
+    
     var selectionContents   = range.extractContents();
     var span                = document.createElement("span");
     
@@ -22,7 +33,7 @@ function stylizeHighlightedString(className) {
 //padding-bottom:5px;
 //text-decoration:none; background:url(k003.png) repeat-x 0 bottom; color:#000000;padding-bottom:4px;text-decoration:none;
 //color:#e6e6fa;
-    alert("test");
+//    alert("test");
 //    span.setAttribute("class","uiWebviewHighlight"+ (+new Date()));
     span.setAttribute("class",className);
     span.style.backgroundColor  = "black";
@@ -33,12 +44,10 @@ function stylizeHighlightedString(className) {
     
     
     range.insertNode(span);
-}
-
-document.addEventListener("pause", onPause, false);
-
-function onPause() {
-    alert("pause");
+    
+    $("p ."+className).each(function () {
+                 alert($(this).index());
+                 });
 }
 
 

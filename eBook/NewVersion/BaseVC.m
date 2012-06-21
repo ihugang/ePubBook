@@ -11,7 +11,7 @@
 @implementation BaseVC
 
 +(id)node{
-    return [[self alloc] init];
+    return [[[self alloc] init] autorelease];
 }
 
 

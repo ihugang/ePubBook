@@ -24,7 +24,7 @@
 #import "ChapterTitlePageView.h"
 
 @implementation ContentView
-@synthesize curLable,curWebView,currentSearchResult,jquery,menuController,classId,contentText,rootVC;
+@synthesize curLable,bookNameLabel,chapterLabel,curWebView,curWebView2,currentSearchResult,jquery,menuController,classId,contentText,rootVC;
 - (void)dealloc{
     //释放掉通知
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"searchText" object:nil];
@@ -32,29 +32,32 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"addBookMark" object:nil];
      [[NSNotificationCenter defaultCenter] removeObserver:self name:@"removeComment" object:nil];
     
-    [self.classId release];
-    [self.contentText release];
+//    [curWebView release];
+    [classId release];
+    [contentText release];
     [super dealloc];
 }
 -(void)initLayout{
     // Do any additional setup after loading the view.
-    curWebView = [[UIWebView alloc] init];
-
+    curWebView = [[[UIWebView alloc] init] autorelease];
+    UIImageView *bg = [[[UIImageView alloc] initWithImage:skinImage(@"fontbar/5003.png")] autorelease];
+    [bg setFrame:CGRectMake(0, 0, self.bounds.size.width, self.bounds.size.height)];
+    [bg setTag:300];
+    if (share.isLandscape) {
+        [self addSubview:bg];
+    }else {
+        [bg removeFromSuperview];
+    }
+    
+    self.backgroundColor = [UIColor whiteColor];
     //    [webView setBounds:CGRectMake(0, 0, 320, 480)];
 //    [curWebView setFrame:CGRectMake(40, 60, self.bounds.size.width, self.bounds.size.height)];
     [curWebView setBackgroundColor:[UIColor clearColor]];//设置背景颜色
     [curWebView setOpaque:NO];//设置透明
     [curWebView setDelegate:self];
-    
+    [curWebView setTag:302];
     [curWebView setAutoresizesSubviews:YES];
     [curWebView setAutoresizingMask:UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleRightMargin];
-    
-    if (mf_IsPad) {
-        [curWebView setFrame:CGRectMake(40, 50, self.bounds.size.width-80, self.bounds.size.height-80)];
-    }else {
-        [curWebView setFrame:CGRectMake(10, 10, self.bounds.size.width-20, self.bounds.size.height-20)];
-    }
-    
     //    [self.view addSubview:webView];
     //去除webview中的scrollview
     UIScrollView* sv = nil;
@@ -65,11 +68,81 @@
 			sv.bounces = NO;//禁止滚动
 		}
 	}
-      [self addSubview:curWebView]; 
-    self.curLable = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 50, 50)];
-    self.curLable.backgroundColor =[UIColor clearColor];
-    [self addSubview:curLable]; 
+    [self addSubview:curWebView]; 
+    
+    curWebView2 = [[[UIWebView alloc] init] autorelease];
+    
+    //    [webView setBounds:CGRectMake(0, 0, 320, 480)];
+    //    [curWebView setFrame:CGRectMake(40, 60, self.bounds.size.width, self.bounds.size.height)];
+    [curWebView2 setBackgroundColor:[UIColor grayColor]];//设置背景颜色
+    [curWebView2 setOpaque:NO];//设置透明
+    [curWebView2 setDelegate:self];
+    [curWebView2 setTag:301];
+    [curWebView2 setAutoresizingMask:UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleRightMargin];
+    //    [self.view addSubview:webView];
+    //去除webview中的scrollview
+	for (UIView* v in  curWebView2.subviews) {
+		if([v isKindOfClass:[UIScrollView class]]){
+			sv = (UIScrollView*) v;
+			sv.scrollEnabled = NO;//禁止滚动和回弹
+			sv.bounces = NO;//禁止滚动
+		}
+	}
+    [self addSubview:curWebView2];
+    
+    UIColor *myColor = [UIColor colorWithRed:94.0/255.0 green:38.0/255.0 blue:18.0/255.0 alpha:1.0];
+    
+    self.bookNameLabel = [[[UILabel alloc] init] autorelease];
+    [self.bookNameLabel setText:@"怎样在澳门靠玩德州扑克每天赚一万港币 1"];
+    [self.bookNameLabel setTextColor:myColor];
+    [self.bookNameLabel setBackgroundColor:[UIColor clearColor]];
+    [self addSubview:bookNameLabel];
+    
+    self.chapterLabel = [[[UILabel alloc] init] autorelease];
+    [self.chapterLabel setTextAlignment:UITextAlignmentCenter];
+    [self.chapterLabel setTextColor:myColor];
+    [self.chapterLabel setBackgroundColor:[UIColor clearColor]];
+    [self addSubview:chapterLabel];
  
+    if (mf_IsPad) {
+        
+        [curWebView setFrame:CGRectMake(40, 50, self.bounds.size.width-80, self.bounds.size.height-90)];
+        [self.bookNameLabel setFrame:CGRectMake(curWebView.left, 10, self.bounds.size.width, 44)];
+        [self.bookNameLabel setFont:[UIFont boldSystemFontOfSize:15]];
+        [self.chapterLabel setFrame:CGRectMake(0, curWebView.bottom - 5, self.bounds.size.width, 44)];
+        [self.chapterLabel setFont:[UIFont boldSystemFontOfSize:15]];
+        if (share.isLandscape) {
+            [curWebView setFrame:CGRectMake(40, 50, (self.bounds.size.width-80)/2.0-20, self.bounds.size.height-90)];
+            [curWebView2 setFrame:CGRectMake(curWebView.right+40, 50, (self.bounds.size.width-80)/2.0-20, self.bounds.size.height-90)];
+            NSLog(@"------------landscape");
+            //            
+        }
+        
+    }else {
+        //        [curWebView2 removeFromSuperview];
+        //        [bg removeFromSuperview];
+        [curWebView setFrame:CGRectMake(10, 35, self.bounds.size.width-20, self.bounds.size.height-60)];
+        [self.bookNameLabel setFrame:CGRectMake(curWebView.left, -5, self.bounds.size.width, 44)];
+        [self.bookNameLabel setFont:[UIFont boldSystemFontOfSize:12]];
+        [self.chapterLabel setFont:[UIFont boldSystemFontOfSize:12]];
+        [self.chapterLabel setFrame:CGRectMake(0, curWebView.bottom - 15, self.bounds.size.width, 44)];
+    }
+
+    
+    self.curLable = [[[UILabel alloc] init] autorelease];
+    self.curLable.font = [UIFont boldSystemFontOfSize:12];
+    self.curLable.textColor = myColor;
+    self.curLable.textAlignment = UITextAlignmentCenter;
+    self.curLable.backgroundColor =[UIColor clearColor];
+    
+    [self addSubview:curLable];
+    
+    if (share.isLandscape&&mf_IsPad) {
+        [self.curLable setFrame:CGRectMake(self.curWebView2.right - 40, self.self.chapterLabel.top, 50, 44)];
+    }else {
+        [self.curLable setFrame:CGRectMake(self.curWebView.right - 40, self.self.chapterLabel.top, 50, 44)];
+    }
+    
     //给页面添加UIMenuController
     self.menuController = [UIMenuController sharedMenuController];
 //    UIMenuItem *copyMenu = [[UIMenuItem alloc] initWithTitle:@"复制" action:@selector(copyMenuPressed:)];
@@ -89,6 +162,9 @@
     //添加menu到 UIMenuController中
     [menuController setMenuItems:[NSArray arrayWithObjects:noteMenu,bookPickMenu,removeMenu, nil]];
     [menuController setArrowDirection:UIMenuControllerArrowDown];
+    
+    
+    DebugLog(@"webview width: %f, height: %f",self.curWebView.bounds.size.width,self.curWebView.bounds.size.height);
     
 //    [copyMenu release];
     [noteMenu release];
@@ -164,7 +240,7 @@
 //    DebugLog(@"title  ---- %@",chapter.title);
     
     //给当前页面添加书签
-    NSDictionary *pageIndex = [[NSDictionary alloc] initWithObjectsAndKeys:npageIndex,@"pageIndex",localTime,@"time",chapter.title,@"content", nil];
+    NSDictionary *pageIndex = [[[NSDictionary alloc] initWithObjectsAndKeys:npageIndex,@"pageIndex",localTime,@"time",chapter.title,@"content", nil] autorelease];
     [bookMarks.bookmarks setValue:pageIndex forKey:npageIndex];
     
 //    DebugLog(@"array ---%@",bookMarks.bookmarks);
@@ -236,7 +312,7 @@
         
         NSLog(@"filepath:%@",filePath);
         NSData *fileData    = [NSData dataWithContentsOfFile:filePath];
-        NSString *jsString  = [[NSMutableString alloc] initWithData:fileData encoding:NSUTF8StringEncoding];
+        NSString *jsString  = [[[NSMutableString alloc] initWithData:fileData encoding:NSUTF8StringEncoding] autorelease];
         [curWebView stringByEvaluatingJavaScriptFromString:jsString];
         
         // 获取选取的文本
@@ -249,7 +325,7 @@
         
         
         // 把选中的文本样式改变
-        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+        NSDateFormatter *formatter = [[[NSDateFormatter alloc] init] autorelease];
         [formatter setDateFormat:@"yyyyMMddHHmmss"];
         NSString *classTime=[formatter stringFromDate: [NSDate date]];
         [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
@@ -265,10 +341,10 @@
         //获取书摘列表
         [bookPick getBookPick];
         
-        NSString *npageIndex = [[NSUserDefaults standardUserDefaults] objectForKey:@"curPageIndex"];
+        NSString *npageIndex = [[NSUserDefaults standardUserDefaults] objectForKey:@"currentPageIndex"];
         NSLog(@" npageIndex --> %@",npageIndex);
         //给当前页面添加书摘
-        NSDictionary *pageIndex = [[NSDictionary alloc] initWithObjectsAndKeys:npageIndex,@"pageIndex",className,@"className",localTime,@"time",highlightedString,@"content", nil];
+        NSDictionary *pageIndex = [[[NSDictionary alloc] initWithObjectsAndKeys:npageIndex,@"pageIndex",className,@"className",localTime,@"time",highlightedString,@"content", nil] autorelease];
         [bookPick.currentBookPick setValue:pageIndex forKey:className];
         //写入document文件
         [bookPick.currentBookPick writeToFile:bookPick.filename atomically:YES];
@@ -286,7 +362,7 @@
 - (void)commentPressed:(id)sender
 {
     // 把选中的文本样式改变
-    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    NSDateFormatter *formatter = [[[NSDateFormatter alloc] init] autorelease];
     [formatter setDateFormat:@"yyyyMMddHHmmss"];
     NSString *classTime=[formatter stringFromDate: [NSDate date]];
     [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
@@ -304,10 +380,10 @@
         //获取批注列表
         [bookComment getBookComment];
         
-        NSString *npageIndex = [[NSUserDefaults standardUserDefaults] objectForKey:@"curPageIndex"];
+        NSString *npageIndex = [[NSUserDefaults standardUserDefaults] objectForKey:@"currentPageIndex"];
         NSLog(@" npageIndex --> %@",npageIndex);
         //给当前页面添加书摘
-        NSDictionary *pageIndex = [[NSDictionary alloc] initWithObjectsAndKeys:npageIndex,@"pageIndex",self.classId,@"className",localTime,@"time",self.contentText,@"content", nil];
+        NSDictionary *pageIndex = [[[NSDictionary alloc] initWithObjectsAndKeys:npageIndex,@"pageIndex",self.classId,@"className",localTime,@"time",self.contentText,@"content", nil] autorelease];
         [bookComment.currentBookComment setValue:pageIndex forKey:classId];
         //写入document文件
         [bookComment.currentBookComment writeToFile:bookComment.filename atomically:YES];
@@ -320,7 +396,7 @@
         NSString *filePath  =  resPath(@"HighlightedString.js");
         NSLog(@"filepath:%@",filePath);
         NSData *fileData    = [NSData dataWithContentsOfFile:filePath];
-        NSString *jsString  = [[NSMutableString alloc] initWithData:fileData encoding:NSUTF8StringEncoding];
+        NSString *jsString  = [[[NSMutableString alloc] initWithData:fileData encoding:NSUTF8StringEncoding] autorelease];
         [curWebView stringByEvaluatingJavaScriptFromString:jsString];
         
         // 获取选取的文本
@@ -346,10 +422,10 @@
         //获取批注列表
         [bookComment getBookComment];
         
-        NSString *npageIndex = [[NSUserDefaults standardUserDefaults] objectForKey:@"curPageIndex"];
+        NSString *npageIndex = [[NSUserDefaults standardUserDefaults] objectForKey:@"currentPageIndex"];
         NSLog(@" npageIndex --> %@",npageIndex);
         //给当前页面添加书摘
-        NSDictionary *pageIndex = [[NSDictionary alloc] initWithObjectsAndKeys:npageIndex,@"pageIndex",className,@"className",localTime,@"time",highlightedString,@"content", nil];
+        NSDictionary *pageIndex = [[[NSDictionary alloc] initWithObjectsAndKeys:npageIndex,@"pageIndex",className,@"className",localTime,@"time",highlightedString,@"content", nil] autorelease];
         [bookComment.currentBookComment setValue:pageIndex forKey:className];
         //写入document文件
         [bookComment.currentBookComment writeToFile:bookComment.filename atomically:YES];
@@ -425,13 +501,16 @@
 
 -(void)showWithIndex:(int)aIndex {
     NSLog(@"contentView showWithIndex()");
-    self.curLable.text =[NSString stringWithFormat:@"%d",aIndex];
-    NSString *nowPageIndex = [NSString stringWithFormat:@"%d",aIndex];
-    DebugLog(@"showWithIndex aIndex -- > %@",nowPageIndex);
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"pageChange" object:nowPageIndex];
     
-    //添加当前浏览的页面
-    [[NSUserDefaults standardUserDefaults] setValue:[NSString stringWithFormat:@"%d",aIndex] forKey:@"curPageIndex"];
+    
+    DebugLog(@"now page Index ----> %@",[[NSUserDefaults standardUserDefaults] objectForKey:@"currentPageIndex"]);
+    
+    self.curLable.text =[NSString stringWithFormat:@"%d",aIndex];
+    NSString *nowPageIndex = [[NSUserDefaults standardUserDefaults] objectForKey:@"currentPageIndex"];
+    DebugLog(@"showWithIndex aIndex -- > %d",aIndex);
+    //发送检查页面是否添加书签
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"pageChange" object:nowPageIndex];
+    [[NSUserDefaults standardUserDefaults] setValue:nowPageIndex forKey:@"curPageIndex"];
     [[NSUserDefaults standardUserDefaults] synchronize];//写入数据
     
     int tempSpineIndex = 0;//HTML
@@ -486,20 +565,26 @@
     //[self loadSpine:spineIndex atPageIndex:pageIndex highlightSearchResult:nil];
     NSURL *url = [NSURL fileURLWithPath:chapter.spinePath];
     [curWebView loadRequest:[NSURLRequest requestWithURL:url]];
+    [curWebView2 loadRequest:[NSURLRequest requestWithURL:url]];
+    self.chapterLabel.text = chapter.title;
+    
+//    [self gotoPageInCurrentSpine:curPageIndex];
 }
 
 - (void) gotoPageInCurrentSpine:(int)pageIndex{ 
     
     NSLog(@"ContentView gotoPageInCurrentSpine");
-    DebugLog(@"=====第%d页,第%d页", curSpineIndex,curPageIndex);
+    DebugLog(@"=====spine:%d, curpage:%d", curSpineIndex,curPageIndex);
     
 	float pageOffset = 0;
+    float pageOffset2 = 0;
     if (!mf_IsPad || !share.isLandscape) {
         pageOffset = pageIndex*curWebView.bounds.size.width ;
     }
     else{
-        pageOffset = pageIndex*curWebView.bounds.size.width + pageIndex *15;
-//        pageOffset = pageIndex*curWebView.bounds.size.width;
+//        pageOffset = pageIndex*curWebView.bounds.size.width + pageIndex *15;
+        pageOffset = pageIndex*curWebView.bounds.size.width;
+        pageOffset2 = (pageIndex+1)*curWebView.bounds.size.width;
     }
     NSLog(@"gotoPageInCurrentSpine pageOffset -> %f",pageOffset);
     //设置页面依X轴来滚动
@@ -507,8 +592,13 @@
 	NSString* goTo =[NSString stringWithFormat:@"pageScroll(%f)", pageOffset]; 
 	[curWebView stringByEvaluatingJavaScriptFromString:goToOffsetFunc];
 	[curWebView stringByEvaluatingJavaScriptFromString:goTo];
+    
+    NSString* goTo2 =[NSString stringWithFormat:@"pageScroll(%f)", pageOffset2]; 
+    [curWebView2 stringByEvaluatingJavaScriptFromString:goToOffsetFunc];
+	[curWebView2 stringByEvaluatingJavaScriptFromString:goTo2];
    
 	curWebView.hidden = NO;
+    curWebView2.hidden = NO;
 }
 
 //这个方法是网页中的每一个请求都会被触发的 
@@ -638,18 +728,19 @@
         int pageCount = totalWidth / webView.bounds.size.width;
         
         NSLog(@"Chapter %d: title: -> 包含：%d pages", curSpineIndex, pageCount);
-    if (!mf_IsPad || !share.isLandscape) { 
-        
-    }
-    else {  //加载css文件
-        NSString *filePath  =  resPath(@"loadRes.js"); 
-        NSData *fileData    = [NSData dataWithContentsOfFile:filePath];
-        NSString *jsString  = [[NSMutableString alloc] initWithData:fileData encoding:NSUTF8StringEncoding];
-        [curWebView stringByEvaluatingJavaScriptFromString:jsString];
-
-        [curWebView stringByEvaluatingJavaScriptFromString:@"loadCss('split')"];
-        
-    }
+//    if (!mf_IsPad || !share.isLandscape) { 
+//        
+//    }
+//    else {  //加载css文件
+//        NSString *filePath  =  resPath(@"loadRes.js"); 
+//        NSData *fileData    = [NSData dataWithContentsOfFile:filePath];
+//        NSString *jsString  = [[[NSMutableString alloc] initWithData:fileData encoding:NSUTF8StringEncoding] autorelease];
+//        DebugLog(@"-----------> %@",jsString);
+//        [curWebView stringByEvaluatingJavaScriptFromString:jsString];
+//
+//        [curWebView stringByEvaluatingJavaScriptFromString:@"loadCss('split')"];
+//        
+//    }
     
     [self inject];
     //加载内容
@@ -660,7 +751,13 @@
 //    }
     
     [self gotoPageInCurrentSpine:curPageIndex];
-    
+//    if (webView == curWebView){
+//        
+//    }
+//    if (webView == curWebView2)
+//    {
+//        [self gotoPageInCurrentSpine:curPageIndex+1];
+//    }
 }
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error{
     DebugLog(@"%@", @"didFailLoadWithError");
@@ -696,7 +793,7 @@
 	} 
     
     NSData *jqueryFileData = [fileManager contentsAtPath:jqueryFilePath];
-	NSString *jqueryFileContentsAsString = [[NSString alloc] initWithData:jqueryFileData encoding:NSASCIIStringEncoding]; 
+	NSString *jqueryFileContentsAsString = [[[NSString alloc] initWithData:jqueryFileData encoding:NSASCIIStringEncoding] autorelease]; 
 	// injection.js
 	NSString *injectionFilePath = resPath(@"Res/rangy.js");
 //    NSLog(@"injectionFilePath  %@",injectionFilePath);
@@ -707,12 +804,12 @@
 		return;
 	} 
 	NSData *injectionFileData = [fileManager contentsAtPath:injectionFilePath];
-	NSString *injectionFileContentsAsString = [[NSString alloc] initWithData:injectionFileData encoding:NSASCIIStringEncoding]; 
+	NSString *injectionFileContentsAsString = [[[NSString alloc] initWithData:injectionFileData encoding:NSASCIIStringEncoding] autorelease]; 
     
     self.jquery = [jqueryFileContentsAsString stringByAppendingString:injectionFileContentsAsString];
     
-    jqueryFileData = [fileManager contentsAtPath:jqueryFilePath];
-    jqueryFileContentsAsString = [[NSString alloc] initWithData:jqueryFileData encoding:NSASCIIStringEncoding]; 
+//    jqueryFileData = [fileManager contentsAtPath:jqueryFilePath];
+//    jqueryFileContentsAsString = [[[NSString alloc] initWithData:jqueryFileData encoding:NSASCIIStringEncoding] autorelease]; 
 	// injection.js
     injectionFilePath = resPath(@"Res/injection.js");
 	
@@ -723,7 +820,7 @@
 	} 
     
     injectionFileData = [fileManager contentsAtPath:injectionFilePath];
-    injectionFileContentsAsString = [[NSString alloc] initWithData:injectionFileData encoding:NSASCIIStringEncoding];
+    injectionFileContentsAsString = [[[NSString alloc] initWithData:injectionFileData encoding:NSASCIIStringEncoding] autorelease];
     
 	// concat the two files
 	self.jquery = [self.jquery stringByAppendingString:injectionFileContentsAsString];

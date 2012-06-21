@@ -30,7 +30,7 @@
         [self addSubview:date];
         
         number = [[UILabel alloc] init];
-        [number setFrame:CGRectMake(self.bounds.size.width - 80, 5, 50, height)];
+        [number setFrame:CGRectMake(self.bounds.size.width - 70, 5, 50, height)];
         [number setFont:font];
         [number setBackgroundColor:[UIColor clearColor]];
         [number setTextAlignment:UITextAlignmentRight];

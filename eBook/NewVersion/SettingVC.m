@@ -76,7 +76,7 @@
 //    [navigationItem setLeftBarButtonItem:leftButton];   
 //    [navigationItem setRightBarButtonItem:rightButton]; 
     
-    UIView *baseView = [[UIView alloc] initWithFrame:CGRectMake(10,10, self.view.bounds.size.width - 20, self.view.bounds.size.height- 64)];
+    UIView *baseView = [[[UIView alloc] initWithFrame:CGRectMake(10,10, self.view.bounds.size.width - 20, self.view.bounds.size.height- 64)] autorelease];
     [baseView setBackgroundColor:[UIColor whiteColor]];
     [baseView setAutoresizesSubviews:YES];
     [baseView setAutoresizingMask:UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleRightMargin];

@@ -22,14 +22,14 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(BookComment);
     //    self.path = [ResManager docPath:@"bookmark.plist"];
     //    self.currentBookMark = [NSDictionary dictionaryWithContentsOfFile:filename];
     
-    NSFileManager *fileManager = [[NSFileManager alloc] init] ;
+    NSFileManager *fileManager = [[[NSFileManager alloc] init] autorelease] ;
     //判断文件是否存在
     if ([fileManager fileExistsAtPath:filename]) {
         //文件存在
         self.currentBookComment = [NSMutableDictionary dictionaryWithContentsOfFile:filename];
     }else {
         NSLog(@"has no file");
-        self.currentBookComment = [[NSMutableDictionary alloc] init];
+        self.currentBookComment = [[[NSMutableDictionary alloc] init] autorelease];
         [currentBookComment writeToFile:filename atomically:YES];
     }
 }

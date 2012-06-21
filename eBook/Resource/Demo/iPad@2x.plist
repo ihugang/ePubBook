@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>BodyFontSize</key>
-	<integer>120</integer>
+	<integer>100</integer>
 	<key>PageBreakSet</key>
 	<array>
 		<dict>
@@ -19,11 +19,11 @@
 				</dict>
 				<dict>
 					<key>AtomIndex</key>
-					<integer>157</integer>
+					<integer>223</integer>
 					<key>ChapterIndex</key>
 					<integer>0</integer>
 					<key>ParaIndex</key>
-					<integer>6</integer>
+					<integer>0</integer>
 				</dict>
 			</array>
 			<key>title</key>
@@ -46,7 +46,7 @@
 				</dict>
 				<dict>
 					<key>AtomIndex</key>
-					<integer>0</integer>
+					<integer>56</integer>
 					<key>ChapterIndex</key>
 					<integer>1</integer>
 					<key>ParaIndex</key>
@@ -54,7 +54,15 @@
 				</dict>
 				<dict>
 					<key>AtomIndex</key>
-					<integer>12</integer>
+					<integer>208</integer>
+					<key>ChapterIndex</key>
+					<integer>0</integer>
+					<key>ParaIndex</key>
+					<integer>2</integer>
+				</dict>
+				<dict>
+					<key>AtomIndex</key>
+					<integer>97</integer>
 					<key>ChapterIndex</key>
 					<integer>1</integer>
 					<key>ParaIndex</key>
@@ -62,27 +70,11 @@
 				</dict>
 				<dict>
 					<key>AtomIndex</key>
-					<integer>131</integer>
-					<key>ChapterIndex</key>
-					<integer>1</integer>
-					<key>ParaIndex</key>
-					<integer>4</integer>
-				</dict>
-				<dict>
-					<key>AtomIndex</key>
-					<integer>0</integer>
-					<key>ChapterIndex</key>
-					<integer>12</integer>
-					<key>ParaIndex</key>
 					<integer>21</integer>
-				</dict>
-				<dict>
-					<key>AtomIndex</key>
-					<integer>141</integer>
 					<key>ChapterIndex</key>
 					<integer>1</integer>
 					<key>ParaIndex</key>
-					<integer>20</integer>
+					<integer>5</integer>
 				</dict>
 			</array>
 			<key>title</key>
@@ -105,7 +97,7 @@
 				</dict>
 				<dict>
 					<key>AtomIndex</key>
-					<integer>12</integer>
+					<integer>46</integer>
 					<key>ChapterIndex</key>
 					<integer>2</integer>
 					<key>ParaIndex</key>
@@ -115,29 +107,21 @@
 					<key>AtomIndex</key>
 					<integer>0</integer>
 					<key>ChapterIndex</key>
-					<integer>12</integer>
-					<key>ParaIndex</key>
-					<integer>21</integer>
-				</dict>
-				<dict>
-					<key>AtomIndex</key>
-					<integer>77</integer>
-					<key>ChapterIndex</key>
-					<integer>2</integer>
-					<key>ParaIndex</key>
-					<integer>2</integer>
-				</dict>
-				<dict>
-					<key>AtomIndex</key>
-					<integer>118</integer>
-					<key>ChapterIndex</key>
 					<integer>2</integer>
 					<key>ParaIndex</key>
 					<integer>3</integer>
 				</dict>
 				<dict>
 					<key>AtomIndex</key>
-					<integer>25</integer>
+					<integer>78</integer>
+					<key>ChapterIndex</key>
+					<integer>2</integer>
+					<key>ParaIndex</key>
+					<integer>4</integer>
+				</dict>
+				<dict>
+					<key>AtomIndex</key>
+					<integer>240</integer>
 					<key>ChapterIndex</key>
 					<integer>2</integer>
 					<key>ParaIndex</key>
@@ -145,15 +129,7 @@
 				</dict>
 				<dict>
 					<key>AtomIndex</key>
-					<integer>64</integer>
-					<key>ChapterIndex</key>
-					<integer>2</integer>
-					<key>ParaIndex</key>
-					<integer>22</integer>
-				</dict>
-				<dict>
-					<key>AtomIndex</key>
-					<integer>64</integer>
+					<integer>78</integer>
 					<key>ChapterIndex</key>
 					<integer>2</integer>
 					<key>ParaIndex</key>
@@ -165,7 +141,7 @@
 			<key>startIndx</key>
 			<integer>0</integer>
 			<key>path</key>
-			<string></string>
+			<string>第二章如何在德州扑克上赚钱.html</string>
 		</dict>
 		<dict>
 			<key>pages</key>
@@ -180,23 +156,31 @@
 				</dict>
 				<dict>
 					<key>AtomIndex</key>
-					<integer>160</integer>
+					<integer>0</integer>
 					<key>ChapterIndex</key>
 					<integer>3</integer>
 					<key>ParaIndex</key>
-					<integer>0</integer>
+					<integer>1</integer>
 				</dict>
 				<dict>
 					<key>AtomIndex</key>
-					<integer>25</integer>
+					<integer>0</integer>
 					<key>ChapterIndex</key>
 					<integer>3</integer>
+					<key>ParaIndex</key>
+					<integer>3</integer>
+				</dict>
+				<dict>
+					<key>AtomIndex</key>
+					<integer>208</integer>
+					<key>ChapterIndex</key>
+					<integer>0</integer>
 					<key>ParaIndex</key>
 					<integer>2</integer>
 				</dict>
 				<dict>
 					<key>AtomIndex</key>
-					<integer>64</integer>
+					<integer>240</integer>
 					<key>ChapterIndex</key>
 					<integer>3</integer>
 					<key>ParaIndex</key>
@@ -204,15 +188,7 @@
 				</dict>
 				<dict>
 					<key>AtomIndex</key>
-					<integer>288</integer>
-					<key>ChapterIndex</key>
-					<integer>3</integer>
-					<key>ParaIndex</key>
-					<integer>4</integer>
-				</dict>
-				<dict>
-					<key>AtomIndex</key>
-					<integer>90</integer>
+					<integer>78</integer>
 					<key>ChapterIndex</key>
 					<integer>3</integer>
 					<key>ParaIndex</key>
@@ -220,19 +196,11 @@
 				</dict>
 				<dict>
 					<key>AtomIndex</key>
-					<integer>367</integer>
+					<integer>272</integer>
 					<key>ChapterIndex</key>
 					<integer>3</integer>
 					<key>ParaIndex</key>
 					<integer>71</integer>
-				</dict>
-				<dict>
-					<key>AtomIndex</key>
-					<integer>0</integer>
-					<key>ChapterIndex</key>
-					<integer>12</integer>
-					<key>ParaIndex</key>
-					<integer>21</integer>
 				</dict>
 			</array>
 			<key>title</key>
@@ -240,7 +208,7 @@
 			<key>startIndx</key>
 			<integer>0</integer>
 			<key>path</key>
-			<string></string>
+			<string>第三章德州扑克的规则和术语.html</string>
 		</dict>
 		<dict>
 			<key>pages</key>
@@ -255,7 +223,7 @@
 				</dict>
 				<dict>
 					<key>AtomIndex</key>
-					<integer>0</integer>
+					<integer>30</integer>
 					<key>ChapterIndex</key>
 					<integer>4</integer>
 					<key>ParaIndex</key>
@@ -263,15 +231,7 @@
 				</dict>
 				<dict>
 					<key>AtomIndex</key>
-					<integer>0</integer>
-					<key>ChapterIndex</key>
-					<integer>12</integer>
-					<key>ParaIndex</key>
-					<integer>21</integer>
-				</dict>
-				<dict>
-					<key>AtomIndex</key>
-					<integer>238</integer>
+					<integer>108</integer>
 					<key>ChapterIndex</key>
 					<integer>4</integer>
 					<key>ParaIndex</key>
@@ -298,7 +258,7 @@
 				</dict>
 				<dict>
 					<key>AtomIndex</key>
-					<integer>0</integer>
+					<integer>70</integer>
 					<key>ChapterIndex</key>
 					<integer>5</integer>
 					<key>ParaIndex</key>
@@ -308,29 +268,21 @@
 					<key>AtomIndex</key>
 					<integer>0</integer>
 					<key>ChapterIndex</key>
-					<integer>12</integer>
-					<key>ParaIndex</key>
-					<integer>21</integer>
-				</dict>
-				<dict>
-					<key>AtomIndex</key>
-					<integer>128</integer>
-					<key>ChapterIndex</key>
 					<integer>5</integer>
 					<key>ParaIndex</key>
-					<integer>4</integer>
+					<integer>6</integer>
 				</dict>
 				<dict>
 					<key>AtomIndex</key>
+					<integer>208</integer>
+					<key>ChapterIndex</key>
 					<integer>0</integer>
-					<key>ChapterIndex</key>
-					<integer>5</integer>
 					<key>ParaIndex</key>
-					<integer>7</integer>
+					<integer>2</integer>
 				</dict>
 				<dict>
 					<key>AtomIndex</key>
-					<integer>176</integer>
+					<integer>103</integer>
 					<key>ChapterIndex</key>
 					<integer>5</integer>
 					<key>ParaIndex</key>
@@ -346,7 +298,7 @@
 				</dict>
 				<dict>
 					<key>AtomIndex</key>
-					<integer>82</integer>
+					<integer>115</integer>
 					<key>ChapterIndex</key>
 					<integer>5</integer>
 					<key>ParaIndex</key>
@@ -354,19 +306,19 @@
 				</dict>
 				<dict>
 					<key>AtomIndex</key>
-					<integer>158</integer>
+					<integer>14</integer>
 					<key>ChapterIndex</key>
 					<integer>5</integer>
 					<key>ParaIndex</key>
-					<integer>13</integer>
+					<integer>14</integer>
 				</dict>
 				<dict>
 					<key>AtomIndex</key>
-					<integer>0</integer>
+					<integer>14</integer>
 					<key>ChapterIndex</key>
 					<integer>5</integer>
 					<key>ParaIndex</key>
-					<integer>51</integer>
+					<integer>53</integer>
 				</dict>
 			</array>
 			<key>title</key>
@@ -389,43 +341,35 @@
 				</dict>
 				<dict>
 					<key>AtomIndex</key>
+					<integer>63</integer>
+					<key>ChapterIndex</key>
+					<integer>6</integer>
+					<key>ParaIndex</key>
+					<integer>2</integer>
+				</dict>
+				<dict>
+					<key>AtomIndex</key>
+					<integer>345</integer>
+					<key>ChapterIndex</key>
+					<integer>6</integer>
+					<key>ParaIndex</key>
+					<integer>2</integer>
+				</dict>
+				<dict>
+					<key>AtomIndex</key>
 					<integer>14</integer>
 					<key>ChapterIndex</key>
 					<integer>6</integer>
 					<key>ParaIndex</key>
-					<integer>2</integer>
+					<integer>4</integer>
 				</dict>
 				<dict>
 					<key>AtomIndex</key>
-					<integer>255</integer>
+					<integer>61</integer>
 					<key>ChapterIndex</key>
 					<integer>6</integer>
 					<key>ParaIndex</key>
-					<integer>2</integer>
-				</dict>
-				<dict>
-					<key>AtomIndex</key>
-					<integer>0</integer>
-					<key>ChapterIndex</key>
-					<integer>12</integer>
-					<key>ParaIndex</key>
-					<integer>21</integer>
-				</dict>
-				<dict>
-					<key>AtomIndex</key>
-					<integer>12</integer>
-					<key>ChapterIndex</key>
-					<integer>6</integer>
-					<key>ParaIndex</key>
-					<integer>3</integer>
-				</dict>
-				<dict>
-					<key>AtomIndex</key>
-					<integer>0</integer>
-					<key>ChapterIndex</key>
-					<integer>6</integer>
-					<key>ParaIndex</key>
-					<integer>37</integer>
+					<integer>40</integer>
 				</dict>
 			</array>
 			<key>title</key>
@@ -448,7 +392,7 @@
 				</dict>
 				<dict>
 					<key>AtomIndex</key>
-					<integer>121</integer>
+					<integer>179</integer>
 					<key>ChapterIndex</key>
 					<integer>7</integer>
 					<key>ParaIndex</key>
@@ -456,19 +400,19 @@
 				</dict>
 				<dict>
 					<key>AtomIndex</key>
-					<integer>125</integer>
-					<key>ChapterIndex</key>
-					<integer>7</integer>
-					<key>ParaIndex</key>
-					<integer>2</integer>
-				</dict>
-				<dict>
-					<key>AtomIndex</key>
-					<integer>100</integer>
+					<integer>78</integer>
 					<key>ChapterIndex</key>
 					<integer>7</integer>
 					<key>ParaIndex</key>
 					<integer>20</integer>
+				</dict>
+				<dict>
+					<key>AtomIndex</key>
+					<integer>208</integer>
+					<key>ChapterIndex</key>
+					<integer>0</integer>
+					<key>ParaIndex</key>
+					<integer>2</integer>
 				</dict>
 			</array>
 			<key>title</key>
@@ -491,7 +435,7 @@
 				</dict>
 				<dict>
 					<key>AtomIndex</key>
-					<integer>157</integer>
+					<integer>212</integer>
 					<key>ChapterIndex</key>
 					<integer>8</integer>
 					<key>ParaIndex</key>
@@ -499,15 +443,7 @@
 				</dict>
 				<dict>
 					<key>AtomIndex</key>
-					<integer>391</integer>
-					<key>ChapterIndex</key>
-					<integer>8</integer>
-					<key>ParaIndex</key>
-					<integer>1</integer>
-				</dict>
-				<dict>
-					<key>AtomIndex</key>
-					<integer>115</integer>
+					<integer>0</integer>
 					<key>ChapterIndex</key>
 					<integer>8</integer>
 					<key>ParaIndex</key>
@@ -515,15 +451,15 @@
 				</dict>
 				<dict>
 					<key>AtomIndex</key>
-					<integer>0</integer>
+					<integer>287</integer>
 					<key>ChapterIndex</key>
-					<integer>12</integer>
+					<integer>8</integer>
 					<key>ParaIndex</key>
-					<integer>21</integer>
+					<integer>3</integer>
 				</dict>
 				<dict>
 					<key>AtomIndex</key>
-					<integer>338</integer>
+					<integer>214</integer>
 					<key>ChapterIndex</key>
 					<integer>8</integer>
 					<key>ParaIndex</key>
@@ -550,15 +486,7 @@
 				</dict>
 				<dict>
 					<key>AtomIndex</key>
-					<integer>12</integer>
-					<key>ChapterIndex</key>
-					<integer>9</integer>
-					<key>ParaIndex</key>
-					<integer>2</integer>
-				</dict>
-				<dict>
-					<key>AtomIndex</key>
-					<integer>232</integer>
+					<integer>214</integer>
 					<key>ChapterIndex</key>
 					<integer>9</integer>
 					<key>ParaIndex</key>
@@ -570,27 +498,19 @@
 					<key>ChapterIndex</key>
 					<integer>9</integer>
 					<key>ParaIndex</key>
-					<integer>4</integer>
+					<integer>3</integer>
 				</dict>
 				<dict>
 					<key>AtomIndex</key>
-					<integer>12</integer>
+					<integer>46</integer>
 					<key>ChapterIndex</key>
 					<integer>9</integer>
 					<key>ParaIndex</key>
-					<integer>7</integer>
+					<integer>6</integer>
 				</dict>
 				<dict>
 					<key>AtomIndex</key>
 					<integer>0</integer>
-					<key>ChapterIndex</key>
-					<integer>12</integer>
-					<key>ParaIndex</key>
-					<integer>21</integer>
-				</dict>
-				<dict>
-					<key>AtomIndex</key>
-					<integer>25</integer>
 					<key>ChapterIndex</key>
 					<integer>9</integer>
 					<key>ParaIndex</key>
@@ -598,15 +518,23 @@
 				</dict>
 				<dict>
 					<key>AtomIndex</key>
-					<integer>145</integer>
+					<integer>208</integer>
 					<key>ChapterIndex</key>
-					<integer>9</integer>
+					<integer>0</integer>
 					<key>ParaIndex</key>
-					<integer>9</integer>
+					<integer>2</integer>
 				</dict>
 				<dict>
 					<key>AtomIndex</key>
-					<integer>229</integer>
+					<integer>0</integer>
+					<key>ChapterIndex</key>
+					<integer>9</integer>
+					<key>ParaIndex</key>
+					<integer>10</integer>
+				</dict>
+				<dict>
+					<key>AtomIndex</key>
+					<integer>369</integer>
 					<key>ChapterIndex</key>
 					<integer>9</integer>
 					<key>ParaIndex</key>
@@ -614,15 +542,15 @@
 				</dict>
 				<dict>
 					<key>AtomIndex</key>
-					<integer>64</integer>
+					<integer>45</integer>
 					<key>ChapterIndex</key>
 					<integer>9</integer>
 					<key>ParaIndex</key>
-					<integer>13</integer>
+					<integer>15</integer>
 				</dict>
 				<dict>
 					<key>AtomIndex</key>
-					<integer>102</integer>
+					<integer>0</integer>
 					<key>ChapterIndex</key>
 					<integer>9</integer>
 					<key>ParaIndex</key>
@@ -649,7 +577,7 @@
 				</dict>
 				<dict>
 					<key>AtomIndex</key>
-					<integer>365</integer>
+					<integer>325</integer>
 					<key>ChapterIndex</key>
 					<integer>10</integer>
 					<key>ParaIndex</key>
@@ -676,7 +604,7 @@
 				</dict>
 				<dict>
 					<key>AtomIndex</key>
-					<integer>90</integer>
+					<integer>126</integer>
 					<key>ChapterIndex</key>
 					<integer>11</integer>
 					<key>ParaIndex</key>
@@ -684,19 +612,11 @@
 				</dict>
 				<dict>
 					<key>AtomIndex</key>
-					<integer>142</integer>
+					<integer>14</integer>
 					<key>ChapterIndex</key>
 					<integer>11</integer>
 					<key>ParaIndex</key>
 					<integer>20</integer>
-				</dict>
-				<dict>
-					<key>AtomIndex</key>
-					<integer>0</integer>
-					<key>ChapterIndex</key>
-					<integer>12</integer>
-					<key>ParaIndex</key>
-					<integer>21</integer>
 				</dict>
 			</array>
 			<key>title</key>
@@ -719,23 +639,23 @@
 				</dict>
 				<dict>
 					<key>AtomIndex</key>
-					<integer>12</integer>
+					<integer>0</integer>
 					<key>ChapterIndex</key>
 					<integer>12</integer>
 					<key>ParaIndex</key>
-					<integer>1</integer>
+					<integer>2</integer>
 				</dict>
 				<dict>
 					<key>AtomIndex</key>
-					<integer>131</integer>
+					<integer>0</integer>
 					<key>ChapterIndex</key>
 					<integer>12</integer>
 					<key>ParaIndex</key>
-					<integer>13</integer>
+					<integer>21</integer>
 				</dict>
 				<dict>
 					<key>AtomIndex</key>
-					<integer>25</integer>
+					<integer>0</integer>
 					<key>ChapterIndex</key>
 					<integer>12</integer>
 					<key>ParaIndex</key>
@@ -762,23 +682,15 @@
 				</dict>
 				<dict>
 					<key>AtomIndex</key>
-					<integer>166</integer>
+					<integer>0</integer>
 					<key>ChapterIndex</key>
 					<integer>13</integer>
 					<key>ParaIndex</key>
-					<integer>0</integer>
+					<integer>1</integer>
 				</dict>
 				<dict>
 					<key>AtomIndex</key>
-					<integer>0</integer>
-					<key>ChapterIndex</key>
-					<integer>12</integer>
-					<key>ParaIndex</key>
-					<integer>21</integer>
-				</dict>
-				<dict>
-					<key>AtomIndex</key>
-					<integer>1019</integer>
+					<integer>1079</integer>
 					<key>ChapterIndex</key>
 					<integer>13</integer>
 					<key>ParaIndex</key>
@@ -805,15 +717,7 @@
 				</dict>
 				<dict>
 					<key>AtomIndex</key>
-					<integer>84</integer>
-					<key>ChapterIndex</key>
-					<integer>14</integer>
-					<key>ParaIndex</key>
-					<integer>11</integer>
-				</dict>
-				<dict>
-					<key>AtomIndex</key>
-					<integer>84</integer>
+					<integer>0</integer>
 					<key>ChapterIndex</key>
 					<integer>14</integer>
 					<key>ParaIndex</key>
@@ -840,11 +744,11 @@
 				</dict>
 				<dict>
 					<key>AtomIndex</key>
-					<integer>0</integer>
+					<integer>45</integer>
 					<key>ChapterIndex</key>
 					<integer>15</integer>
 					<key>ParaIndex</key>
-					<integer>6</integer>
+					<integer>7</integer>
 				</dict>
 			</array>
 			<key>title</key>
@@ -867,19 +771,11 @@
 				</dict>
 				<dict>
 					<key>AtomIndex</key>
-					<integer>163</integer>
+					<integer>130</integer>
 					<key>ChapterIndex</key>
 					<integer>16</integer>
 					<key>ParaIndex</key>
-					<integer>13</integer>
-				</dict>
-				<dict>
-					<key>AtomIndex</key>
-					<integer>163</integer>
-					<key>ChapterIndex</key>
-					<integer>16</integer>
-					<key>ParaIndex</key>
-					<integer>13</integer>
+					<integer>14</integer>
 				</dict>
 			</array>
 			<key>title</key>
@@ -902,7 +798,7 @@
 				</dict>
 				<dict>
 					<key>AtomIndex</key>
-					<integer>0</integer>
+					<integer>46</integer>
 					<key>ChapterIndex</key>
 					<integer>17</integer>
 					<key>ParaIndex</key>
@@ -910,19 +806,11 @@
 				</dict>
 				<dict>
 					<key>AtomIndex</key>
-					<integer>505</integer>
+					<integer>383</integer>
 					<key>ChapterIndex</key>
 					<integer>17</integer>
 					<key>ParaIndex</key>
 					<integer>22</integer>
-				</dict>
-				<dict>
-					<key>AtomIndex</key>
-					<integer>163</integer>
-					<key>ChapterIndex</key>
-					<integer>16</integer>
-					<key>ParaIndex</key>
-					<integer>13</integer>
 				</dict>
 			</array>
 			<key>title</key>
@@ -945,27 +833,11 @@
 				</dict>
 				<dict>
 					<key>AtomIndex</key>
-					<integer>25</integer>
+					<integer>78</integer>
 					<key>ChapterIndex</key>
 					<integer>18</integer>
 					<key>ParaIndex</key>
 					<integer>2</integer>
-				</dict>
-				<dict>
-					<key>AtomIndex</key>
-					<integer>244</integer>
-					<key>ChapterIndex</key>
-					<integer>18</integer>
-					<key>ParaIndex</key>
-					<integer>2</integer>
-				</dict>
-				<dict>
-					<key>AtomIndex</key>
-					<integer>106</integer>
-					<key>ChapterIndex</key>
-					<integer>18</integer>
-					<key>ParaIndex</key>
-					<integer>3</integer>
 				</dict>
 				<dict>
 					<key>AtomIndex</key>
@@ -973,23 +845,31 @@
 					<key>ChapterIndex</key>
 					<integer>18</integer>
 					<key>ParaIndex</key>
-					<integer>4</integer>
+					<integer>3</integer>
 				</dict>
 				<dict>
 					<key>AtomIndex</key>
-					<integer>163</integer>
+					<integer>276</integer>
 					<key>ChapterIndex</key>
-					<integer>16</integer>
+					<integer>18</integer>
 					<key>ParaIndex</key>
-					<integer>13</integer>
+					<integer>3</integer>
 				</dict>
 				<dict>
 					<key>AtomIndex</key>
-					<integer>116</integer>
+					<integer>126</integer>
 					<key>ChapterIndex</key>
 					<integer>18</integer>
 					<key>ParaIndex</key>
 					<integer>17</integer>
+				</dict>
+				<dict>
+					<key>AtomIndex</key>
+					<integer>0</integer>
+					<key>ChapterIndex</key>
+					<integer>12</integer>
+					<key>ParaIndex</key>
+					<integer>21</integer>
 				</dict>
 			</array>
 			<key>title</key>
@@ -1012,7 +892,7 @@
 				</dict>
 				<dict>
 					<key>AtomIndex</key>
-					<integer>27</integer>
+					<integer>68</integer>
 					<key>ChapterIndex</key>
 					<integer>19</integer>
 					<key>ParaIndex</key>
@@ -1020,19 +900,19 @@
 				</dict>
 				<dict>
 					<key>AtomIndex</key>
-					<integer>0</integer>
-					<key>ChapterIndex</key>
-					<integer>19</integer>
-					<key>ParaIndex</key>
-					<integer>6</integer>
-				</dict>
-				<dict>
-					<key>AtomIndex</key>
-					<integer>103</integer>
+					<integer>94</integer>
 					<key>ChapterIndex</key>
 					<integer>19</integer>
 					<key>ParaIndex</key>
 					<integer>29</integer>
+				</dict>
+				<dict>
+					<key>AtomIndex</key>
+					<integer>0</integer>
+					<key>ChapterIndex</key>
+					<integer>12</integer>
+					<key>ParaIndex</key>
+					<integer>21</integer>
 				</dict>
 			</array>
 			<key>title</key>
@@ -1055,59 +935,51 @@
 				</dict>
 				<dict>
 					<key>AtomIndex</key>
-					<integer>404</integer>
+					<integer>0</integer>
 					<key>ChapterIndex</key>
 					<integer>20</integer>
 					<key>ParaIndex</key>
-					<integer>17</integer>
+					<integer>1</integer>
 				</dict>
 				<dict>
 					<key>AtomIndex</key>
-					<integer>629</integer>
+					<integer>279</integer>
 					<key>ChapterIndex</key>
 					<integer>20</integer>
 					<key>ParaIndex</key>
-					<integer>17</integer>
+					<integer>1</integer>
 				</dict>
 				<dict>
 					<key>AtomIndex</key>
-					<integer>76</integer>
+					<integer>122</integer>
 					<key>ChapterIndex</key>
 					<integer>20</integer>
 					<key>ParaIndex</key>
-					<integer>18</integer>
+					<integer>2</integer>
 				</dict>
 				<dict>
 					<key>AtomIndex</key>
-					<integer>163</integer>
+					<integer>448</integer>
 					<key>ChapterIndex</key>
-					<integer>16</integer>
+					<integer>20</integer>
 					<key>ParaIndex</key>
-					<integer>13</integer>
+					<integer>2</integer>
 				</dict>
 				<dict>
 					<key>AtomIndex</key>
-					<integer>12</integer>
+					<integer>913</integer>
 					<key>ChapterIndex</key>
 					<integer>20</integer>
 					<key>ParaIndex</key>
-					<integer>19</integer>
-				</dict>
-				<dict>
-					<key>AtomIndex</key>
-					<integer>25</integer>
-					<key>ChapterIndex</key>
-					<integer>20</integer>
-					<key>ParaIndex</key>
-					<integer>20</integer>
+					<integer>21</integer>
 				</dict>
 				<dict>
 					<key>AtomIndex</key>
 					<integer>0</integer>
 					<key>ChapterIndex</key>
-					<integer>20</integer>
+					<integer>12</integer>
 					<key>ParaIndex</key>
-					<integer>22</integer>
+					<integer>21</integer>
 				</dict>
 			</array>
 			<key>title</key>
@@ -1130,15 +1002,7 @@
 				</dict>
 				<dict>
 					<key>AtomIndex</key>
-					<integer>157</integer>
-					<key>ChapterIndex</key>
-					<integer>21</integer>
-					<key>ParaIndex</key>
 					<integer>0</integer>
-				</dict>
-				<dict>
-					<key>AtomIndex</key>
-					<integer>166</integer>
 					<key>ChapterIndex</key>
 					<integer>21</integer>
 					<key>ParaIndex</key>
@@ -1146,35 +1010,35 @@
 				</dict>
 				<dict>
 					<key>AtomIndex</key>
-					<integer>163</integer>
-					<key>ChapterIndex</key>
-					<integer>16</integer>
-					<key>ParaIndex</key>
-					<integer>13</integer>
-				</dict>
-				<dict>
-					<key>AtomIndex</key>
-					<integer>497</integer>
+					<integer>62</integer>
 					<key>ChapterIndex</key>
 					<integer>21</integer>
 					<key>ParaIndex</key>
-					<integer>18</integer>
+					<integer>2</integer>
 				</dict>
 				<dict>
 					<key>AtomIndex</key>
-					<integer>88</integer>
+					<integer>0</integer>
 					<key>ChapterIndex</key>
 					<integer>21</integer>
 					<key>ParaIndex</key>
-					<integer>22</integer>
+					<integer>4</integer>
 				</dict>
 				<dict>
 					<key>AtomIndex</key>
-					<integer>90</integer>
+					<integer>109</integer>
 					<key>ChapterIndex</key>
 					<integer>21</integer>
 					<key>ParaIndex</key>
 					<integer>30</integer>
+				</dict>
+				<dict>
+					<key>AtomIndex</key>
+					<integer>0</integer>
+					<key>ChapterIndex</key>
+					<integer>12</integer>
+					<key>ParaIndex</key>
+					<integer>21</integer>
 				</dict>
 			</array>
 			<key>title</key>
@@ -1197,7 +1061,7 @@
 				</dict>
 				<dict>
 					<key>AtomIndex</key>
-					<integer>129</integer>
+					<integer>173</integer>
 					<key>ChapterIndex</key>
 					<integer>22</integer>
 					<key>ParaIndex</key>
@@ -1205,15 +1069,7 @@
 				</dict>
 				<dict>
 					<key>AtomIndex</key>
-					<integer>163</integer>
-					<key>ChapterIndex</key>
-					<integer>16</integer>
-					<key>ParaIndex</key>
-					<integer>13</integer>
-				</dict>
-				<dict>
-					<key>AtomIndex</key>
-					<integer>24</integer>
+					<integer>126</integer>
 					<key>ChapterIndex</key>
 					<integer>22</integer>
 					<key>ParaIndex</key>
@@ -1221,7 +1077,7 @@
 				</dict>
 				<dict>
 					<key>AtomIndex</key>
-					<integer>88</integer>
+					<integer>253</integer>
 					<key>ChapterIndex</key>
 					<integer>22</integer>
 					<key>ParaIndex</key>
@@ -1229,15 +1085,7 @@
 				</dict>
 				<dict>
 					<key>AtomIndex</key>
-					<integer>308</integer>
-					<key>ChapterIndex</key>
-					<integer>22</integer>
-					<key>ParaIndex</key>
-					<integer>3</integer>
-				</dict>
-				<dict>
-					<key>AtomIndex</key>
-					<integer>180</integer>
+					<integer>190</integer>
 					<key>ChapterIndex</key>
 					<integer>22</integer>
 					<key>ParaIndex</key>
@@ -1245,19 +1093,27 @@
 				</dict>
 				<dict>
 					<key>AtomIndex</key>
-					<integer>659</integer>
+					<integer>62</integer>
 					<key>ChapterIndex</key>
 					<integer>22</integer>
 					<key>ParaIndex</key>
-					<integer>24</integer>
+					<integer>6</integer>
 				</dict>
 				<dict>
 					<key>AtomIndex</key>
-					<integer>77</integer>
+					<integer>0</integer>
 					<key>ChapterIndex</key>
 					<integer>22</integer>
 					<key>ParaIndex</key>
 					<integer>29</integer>
+				</dict>
+				<dict>
+					<key>AtomIndex</key>
+					<integer>0</integer>
+					<key>ChapterIndex</key>
+					<integer>12</integer>
+					<key>ParaIndex</key>
+					<integer>21</integer>
 				</dict>
 			</array>
 			<key>title</key>
@@ -1280,7 +1136,7 @@
 				</dict>
 				<dict>
 					<key>AtomIndex</key>
-					<integer>104</integer>
+					<integer>143</integer>
 					<key>ChapterIndex</key>
 					<integer>23</integer>
 					<key>ParaIndex</key>
@@ -1288,27 +1144,19 @@
 				</dict>
 				<dict>
 					<key>AtomIndex</key>
-					<integer>297</integer>
+					<integer>14</integer>
 					<key>ChapterIndex</key>
 					<integer>23</integer>
 					<key>ParaIndex</key>
-					<integer>13</integer>
+					<integer>3</integer>
 				</dict>
 				<dict>
 					<key>AtomIndex</key>
-					<integer>11</integer>
+					<integer>0</integer>
 					<key>ChapterIndex</key>
 					<integer>23</integer>
 					<key>ParaIndex</key>
 					<integer>35</integer>
-				</dict>
-				<dict>
-					<key>AtomIndex</key>
-					<integer>163</integer>
-					<key>ChapterIndex</key>
-					<integer>16</integer>
-					<key>ParaIndex</key>
-					<integer>13</integer>
 				</dict>
 			</array>
 			<key>title</key>
@@ -1331,7 +1179,7 @@
 				</dict>
 				<dict>
 					<key>AtomIndex</key>
-					<integer>155</integer>
+					<integer>204</integer>
 					<key>ChapterIndex</key>
 					<integer>24</integer>
 					<key>ParaIndex</key>
@@ -1341,13 +1189,13 @@
 					<key>AtomIndex</key>
 					<integer>0</integer>
 					<key>ChapterIndex</key>
-					<integer>24</integer>
+					<integer>12</integer>
 					<key>ParaIndex</key>
-					<integer>1</integer>
+					<integer>21</integer>
 				</dict>
 				<dict>
 					<key>AtomIndex</key>
-					<integer>119</integer>
+					<integer>0</integer>
 					<key>ChapterIndex</key>
 					<integer>24</integer>
 					<key>ParaIndex</key>
@@ -1355,7 +1203,7 @@
 				</dict>
 				<dict>
 					<key>AtomIndex</key>
-					<integer>346</integer>
+					<integer>277</integer>
 					<key>ChapterIndex</key>
 					<integer>24</integer>
 					<key>ParaIndex</key>
@@ -1363,35 +1211,27 @@
 				</dict>
 				<dict>
 					<key>AtomIndex</key>
-					<integer>137</integer>
+					<integer>14</integer>
 					<key>ChapterIndex</key>
 					<integer>24</integer>
 					<key>ParaIndex</key>
-					<integer>38</integer>
+					<integer>4</integer>
 				</dict>
 				<dict>
 					<key>AtomIndex</key>
-					<integer>0</integer>
+					<integer>287</integer>
 					<key>ChapterIndex</key>
 					<integer>24</integer>
 					<key>ParaIndex</key>
-					<integer>39</integer>
+					<integer>4</integer>
 				</dict>
 				<dict>
 					<key>AtomIndex</key>
-					<integer>163</integer>
-					<key>ChapterIndex</key>
-					<integer>16</integer>
-					<key>ParaIndex</key>
-					<integer>13</integer>
-				</dict>
-				<dict>
-					<key>AtomIndex</key>
-					<integer>77</integer>
+					<integer>101</integer>
 					<key>ChapterIndex</key>
 					<integer>24</integer>
 					<key>ParaIndex</key>
-					<integer>43</integer>
+					<integer>42</integer>
 				</dict>
 			</array>
 			<key>title</key>
@@ -1414,27 +1254,27 @@
 				</dict>
 				<dict>
 					<key>AtomIndex</key>
-					<integer>400</integer>
+					<integer>78</integer>
 					<key>ChapterIndex</key>
 					<integer>25</integer>
 					<key>ParaIndex</key>
-					<integer>8</integer>
+					<integer>1</integer>
 				</dict>
 				<dict>
 					<key>AtomIndex</key>
-					<integer>38</integer>
-					<key>ChapterIndex</key>
-					<integer>25</integer>
-					<key>ParaIndex</key>
-					<integer>9</integer>
-				</dict>
-				<dict>
-					<key>AtomIndex</key>
-					<integer>193</integer>
+					<integer>142</integer>
 					<key>ChapterIndex</key>
 					<integer>25</integer>
 					<key>ParaIndex</key>
 					<integer>14</integer>
+				</dict>
+				<dict>
+					<key>AtomIndex</key>
+					<integer>0</integer>
+					<key>ChapterIndex</key>
+					<integer>12</integer>
+					<key>ParaIndex</key>
+					<integer>21</integer>
 				</dict>
 			</array>
 			<key>title</key>
@@ -1449,19 +1289,19 @@
 			<array>
 				<dict>
 					<key>AtomIndex</key>
-					<integer>114</integer>
+					<integer>0</integer>
+					<key>ChapterIndex</key>
+					<integer>26</integer>
+					<key>ParaIndex</key>
+					<integer>3</integer>
+				</dict>
+				<dict>
+					<key>AtomIndex</key>
+					<integer>93</integer>
 					<key>ChapterIndex</key>
 					<integer>26</integer>
 					<key>ParaIndex</key>
 					<integer>5</integer>
-				</dict>
-				<dict>
-					<key>AtomIndex</key>
-					<integer>119</integer>
-					<key>ChapterIndex</key>
-					<integer>26</integer>
-					<key>ParaIndex</key>
-					<integer>7</integer>
 				</dict>
 			</array>
 			<key>title</key>
@@ -1473,8 +1313,8 @@
 		</dict>
 	</array>
 	<key>PageHeight</key>
-	<integer>914</integer>
+	<integer>658</integer>
 	<key>PageWidth</key>
-	<integer>668</integer>
+	<integer>442</integer>
 </dict>
 </plist>

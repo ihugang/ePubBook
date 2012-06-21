@@ -19,7 +19,7 @@
 {
 //    self.backgroundColor = [UIColor redColor];
     DebugLog(@"-----> %f ,---> %f",self.bounds.size.width,self.bounds.size.height);
-    UIImageView *bgImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)];
+    UIImageView *bgImage = [[[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)] autorelease];
     [bgImage setImage:skinImage(@"fontbar/5002.png")];
     [self addSubview:bgImage];
     

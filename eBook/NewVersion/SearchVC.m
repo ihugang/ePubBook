@@ -32,7 +32,7 @@
 {
     [self.view setBackgroundColor:[UIColor scrollViewTexturedBackgroundColor]];
     
-    UINavigationBar *navBar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 44)];
+    UINavigationBar *navBar = [[[UINavigationBar alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 44)] autorelease];
     [self.view addSubview:navBar];
     [navBar setAutoresizesSubviews:YES];
     [navBar setAutoresizingMask:UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleRightMargin];
@@ -45,7 +45,7 @@
 //    [navBar setTintColor:[UIColor colorWithPatternImage:skinImage(@"operbar/b002.png")]];
     
     //创建一个导航栏集合  
-    UINavigationItem *navigationItem = [[UINavigationItem alloc] initWithTitle:nil];    
+    UINavigationItem *navigationItem = [[[UINavigationItem alloc] initWithTitle:nil] autorelease];    
     //创建一个左边按钮  
 //    UIBarButtonItem *leftButton = [[UIBarButtonItem alloc] initWithTitle:@"返回"     
 //                                                                   style:UIBarButtonItemStylePlain    
@@ -81,26 +81,26 @@
 //    [navigationItem setLeftBarButtonItem:leftButton];
     [navigationItem setLeftBarButtonItem:customButton];
     
-    UIView *searchView = [[UIView alloc] initWithFrame:CGRectMake(10, navBar.bounds.size.height+10, self.view.bounds.size.width - 20, 50)];
+    UIView *searchView = [[[UIView alloc] initWithFrame:CGRectMake(10, navBar.bounds.size.height+10, self.view.bounds.size.width - 20, 50)] autorelease];
     [searchView setBackgroundColor:[UIColor whiteColor]];
     [searchView setAutoresizesSubviews:YES];
     [searchView setAutoresizingMask:UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleRightMargin];
     [self.view addSubview:searchView];
     
-    UIView *resultView = [[UIView alloc] initWithFrame:CGRectMake(10, navBar.bounds.size.height + searchView.bounds.size.height + 20, self.view.bounds.size.width - 20, self.view.bounds.size.height - navBar.bounds.size.height - searchView.bounds.size.height - 10)];
+    UIView *resultView = [[[UIView alloc] initWithFrame:CGRectMake(10, navBar.bounds.size.height + searchView.bounds.size.height + 20, self.view.bounds.size.width - 20, self.view.bounds.size.height - navBar.bounds.size.height - searchView.bounds.size.height - 10)] autorelease];
     [resultView setBackgroundColor:[UIColor whiteColor]];
     [resultView setAutoresizesSubviews:YES];
     [resultView setAutoresizingMask:UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleRightMargin];
     [self.view addSubview:resultView];
     
-    UIImageView *bg = [[UIImageView alloc] initWithFrame:CGRectMake(10, 10, searchView.bounds.size.width - 90, 30)];
+    UIImageView *bg = [[[UIImageView alloc] initWithFrame:CGRectMake(10, 10, searchView.bounds.size.width - 90, 30)] autorelease];
     [bg setImage:skinImage(@"searchbar/d003.png")];
     [bg setUserInteractionEnabled:YES];
     [bg setAutoresizesSubviews:YES];
     [bg setAutoresizingMask:UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleRightMargin];
     [searchView addSubview:bg];
     
-    UIImageView *searchIcon = [[UIImageView alloc] initWithFrame:CGRectMake(5, 5, 20, 20)];
+    UIImageView *searchIcon = [[[UIImageView alloc] initWithFrame:CGRectMake(5, 5, 20, 20)] autorelease];
     [searchIcon setImage:skinImage(@"searchbar/d004.png")];
     [bg addSubview:searchIcon];
     
@@ -168,7 +168,7 @@
     SearchResult* hit = (SearchResult*)[results objectAtIndex:[indexPath row]];
 //    cell.textLabel.text = [NSString stringWithFormat:@"...%@...", hit.neighboringText];
 //    cell.detailTextLabel.text = [NSString stringWithFormat:@"Chapter %d - page %d", hit.chapterIndex, hit.pageIndex+1];
-    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    NSDateFormatter *formatter = [[[NSDateFormatter alloc] init] autorelease];
     [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
     NSString *localTime=[formatter stringFromDate: [NSDate date]];
     
@@ -252,7 +252,7 @@
 - (void)searchString:(NSString*)query
 {
     first = 0;
-    self.results = [[NSMutableArray alloc] init];
+    self.results = [[[NSMutableArray alloc] init] autorelease];
     self.currentQuery = searchField.text;
     NSLog(@"query --> %@",currentQuery);   
     [self searchString:currentQuery inChapterAtIndex:0];

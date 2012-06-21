@@ -32,13 +32,13 @@
      */
     NSLog(@"didFinishLaunchingWithOptions");
     
-//    NSString *test = @"底牌为8T非同花，";
-//    NSString *all = @"无限注与有限注德州扑克的一个重要区别，";
-//    NSRange range = [all rangeOfString:test];
-//    int location = range.location;
-//    int leight = range.length;
-//    NSString *astring = [[NSString alloc] initWithString:[NSString stringWithFormat:@"Location:%i,Leight:%i",location,leight]];
-//    NSLog(@"astring:%@",astring);
+    NSString *test = @"背运时应该适时地休息，玩扑克是很需要运气的，";
+    NSString *all = @"扑克比赛也有很多种变化，而您只需要参加您熟悉的比赛 ，尤其是在玩现金真钱的时候。这将给您最佳的机会去赢得比赛，同时也因为一些显而易见的原因 ，比如说如果您根本不知道如何玩，那您又怎么可能会赢呢。不是说您不可能那么好运，但如果您想要成为一名“常胜将军”，您就非得明明白白地知道自己需要怎么进行比赛。如果您感觉到疲倦或是背运时应该适时地休息，玩扑克是很需要运气的，但同样也不可缺少的是智慧，聪明的玩家才能机智地取胜。这种智慧只能是来源于比赛的积累。您应该认识到是多么应该在低成本的比赛中不断地磨练自己的技巧。同样，明智的您也应该明白在进行这类比赛的同时，尝试不同的扑克玩法是大有益处的。";
+    NSRange range = [all rangeOfString:test];
+    int location = range.location;
+    int leight = range.length;
+    NSString *astring = [[NSString alloc] initWithString:[NSString stringWithFormat:@"Location:%i,Leight:%i",location,leight]];
+    NSLog(@"astring:%@",astring);
     
     
     application.statusBarHidden=NO;
@@ -46,7 +46,7 @@
     self.window.backgroundColor = [UIColor whiteColor];
     
     if (YES) {
-        self.rootVC = [[RootVC alloc] init];
+        self.rootVC = [[[RootVC alloc] init] autorelease];
         self.window.rootViewController = rootVC;
     }
     else{

@@ -35,7 +35,7 @@
     
     [cv1 setAutoresizingMask:UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleRightMargin];
 //    cv1.backgroundColor =[UIColor scrollViewTexturedBackgroundColor];
-    cv1.backgroundColor = [UIColor whiteColor];
+//    cv1.backgroundColor = [UIColor whiteColor];
     if (!mf_IsPad || !share.isLandscape) {
         
     }else {

@@ -54,6 +54,14 @@
 				</dict>
 				<dict>
 					<key>AtomIndex</key>
+					<integer>208</integer>
+					<key>ChapterIndex</key>
+					<integer>0</integer>
+					<key>ParaIndex</key>
+					<integer>2</integer>
+				</dict>
+				<dict>
+					<key>AtomIndex</key>
 					<integer>97</integer>
 					<key>ChapterIndex</key>
 					<integer>1</integer>
@@ -164,6 +172,14 @@
 				</dict>
 				<dict>
 					<key>AtomIndex</key>
+					<integer>208</integer>
+					<key>ChapterIndex</key>
+					<integer>0</integer>
+					<key>ParaIndex</key>
+					<integer>2</integer>
+				</dict>
+				<dict>
+					<key>AtomIndex</key>
 					<integer>240</integer>
 					<key>ChapterIndex</key>
 					<integer>3</integer>
@@ -255,6 +271,14 @@
 					<integer>5</integer>
 					<key>ParaIndex</key>
 					<integer>6</integer>
+				</dict>
+				<dict>
+					<key>AtomIndex</key>
+					<integer>208</integer>
+					<key>ChapterIndex</key>
+					<integer>0</integer>
+					<key>ParaIndex</key>
+					<integer>2</integer>
 				</dict>
 				<dict>
 					<key>AtomIndex</key>
@@ -382,6 +406,14 @@
 					<key>ParaIndex</key>
 					<integer>20</integer>
 				</dict>
+				<dict>
+					<key>AtomIndex</key>
+					<integer>208</integer>
+					<key>ChapterIndex</key>
+					<integer>0</integer>
+					<key>ParaIndex</key>
+					<integer>2</integer>
+				</dict>
 			</array>
 			<key>title</key>
 			<string>第七章低池比率和出牌比率</string>
@@ -483,6 +515,14 @@
 					<integer>9</integer>
 					<key>ParaIndex</key>
 					<integer>8</integer>
+				</dict>
+				<dict>
+					<key>AtomIndex</key>
+					<integer>208</integer>
+					<key>ChapterIndex</key>
+					<integer>0</integer>
+					<key>ParaIndex</key>
+					<integer>2</integer>
 				</dict>
 				<dict>
 					<key>AtomIndex</key>
@@ -604,6 +644,14 @@
 					<integer>12</integer>
 					<key>ParaIndex</key>
 					<integer>2</integer>
+				</dict>
+				<dict>
+					<key>AtomIndex</key>
+					<integer>0</integer>
+					<key>ChapterIndex</key>
+					<integer>12</integer>
+					<key>ParaIndex</key>
+					<integer>21</integer>
 				</dict>
 				<dict>
 					<key>AtomIndex</key>
@@ -815,6 +863,14 @@
 					<key>ParaIndex</key>
 					<integer>17</integer>
 				</dict>
+				<dict>
+					<key>AtomIndex</key>
+					<integer>0</integer>
+					<key>ChapterIndex</key>
+					<integer>12</integer>
+					<key>ParaIndex</key>
+					<integer>21</integer>
+				</dict>
 			</array>
 			<key>title</key>
 			<string>第十八章学好学精德州扑克</string>
@@ -849,6 +905,14 @@
 					<integer>19</integer>
 					<key>ParaIndex</key>
 					<integer>29</integer>
+				</dict>
+				<dict>
+					<key>AtomIndex</key>
+					<integer>0</integer>
+					<key>ChapterIndex</key>
+					<integer>12</integer>
+					<key>ParaIndex</key>
+					<integer>21</integer>
 				</dict>
 			</array>
 			<key>title</key>
@@ -909,6 +973,14 @@
 					<key>ParaIndex</key>
 					<integer>21</integer>
 				</dict>
+				<dict>
+					<key>AtomIndex</key>
+					<integer>0</integer>
+					<key>ChapterIndex</key>
+					<integer>12</integer>
+					<key>ParaIndex</key>
+					<integer>21</integer>
+				</dict>
 			</array>
 			<key>title</key>
 			<string>第二十章小心被出千欺骗</string>
@@ -959,6 +1031,14 @@
 					<integer>21</integer>
 					<key>ParaIndex</key>
 					<integer>30</integer>
+				</dict>
+				<dict>
+					<key>AtomIndex</key>
+					<integer>0</integer>
+					<key>ChapterIndex</key>
+					<integer>12</integer>
+					<key>ParaIndex</key>
+					<integer>21</integer>
 				</dict>
 			</array>
 			<key>title</key>
@@ -1026,6 +1106,14 @@
 					<integer>22</integer>
 					<key>ParaIndex</key>
 					<integer>29</integer>
+				</dict>
+				<dict>
+					<key>AtomIndex</key>
+					<integer>0</integer>
+					<key>ChapterIndex</key>
+					<integer>12</integer>
+					<key>ParaIndex</key>
+					<integer>21</integer>
 				</dict>
 			</array>
 			<key>title</key>
@@ -1096,6 +1184,14 @@
 					<integer>24</integer>
 					<key>ParaIndex</key>
 					<integer>0</integer>
+				</dict>
+				<dict>
+					<key>AtomIndex</key>
+					<integer>0</integer>
+					<key>ChapterIndex</key>
+					<integer>12</integer>
+					<key>ParaIndex</key>
+					<integer>21</integer>
 				</dict>
 				<dict>
 					<key>AtomIndex</key>
@@ -1172,6 +1268,14 @@
 					<key>ParaIndex</key>
 					<integer>14</integer>
 				</dict>
+				<dict>
+					<key>AtomIndex</key>
+					<integer>0</integer>
+					<key>ChapterIndex</key>
+					<integer>12</integer>
+					<key>ParaIndex</key>
+					<integer>21</integer>
+				</dict>
 			</array>
 			<key>title</key>
 			<string>第二十五章人生就是一场赌</string>
@@ -1209,7 +1313,7 @@
 		</dict>
 	</array>
 	<key>PageHeight</key>
-	<integer>840</integer>
+	<integer>914</integer>
 	<key>PageWidth</key>
 	<integer>668</integer>
 </dict>

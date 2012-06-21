@@ -56,7 +56,7 @@
     {
         if ([element isKindOfClass:[CXMLElement class]])
         {
-            NSMutableDictionary *item = [[NSMutableDictionary alloc] init];
+            NSMutableDictionary *item = [[[NSMutableDictionary alloc] init] autorelease];
             for (int i = 0; i < [element childCount]; i++)
             {
                 if ([[[element children] objectAtIndex:i] isKindOfClass:[CXMLElement class]])
@@ -76,7 +76,7 @@
     {
         if ([element isKindOfClass:[CXMLElement class]])
         {
-            NSMutableDictionary *item = [[NSMutableDictionary alloc] init];
+            NSMutableDictionary *item = [[[NSMutableDictionary alloc] init] autorelease];
             for (int i = 0; i < [element childCount]; i++)
             {
                 if ([[[element children] objectAtIndex:i] isKindOfClass:[CXMLElement class]])
@@ -100,7 +100,7 @@
     {
         if ([element isKindOfClass:[CXMLElement class]])
         {
-            NSMutableDictionary *item = [[NSMutableDictionary alloc] init];
+            NSMutableDictionary *item = [[[NSMutableDictionary alloc] init] autorelease];
             int PageWidth = [[[element attributeForName:@"PageWidth"] stringValue] intValue];
             int PageHeight = [[[element attributeForName:@"PageHeight"] stringValue] intValue];
             int BodyFontSize = [[[element attributeForName:@"BodyFontSize"] stringValue] intValue];

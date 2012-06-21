@@ -8,10 +8,14 @@ $(document).ready(function() {
 //                                      });   
                   
 //                  setInterval("longtouchedFire('a')", 2000);
-                  
+//                  $("p").click(function(){
+//                               $(this).each(function () {
+//                                            alert($(this).index());
+//                                            });
+//                               });
                   
                   $('span').bind("click", function(event) {
-                                 alert("bind");
+//                                 alert("bind");
                                  if(event.target.nodeName.toLowerCase() == "span"&&event.target.attributes.length != 0){
 //                                     alert(event.target.nodeName);
 //                                     alert(event.target.textContent);
