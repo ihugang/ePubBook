@@ -21,7 +21,7 @@
     float mouseY;
 }
 @property(nonatomic,assign)UIWebView*  curWebView;
-@property(nonatomic,assign)UIWebView*  curWebView2;
+//@property(nonatomic,assign)UIWebView*  curWebView2;
 @property(nonatomic,assign)UILabel*  curLable;
 @property(nonatomic,assign)UILabel*  bookNameLabel;
 @property(nonatomic,assign)UILabel*  chapterLabel;

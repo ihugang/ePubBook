@@ -24,14 +24,16 @@
 #import "ChapterTitlePageView.h"
 
 @implementation ContentView
-@synthesize curLable,bookNameLabel,chapterLabel,curWebView,curWebView2,currentSearchResult,jquery,menuController,classId,contentText,rootVC;
+@synthesize curLable,bookNameLabel,chapterLabel,curWebView,currentSearchResult,jquery,menuController,classId,contentText,rootVC;
 - (void)dealloc{
     //释放掉通知
+    removeNObserver();
+    /*
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"searchText" object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"pageLoad" object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"addBookMark" object:nil];
      [[NSNotificationCenter defaultCenter] removeObserver:self name:@"removeComment" object:nil];
-    
+    */
 //    [curWebView release];
     [classId release];
     [contentText release];
@@ -70,25 +72,25 @@
 	}
     [self addSubview:curWebView]; 
     
-    curWebView2 = [[[UIWebView alloc] init] autorelease];
-    
-    //    [webView setBounds:CGRectMake(0, 0, 320, 480)];
-    //    [curWebView setFrame:CGRectMake(40, 60, self.bounds.size.width, self.bounds.size.height)];
-    [curWebView2 setBackgroundColor:[UIColor grayColor]];//设置背景颜色
-    [curWebView2 setOpaque:NO];//设置透明
-    [curWebView2 setDelegate:self];
-    [curWebView2 setTag:301];
-    [curWebView2 setAutoresizingMask:UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleRightMargin];
-    //    [self.view addSubview:webView];
-    //去除webview中的scrollview
-	for (UIView* v in  curWebView2.subviews) {
-		if([v isKindOfClass:[UIScrollView class]]){
-			sv = (UIScrollView*) v;
-			sv.scrollEnabled = NO;//禁止滚动和回弹
-			sv.bounces = NO;//禁止滚动
-		}
-	}
-    [self addSubview:curWebView2];
+//    curWebView2 = [[[UIWebView alloc] init] autorelease];
+//    
+//    //    [webView setBounds:CGRectMake(0, 0, 320, 480)];
+//    //    [curWebView setFrame:CGRectMake(40, 60, self.bounds.size.width, self.bounds.size.height)];
+//    [curWebView2 setBackgroundColor:[UIColor grayColor]];//设置背景颜色
+//    [curWebView2 setOpaque:NO];//设置透明
+//    [curWebView2 setDelegate:self];
+//    [curWebView2 setTag:301];
+//    [curWebView2 setAutoresizingMask:UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleRightMargin];
+//    //    [self.view addSubview:webView];
+//    //去除webview中的scrollview
+//	for (UIView* v in  curWebView2.subviews) {
+//		if([v isKindOfClass:[UIScrollView class]]){
+//			sv = (UIScrollView*) v;
+//			sv.scrollEnabled = NO;//禁止滚动和回弹
+//			sv.bounces = NO;//禁止滚动
+//		}
+//	}
+//    [self addSubview:curWebView2];
     
     UIColor *myColor = [UIColor colorWithRed:94.0/255.0 green:38.0/255.0 blue:18.0/255.0 alpha:1.0];
     
@@ -111,12 +113,12 @@
         [self.bookNameLabel setFont:[UIFont boldSystemFontOfSize:15]];
         [self.chapterLabel setFrame:CGRectMake(0, curWebView.bottom - 5, self.bounds.size.width, 44)];
         [self.chapterLabel setFont:[UIFont boldSystemFontOfSize:15]];
-        if (share.isLandscape) {
-            [curWebView setFrame:CGRectMake(40, 50, (self.bounds.size.width-80)/2.0-20, self.bounds.size.height-90)];
-            [curWebView2 setFrame:CGRectMake(curWebView.right+40, 50, (self.bounds.size.width-80)/2.0-20, self.bounds.size.height-90)];
-            NSLog(@"------------landscape");
-            //            
-        }
+//        if (share.isLandscape) {
+//            [curWebView setFrame:CGRectMake(40, 50, (self.bounds.size.width-80)/2.0-20, self.bounds.size.height-90)];
+//            [curWebView2 setFrame:CGRectMake(curWebView.right+40, 50, (self.bounds.size.width-80)/2.0-20, self.bounds.size.height-90)];
+//            NSLog(@"------------landscape");
+//            //            
+//        }
         
     }else {
         //        [curWebView2 removeFromSuperview];
@@ -138,7 +140,7 @@
     [self addSubview:curLable];
     
     if (share.isLandscape&&mf_IsPad) {
-        [self.curLable setFrame:CGRectMake(self.curWebView2.right - 40, self.self.chapterLabel.top, 50, 44)];
+       // [self.curLable setFrame:CGRectMake(self.curWebView2.right - 40, self.self.chapterLabel.top, 50, 44)];
     }else {
         [self.curLable setFrame:CGRectMake(self.curWebView.right - 40, self.self.chapterLabel.top, 50, 44)];
     }
@@ -152,7 +154,7 @@
     //becomFirstResponder方法，使view或者viewController的self成为第一响应者，可以在相应文件的任意地方调用实现该方法，不过建议与UIMenuController放在一起。
 //    [self becomeFirstResponder];
     //设置大小
-//    CGRect selectionRect = CGRectMake(100, 100, 100,30);
+//    CGRect selectionRect = CGRectMake(310, 100, 100,30);
 //    [menuController setTargetRect:selectionRect inView: self.superview];
     
     //设置显示的菜单，默认是第一菜单，要直接显示第二菜单，设置为NO
@@ -216,7 +218,7 @@
     if ([gestureRecognizer state] == UIGestureRecognizerStateBegan) {
         [self becomeFirstResponder];
          CGPoint location = [gestureRecognizer locationInView:[gestureRecognizer view]];
-         [self.menuController setTargetRect:CGRectMake(location.x, location.y, 0, 0) inView:[gestureRecognizer view]];
+         [self.menuController setTargetRect:CGRectMake(0, location.y, 320, 0) inView:[gestureRecognizer view]];
         //    CGRect selectionRect = CGRectMake(mouseX, mouseY, 30,20);
         //    [menuController setTargetRect:selectionRect inView: self];
         //设置显示位置  
@@ -348,6 +350,19 @@
         [bookPick.currentBookPick setValue:pageIndex forKey:className];
         //写入document文件
         [bookPick.currentBookPick writeToFile:bookPick.filename atomically:YES];
+#warning loufq tips how to fix page index
+        //1.获取HTML页面－－－第几个HTML
+        
+        //2.获取当前字体大小设置
+        
+        //3.根据js获取当前字所在的第几个P
+        
+        //4.在该P中第几个字－－初略获取当前class在html中的位置
+        
+        //5.找出所在对应的页面找到另外字体大小所在的对应页数
+        
+        //6.保存到三个字体对应plist。（iphone3个，ipad6个）
+        
         
         //把html保存到原来的html
         NSString* newHTML = [curWebView stringByEvaluatingJavaScriptFromString:@"document.documentElement.innerHTML"];
@@ -500,14 +515,17 @@
 }
 
 -(void)showWithIndex:(int)aIndex {
-    NSLog(@"contentView showWithIndex()");
-    
-    
-    DebugLog(@"now page Index ----> %@",[[NSUserDefaults standardUserDefaults] objectForKey:@"currentPageIndex"]);
-    
+    if (isLoyoutDebug) {
+        NSLog(@"contentView showWithIndex()");     
+        DebugLog(@"now page Index ----> %@",[[NSUserDefaults standardUserDefaults] objectForKey:@"currentPageIndex"]);
+    }
+
     self.curLable.text =[NSString stringWithFormat:@"%d",aIndex];
     NSString *nowPageIndex = [[NSUserDefaults standardUserDefaults] objectForKey:@"currentPageIndex"];
-    DebugLog(@"showWithIndex aIndex -- > %d",aIndex);
+    if (isLoyoutDebug) {
+        DebugLog(@"showWithIndex aIndex -- > %d",aIndex);     
+    }
+    
     //发送检查页面是否添加书签
     [[NSNotificationCenter defaultCenter] postNotificationName:@"pageChange" object:nowPageIndex];
     [[NSUserDefaults standardUserDefaults] setValue:nowPageIndex forKey:@"curPageIndex"];
@@ -529,7 +547,10 @@
     }
 //    NSLog(@"perTotalIndex --- %d",perTotalIndex);
 //    NSLog(@"curTotalIndex --- %d",curTotalIndex);
-    NSLog(@"showWithIndex loadSpine: %d  atPageIndex: %d",tempSpineIndex,tempPageIndex);
+    if (isLoyoutDebug) {
+        NSLog(@"showWithIndex loadSpine: %d  atPageIndex: %d",tempSpineIndex,tempPageIndex);    
+    }
+    
     //等于0，加载页面扉页
     if (tempPageIndex == 0) {
         ChapterTitlePageView *titlePage = [[[ChapterTitlePageView alloc] initWithFrame:CGRectMake(0, 0, self.bounds.size.width, self.bounds.size.height)] autorelease];
@@ -565,7 +586,7 @@
     //[self loadSpine:spineIndex atPageIndex:pageIndex highlightSearchResult:nil];
     NSURL *url = [NSURL fileURLWithPath:chapter.spinePath];
     [curWebView loadRequest:[NSURLRequest requestWithURL:url]];
-    [curWebView2 loadRequest:[NSURLRequest requestWithURL:url]];
+    //[curWebView2 loadRequest:[NSURLRequest requestWithURL:url]];
     self.chapterLabel.text = chapter.title;
     
 //    [self gotoPageInCurrentSpine:curPageIndex];
@@ -593,12 +614,12 @@
 	[curWebView stringByEvaluatingJavaScriptFromString:goToOffsetFunc];
 	[curWebView stringByEvaluatingJavaScriptFromString:goTo];
     
-    NSString* goTo2 =[NSString stringWithFormat:@"pageScroll(%f)", pageOffset2]; 
-    [curWebView2 stringByEvaluatingJavaScriptFromString:goToOffsetFunc];
-	[curWebView2 stringByEvaluatingJavaScriptFromString:goTo2];
+//    NSString* goTo2 =[NSString stringWithFormat:@"pageScroll(%f)", pageOffset2]; 
+//    [curWebView2 stringByEvaluatingJavaScriptFromString:goToOffsetFunc];
+//	[curWebView2 stringByEvaluatingJavaScriptFromString:goTo2];
    
 	curWebView.hidden = NO;
-    curWebView2.hidden = NO;
+    //curWebView2.hidden = NO;
 }
 
 //这个方法是网页中的每一个请求都会被触发的 

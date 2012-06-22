@@ -12,7 +12,7 @@
 #import "NavView.h"
 #import "FontView.h"
 
-#define baseColor ([UIColor scrollViewTexturedBackgroundColor]);
+#define baseColor ([UIColor whiteColor]);
 
 @interface RootVC : BaseVC<ATPagingViewDelegate,NavViewDelegate,OperViewDelegate,UIGestureRecognizerDelegate>
 { 

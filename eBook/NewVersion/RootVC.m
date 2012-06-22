@@ -33,29 +33,33 @@
 //    }
     [self.pageView removeFromSuperview];
     self.pageView =[[[ATPagingView alloc] initWithFrame:self.view.bounds] autorelease];
+    UIScrollView* sv =  [self.pageView valueForKey:@"_scrollView"];
+    sv.backgroundColor = baseColor;
     self.pageView.delegate = self;
     self.pageView.currentPageIndex = self.lastPage.intValue;//设置默认的加载页面
-    self.pageView.pagesToPreload = 0;//前后方向加载不可见页数，第一次设置为0，只加载当前页面
+    self.pageView.recyclingEnabled = NO;
+    //self.pageView.pagesToPreload = 0;//前后方向加载不可见页数，第一次设置为0，只加载当前页面
 //    self.pageView.backgroundColor =[UIColor whiteColor];
     self.pageView.backgroundColor = baseColor;
     [self.view insertSubview:self.pageView atIndex:0];
     [self.pageView setAutoresizesSubviews:YES];
     [self.pageView setAutoresizingMask:UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleRightMargin];
     [self.pageView reloadData];
- 
-    
-    NSLog(@"addUI");
+
 }
 
 -(void)userTapOper:(UITapGestureRecognizer*)gesture{
     CGPoint p  =   [gesture locationInView:self.view];
     CGSize windowSize = self.view.bounds.size;
-    
-    DebugLog(@"userTapOper  p.x -> %f ",p.x);
-    DebugLog(@"windowSize _ > %f",windowSize.width);
+    if (isLoyoutDebug) {
+        DebugLog(@"userTapOper  p.x -> %f ",p.x);
+        DebugLog(@"windowSize _ > %f",windowSize.width);
+    } 
     
     float pos =  p.x/windowSize.width;
-     DebugLog(@"pos _ > %f",windowSize.width);
+    if (isLoyoutDebug) {
+        DebugLog(@"pos _ > %f",windowSize.width);
+    }
     
     if (pos<0.2&&self.pageView.currentPageIndex>0) {
          self.pageView.currentPageIndex-=1;
@@ -224,6 +228,8 @@
     NSLog(@"pagesDidChangeInPagingView");
 }
 -(void)currentPageDidChangeInPagingView:(ATPagingView *)pagingView{
+    #warning loufq debug return for iphone
+    return;//loufq debug
     if (parsing) {
         self.pageView.pagesToPreload = 2;//前后方向加载不可见页数
     }else {
