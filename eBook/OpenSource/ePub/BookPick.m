@@ -21,7 +21,34 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(BookPick);
     
     //    self.path = [ResManager docPath:@"bookmark.plist"];
     //    self.currentBookMark = [NSDictionary dictionaryWithContentsOfFile:filename];
-    
+    [self checkFile];
+}
+
+-(void)getBookPick:(BookPickStyle)style
+{
+    //获取document目录路径
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask,YES);
+    NSString *path=[paths objectAtIndex:0];
+    NSString *name = @"";
+    switch (style) {
+        case iphone_minBookpick:
+            name = @"iphone_minBookPick.plist";
+            break;
+        case iphone_middleBookpick:
+            name = @"iphone_middleBookPick.plist";
+            break;
+        case iphone_maxBookpick:
+            name = @"iphone_maxBookPick.plist";
+            break;
+        default:
+            break;
+    }
+    self.filename=[path stringByAppendingPathComponent:name];  
+    [self checkFile];
+}
+
+- (void)checkFile
+{
     NSFileManager *fileManager = [[[NSFileManager alloc] init] autorelease] ;
     //判断文件是否存在
     if ([fileManager fileExistsAtPath:filename]) {
@@ -32,6 +59,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(BookPick);
         self.currentBookPick = [[[NSMutableDictionary alloc] init] autorelease];
         [currentBookPick writeToFile:filename atomically:YES];
     }
+
 }
 
 @end

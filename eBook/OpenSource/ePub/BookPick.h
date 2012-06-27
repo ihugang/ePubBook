@@ -11,6 +11,12 @@
 
 #define bookPick ([BookPick sharedInstance])
 
+typedef enum{
+    iphone_minBookpick,
+    iphone_middleBookpick,
+    iphone_maxBookpick
+} BookPickStyle;
+
 @interface BookPick : NSObject
 @property (nonatomic,retain) NSString* filename;
 @property (nonatomic,retain) NSMutableDictionary *currentBookPick;
@@ -18,5 +24,6 @@
 SYNTHESIZE_SINGLETON_FOR_CLASS_HEADER(BookPick);
 
 -(void)getBookPick;
+-(void)getBookPick:(BookPickStyle)style;
 
 @end

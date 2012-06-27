@@ -11,6 +11,12 @@
 
 #define bookComment ([BookComment sharedInstance])
 
+typedef enum{
+    iphone_minBookComment,
+    iphone_middleBookComment,
+    iphone_maxBookComment
+} BookCommentStyle;
+
 @interface BookComment : NSObject
 @property (nonatomic,retain) NSString* filename;
 @property (nonatomic,retain) NSMutableDictionary *currentBookComment;
@@ -18,4 +24,6 @@
 SYNTHESIZE_SINGLETON_FOR_CLASS_HEADER(BookComment);
 
 -(void)getBookComment;
+-(void)getBookComment:(BookCommentStyle)style;
+
 @end

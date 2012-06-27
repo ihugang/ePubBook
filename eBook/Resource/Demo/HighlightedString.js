@@ -4,25 +4,42 @@
  ------------------------------------------------------------------------ 
  */
 var selectedText = "";
+var pIndex = "";
 
 function getHighlightedString() {
     var text        = window.getSelection();
     selectedText    = text.anchorNode.textContent.substr(text.anchorOffset, text.focusOffset - text.anchorOffset);
     
-    alert(text.focusNode.parentNode.offsetParent);
+    alert(text.focusNode.parentNode);
+    pIndex = getIndex(text.focusNode.parentNode);
+    alert("pIndex:"+pIndex);
     
     //js获取当前p所在页面的index
-    $("p").mouseup(function(){
-                    $(this).each(function () {
-                        alert($(this).index());
-                    });
-    });
+//    $("p").mouseup(function(){
+//                    $(this).each(function () {
+//                        alert($(this).index());
+//                    });
+//    });
+}
+
+//获取对象的index索引
+function getIndex(obj){　　
+    var tagName = obj.nodeName;　　
+    var oParent = obj.parentNode;　　
+    var tags = oParent.getElementsByTagName(tagName);　　
+    obj.setAttribute("id","crtTag");　　
+    for(var i=0; i<tags.length; i++){　　　　
+        if(tags[i].getAttribute("id") == "crtTag"){　　　　　　
+            tags[i].setAttribute("id","");　　　　　　
+            return i;　　　　
+        }　　
+    }
 }
 
 // ...
 function stylizeHighlightedString(className) {
     var range               = window.getSelection().getRangeAt(0);
-    alert(range.startOffset);
+    alert("range startOffset:"+range.startOffset);
     
     var selectionContents   = range.extractContents();
     var span                = document.createElement("span");
@@ -45,9 +62,9 @@ function stylizeHighlightedString(className) {
     
     range.insertNode(span);
     
-    $("p ."+className).each(function () {
-                 alert($(this).index());
-                 });
+//    $("p ."+className).each(function () {
+//                 alert($(this).index());
+//                 });
 }
 
 

@@ -325,6 +325,10 @@
         NSString * highlightedString = [curWebView stringByEvaluatingJavaScriptFromString:selectedText];
         NSLog(@"selectedTextString: ---  > %@",highlightedString);
         
+        NSString *getPIndex = [NSString stringWithFormat:@"pIndex"];
+        NSString *pIndex = [curWebView stringByEvaluatingJavaScriptFromString:getPIndex];
+        DebugLog(@"pIndex ----> %@",pIndex);
+        
         
         // 把选中的文本样式改变
         NSDateFormatter *formatter = [[[NSDateFormatter alloc] init] autorelease];
@@ -350,7 +354,8 @@
         [bookPick.currentBookPick setValue:pageIndex forKey:className];
         //写入document文件
         [bookPick.currentBookPick writeToFile:bookPick.filename atomically:YES];
-#warning loufq tips how to fix page index
+        
+//        #warning loufq tips how to fix page index
         //1.获取HTML页面－－－第几个HTML
         
         //2.获取当前字体大小设置

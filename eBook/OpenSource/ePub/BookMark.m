@@ -23,7 +23,35 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(BookMark);
     
     //    self.path = [ResManager docPath:@"bookmark.plist"];
 //    self.currentBookMark = [NSDictionary dictionaryWithContentsOfFile:filename];
+    [self checkFile];
     
+}
+
+-(void)getBookMark:(BookMarkStyle)style
+{
+    //获取document目录路径
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask,YES);
+    NSString *path=[paths objectAtIndex:0];
+    NSString *name = @"";
+    switch (style) {
+        case iphone_minBookMark:
+            name = @"iphone_minBookMark.plist";
+            break;
+        case iphone_middleBookMark:
+            name = @"iphone_middleBookMark.plist";
+            break;
+        case iphone_maxBookMark:
+            name = @"iphone_maxBookMark.plist";
+            break;
+        default:
+            break;
+    }
+    self.filename=[path stringByAppendingPathComponent:name];  
+    [self checkFile];
+}
+
+- (void)checkFile
+{
     NSFileManager *fileManager = [[[NSFileManager alloc] init] autorelease] ;
     //判断文件是否存在
     if ([fileManager fileExistsAtPath:filename]) {
