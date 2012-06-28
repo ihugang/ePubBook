@@ -17,9 +17,13 @@
 @property(nonatomic,assign)int PageCount;
 @property(nonatomic,assign) int ChapterCount;
 @property(nonatomic,retain)NSArray* chapters;
+@property(nonatomic,retain)NSArray* Pages;
 
 SYNTHESIZE_SINGLETON_FOR_CLASS_HEADER(Book);
 
 -(void)prepareBook;
+
+-(NSString*)getPIndex:(NSString*)name pChapter:(NSInteger)c pIndex:(NSString *)p aIndex:(NSString*)a;
+
 
 @end

@@ -176,7 +176,20 @@
             [cataButton3 setBackgroundImage:nil forState:UIControlStateNormal];
             [cataButton4 setBackgroundImage:nil forState:UIControlStateNormal];
             //获取书签列表
-            [bookMarks getBookMark];
+//            [bookMarks getBookMark];
+            switch (curBook.BodyFontSize) {
+                case 100:
+                    [bookMarks getBookMark:iphone_minBookMark];
+                    break;
+                case 120:
+                    [bookMarks getBookMark:iphone_middleBookMark];
+                    break;
+                case 150:
+                    [bookMarks getBookMark:iphone_maxBookMark];
+                    break;
+                default:
+                    break;
+            }
             [chapterList reloadData];
             break;  
         case 2:  

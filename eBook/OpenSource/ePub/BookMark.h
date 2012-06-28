@@ -24,7 +24,7 @@ typedef enum{
 
 SYNTHESIZE_SINGLETON_FOR_CLASS_HEADER(BookMark);
 
--(void)getBookMark;
+//-(void)getBookMark;
 
 -(void)getBookMark:(BookMarkStyle)style;
 

@@ -229,7 +229,7 @@
 }
 -(void)currentPageDidChangeInPagingView:(ATPagingView *)pagingView{
     #warning loufq debug return for iphone
-    return;//loufq debug
+//    return;//loufq debug
     if (parsing) {
         self.pageView.pagesToPreload = 2;//前后方向加载不可见页数
     }else {

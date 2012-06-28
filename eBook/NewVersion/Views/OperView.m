@@ -9,6 +9,7 @@
 #import "OperView.h"
 #import "ChapterListVC.h"
 #import "BookMark.h"
+#import "Book.h"
 
 @implementation OperView
 @synthesize delegate,rootVC,currentPageIndex;
@@ -106,7 +107,18 @@
 {
     //设置当前页面
     self.currentPageIndex = [notification object];
-    [bookMarks getBookMark];
+//    [bookMarks getBookMark];
+    switch (curBook.BodyFontSize) {
+        case 100:
+            [bookMarks getBookMark:iphone_minBookMark];
+            break;
+        case 120:
+            [bookMarks getBookMark:iphone_middleBookMark];
+            break;
+        case 150:
+            [bookMarks getBookMark:iphone_maxBookMark];
+            break;
+    }
     DebugLog(@"checkBookMark - %@",[notification object]);
     if ([bookMarks.currentBookMark objectForKey: [notification object]] != nil) {
 //        //添加标签

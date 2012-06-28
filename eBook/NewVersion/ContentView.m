@@ -34,6 +34,7 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"addBookMark" object:nil];
      [[NSNotificationCenter defaultCenter] removeObserver:self name:@"removeComment" object:nil];
     */
+    
 //    [curWebView release];
     [classId release];
     [contentText release];
@@ -42,14 +43,14 @@
 -(void)initLayout{
     // Do any additional setup after loading the view.
     curWebView = [[[UIWebView alloc] init] autorelease];
-    UIImageView *bg = [[[UIImageView alloc] initWithImage:skinImage(@"fontbar/5003.png")] autorelease];
-    [bg setFrame:CGRectMake(0, 0, self.bounds.size.width, self.bounds.size.height)];
-    [bg setTag:300];
-    if (share.isLandscape) {
-        [self addSubview:bg];
-    }else {
-        [bg removeFromSuperview];
-    }
+//    UIImageView *bg = [[[UIImageView alloc] initWithImage:skinImage(@"fontbar/5003.png")] autorelease];
+//    [bg setFrame:CGRectMake(0, 0, self.bounds.size.width, self.bounds.size.height)];
+//    [bg setTag:300];
+//    if (share.isLandscape) {
+//        [self addSubview:bg];
+//    }else {
+//        [bg removeFromSuperview];
+//    }
     
     self.backgroundColor = [UIColor whiteColor];
     //    [webView setBounds:CGRectMake(0, 0, 320, 480)];
@@ -231,21 +232,41 @@
 - (void)addBookMark:(NSNotification *)notification
 {
     //获取书签列表
-    [bookMarks getBookMark];
+//    [bookMarks getBookMark];
     NSString *npageIndex = [notification object];
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
     NSString *localTime=[formatter stringFromDate: [NSDate date]];
     
-    DebugLog(@"addBookMark ----> %d",npageIndex);
+    DebugLog(@"addBookMark ----> %@",npageIndex);
     Chapter* chapter = [curBook.chapters objectAtIndex:curSpineIndex];
 //    DebugLog(@"title  ---- %@",chapter.title);
     
-    //给当前页面添加书签
-    NSDictionary *pageIndex = [[[NSDictionary alloc] initWithObjectsAndKeys:npageIndex,@"pageIndex",localTime,@"time",chapter.title,@"content", nil] autorelease];
-    [bookMarks.bookmarks setValue:pageIndex forKey:npageIndex];
+//    DebugLog(@"----> %@",curBook.Pages);
+    //获取当前页面的p index 和 Auto Index
+    NSString *nowParaIndex = [[curBook.Pages objectAtIndex:curPageIndex] objectForKey:@"ParaIndex"];
+    NSString *nowAtomIndex = [[curBook.Pages objectAtIndex:curPageIndex] objectForKey:@"AtomIndex"];
+    DebugLog(@"addBookMark ---->P: %@   a: %@",nowParaIndex,nowAtomIndex);
     
-//    DebugLog(@"array ---%@",bookMarks.bookmarks);
+    NSString *iphone_min = [curBook getPIndex:@"iPhone_2@2x.plist" pChapter:curSpineIndex pIndex:nowParaIndex aIndex:nowAtomIndex];
+    NSString *iphone_mid = [curBook getPIndex:@"iPhone_2@2x36.plist" pChapter:curSpineIndex pIndex:nowParaIndex aIndex:nowAtomIndex];
+    NSString *iphone_max = [curBook getPIndex:@"iPhone_2@2x44.plist" pChapter:curSpineIndex pIndex:nowParaIndex aIndex:nowAtomIndex];
+    DebugLog(@"min:%@  mid:%@ max:%@",iphone_min,iphone_mid,iphone_max);
+    
+    [bookMarks getBookMark:iphone_minBookMark];
+    //给当前页面添加书签
+    NSDictionary *pageIndex = [[[NSDictionary alloc] initWithObjectsAndKeys:iphone_min,@"pageIndex",localTime,@"time",chapter.title,@"content", nil] autorelease];
+    [bookMarks.bookmarks setValue:pageIndex forKey:iphone_min];
+    [bookMarks.bookmarks writeToFile:bookMarks.filename atomically:YES];
+    
+    [bookMarks getBookMark:iphone_middleBookMark];
+    pageIndex = [[[NSDictionary alloc] initWithObjectsAndKeys:iphone_mid,@"pageIndex",localTime,@"time",chapter.title,@"content", nil] autorelease];
+    [bookMarks.bookmarks setValue:pageIndex forKey:iphone_mid];
+    [bookMarks.bookmarks writeToFile:bookMarks.filename atomically:YES];
+    
+    [bookMarks getBookMark:iphone_maxBookMark];
+    pageIndex = [[[NSDictionary alloc] initWithObjectsAndKeys:iphone_max,@"pageIndex",localTime,@"time",chapter.title,@"content", nil] autorelease];
+    [bookMarks.bookmarks setValue:pageIndex forKey:iphone_max];
     [bookMarks.bookmarks writeToFile:bookMarks.filename atomically:YES];
     
     [formatter release];

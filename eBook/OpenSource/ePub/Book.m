@@ -14,7 +14,7 @@
 @synthesize currentBookInfo;
 @synthesize BodyFontSize,PageWidth,PageHeight;
 @synthesize PageCount,ChapterCount;
-@synthesize chapters;
+@synthesize chapters,Pages;
 SYNTHESIZE_SINGLETON_FOR_CLASS(Book);
 
 -(void)prepareBook{ 
@@ -59,6 +59,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(Book);
     
     NSMutableArray* cs = [NSMutableArray array]; 
     int index = 0,iAllPageCount = 0;
+    NSArray *pages = nil;
     for (NSDictionary* item in DA(currentBookInfo, @"PageBreakSet")) {
         NSString* title = DO(item, @"title");        
         NSString* shortPath =[NSString stringWithFormat:@"/book/%@.html",title];
@@ -71,7 +72,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(Book);
 //        DebugLog(@"filename ---> %@",filename);
         
 //        NSString* filename = resPath(shortPath);
-        
+        pages = DO(item, @"pages");
 //        NSLog(@"shortpath - %@",shortPath);
 //        NSString *path1 = DO(item, @"path");
 //        NSLog(@"Book path - > %@",path);
@@ -89,8 +90,30 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(Book);
     } 
     self.ChapterCount = index;
     self.PageCount =iAllPageCount;
-    
+    self.Pages = pages;
     self.chapters = cs;
+}
+//返回plist中对应的页面位置
+-(NSString*)getPIndex:(NSString*)name pChapter:(NSInteger)c pIndex:(NSString *)p aIndex:(NSString*)a
+{
+    NSString *path = [ResManager docPath:name]; 
+    NSDictionary *dic = [NSDictionary dictionaryWithContentsOfFile:path];
+    NSArray *all = DA(dic, @"PageBreakSet");
+    NSDictionary *chap = [all objectAtIndex:c];
+    NSArray *pages = DA(chap, @"pages");
+    DebugLog(@"getPindex -------> %@",pages);
+    NSString *pIndex = @"";
+    for (int i =0 ; i< pages.count; i++) {
+        if ([[[pages objectAtIndex:i] objectForKey:@"ParaIndex"] intValue] == p.intValue) {
+            if ([[[pages objectAtIndex:i] objectForKey:@"AtomIndex"] intValue] > a.intValue) {
+                pIndex = [NSString stringWithFormat:@"%d",i];
+            }else {
+                pIndex = [NSString stringWithFormat:@"%d",i+1];;
+            }
+        }
+    }
+    DebugLog(@"index -------> %@",pIndex);
+    return pIndex;
 }
 
 @end
