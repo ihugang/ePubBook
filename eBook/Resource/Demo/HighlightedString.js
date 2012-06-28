@@ -5,10 +5,13 @@
  */
 var selectedText = "";
 var pIndex = "";
+var atomIndex = "";
 
 function getHighlightedString() {
     var text        = window.getSelection();
     selectedText    = text.anchorNode.textContent.substr(text.anchorOffset, text.focusOffset - text.anchorOffset);
+    
+    atomIndex = text.anchorOffset;
     
     alert(text.focusNode.parentNode);
     pIndex = getIndex(text.focusNode.parentNode);

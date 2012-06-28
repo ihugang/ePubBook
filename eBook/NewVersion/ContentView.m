@@ -338,6 +338,11 @@
         NSString *pIndex = [curWebView stringByEvaluatingJavaScriptFromString:getPIndex];
         DebugLog(@"pIndex ----> %@",pIndex);
         
+        //在段落中的偏移位置 
+        NSString *aIndex = [NSString stringWithFormat:@"atomIndex"];
+        NSString *nowAtomIndex = [curWebView stringByEvaluatingJavaScriptFromString:aIndex];
+        DebugLog(@"AtomIndex ----> %@",nowAtomIndex);
+        
         // 把选中的文本样式改变
         NSDateFormatter *formatter = [[[NSDateFormatter alloc] init] autorelease];
         [formatter setDateFormat:@"yyyyMMddHHmmss"];
@@ -351,10 +356,7 @@
         //    NSLog(@"Highlighted -- > %@",startSearch);
         [curWebView stringByEvaluatingJavaScriptFromString:startSearch];
         NSLog(@"noteMenuPressed");
-        
-        //在段落中的便宜位置
-        NSString *nowAtomIndex = @"0";
-        
+ 
         //根据p 所在位置，计算所在页数
         NSString *iphone_min = [curBook getPIndex:@"iPhone_2@2x.plist" pChapter:curSpineIndex pIndex:pIndex aIndex:nowAtomIndex];
         NSString *iphone_mid = [curBook getPIndex:@"iPhone_2@2x36.plist" pChapter:curSpineIndex pIndex:pIndex aIndex:nowAtomIndex];
@@ -514,6 +516,11 @@
         NSString *pIndex = [curWebView stringByEvaluatingJavaScriptFromString:getPIndex];
         DebugLog(@"pIndex ----> %@",pIndex);
         
+        //在段落中的偏移位置 
+        NSString *aIndex = [NSString stringWithFormat:@"atomIndex"];
+        NSString *nowAtomIndex = [curWebView stringByEvaluatingJavaScriptFromString:aIndex];
+        DebugLog(@"AtomIndex ----> %@",nowAtomIndex);
+        
         NSString *className =  [@"uiWebviewHighlight" stringByAppendingFormat:classTime];
         NSString *startSearch   = [NSString stringWithFormat:@"stylizeHighlightedString('%@')",className];
         //    NSLog(@"Highlighted -- > %@",startSearch);
@@ -523,9 +530,6 @@
         //调用添加批注的页面
         [self.rootVC presentModalViewController:comment animated:YES];
         [[NSNotificationCenter defaultCenter] postNotificationName:@"comment" object:className];
-        
-        //在段落中的便宜位置
-        NSString *nowAtomIndex = @"0";
         
         //根据p 所在位置，计算所在页数
         NSString *iphone_min = [curBook getPIndex:@"iPhone_2@2x.plist" pChapter:curSpineIndex pIndex:pIndex aIndex:nowAtomIndex];
