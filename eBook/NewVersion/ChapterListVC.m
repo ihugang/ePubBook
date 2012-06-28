@@ -222,7 +222,20 @@
             [cataButton2 setBackgroundImage:nil forState:UIControlStateNormal];
             [cataButton3 setBackgroundImage:nil forState:UIControlStateNormal];
             //获取批注列表
-            [bookComment getBookComment];
+//            [bookComment getBookComment];
+            switch (curBook.BodyFontSize) {
+                case 100:
+                    [bookComment getBookComment:iphone_minBookComment];
+                    break;
+                case 120:
+                    [bookComment getBookComment:iphone_middleBookComment];
+                    break;
+                case 150:
+                    [bookComment getBookComment:iphone_maxBookComment];
+                    break;
+                default:
+                    break;
+            }
             [chapterList reloadData];
             break;
         default:  

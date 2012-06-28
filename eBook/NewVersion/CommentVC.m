@@ -105,15 +105,23 @@
 
 -(void)clickLeftButton  
 {  
-    //获取批注列表
-    [bookComment getBookComment];
-    
-    //删除批注
+    //获取批注列表  删除所有字体对应的批注
+    [bookComment getBookComment:iphone_minBookComment];
     [bookComment.currentBookComment removeObjectForKey:className];
-    //写入document文件
+    //写入documen
     [bookComment.currentBookComment writeToFile:bookComment.filename atomically:YES];
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"removeComment" object:self.className];
     
+    [bookComment getBookComment:iphone_middleBookComment];
+    [bookComment.currentBookComment removeObjectForKey:className];
+    //写入documen
+    [bookComment.currentBookComment writeToFile:bookComment.filename atomically:YES];
+    
+    [bookComment getBookComment:iphone_maxBookComment];
+    [bookComment.currentBookComment removeObjectForKey:className];
+    //写入documen
+    [bookComment.currentBookComment writeToFile:bookComment.filename atomically:YES];
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"removeComment" object:self.className];
     
     NSLog(@"qu xiao add comment");
     [self dismissModalViewControllerAnimated:YES];
@@ -127,7 +135,7 @@
     DebugLog(@"text -- > %@",text);
     if (text.length > 0) {
         //获取批注列表
-        [bookComment getBookComment];
+        [bookComment getBookComment:iphone_minBookComment];
         //给匹配clasName的添加批注
         NSDictionary *dic = [bookComment.currentBookComment objectForKey:className];
         self.comment = [NSMutableDictionary dictionaryWithDictionary:dic];
@@ -136,6 +144,27 @@
         [bookComment.currentBookComment setValue:comment forKey:className];
         //写入document文件
         [bookComment.currentBookComment writeToFile:bookComment.filename atomically:YES];
+        
+        //获取批注列表
+        [bookComment getBookComment:iphone_middleBookComment];
+        dic = [bookComment.currentBookComment objectForKey:className];
+        self.comment = [NSMutableDictionary dictionaryWithDictionary:dic];
+        [comment setObject:text forKey:@"commentText"];
+        //添加当前批注内容
+        [bookComment.currentBookComment setValue:comment forKey:className];
+        //写入document文件
+        [bookComment.currentBookComment writeToFile:bookComment.filename atomically:YES];
+        
+        //获取批注列表
+        [bookComment getBookComment:iphone_maxBookComment];
+        dic = [bookComment.currentBookComment objectForKey:className];
+        self.comment = [NSMutableDictionary dictionaryWithDictionary:dic];
+        [comment setObject:text forKey:@"commentText"];
+        //添加当前批注内容
+        [bookComment.currentBookComment setValue:comment forKey:className];
+        //写入document文件
+        [bookComment.currentBookComment writeToFile:bookComment.filename atomically:YES];
+        
         [self dismissModalViewControllerAnimated:YES];
     }else {
          DebugLog(@"text nil");
