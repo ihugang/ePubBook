@@ -199,7 +199,20 @@
             [cataButton2 setBackgroundImage:nil forState:UIControlStateNormal];
             [cataButton4 setBackgroundImage:nil forState:UIControlStateNormal];
             //获取书摘列表
-            [bookPick getBookPick];
+//            [bookPick getBookPick];
+            switch (curBook.BodyFontSize) {
+                case 100:
+                    [bookPick getBookPick:iphone_minBookpick];
+                    break;
+                case 120:
+                    [bookPick getBookPick:iphone_middleBookpick];
+                    break;
+                case 150:
+                    [bookPick getBookPick:iphone_maxBookpick];
+                    break;
+                default:
+                    break;
+            }
             [chapterList reloadData];
             break; 
         case 3:

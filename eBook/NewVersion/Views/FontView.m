@@ -16,7 +16,6 @@
 @synthesize curPageIndex,curChapterIndex,curChapterPageIndex;
 
 - (void)dealloc {
-    [curPageIndex release];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"sendPageToBookMark" object:nil];
     [super dealloc];
 }
@@ -135,15 +134,6 @@
     }else {
         [maxButton setBackgroundImage:skinImage(@"fontbar/c010-选中.png") forState:UIControlStateNormal];
     }
-    
-    //监听每个页面，获取当前页数
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(checkBookMark:) name:@"sendPageToBookMark" object:nil];
-}
-
-- (void)checkBookMark:(NSNotification *)notification
-{
-    //设置当前页面
-    self.curPageIndex = [notification object];
 }
 
 - (void)sliderValueChanged:(id)sender
@@ -185,7 +175,7 @@
     }
     self.curChapterIndex = [NSString stringWithFormat:@"%d",tempSpineIndex];
     self.curChapterPageIndex = [NSString stringWithFormat:@"%d",tempPageIndex];
-    DebugLog(@"BookMark -------------> chapter:%@   Page: %@ ",curChapterIndex,curChapterPageIndex);
+    DebugLog(@"FontView -------------> chapter:%@   Page: %@ ",curChapterIndex,curChapterPageIndex);
 }
 
 //获取当前Chapter之前的chapter中的页面数量
@@ -208,6 +198,10 @@
 - (void)fontSelect:(id)sender
 {
     UIButton *select = (UIButton *)sender;
+    NSString *npageIndex = [[NSUserDefaults standardUserDefaults] objectForKey:@"currentPageIndex"];
+    //设置当前页面
+    self.curPageIndex = npageIndex;
+    NSLog(@" npageIndex --> %@",npageIndex);
     
     [self getPages];
     NSInteger before = [self getNowPageIndex];
@@ -225,40 +219,43 @@
         [middleButton setBackgroundImage:skinImage(@"fontbar/c009.png") forState:UIControlStateNormal];
         [maxButton setBackgroundImage:skinImage(@"fontbar/c010.png") forState:UIControlStateNormal];
         [[NSUserDefaults standardUserDefaults] setValue:@"28" forKey:@"bodyFontSize"];
-        
-        
+        //写入数据
+        [[NSUserDefaults standardUserDefaults] synchronize];
         NSString *iphone_min = [curBook getPIndex:@"iPhone_2@2x.plist" pChapter:self.curChapterIndex.intValue pIndex:nowParaIndex aIndex:nowAtomIndex];
+        [curBook prepareBook];
         pIndex = [NSString stringWithFormat:@"%d",iphone_min.intValue+before];
         [[NSNotificationCenter defaultCenter] postNotificationName:@"FontChange" object:pIndex];
+        
+        
     }else if(select.tag == 101){
         [minButton setBackgroundImage:skinImage(@"fontbar/c008.png") forState:UIControlStateNormal];
         [middleButton setBackgroundImage:skinImage(@"fontbar/c009-选中.png") forState:UIControlStateNormal];
         [maxButton setBackgroundImage:skinImage(@"fontbar/c010.png") forState:UIControlStateNormal];
         [[NSUserDefaults standardUserDefaults] setValue:@"36" forKey:@"bodyFontSize"];
+        //写入数据
+        [[NSUserDefaults standardUserDefaults] synchronize];
         
         NSString *iphone_mid = [curBook getPIndex:@"iPhone_2@2x36.plist" pChapter:self.curChapterIndex.intValue pIndex:nowParaIndex aIndex:nowAtomIndex];
+        [curBook prepareBook];
         pIndex = [NSString stringWithFormat:@"%d",iphone_mid.intValue+before];
         [[NSNotificationCenter defaultCenter] postNotificationName:@"FontChange" object:pIndex];
+        
+        
     }else {
         [minButton setBackgroundImage:skinImage(@"fontbar/c008.png") forState:UIControlStateNormal];
         [middleButton setBackgroundImage:skinImage(@"fontbar/c009.png") forState:UIControlStateNormal];
         [maxButton setBackgroundImage:skinImage(@"fontbar/c010-选中.png") forState:UIControlStateNormal];
         [[NSUserDefaults standardUserDefaults] setValue:@"44" forKey:@"bodyFontSize"];
-        
+        //写入数据
+        [[NSUserDefaults standardUserDefaults] synchronize];
         
         NSString *iphone_max = [curBook getPIndex:@"iPhone_2@2x44.plist" pChapter:self.curChapterIndex.intValue pIndex:nowParaIndex aIndex:nowAtomIndex];
+        [curBook prepareBook];
         pIndex = [NSString stringWithFormat:@"%d",iphone_max.intValue+before];
         [[NSNotificationCenter defaultCenter] postNotificationName:@"FontChange" object:pIndex];
     }
-    //写入数据
-    [[NSUserDefaults standardUserDefaults] synchronize];
-    
-    [[Book sharedInstance] prepareBook];
     
     DebugLog(@"FontView =========>P:%@",pIndex);
-    
-    
-    
     
     //发送通知，就是说此时要调用观察者处的方
 //    [[NSNotificationCenter defaultCenter] postNotificationName:@"pageLoad" object:[NSString stringWithFormat:@"%d",select.tag]];

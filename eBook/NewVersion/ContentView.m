@@ -228,62 +228,19 @@
     }
 }
 
-//添加书签
-- (void)addBookMark:(NSNotification *)notification
-{
-    //获取书签列表
-//    [bookMarks getBookMark];
-    NSString *npageIndex = [notification object];
-    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
-    NSString *localTime=[formatter stringFromDate: [NSDate date]];
-    
-    DebugLog(@"addBookMark ----> %@",npageIndex);
-    Chapter* chapter = [curBook.chapters objectAtIndex:curSpineIndex];
-//    DebugLog(@"title  ---- %@",chapter.title);
-    
-//    DebugLog(@"----> %@",curBook.Pages);
-    //获取当前页面的p index 和 Auto Index
-    NSString *nowParaIndex = [[curBook.Pages objectAtIndex:curPageIndex] objectForKey:@"ParaIndex"];
-    NSString *nowAtomIndex = [[curBook.Pages objectAtIndex:curPageIndex] objectForKey:@"AtomIndex"];
-    DebugLog(@"addBookMark ---->P: %@   a: %@",nowParaIndex,nowAtomIndex);
-    
-    NSString *iphone_min = [curBook getPIndex:@"iPhone_2@2x.plist" pChapter:curSpineIndex pIndex:nowParaIndex aIndex:nowAtomIndex];
-    NSString *iphone_mid = [curBook getPIndex:@"iPhone_2@2x36.plist" pChapter:curSpineIndex pIndex:nowParaIndex aIndex:nowAtomIndex];
-    NSString *iphone_max = [curBook getPIndex:@"iPhone_2@2x44.plist" pChapter:curSpineIndex pIndex:nowParaIndex aIndex:nowAtomIndex];
-    DebugLog(@"min:%@  mid:%@ max:%@",iphone_min,iphone_mid,iphone_max);
-    
-    [bookMarks getBookMark:iphone_minBookMark];
-    //给当前页面添加书签
-    NSDictionary *pageIndex = [[[NSDictionary alloc] initWithObjectsAndKeys:iphone_min,@"pageIndex",localTime,@"time",chapter.title,@"content", nil] autorelease];
-    [bookMarks.bookmarks setValue:pageIndex forKey:iphone_min];
-    [bookMarks.bookmarks writeToFile:bookMarks.filename atomically:YES];
-    
-    [bookMarks getBookMark:iphone_middleBookMark];
-    pageIndex = [[[NSDictionary alloc] initWithObjectsAndKeys:iphone_mid,@"pageIndex",localTime,@"time",chapter.title,@"content", nil] autorelease];
-    [bookMarks.bookmarks setValue:pageIndex forKey:iphone_mid];
-    [bookMarks.bookmarks writeToFile:bookMarks.filename atomically:YES];
-    
-    [bookMarks getBookMark:iphone_maxBookMark];
-    pageIndex = [[[NSDictionary alloc] initWithObjectsAndKeys:iphone_max,@"pageIndex",localTime,@"time",chapter.title,@"content", nil] autorelease];
-    [bookMarks.bookmarks setValue:pageIndex forKey:iphone_max];
-    [bookMarks.bookmarks writeToFile:bookMarks.filename atomically:YES];
-    
-    [formatter release];
-}
 
 //字体改变，重新加载页面
-- (void)pageLoad:(NSNotification *)notification
-{
-    NSLog(@"pageLoad --- %d",[[notification object] intValue]);
-    NSLog(@"loadSpine curSpineIndex:%d , curPageIndex : %d",curSpineIndex,curPageIndex);
-    //重新加载页面
-//    [self showWithIndex:curSpineIndex];
-    
-    //发送通知，就是说此时要调用观察者处的方
-//    [[NSNotificationCenter defaultCenter] postNotificationName:@"fontChange" object:[[NSUserDefaults standardUserDefaults] objectForKey:@"curPageIndex"]];
-    [self loadSpine:curSpineIndex atPageIndex:curPageIndex];
-}
+//- (void)pageLoad:(NSNotification *)notification
+//{
+//    NSLog(@"pageLoad --- %d",[[notification object] intValue]);
+//    NSLog(@"loadSpine curSpineIndex:%d , curPageIndex : %d",curSpineIndex,curPageIndex);
+//    //重新加载页面
+////    [self showWithIndex:curSpineIndex];
+//    
+//    //发送通知，就是说此时要调用观察者处的方
+////    [[NSNotificationCenter defaultCenter] postNotificationName:@"fontChange" object:[[NSUserDefaults standardUserDefaults] objectForKey:@"curPageIndex"]];
+//    [self loadSpine:curSpineIndex atPageIndex:curPageIndex];
+//}
 
 //搜索页面跳转
 - (void)searchPageLoad:(NSNotification *)notification
@@ -322,6 +279,24 @@
     //    [pasteboard setString:[[self textLabel]text]];
     NSLog(@"copyMenuPressed");
 }
+
+//获取当前Chapter之前的chapter中的页面数量
+- (NSInteger)getNowPageIndex
+{
+    int allpage = 0;
+    Chapter *chapter ;
+    for (int i = 0; i < curSpineIndex; i ++) {
+        if (curSpineIndex == 0) {
+            allpage = 0;
+        }else {
+            chapter = [curBook.chapters objectAtIndex:i];
+            allpage += chapter.pageCount;
+        }
+    }
+    DebugLog(@"getNowPageIndex: ---- %d",allpage);
+    return allpage;
+}
+
 //书摘
 - (void)bookPickMenuPressed:(id)sender
 {
@@ -346,10 +321,10 @@
         NSString * highlightedString = [curWebView stringByEvaluatingJavaScriptFromString:selectedText];
         NSLog(@"selectedTextString: ---  > %@",highlightedString);
         
+        //获取当前书摘所在p 在页面中的索引
         NSString *getPIndex = [NSString stringWithFormat:@"pIndex"];
         NSString *pIndex = [curWebView stringByEvaluatingJavaScriptFromString:getPIndex];
         DebugLog(@"pIndex ----> %@",pIndex);
-        
         
         // 把选中的文本样式改变
         NSDateFormatter *formatter = [[[NSDateFormatter alloc] init] autorelease];
@@ -365,13 +340,42 @@
         [curWebView stringByEvaluatingJavaScriptFromString:startSearch];
         NSLog(@"noteMenuPressed");
         
-        //获取书摘列表
-        [bookPick getBookPick];
+        //在段落中的便宜位置
+        NSString *nowAtomIndex = @"0";
         
-        NSString *npageIndex = [[NSUserDefaults standardUserDefaults] objectForKey:@"currentPageIndex"];
-        NSLog(@" npageIndex --> %@",npageIndex);
+        //根据p 所在位置，计算所在页数
+        NSString *iphone_min = [curBook getPIndex:@"iPhone_2@2x.plist" pChapter:curSpineIndex pIndex:pIndex aIndex:nowAtomIndex];
+        NSString *iphone_mid = [curBook getPIndex:@"iPhone_2@2x36.plist" pChapter:curSpineIndex pIndex:pIndex aIndex:nowAtomIndex];
+        NSString *iphone_max = [curBook getPIndex:@"iPhone_2@2x44.plist" pChapter:curSpineIndex pIndex:pIndex aIndex:nowAtomIndex];
+        DebugLog(@"min:%@  mid:%@ max:%@",iphone_min,iphone_mid,iphone_max);
+        
+        NSInteger before = [self getNowPageIndex];
+        
+//        NSString *npageIndex = [[NSUserDefaults standardUserDefaults] objectForKey:@"currentPageIndex"];
+//        NSLog(@" npageIndex --> %@",npageIndex);
+        //获取书摘列表
+        [bookPick getBookPick:iphone_minBookpick];
         //给当前页面添加书摘
-        NSDictionary *pageIndex = [[[NSDictionary alloc] initWithObjectsAndKeys:npageIndex,@"pageIndex",className,@"className",localTime,@"time",highlightedString,@"content", nil] autorelease];
+        NSString *nIndex = [NSString stringWithFormat:@"%d",iphone_min.intValue + before];
+        NSDictionary *pageIndex = [[[NSDictionary alloc] initWithObjectsAndKeys:nIndex,@"pageIndex",className,@"className",localTime,@"time",highlightedString,@"content", nil] autorelease];
+        [bookPick.currentBookPick setValue:pageIndex forKey:className];
+        //写入document文件
+        [bookPick.currentBookPick writeToFile:bookPick.filename atomically:YES];
+        
+        //获取书摘列表
+        [bookPick getBookPick:iphone_middleBookpick];
+        //给当前页面添加书摘
+        nIndex = [NSString stringWithFormat:@"%d",iphone_mid.intValue + before];
+        pageIndex = [[[NSDictionary alloc] initWithObjectsAndKeys:nIndex,@"pageIndex",className,@"className",localTime,@"time",highlightedString,@"content", nil] autorelease];
+        [bookPick.currentBookPick setValue:pageIndex forKey:className];
+        //写入document文件
+        [bookPick.currentBookPick writeToFile:bookPick.filename atomically:YES];
+        
+        //获取书摘列表
+        [bookPick getBookPick:iphone_maxBookpick];
+        //给当前页面添加书摘
+        nIndex = [NSString stringWithFormat:@"%d",iphone_max.intValue + before];
+        pageIndex = [[[NSDictionary alloc] initWithObjectsAndKeys:nIndex,@"pageIndex",className,@"className",localTime,@"time",highlightedString,@"content", nil] autorelease];
         [bookPick.currentBookPick setValue:pageIndex forKey:className];
         //写入document文件
         [bookPick.currentBookPick writeToFile:bookPick.filename atomically:YES];
@@ -490,7 +494,7 @@
     NSLog(@"end");
 }
 
-//删除
+//删除书摘、批注
 - (void)removePressed:(id)sender
 {
     DebugLog(@"classname --> %@",classId);
@@ -501,14 +505,34 @@
         NSString* newHTML = [curWebView stringByEvaluatingJavaScriptFromString:@"document.documentElement.innerHTML"];
         NSLog(@"newHtml text --> %@",newHTML);
         
-        //获取书摘列表
-        [bookPick getBookPick];
+        //获取书摘列表  //删除所有字体对应的书摘
+        [bookPick getBookPick:iphone_minBookpick];
         [bookPick.currentBookPick removeObjectForKey:classId];
         //写入document文件
         [bookPick.currentBookPick writeToFile:bookPick.filename atomically:YES];
         
-        //获取批注列表
-        [bookComment getBookComment];
+        [bookPick getBookPick:iphone_middleBookpick];
+        [bookPick.currentBookPick removeObjectForKey:classId];
+        //写入document文件
+        [bookPick.currentBookPick writeToFile:bookPick.filename atomically:YES];
+        
+        [bookPick getBookPick:iphone_maxBookpick];
+        [bookPick.currentBookPick removeObjectForKey:classId];
+        //写入document文件
+        [bookPick.currentBookPick writeToFile:bookPick.filename atomically:YES];
+        
+        //获取批注列表  删除所有字体对应的批注
+        [bookComment getBookComment:iphone_minBookComment];
+        [bookComment.currentBookComment removeObjectForKey:classId];
+        //写入documen
+        [bookComment.currentBookComment writeToFile:bookComment.filename atomically:YES];
+        
+        [bookComment getBookComment:iphone_middleBookComment];
+        [bookComment.currentBookComment removeObjectForKey:classId];
+        //写入documen
+        [bookComment.currentBookComment writeToFile:bookComment.filename atomically:YES];
+        
+        [bookComment getBookComment:iphone_maxBookComment];
         [bookComment.currentBookComment removeObjectForKey:classId];
         //写入documen
         [bookComment.currentBookComment writeToFile:bookComment.filename atomically:YES];
