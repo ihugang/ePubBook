@@ -182,11 +182,11 @@
 //    [longPressGesture release];
     
     //添加通知监听
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pageLoad:) name:@"pageLoad" object:nil];
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pageLoad:) name:@"pageLoad" object:nil];
     //搜索
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(searchPageLoad:) name:@"searchText" object:nil];
     //添加书签
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addBookMark:) name:@"addBookMark" object:nil];
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addBookMark:) name:@"addBookMark" object:nil];
     //监听删除批注
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(removeComment:) name:@"removeComment" object:nil];
     
@@ -553,7 +553,7 @@
     }
     
     //发送检查页面是否添加书签
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"pageChange" object:nowPageIndex];
+//    [[NSNotificationCenter defaultCenter] postNotificationName:@"pageChange" object:nowPageIndex];
     [[NSUserDefaults standardUserDefaults] setValue:nowPageIndex forKey:@"curPageIndex"];
     [[NSUserDefaults standardUserDefaults] synchronize];//写入数据
     

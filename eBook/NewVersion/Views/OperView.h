@@ -32,6 +32,8 @@
 
 @property(nonatomic,assign)UIViewController* rootVC;
 @property(nonatomic,retain) NSString *currentPageIndex;
+@property(nonatomic,retain) NSString *curChapterIndex;
+@property(nonatomic,retain) NSString *curChapterPageIndex;
 
 
 @property(nonatomic,assign)id<OperViewDelegate>delegate;

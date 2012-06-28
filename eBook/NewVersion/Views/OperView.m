@@ -12,10 +12,11 @@
 #import "Book.h"
 
 @implementation OperView
-@synthesize delegate,rootVC,currentPageIndex;
+@synthesize delegate,rootVC,currentPageIndex,curChapterIndex,curChapterPageIndex;
 - (void)dealloc {
     self.delegate =nil;
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"pageChange" object:nil];
+//    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"pageChange" object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"sendPageToBookMark" object:nil];
     [super dealloc];
 }
 
@@ -100,13 +101,21 @@
     [self addSubview:btnBooks]; 
     
     //监听每个页面，判断是否添加为书签
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(checkBookMark:) name:@"pageChange" object:nil];
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(checkBookMark:) name:@"pageChange" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(checkBookMark:) name:@"sendPageToBookMark" object:nil];
+}
+
+- (void)getPageIndex:(NSNotification *)notification
+{
+    NSString *test = [notification object];
+    DebugLog(@"====================== %@",test);
 }
 
 - (void)checkBookMark:(NSNotification *)notification
 {
     //设置当前页面
     self.currentPageIndex = [notification object];
+    DebugLog(@" BookMark page====================== %@",currentPageIndex);
 //    [bookMarks getBookMark];
     switch (curBook.BodyFontSize) {
         case 100:
@@ -152,6 +161,7 @@
         fv = [[FontView alloc] initWithFrame:CGRectMake(10,btnFontSize.bottom + 22 , 200, 100)] ;
         [fv setAutoresizingMask:UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleRightMargin];
         fv.tag = 1001;
+//        fv.curPageIndex = self.currentPageIndex;
 //        [self.superview addSubview:fv];
         [self.rootVC.view addSubview:fv];
     }else{    
@@ -183,17 +193,141 @@
 //    [bookMark setImage:resImage(@"content/bookmark-blue.png") forState:UIControlStateNormal];
     if ([bookMarks.currentBookMark objectForKey:currentPageIndex] == nil) {
         //给当前页面添加书签
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"addBookMark" object:currentPageIndex];
+//        [[NSNotificationCenter defaultCenter] postNotificationName:@"addBookMark" object:currentPageIndex];
+        
+        [self getPages];
+        [self addBookMark];
+        
 //        [bookMark setImage:resImage(@"content/bookmark-blue.png") forState:UIControlStateNormal];
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"pageChange" object:currentPageIndex];
+        //检查当前页面书签图标显示状态
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"sendPageToBookMark" object:currentPageIndex];
     }else {
         //删除当前页面书签
         DebugLog(@"remove bookmark");
-        [bookMarks.bookmarks removeObjectForKey:currentPageIndex];
+        [self getPages];
+        
+        NSInteger before = [self getNowPageIndex];
+        
+        DebugLog(@"----> %@",[curBook.Pages objectAtIndex:self.curChapterIndex.intValue]);
+        //获取当前页面的p index 和 Auto Index
+        NSString *curNowPageIndex = [NSString stringWithFormat:@"%d",self.curChapterPageIndex.intValue];
+        NSString *nowParaIndex = [[[curBook.Pages objectAtIndex:self.curChapterIndex.intValue] objectAtIndex:curNowPageIndex.intValue] objectForKey:@"ParaIndex"]; 
+        NSString *nowAtomIndex = [[[curBook.Pages objectAtIndex:self.curChapterIndex.intValue] objectAtIndex:curNowPageIndex.intValue] objectForKey:@"AtomIndex"]; 
+        //    NSString *nowParaIndex = [[curBook.Pages objectAtIndex:self.currentPageIndex.intValue] objectForKey:@"ParaIndex"];
+        //    NSString *nowAtomIndex = [[curBook.Pages objectAtIndex:self.currentPageIndex.intValue] objectForKey:@"AtomIndex"];
+        DebugLog(@"addBookMark ---->P: %@   a: %@",nowParaIndex,nowAtomIndex);
+        
+        NSString *iphone_min = [curBook getPIndex:@"iPhone_2@2x.plist" pChapter:self.curChapterIndex.intValue pIndex:nowParaIndex aIndex:nowAtomIndex];
+        NSString *iphone_mid = [curBook getPIndex:@"iPhone_2@2x36.plist" pChapter:self.curChapterIndex.intValue pIndex:nowParaIndex aIndex:nowAtomIndex];
+        NSString *iphone_max = [curBook getPIndex:@"iPhone_2@2x44.plist" pChapter:self.curChapterIndex.intValue pIndex:nowParaIndex aIndex:nowAtomIndex];
+        DebugLog(@"min:%@  mid:%@ max:%@",iphone_min,iphone_mid,iphone_max);
+        
+        //删除书签
+        [bookMarks getBookMark:iphone_minBookMark];
+         NSString *pIndex = [NSString stringWithFormat:@"%d",iphone_min.intValue+before];
+        DebugLog(@"pIndx -----> %@",pIndex);
+        [bookMarks.bookmarks removeObjectForKey:pIndex];
         [bookMarks.bookmarks writeToFile:bookMarks.filename atomically:YES];
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"pageChange" object:currentPageIndex];
-//        [bookMark setImage:resImage(@"content/bookmark.png") forState:UIControlStateNormal];
+        
+        [bookMarks getBookMark:iphone_middleBookMark];
+        pIndex = [NSString stringWithFormat:@"%d",iphone_mid.intValue+before];
+        DebugLog(@"pIndx -----> %@",pIndex);
+        [bookMarks.bookmarks removeObjectForKey:pIndex];
+        [bookMarks.bookmarks writeToFile:bookMarks.filename atomically:YES];
+        
+        [bookMarks getBookMark:iphone_maxBookMark];
+        DebugLog(@"pIndx -----> %@",pIndex);
+        pIndex = [NSString stringWithFormat:@"%d",iphone_max.intValue+before];
+        [bookMarks.bookmarks removeObjectForKey:pIndex];
+        [bookMarks.bookmarks writeToFile:bookMarks.filename atomically:YES];
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"sendPageToBookMark" object:currentPageIndex];
     }
+}
+//获取当前页面所在的html和在html的第几页
+- (void)getPages
+{
+    int tempSpineIndex = 0;//HTML
+    int tempPageIndex = 0;//Page
+    
+    int perTotalIndex = 0;//temp
+    int curTotalIndex = 0;//temp
+    for (Chapter* chapter in curBook.chapters) {   
+        curTotalIndex += chapter.pageCount;
+        if (self.currentPageIndex.intValue >=perTotalIndex && self.currentPageIndex.intValue <curTotalIndex) {
+            tempPageIndex = self.currentPageIndex.intValue - perTotalIndex;
+            break;
+        }
+        perTotalIndex=curTotalIndex;
+        tempSpineIndex++;
+    }
+    self.curChapterIndex = [NSString stringWithFormat:@"%d",tempSpineIndex];
+    self.curChapterPageIndex = [NSString stringWithFormat:@"%d",tempPageIndex];
+    DebugLog(@"BookMark -------------> chapter:%@   Page: %@ ",curChapterIndex,curChapterPageIndex);
+}
+//获取当前Chapter之前的chapter中的页面数量
+- (NSInteger)getNowPageIndex
+{
+    int allpage = 0;
+    Chapter *chapter ;
+    for (int i = 0; i < curChapterIndex.intValue; i ++) {
+        if (curChapterIndex.intValue == 0) {
+            allpage = 0;
+        }else {
+            chapter = [curBook.chapters objectAtIndex:i];
+            allpage += chapter.pageCount;
+        }
+    }
+    DebugLog(@"getNowPageIndex: ---- %d",allpage);
+    return allpage;
+}
+
+//添加书签
+- (void)addBookMark
+{
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    NSString *localTime=[formatter stringFromDate: [NSDate date]];
+    
+    DebugLog(@"addBookMark ----> %@",self.currentPageIndex);
+    Chapter* chapter = [curBook.chapters objectAtIndex:self.curChapterIndex.intValue];
+    //    DebugLog(@"title  ---- %@",chapter.title);
+    NSInteger before = [self getNowPageIndex];
+    
+    DebugLog(@"----> %@",[curBook.Pages objectAtIndex:self.curChapterIndex.intValue]);
+    //获取当前页面的p index 和 Auto Index
+    NSString *curNowPageIndex = [NSString stringWithFormat:@"%d",self.curChapterPageIndex.intValue];
+    NSString *nowParaIndex = [[[curBook.Pages objectAtIndex:self.curChapterIndex.intValue] objectAtIndex:curNowPageIndex.intValue] objectForKey:@"ParaIndex"]; 
+    NSString *nowAtomIndex = [[[curBook.Pages objectAtIndex:self.curChapterIndex.intValue] objectAtIndex:curNowPageIndex.intValue] objectForKey:@"AtomIndex"]; 
+//    NSString *nowParaIndex = [[curBook.Pages objectAtIndex:self.currentPageIndex.intValue] objectForKey:@"ParaIndex"];
+//    NSString *nowAtomIndex = [[curBook.Pages objectAtIndex:self.currentPageIndex.intValue] objectForKey:@"AtomIndex"];
+    DebugLog(@"addBookMark ---->P: %@   a: %@",nowParaIndex,nowAtomIndex);
+        
+    NSString *iphone_min = [curBook getPIndex:@"iPhone_2@2x.plist" pChapter:self.curChapterIndex.intValue pIndex:nowParaIndex aIndex:nowAtomIndex];
+    NSString *iphone_mid = [curBook getPIndex:@"iPhone_2@2x36.plist" pChapter:self.curChapterIndex.intValue pIndex:nowParaIndex aIndex:nowAtomIndex];
+    NSString *iphone_max = [curBook getPIndex:@"iPhone_2@2x44.plist" pChapter:self.curChapterIndex.intValue pIndex:nowParaIndex aIndex:nowAtomIndex];
+    DebugLog(@"min:%@  mid:%@ max:%@",iphone_min,iphone_mid,iphone_max);
+    
+    [bookMarks getBookMark:iphone_minBookMark];
+    //给当前页面添加书签
+    NSString *pIndex = [NSString stringWithFormat:@"%d",iphone_min.intValue+before];
+    NSDictionary *pageIndex = [[[NSDictionary alloc] initWithObjectsAndKeys:pIndex,@"pageIndex",localTime,@"time",chapter.title,@"content", nil] autorelease];
+    [bookMarks.bookmarks setValue:pageIndex forKey:pIndex];
+    [bookMarks.bookmarks writeToFile:bookMarks.filename atomically:YES];
+    
+    [bookMarks getBookMark:iphone_middleBookMark];
+    pIndex = [NSString stringWithFormat:@"%d",iphone_mid.intValue +before];
+    pageIndex = [[[NSDictionary alloc] initWithObjectsAndKeys:pIndex,@"pageIndex",localTime,@"time",chapter.title,@"content", nil] autorelease];
+    [bookMarks.bookmarks setValue:pageIndex forKey:pIndex];
+    [bookMarks.bookmarks writeToFile:bookMarks.filename atomically:YES];
+    
+    [bookMarks getBookMark:iphone_maxBookMark];
+    pIndex = [NSString stringWithFormat:@"%d",iphone_max.intValue +before];
+    pageIndex = [[[NSDictionary alloc] initWithObjectsAndKeys:pIndex,@"pageIndex",localTime,@"time",chapter.title,@"content", nil] autorelease];
+    [bookMarks.bookmarks setValue:pageIndex forKey:pIndex];
+    [bookMarks.bookmarks writeToFile:bookMarks.filename atomically:YES];
+    
+    [formatter release];
 }
 
 -(void)btnBooksTapped:(UIButton*)sender{

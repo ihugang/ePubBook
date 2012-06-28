@@ -13,8 +13,11 @@
     UIButton *minButton;
     UIButton *middleButton;
     UIButton *maxButton;
-    
     UISlider *sliderA;
+    NSString *curPageIndex;
 }
+@property(nonatomic,retain) NSString *curPageIndex;
+@property(nonatomic,retain) NSString *curChapterIndex;
+@property(nonatomic,retain) NSString *curChapterPageIndex;
 
 @end

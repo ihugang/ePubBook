@@ -114,7 +114,7 @@
 					<key>ChapterIndex</key>
 					<integer>1</integer>
 					<key>ParaIndex</key>
-					<integer>3</integer>
+					<integer>2</integer>
 				</dict>
 				<dict>
 					<key>AtomIndex</key>
@@ -122,14 +122,6 @@
 					<key>ChapterIndex</key>
 					<integer>1</integer>
 					<key>ParaIndex</key>
-					<integer>4</integer>
-				</dict>
-				<dict>
-					<key>AtomIndex</key>
-					<integer>337</integer>
-					<key>ChapterIndex</key>
-					<integer>0</integer>
-					<key>ParaIndex</key>
 					<integer>2</integer>
 				</dict>
 				<dict>
@@ -139,6 +131,14 @@
 					<integer>0</integer>
 					<key>ParaIndex</key>
 					<integer>2</integer>
+				</dict>
+				<dict>
+					<key>AtomIndex</key>
+					<integer>337</integer>
+					<key>ChapterIndex</key>
+					<integer>0</integer>
+					<key>ParaIndex</key>
+					<integer>3</integer>
 				</dict>
 				<dict>
 					<key>AtomIndex</key>

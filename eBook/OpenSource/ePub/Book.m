@@ -60,6 +60,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(Book);
     NSMutableArray* cs = [NSMutableArray array]; 
     int index = 0,iAllPageCount = 0;
     NSArray *pages = nil;
+    NSMutableArray* allPages = [NSMutableArray array]; 
     for (NSDictionary* item in DA(currentBookInfo, @"PageBreakSet")) {
         NSString* title = DO(item, @"title");        
         NSString* shortPath =[NSString stringWithFormat:@"/book/%@.html",title];
@@ -72,7 +73,8 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(Book);
 //        DebugLog(@"filename ---> %@",filename);
         
 //        NSString* filename = resPath(shortPath);
-        pages = DO(item, @"pages");
+        pages = DA(item, @"pages");
+        [allPages addObject:pages];
 //        NSLog(@"shortpath - %@",shortPath);
 //        NSString *path1 = DO(item, @"path");
 //        NSLog(@"Book path - > %@",path);
@@ -90,25 +92,38 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(Book);
     } 
     self.ChapterCount = index;
     self.PageCount =iAllPageCount;
-    self.Pages = pages;
+    self.Pages = allPages;
     self.chapters = cs;
 }
 //返回plist中对应的页面位置
 -(NSString*)getPIndex:(NSString*)name pChapter:(NSInteger)c pIndex:(NSString *)p aIndex:(NSString*)a
 {
+    DebugLog(@"getPIndex -------> %@   %@  %@",p,a,name);
     NSString *path = [ResManager docPath:name]; 
     NSDictionary *dic = [NSDictionary dictionaryWithContentsOfFile:path];
     NSArray *all = DA(dic, @"PageBreakSet");
     NSDictionary *chap = [all objectAtIndex:c];
     NSArray *pages = DA(chap, @"pages");
     DebugLog(@"getPindex -------> %@",pages);
+    
     NSString *pIndex = @"";
     for (int i =0 ; i< pages.count; i++) {
         if ([[[pages objectAtIndex:i] objectForKey:@"ParaIndex"] intValue] == p.intValue) {
-            if ([[[pages objectAtIndex:i] objectForKey:@"AtomIndex"] intValue] > a.intValue) {
+            //等于当前P,判断在p中的偏移位置
+            if ([[[pages objectAtIndex:i] objectForKey:@"AtomIndex"] intValue] == a.intValue) {
                 pIndex = [NSString stringWithFormat:@"%d",i];
+                break;
             }else {
-                pIndex = [NSString stringWithFormat:@"%d",i+1];;
+                if ([[[pages objectAtIndex:i] objectForKey:@"AtomIndex"] intValue] > a.intValue) {
+                    pIndex = [NSString stringWithFormat:@"%d",i];
+                    break;
+                }
+//                pIndex = [NSString stringWithFormat:@"%d",i+1];
+            }
+        }else {//没有匹配的P 根据大于当前p的index
+            if ([[[pages objectAtIndex:i] objectForKey:@"ParaIndex"] intValue] > p.intValue) {
+                pIndex = [NSString stringWithFormat:@"%d",i];
+                break;
             }
         }
     }

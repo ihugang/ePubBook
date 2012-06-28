@@ -19,7 +19,7 @@
     //释放掉通知
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"searchPageIndex" object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"chapterListPageLoad" object:nil];
-//    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"fontChange" object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"FontChange" object:nil];
 //    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"landScape" object:nil];
     [super dealloc];
 }
@@ -115,6 +115,8 @@
     }
     NSString *nowPageIndex = [[NSUserDefaults standardUserDefaults] objectForKey:@"currentPageIndex"];
     DebugLog(@"lastpage : %@,nowpage: %@ ",self.lastPage,nowPageIndex);
+    //发送检查页面是否添加书签
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"sendPageToBookMark" object:self.lastPage];
     if (nowPageIndex==nil || ![nowPageIndex isEqualToString:self.lastPage]) {
         //添加当前加载的页面
         [[NSUserDefaults standardUserDefaults] setValue:self.lastPage forKey:@"currentPageIndex"];
@@ -127,7 +129,7 @@
     parsing = NO;
     [Bussicess fetchBookInfo:^{///解析plist文件
         [hud setHidden:YES];
-        parsing = YES;
+//        parsing = YES;
         [self addUI]; 
         nv.count = curBook.PageCount;
         //设置拖动条的默认值
@@ -146,7 +148,7 @@
     //搜索
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(searchPageLoad:) name:@"searchPageIndex" object:nil];
     //字体改变
-//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(fontChange:) name:@"fontChange" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(fontChange:) name:@"FontChange" object:nil];
     
 //    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(test:) name:@"landScape" object:nil];
 
@@ -203,6 +205,9 @@
         [self.view viewWithTag:1001].hidden = YES;
         return NO;
     }
+    if ([self.view viewWithTag:1001]) {
+        [self.view viewWithTag:1001].hidden = YES;
+    }
     return YES;
 }
 
@@ -243,7 +248,9 @@
     }else {
         [[NSUserDefaults standardUserDefaults] setValue:[NSString stringWithFormat:@"%d",pagingView.currentPageIndex] forKey:@"currentPageIndex"];
     }
-    
+    //发送检查页面是否添加书签
+//    [[NSNotificationCenter defaultCenter] postNotificationName:@"pageChange" object:[NSString stringWithFormat:@"%d",pagingView.currentPageIndex]];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"sendPageToBookMark" object:[NSString stringWithFormat:@"%d",pagingView.currentPageIndex]];
     [[NSUserDefaults standardUserDefaults] synchronize];//写入数据
 }
 #pragma mark 旋转
