@@ -39,7 +39,7 @@
     int leight = range.length;
     NSString *astring = [[NSString alloc] initWithString:[NSString stringWithFormat:@"Location:%i,Leight:%i",location,leight]];
     NSLog(@"astring:%@",astring);
-    
+    [astring release];
     
     application.statusBarHidden=NO;
     self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];

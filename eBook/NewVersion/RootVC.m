@@ -129,8 +129,9 @@
     parsing = NO;
     [Bussicess fetchBookInfo:^{///解析plist文件
         [hud setHidden:YES];
-//        parsing = YES;
+        self.pageView.pagesToPreload = 0;//前后方向加载不可见页数，第一次设置为0，只加载当前页面
         [self addUI]; 
+        parsing = YES;
         nv.count = curBook.PageCount;
         //设置拖动条的默认值
         nv.value = self.lastPage.intValue;
@@ -230,10 +231,15 @@
 
 -(void)pagesDidChangeInPagingView:(ATPagingView *)pagingView{
 //    self.pageView.currentPageIndex = 5;
+    if (parsing) {
+        self.pageView.pagesToPreload = 2;//前后方向加载不可见页数
+    }else {
+        self.pageView.pagesToPreload = 0;//前后方向加载不可见页数
+    }
     NSLog(@"pagesDidChangeInPagingView");
 }
 -(void)currentPageDidChangeInPagingView:(ATPagingView *)pagingView{
-    #warning loufq debug return for iphone
+//    #warning loufq debug return for iphone
 //    return;//loufq debug
     if (parsing) {
         self.pageView.pagesToPreload = 2;//前后方向加载不可见页数

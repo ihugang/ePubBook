@@ -743,14 +743,14 @@
     DebugLog(@"=====spine:%d, curpage:%d", curSpineIndex,curPageIndex);
     
 	float pageOffset = 0;
-    float pageOffset2 = 0;
+//    float pageOffset2 = 0;
     if (!mf_IsPad || !share.isLandscape) {
         pageOffset = pageIndex*curWebView.bounds.size.width ;
     }
     else{
 //        pageOffset = pageIndex*curWebView.bounds.size.width + pageIndex *15;
         pageOffset = pageIndex*curWebView.bounds.size.width;
-        pageOffset2 = (pageIndex+1)*curWebView.bounds.size.width;
+//        pageOffset2 = (pageIndex+1)*curWebView.bounds.size.width;
     }
     NSLog(@"gotoPageInCurrentSpine pageOffset -> %f",pageOffset);
     //设置页面依X轴来滚动
