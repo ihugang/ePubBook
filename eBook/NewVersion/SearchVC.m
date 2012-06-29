@@ -277,7 +277,9 @@
         }
         DebugLog(@"==============%d",firstresults.count);
         if(hitCount!=0){
-            UIWebView* webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height)];
+//            UIWebView* webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height)];
+            
+            UIWebView* webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, curBook.PageWidth, curBook.PageHeight)];
             [webView setDelegate:self];
             NSURLRequest* urlRequest = [NSURLRequest requestWithURL:[NSURL fileURLWithPath:chapter.spinePath]];
             DebugLog(@"urlrequest --- %@",urlRequest);
@@ -313,8 +315,11 @@
 	"}";
 	
     //    NSLog(@"w:%f h:%f", webView.bounds.size.width, webView.bounds.size.height);
-	
+	DebugLog(@"SearchVc webview-----> height:%f   width: %f",webView.frame.size.height,webView.frame.size.width);
+    
 	NSString *insertRule1 = [NSString stringWithFormat:@"addCSSRule('html', 'padding: 0px; height: %fpx; -webkit-column-gap: 0px; -webkit-column-width: %fpx;')", webView.frame.size.height, webView.frame.size.width];
+    //不同大小，窗口寛 高 不同
+//    NSString *insertRule1 = [NSString stringWithFormat:@"addCSSRule('html', 'padding: 0px; height: %fpx; -webkit-column-gap: 0px; -webkit-column-width: %fpx;')", curBook.PageHeight, curBook.PageWidth];
 	NSString *insertRule2 = [NSString stringWithFormat:@"addCSSRule('p', 'text-align: justify;')"];
 	NSString *setTextSizeRule = [NSString stringWithFormat:@"addCSSRule('body', '-webkit-text-size-adjust: %d%%;')",curBook.BodyFontSize];
     DebugLog(@"setTextSizeRule -- %@",setTextSizeRule);
