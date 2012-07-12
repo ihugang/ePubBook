@@ -32,8 +32,8 @@
      */
     NSLog(@"didFinishLaunchingWithOptions");
     
-    NSString *test = @"老胜在新浪网上的BLOG:http://blog.sina.com.cn/dubianquanqiu";
-    NSString *all = @"如有愿购买本书或[赌遍全球]系列书的其他分册，请查看：李老胜在新浪网上的BLOG:http://blog.sina.com.cn/dubianquanqiu";
+    NSString *test = @"以试着加注来偷盲注。好处是如果翻牌来了一堆杂牌， 在盲注对手";
+    NSString *all = @"拿到同花连号牌(suited connectors) = 65s - T9s and J9s, 只在后段的位置且有人溜进来时玩这些牌。如果你确信有很多在你后面的人会溜进来，你也可以在前面一点的位置玩这些牌。如果你的牌 大于 87s且位置在后段，在前面没人溜进来时，可以试着加注来偷盲注。好处是如果翻牌来了一堆杂牌， 在盲注对手不能总是假设你没有凑到一对。因为你有时加注大牌，有时加注小牌。";
     NSRange range = [all rangeOfString:test];
     int location = range.location;
     int leight = range.length;
