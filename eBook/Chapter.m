@@ -20,7 +20,7 @@
 
 		NSString* html = [[NSString alloc] initWithData:[NSData dataWithContentsOfURL:[NSURL fileURLWithPath:theSpinePath]] encoding:NSUTF8StringEncoding];
 		text = [[html stringByConvertingHTMLToPlainText] retain];
-//        NSLog(@"text ------- >>>>>%@",html);
+//        NSLog(@"text ------- >>>>>%d",spinePath.retainCount);
 //      
 		[html release];
         

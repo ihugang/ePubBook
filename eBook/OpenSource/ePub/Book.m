@@ -79,7 +79,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(Book);
 //        NSString *path1 = DO(item, @"path");
 //        NSLog(@"Book path - > %@",path);
         
-        Chapter* chapter = [[[Chapter alloc] initWithPath:filename title:title chapterIndex:iAllPageCount ] autorelease];
+        Chapter* chapter = [[[Chapter alloc] initWithPath:filename title:title chapterIndex:iAllPageCount] autorelease];
         //title
         //加1,给页面扉页留位置
         chapter.pageCount = DA(item, @"pages").count + 1; 

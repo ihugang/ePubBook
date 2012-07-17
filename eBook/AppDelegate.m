@@ -50,8 +50,8 @@
         self.window.rootViewController = rootVC;
     }
     else{
-        eBook = [[[eBookViewController alloc] init] autorelease];
-        self.window.rootViewController = eBook;
+//        eBook = [[[eBookViewController alloc] init] autorelease];
+//        self.window.rootViewController = eBook;
     }
     [self.window makeKeyAndVisible];
     

@@ -35,14 +35,17 @@
      [[NSNotificationCenter defaultCenter] removeObserver:self name:@"removeComment" object:nil];
     */
     
-//    [curWebView release];
-    [classId release];
-    [contentText release];
+//    [self.curWebView release];
+    [self.jquery release];
+    [self.classId release];
+    [self.contentText release];
     [super dealloc];
 }
 -(void)initLayout{
     // Do any additional setup after loading the view.
     curWebView = [[[UIWebView alloc] init] autorelease];
+    
+//    [self inject];
 //    UIImageView *bg = [[[UIImageView alloc] initWithImage:skinImage(@"fontbar/5003.png")] autorelease];
 //    [bg setFrame:CGRectMake(0, 0, self.bounds.size.width, self.bounds.size.height)];
 //    [bg setTag:300];
@@ -835,6 +838,7 @@
     NSLog(@"ContentView webViewDidStartLoad");
     
 }
+
 - (void)webViewDidFinishLoad:(UIWebView *)webView{
    /* */
     NSLog(@"ContentView webViewDidFinishLoad");
@@ -866,16 +870,12 @@
 //        [webView stringByEvaluatingJavaScriptFromString:@"document.body.style.webkitTouchCallout='none';"];
 //        [webView stringByEvaluatingJavaScriptFromString:@"document.documentElement.style.webkitTouchCallout='none';"];
         
+        
         [webView stringByEvaluatingJavaScriptFromString:varMySheet];
-        
         [webView stringByEvaluatingJavaScriptFromString:addCSSRule];
-        
-        [webView stringByEvaluatingJavaScriptFromString:insertRule1];
-        
-        [webView stringByEvaluatingJavaScriptFromString:insertRule2];
-        
         [webView stringByEvaluatingJavaScriptFromString:setTextSizeRule];
-        
+        [webView stringByEvaluatingJavaScriptFromString:insertRule1];
+        [webView stringByEvaluatingJavaScriptFromString:insertRule2];
         [webView stringByEvaluatingJavaScriptFromString:setHighlightColorRule];
         
         //加亮显示搜索的内容
@@ -884,16 +884,14 @@
             [webView highlightAllOccurencesOfString:currentSearchResult.originatingQuery];
         }
         
-//        NSString *xml = [webView stringByEvaluatingJavaScriptFromString:@"document.body.innerText"];
-//        
-//        DebugLog(@"+++++++++++++++++%@",xml);
-        
         //获取返回页面的总宽度
-        int totalWidth = [[webView stringByEvaluatingJavaScriptFromString:@"document.documentElement.scrollWidth"] intValue];
+//        int totalWidth = [[webView stringByEvaluatingJavaScriptFromString:@"document.documentElement.scrollWidth"] intValue];
         //计算文件的页数
-        int pageCount = totalWidth / webView.bounds.size.width;
-        
-        NSLog(@"Chapter %d: title: -> 包含：%d pages", curSpineIndex, pageCount);
+//        int pageCount = totalWidth / webView.bounds.size.width;
+//        NSLog(@"Chapter %d: title: -> 包含：%d pages", curSpineIndex, pageCount);
+    
+    
+    
 //    if (!mf_IsPad || !share.isLandscape) { 
 //        
 //    }
@@ -907,7 +905,6 @@
 //        [curWebView stringByEvaluatingJavaScriptFromString:@"loadCss('split')"];
 //        
 //    }
-    
     [self inject];
     //加载内容
 //    NSArray* list =[[TagsHelper sharedInstanse] getTagsInfo];

@@ -39,6 +39,7 @@
 		1087FF02153679A900862D76 /* zip.c in Sources */ = {isa = PBXBuildFile; fileRef = 1087FEFB153679A900862D76 /* zip.c */; };
 		1087FF03153679A900862D76 /* ZipArchive.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1087FEFE153679A900862D76 /* ZipArchive.mm */; };
 		10888A71153FEC4200C02010 /* ChapterListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 10888A70153FEC4200C02010 /* ChapterListVC.m */; };
+		1088E9DA15B50DB10011A6D2 /* ATPagingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1088E9D915B50DB10011A6D2 /* ATPagingView.m */; };
 		108CF430154A81A7004860E3 /* MyTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 108CF42D154A81A7004860E3 /* MyTableCell.m */; };
 		108CF431154A81A7004860E3 /* MyTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 108CF42F154A81A7004860E3 /* MyTableViewCell.m */; };
 		108CF435154A81E7004860E3 /* FontView.m in Sources */ = {isa = PBXBuildFile; fileRef = 108CF434154A81E7004860E3 /* FontView.m */; };
@@ -59,7 +60,6 @@
 		109CA1EE1536A10C007A3F68 /* GTMNSString+HTML.m in Sources */ = {isa = PBXBuildFile; fileRef = 109CA1ED1536A10C007A3F68 /* GTMNSString+HTML.m */; };
 		109CA1F11536A119007A3F68 /* NSString+HTML.m in Sources */ = {isa = PBXBuildFile; fileRef = 109CA1F01536A119007A3F68 /* NSString+HTML.m */; };
 		109CA1F41536B925007A3F68 /* Chapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 109CA1F31536B925007A3F68 /* Chapter.m */; };
-		109CA2041537D662007A3F68 /* ATPagingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 109CA2031537D662007A3F68 /* ATPagingView.m */; };
 		109CA2071537D716007A3F68 /* EPubPageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 109CA2061537D716007A3F68 /* EPubPageView.m */; };
 		10C52BAA1557986600117172 /* AboutVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 10C52BA91557986500117172 /* AboutVC.m */; };
 		10C52BAE15579F9A00117172 /* SearchResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 10C52BAD15579F9900117172 /* SearchResult.m */; };
@@ -213,6 +213,8 @@
 		1087FEFE153679A900862D76 /* ZipArchive.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ZipArchive.mm; sourceTree = "<group>"; };
 		10888A6F153FEC4100C02010 /* ChapterListVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChapterListVC.h; sourceTree = "<group>"; };
 		10888A70153FEC4200C02010 /* ChapterListVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChapterListVC.m; sourceTree = "<group>"; };
+		1088E9D815B50DB10011A6D2 /* ATPagingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ATPagingView.h; sourceTree = "<group>"; };
+		1088E9D915B50DB10011A6D2 /* ATPagingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ATPagingView.m; sourceTree = "<group>"; };
 		108CF42C154A81A7004860E3 /* MyTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyTableCell.h; sourceTree = "<group>"; };
 		108CF42D154A81A7004860E3 /* MyTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyTableCell.m; sourceTree = "<group>"; };
 		108CF42E154A81A7004860E3 /* MyTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyTableViewCell.h; sourceTree = "<group>"; };
@@ -254,8 +256,6 @@
 		109CA1F01536A119007A3F68 /* NSString+HTML.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSString+HTML.m"; path = "../NSString+HTML.m"; sourceTree = "<group>"; };
 		109CA1F21536B925007A3F68 /* Chapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Chapter.h; path = ../../Chapter.h; sourceTree = "<group>"; };
 		109CA1F31536B925007A3F68 /* Chapter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Chapter.m; path = ../../Chapter.m; sourceTree = "<group>"; };
-		109CA2021537D662007A3F68 /* ATPagingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ATPagingView.h; sourceTree = "<group>"; };
-		109CA2031537D662007A3F68 /* ATPagingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ATPagingView.m; sourceTree = "<group>"; };
 		109CA2051537D716007A3F68 /* EPubPageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EPubPageView.h; path = ../../EPubPageView.h; sourceTree = "<group>"; };
 		109CA2061537D716007A3F68 /* EPubPageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EPubPageView.m; path = ../../EPubPageView.m; sourceTree = "<group>"; };
 		10C52BA81557986500117172 /* AboutVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutVC.h; sourceTree = "<group>"; };
@@ -622,8 +622,8 @@
 		109CA2011537D64F007A3F68 /* ATPagingView */ = {
 			isa = PBXGroup;
 			children = (
-				109CA2021537D662007A3F68 /* ATPagingView.h */,
-				109CA2031537D662007A3F68 /* ATPagingView.m */,
+				1088E9D815B50DB10011A6D2 /* ATPagingView.h */,
+				1088E9D915B50DB10011A6D2 /* ATPagingView.m */,
 			);
 			name = ATPagingView;
 			path = ..;
@@ -1073,7 +1073,6 @@
 				109CA1EE1536A10C007A3F68 /* GTMNSString+HTML.m in Sources */,
 				109CA1F11536A119007A3F68 /* NSString+HTML.m in Sources */,
 				109CA1F41536B925007A3F68 /* Chapter.m in Sources */,
-				109CA2041537D662007A3F68 /* ATPagingView.m in Sources */,
 				109CA2071537D716007A3F68 /* EPubPageView.m in Sources */,
 				181AC6D3153D18DE00177AE6 /* RootVC.m in Sources */,
 				181AC6D6153D19A400177AE6 /* BaseVC.m in Sources */,
@@ -1160,6 +1159,7 @@
 				101B20D91565EC8D00AFF761 /* CommentVC.m in Sources */,
 				101B20DD1566170900AFF761 /* BookComment.m in Sources */,
 				10033D7C156B3898006A89EC /* ChapterTitlePageView.m in Sources */,
+				1088E9DA15B50DB10011A6D2 /* ATPagingView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1229,7 +1229,7 @@
 				GCC_PREFIX_HEADER = "eBook/eBook-Prefix.pch";
 				HEADER_SEARCH_PATHS = /usr/include/libxml2;
 				INFOPLIST_FILE = "eBook/eBook-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				OTHER_LDFLAGS = (
 					"-lxml2",
 					"-ObjC",
@@ -1248,7 +1248,7 @@
 				GCC_PREFIX_HEADER = "eBook/eBook-Prefix.pch";
 				HEADER_SEARCH_PATHS = /usr/include/libxml2;
 				INFOPLIST_FILE = "eBook/eBook-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				OTHER_LDFLAGS = (
 					"-lxml2",
 					"-ObjC",

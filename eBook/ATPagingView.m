@@ -239,9 +239,9 @@
         if (loadedPagesChanged) {
             _firstLoadedPageIndex = firstPage;
             _lastLoadedPageIndex  = lastPage;
-#ifdef AT_PAGING_VIEW_TRACE_DELEGATE_CALLS
+//#ifdef AT_PAGING_VIEW_TRACE_DELEGATE_CALLS
             NSLog(@"loadedPagesChanged: first == %d, last == %d", _firstLoadedPageIndex, _lastLoadedPageIndex);
-#endif
+//#endif
         }
     }
 
@@ -252,16 +252,16 @@
         _currentPageIndex = newPageIndex;
         if ([_delegate respondsToSelector:@selector(currentPageDidChangeInPagingView:)])
             [_delegate currentPageDidChangeInPagingView:self];
-#ifdef AT_PAGING_VIEW_TRACE_DELEGATE_CALLS
+//#ifdef AT_PAGING_VIEW_TRACE_DELEGATE_CALLS
         NSLog(@"_currentPageIndex == %d", _currentPageIndex);
-#endif
+//#endif
     }
 
     if (loadedPagesChanged || pageIndexChanged) {
         if ([_delegate respondsToSelector:@selector(pagesDidChangeInPagingView:)]) {
-#ifdef AT_PAGING_VIEW_TRACE_DELEGATE_CALLS
+//#ifdef AT_PAGING_VIEW_TRACE_DELEGATE_CALLS
             NSLog(@"pagesDidChangeInPagingView");
-#endif
+//#endif
             [_delegate pagesDidChangeInPagingView:self];
         }
     }
@@ -339,9 +339,9 @@
 #pragma mark Page navigation
 
 - (void)setCurrentPageIndex:(NSInteger)newPageIndex {
-#ifdef AT_PAGING_VIEW_TRACE_LAYOUT
+//#ifdef AT_PAGING_VIEW_TRACE_LAYOUT
     NSLog(@"setCurrentPageIndex(%d): _scrollView.frame == %@", newPageIndex, NSStringFromCGRect(_scrollView.frame));
-#endif
+//#endif
     if (_horizontal && (_scrollView.frame.size.width > 0 && fabsf(_scrollView.frame.origin.x - (-_gapBetweenPages/2)) < 1e-6) ) {
         _scrollView.contentOffset = CGPointMake(_scrollView.frame.size.width * newPageIndex, 0);
     } else if (_scrollView.frame.size.height > 0 && fabsf(_scrollView.frame.origin.y - (-_gapBetweenPages/2)) < 1e-6) {

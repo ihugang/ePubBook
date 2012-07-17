@@ -486,6 +486,12 @@ NSInteger customSort2(id obj1, id obj2,void* context){
     // Release any retained subviews of the main view.
 }
 
+- (void)didReceiveMemoryWarning
+{
+    [super didReceiveMemoryWarning];
+    DebugLog(@"ChapterListVC didReceiveMemoryWaring");
+}
+
 -(void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation{
     [super didRotateFromInterfaceOrientation:fromInterfaceOrientation];
 }

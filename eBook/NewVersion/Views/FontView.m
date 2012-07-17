@@ -224,6 +224,10 @@
         NSString *iphone_min = [curBook getPIndex:@"iPhone_2@2x.plist" pChapter:self.curChapterIndex.intValue pIndex:nowParaIndex aIndex:nowAtomIndex];
         [curBook prepareBook];
         pIndex = [NSString stringWithFormat:@"%d",iphone_min.intValue+before];
+        
+        [[NSUserDefaults standardUserDefaults] setValue:pIndex forKey:@"currentPageIndex"];
+        [[NSUserDefaults standardUserDefaults] synchronize];//写入数据
+        
         [[NSNotificationCenter defaultCenter] postNotificationName:@"FontChange" object:pIndex];
         
         
@@ -238,6 +242,10 @@
         NSString *iphone_mid = [curBook getPIndex:@"iPhone_2@2x36.plist" pChapter:self.curChapterIndex.intValue pIndex:nowParaIndex aIndex:nowAtomIndex];
         [curBook prepareBook];
         pIndex = [NSString stringWithFormat:@"%d",iphone_mid.intValue+before];
+        
+        [[NSUserDefaults standardUserDefaults] setValue:pIndex forKey:@"currentPageIndex"];
+        [[NSUserDefaults standardUserDefaults] synchronize];//写入数据
+        
         [[NSNotificationCenter defaultCenter] postNotificationName:@"FontChange" object:pIndex];
         
         
@@ -252,6 +260,10 @@
         NSString *iphone_max = [curBook getPIndex:@"iPhone_2@2x44.plist" pChapter:self.curChapterIndex.intValue pIndex:nowParaIndex aIndex:nowAtomIndex];
         [curBook prepareBook];
         pIndex = [NSString stringWithFormat:@"%d",iphone_max.intValue+before];
+        
+        [[NSUserDefaults standardUserDefaults] setValue:pIndex forKey:@"currentPageIndex"];
+        [[NSUserDefaults standardUserDefaults] synchronize];//写入数据
+        
         [[NSNotificationCenter defaultCenter] postNotificationName:@"FontChange" object:pIndex];
     }
     
