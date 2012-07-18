@@ -25,6 +25,10 @@
 
 - (void)dealloc
 {
+    [resultTable release];
+    [currentQuery release];
+    [results release];
+    [firstresults release];
     [super dealloc];
 }
 

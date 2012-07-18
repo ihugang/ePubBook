@@ -24,7 +24,10 @@
 #import "ChapterTitlePageView.h"
 
 @implementation ContentView
-@synthesize curLable,bookNameLabel,chapterLabel,curWebView,currentSearchResult,jquery,menuController,classId,contentText,rootVC;
+@synthesize currentSearchResult = _currentSearchResult,jquery = _jquery,classId = _classId,contentText = _contentText;
+@synthesize curWebView = _curWebView,curLable = _curLable,bookNameLabel = _bookNameLabel,chapterLabel = _chapterLabel;
+@synthesize menuController = _menuController,rootVC = _rootVC,hud = _hud;
+
 - (void)dealloc{
     //释放掉通知
     removeNObserver();
@@ -35,15 +38,15 @@
      [[NSNotificationCenter defaultCenter] removeObserver:self name:@"removeComment" object:nil];
     */
     
-//    [self.curWebView release];
-    [self.jquery release];
-    [self.classId release];
-    [self.contentText release];
+    [_currentSearchResult release];_currentSearchResult = nil;
+    [_jquery release];_jquery = nil;
+    [_classId release];_classId = nil;
+    [_contentText release];_contentText = nil;
     [super dealloc];
 }
 -(void)initLayout{
     // Do any additional setup after loading the view.
-    curWebView = [[[UIWebView alloc] init] autorelease];
+    self.curWebView = [[[UIWebView alloc] init] autorelease];
     
 //    [self inject];
 //    UIImageView *bg = [[[UIImageView alloc] initWithImage:skinImage(@"fontbar/5003.png")] autorelease];
@@ -58,23 +61,28 @@
     self.backgroundColor = [UIColor whiteColor];
     //    [webView setBounds:CGRectMake(0, 0, 320, 480)];
 //    [curWebView setFrame:CGRectMake(40, 60, self.bounds.size.width, self.bounds.size.height)];
-    [curWebView setBackgroundColor:[UIColor clearColor]];//设置背景颜色
-    [curWebView setOpaque:NO];//设置透明
-    [curWebView setDelegate:self];
-    [curWebView setTag:302];
-    [curWebView setAutoresizesSubviews:YES];
-    [curWebView setAutoresizingMask:UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleRightMargin];
-    //    [self.view addSubview:webView];
+    [_curWebView setBackgroundColor:[UIColor clearColor]];//设置背景颜色
+    [_curWebView setOpaque:NO];//设置透明
+    [_curWebView setDelegate:self];
+    [_curWebView setTag:302];
+    [_curWebView setAutoresizesSubviews:YES];
+    [_curWebView setAutoresizingMask:UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleRightMargin];
+    [self addSubview:_curWebView]; 
+    [_curWebView setDebug:NO];
+    
     //去除webview中的scrollview
     UIScrollView* sv = nil;
-	for (UIView* v in  curWebView.subviews) {
+	for (UIView* v in  _curWebView.subviews) {
 		if([v isKindOfClass:[UIScrollView class]]){
 			sv = (UIScrollView*) v;
 			sv.scrollEnabled = NO;//禁止滚动和回弹
 			sv.bounces = NO;//禁止滚动
 		}
 	}
-    [self addSubview:curWebView]; 
+    
+    self.hud =[MBProgressHUD showHUDAddedTo:self animated:YES];
+    [_hud setLabelText:@"Loading....."];
+    [_curWebView setHidden:YES];
     
 //    curWebView2 = [[[UIWebView alloc] init] autorelease];
 //    
@@ -99,24 +107,24 @@
     UIColor *myColor = [UIColor colorWithRed:94.0/255.0 green:38.0/255.0 blue:18.0/255.0 alpha:1.0];
     
     self.bookNameLabel = [[[UILabel alloc] init] autorelease];
-    [self.bookNameLabel setText:@"怎样在澳门靠玩德州扑克每天赚一万港币 1"];
-    [self.bookNameLabel setTextColor:myColor];
-    [self.bookNameLabel setBackgroundColor:[UIColor clearColor]];
-    [self addSubview:bookNameLabel];
+    [_bookNameLabel setText:@"怎样在澳门靠玩德州扑克每天赚一万港币 1"];
+    [_bookNameLabel setTextColor:myColor];
+    [_bookNameLabel setBackgroundColor:[UIColor clearColor]];
+    [self addSubview:_bookNameLabel];
     
     self.chapterLabel = [[[UILabel alloc] init] autorelease];
-    [self.chapterLabel setTextAlignment:UITextAlignmentCenter];
-    [self.chapterLabel setTextColor:myColor];
-    [self.chapterLabel setBackgroundColor:[UIColor clearColor]];
-    [self addSubview:chapterLabel];
+    [_chapterLabel setTextAlignment:UITextAlignmentCenter];
+    [_chapterLabel setTextColor:myColor];
+    [_chapterLabel setBackgroundColor:[UIColor clearColor]];
+    [self addSubview:_chapterLabel];
  
     if (mf_IsPad) {
         
-        [curWebView setFrame:CGRectMake(40, 50, self.bounds.size.width-80, self.bounds.size.height-90)];
-        [self.bookNameLabel setFrame:CGRectMake(curWebView.left, 10, self.bounds.size.width, 44)];
-        [self.bookNameLabel setFont:[UIFont boldSystemFontOfSize:15]];
-        [self.chapterLabel setFrame:CGRectMake(0, curWebView.bottom - 5, self.bounds.size.width, 44)];
-        [self.chapterLabel setFont:[UIFont boldSystemFontOfSize:15]];
+        [_curWebView setFrame:CGRectMake(40, 50, self.bounds.size.width-80, self.bounds.size.height-90)];
+        [_bookNameLabel setFrame:CGRectMake(_curWebView.left, 10, self.bounds.size.width, 44)];
+        [_bookNameLabel setFont:[UIFont boldSystemFontOfSize:15]];
+        [_chapterLabel setFrame:CGRectMake(0, _curWebView.bottom - 5, self.bounds.size.width, 44)];
+        [_chapterLabel setFont:[UIFont boldSystemFontOfSize:15]];
 //        if (share.isLandscape) {
 //            [curWebView setFrame:CGRectMake(40, 50, (self.bounds.size.width-80)/2.0-20, self.bounds.size.height-90)];
 //            [curWebView2 setFrame:CGRectMake(curWebView.right+40, 50, (self.bounds.size.width-80)/2.0-20, self.bounds.size.height-90)];
@@ -127,26 +135,26 @@
     }else {
         //        [curWebView2 removeFromSuperview];
         //        [bg removeFromSuperview];
-        [curWebView setFrame:CGRectMake(10, 35, self.bounds.size.width-20, self.bounds.size.height-60)];
-        [self.bookNameLabel setFrame:CGRectMake(curWebView.left, -5, self.bounds.size.width, 44)];
-        [self.bookNameLabel setFont:[UIFont boldSystemFontOfSize:12]];
-        [self.chapterLabel setFont:[UIFont boldSystemFontOfSize:12]];
-        [self.chapterLabel setFrame:CGRectMake(0, curWebView.bottom - 15, self.bounds.size.width, 44)];
+//        DebugLog(@"====== w: %f  =====  h:%f",self.bounds.size.width,self.bounds.size.height);
+        [_curWebView setFrame:CGRectMake(10, 35, self.bounds.size.width-20, self.bounds.size.height-60)];
+        [_bookNameLabel setFrame:CGRectMake(_curWebView.left, -5, self.bounds.size.width, 44)];
+        [_bookNameLabel setFont:[UIFont boldSystemFontOfSize:12]];
+        [_chapterLabel setFrame:CGRectMake(0, _curWebView.bottom - 15, self.bounds.size.width, 44)];
+        [_chapterLabel setFont:[UIFont boldSystemFontOfSize:12]];
     }
 
     
     self.curLable = [[[UILabel alloc] init] autorelease];
-    self.curLable.font = [UIFont boldSystemFontOfSize:12];
-    self.curLable.textColor = myColor;
-    self.curLable.textAlignment = UITextAlignmentCenter;
-    self.curLable.backgroundColor =[UIColor clearColor];
-    
-    [self addSubview:curLable];
+    _curLable.font = [UIFont boldSystemFontOfSize:12];
+    _curLable.textColor = myColor;
+    _curLable.textAlignment = UITextAlignmentCenter;
+    _curLable.backgroundColor =[UIColor clearColor];
+    [self addSubview:_curLable];
     
     if (share.isLandscape&&mf_IsPad) {
        // [self.curLable setFrame:CGRectMake(self.curWebView2.right - 40, self.self.chapterLabel.top, 50, 44)];
     }else {
-        [self.curLable setFrame:CGRectMake(self.curWebView.right - 40, self.self.chapterLabel.top, 50, 44)];
+        [_curLable setFrame:CGRectMake(_curWebView.right - 40, _chapterLabel.top, 50, 44)];
     }
     
     //给页面添加UIMenuController
@@ -162,15 +170,15 @@
 //    [menuController setTargetRect:selectionRect inView: self.superview];
     
     //设置显示的菜单，默认是第一菜单，要直接显示第二菜单，设置为NO
-    [menuController setMenuVisible:NO animated:YES];
+    [_menuController setMenuVisible:NO animated:YES];
     //菜单项被选中时，菜单会自动隐藏，如果你不想让它自动隐藏
 //    menuController.menuVisible = YES;
     //添加menu到 UIMenuController中
-    [menuController setMenuItems:[NSArray arrayWithObjects:noteMenu,bookPickMenu,removeMenu, nil]];
-    [menuController setArrowDirection:UIMenuControllerArrowDown];
+    [_menuController setMenuItems:[NSArray arrayWithObjects:noteMenu,bookPickMenu,removeMenu, nil]];
+    [_menuController setArrowDirection:UIMenuControllerArrowDown];
     
     
-    DebugLog(@"webview width: %f, height: %f",self.curWebView.bounds.size.width,self.curWebView.bounds.size.height);
+    DebugLog(@"webview width: %f, height: %f",_curWebView.bounds.size.width,_curWebView.bounds.size.height);
     
 //    [copyMenu release];
     [noteMenu release];
@@ -216,8 +224,8 @@
     if ([bookPick.currentBookPick objectForKey:className] == nil) {
         //如果在书摘列表中没有当前的class,可以取消高亮显示
         NSString* js = [NSString stringWithFormat:@"removetheClass('%@')",className];
-        [curWebView stringByEvaluatingJavaScriptFromString:js];
-        NSString* newHTML = [curWebView stringByEvaluatingJavaScriptFromString:@"document.documentElement.innerHTML"];
+        [_curWebView stringByEvaluatingJavaScriptFromString:js];
+        NSString* newHTML = [_curWebView stringByEvaluatingJavaScriptFromString:@"document.documentElement.innerHTML"];
         NSLog(@"newHtml text --> %@",newHTML);
         
         //把html保存到原来的html
@@ -234,12 +242,12 @@
     if ([gestureRecognizer state] == UIGestureRecognizerStateBegan) {
         [self becomeFirstResponder];
          CGPoint location = [gestureRecognizer locationInView:[gestureRecognizer view]];
-         [self.menuController setTargetRect:CGRectMake(0, location.y, 320, 0) inView:[gestureRecognizer view]];
+         [_menuController setTargetRect:CGRectMake(0, location.y, 320, 0) inView:[gestureRecognizer view]];
         //    CGRect selectionRect = CGRectMake(mouseX, mouseY, 30,20);
         //    [menuController setTargetRect:selectionRect inView: self];
         //设置显示位置  
         //    //        [menuController setTargetRect:self.frame inView: self];
-        [self.menuController setMenuVisible:YES animated:YES];
+        [_menuController setMenuVisible:YES animated:YES];
     }
 }
 
@@ -315,35 +323,35 @@
 //书摘
 - (void)bookPickMenuPressed:(id)sender
 {
-    if (self.classId != nil && self.contentText != nil) {
+    if (_classId != nil && _contentText != nil) {
         self.classId = nil;
         self.contentText = nil;
         DebugLog(@"not nil!");
     }else {
         //加载js文件
-        NSString *filePath  =  resPath(@"HighlightedString.js");
+        NSString *filePath = resPath(@"HighlightedString.js");
         
         NSLog(@"filepath:%@",filePath);
         NSData *fileData    = [NSData dataWithContentsOfFile:filePath];
         NSString *jsString  = [[[NSMutableString alloc] initWithData:fileData encoding:NSUTF8StringEncoding] autorelease];
-        [curWebView stringByEvaluatingJavaScriptFromString:jsString];
+        [_curWebView stringByEvaluatingJavaScriptFromString:jsString];
         
         // 获取选取的文本
         NSString *startSearch1   = [NSString stringWithFormat:@"getHighlightedString()"];
-        [curWebView stringByEvaluatingJavaScriptFromString:startSearch1];
+        [_curWebView stringByEvaluatingJavaScriptFromString:startSearch1];
         
         NSString *selectedText   = [NSString stringWithFormat:@"selectedText"];
-        NSString * highlightedString = [curWebView stringByEvaluatingJavaScriptFromString:selectedText];
+        NSString * highlightedString = [_curWebView stringByEvaluatingJavaScriptFromString:selectedText];
         NSLog(@"selectedTextString: ---  > %@",highlightedString);
         
         //获取当前书摘所在p 在页面中的索引
         NSString *getPIndex = [NSString stringWithFormat:@"pIndex"];
-        NSString *pIndex = [curWebView stringByEvaluatingJavaScriptFromString:getPIndex];
+        NSString *pIndex = [_curWebView stringByEvaluatingJavaScriptFromString:getPIndex];
         DebugLog(@"pIndex ----> %@",pIndex);
         
         //在段落中的偏移位置 
         NSString *aIndex = [NSString stringWithFormat:@"atomIndex"];
-        NSString *nowAtomIndex = [curWebView stringByEvaluatingJavaScriptFromString:aIndex];
+        NSString *nowAtomIndex = [_curWebView stringByEvaluatingJavaScriptFromString:aIndex];
         DebugLog(@"AtomIndex ----> %@",nowAtomIndex);
         
         // 把选中的文本样式改变
@@ -357,7 +365,7 @@
         NSString *className =  [@"uiWebviewHighlight" stringByAppendingFormat:classTime];
         NSString *startSearch   = [NSString stringWithFormat:@"stylizeHighlightedString('%@')",className];
         //    NSLog(@"Highlighted -- > %@",startSearch);
-        [curWebView stringByEvaluatingJavaScriptFromString:startSearch];
+        [_curWebView stringByEvaluatingJavaScriptFromString:startSearch];
         NSLog(@"noteMenuPressed");
  
         //根据p 所在位置，计算所在页数
@@ -412,7 +420,7 @@
         
         
         //把html保存到原来的html
-        NSString* newHTML = [curWebView stringByEvaluatingJavaScriptFromString:@"document.documentElement.innerHTML"];
+        NSString* newHTML = [_curWebView stringByEvaluatingJavaScriptFromString:@"document.documentElement.innerHTML"];
         NSLog(@"newHtml text --> %@",newHTML);
         Chapter* chapter = [curBook.chapters objectAtIndex:curSpineIndex];
         //把修改后的文件保存到原来的html
@@ -433,11 +441,11 @@
     
     CommentVC *comment = [[[CommentVC alloc] init] autorelease];
 //    NSLog(@"commentPressed");
-    if (self.classId != nil && self.contentText != nil) {
+    if (_classId != nil && _contentText != nil) {
         //调用添加批注的页面
         [self.rootVC presentModalViewController:comment animated:YES];
         
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"comment" object:classId];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"comment" object:_classId];
         switch (curBook.BodyFontSize) {
             case 100:
                 [bookPick getBookPick:iphone_minBookpick];
@@ -451,7 +459,7 @@
             default:
                 break;
         }
-        NSDictionary *bp =  [bookPick.currentBookPick objectForKey:self.classId];
+        NSDictionary *bp =  [bookPick.currentBookPick objectForKey:_classId];
         NSString *pIndex = [bp objectForKey:@"pIndex"];
         NSString *nowAtomIndex = [bp objectForKey:@"AtomIndex"];
         
@@ -471,8 +479,8 @@
         NSString *nIndex = [NSString stringWithFormat:@"%d",iphone_min.intValue + before];
         
         //给当前页面添加书摘
-        NSDictionary *pageIndex = [[[NSDictionary alloc] initWithObjectsAndKeys:nIndex,@"pageIndex",self.classId,@"className",localTime,@"time",self.contentText,@"content", nil] autorelease];
-        [bookComment.currentBookComment setValue:pageIndex forKey:classId];
+        NSDictionary *pageIndex = [[[NSDictionary alloc] initWithObjectsAndKeys:nIndex,@"pageIndex",_classId,@"className",localTime,@"time",_contentText,@"content", nil] autorelease];
+        [bookComment.currentBookComment setValue:pageIndex forKey:_classId];
         //写入document文件
         [bookComment.currentBookComment writeToFile:bookComment.filename atomically:YES];
         
@@ -481,8 +489,8 @@
         nIndex = [NSString stringWithFormat:@"%d",iphone_mid.intValue + before];
         
         //给当前页面添加书摘
-        pageIndex = [[[NSDictionary alloc] initWithObjectsAndKeys:nIndex,@"pageIndex",self.classId,@"className",localTime,@"time",self.contentText,@"content", nil] autorelease];
-        [bookComment.currentBookComment setValue:pageIndex forKey:classId];
+        pageIndex = [[[NSDictionary alloc] initWithObjectsAndKeys:nIndex,@"pageIndex",_classId,@"className",localTime,@"time",_contentText,@"content", nil] autorelease];
+        [bookComment.currentBookComment setValue:pageIndex forKey:_classId];
         //写入document文件
         [bookComment.currentBookComment writeToFile:bookComment.filename atomically:YES];
         
@@ -490,8 +498,8 @@
         [bookComment getBookComment:iphone_maxBookComment];
         nIndex = [NSString stringWithFormat:@"%d",iphone_max.intValue + before];
         //给当前页面添加书摘
-        pageIndex = [[[NSDictionary alloc] initWithObjectsAndKeys:nIndex,@"pageIndex",self.classId,@"className",localTime,@"time",self.contentText,@"content", nil] autorelease];
-        [bookComment.currentBookComment setValue:pageIndex forKey:classId];
+        pageIndex = [[[NSDictionary alloc] initWithObjectsAndKeys:nIndex,@"pageIndex",_classId,@"className",localTime,@"time",_contentText,@"content", nil] autorelease];
+        [bookComment.currentBookComment setValue:pageIndex forKey:_classId];
         //写入document文件
         [bookComment.currentBookComment writeToFile:bookComment.filename atomically:YES];
         
@@ -504,30 +512,30 @@
         NSLog(@"filepath:%@",filePath);
         NSData *fileData    = [NSData dataWithContentsOfFile:filePath];
         NSString *jsString  = [[[NSMutableString alloc] initWithData:fileData encoding:NSUTF8StringEncoding] autorelease];
-        [curWebView stringByEvaluatingJavaScriptFromString:jsString];
+        [_curWebView stringByEvaluatingJavaScriptFromString:jsString];
         
         // 获取选取的文本
         NSString *startSearch1   = [NSString stringWithFormat:@"getHighlightedString()"];
-        [curWebView stringByEvaluatingJavaScriptFromString:startSearch1];
+        [_curWebView stringByEvaluatingJavaScriptFromString:startSearch1];
         
         NSString *selectedText   = [NSString stringWithFormat:@"selectedText"];
-        NSString * highlightedString = [curWebView stringByEvaluatingJavaScriptFromString:selectedText];
+        NSString * highlightedString = [_curWebView stringByEvaluatingJavaScriptFromString:selectedText];
         NSLog(@"selectedTextString: ---  > %@",highlightedString);
     
         //获取当前书摘所在p 在页面中的索引
         NSString *getPIndex = [NSString stringWithFormat:@"pIndex"];
-        NSString *pIndex = [curWebView stringByEvaluatingJavaScriptFromString:getPIndex];
+        NSString *pIndex = [_curWebView stringByEvaluatingJavaScriptFromString:getPIndex];
         DebugLog(@"pIndex ----> %@",pIndex);
         
         //在段落中的偏移位置 
         NSString *aIndex = [NSString stringWithFormat:@"atomIndex"];
-        NSString *nowAtomIndex = [curWebView stringByEvaluatingJavaScriptFromString:aIndex];
+        NSString *nowAtomIndex = [_curWebView stringByEvaluatingJavaScriptFromString:aIndex];
         DebugLog(@"AtomIndex ----> %@",nowAtomIndex);
         
         NSString *className =  [@"uiWebviewHighlight" stringByAppendingFormat:classTime];
         NSString *startSearch   = [NSString stringWithFormat:@"stylizeHighlightedString('%@')",className];
         //    NSLog(@"Highlighted -- > %@",startSearch);
-        [curWebView stringByEvaluatingJavaScriptFromString:startSearch];
+        [_curWebView stringByEvaluatingJavaScriptFromString:startSearch];
         NSLog(@"noteMenuPressed");
         
         //调用添加批注的页面
@@ -574,7 +582,7 @@
         [bookComment.currentBookComment writeToFile:bookComment.filename atomically:YES];
         
         //把html保存到原来的html
-        NSString* newHTML = [curWebView stringByEvaluatingJavaScriptFromString:@"document.documentElement.innerHTML"];
+        NSString* newHTML = [_curWebView stringByEvaluatingJavaScriptFromString:@"document.documentElement.innerHTML"];
         NSLog(@"newHtml text --> %@",newHTML);
         Chapter* chapter = [curBook.chapters objectAtIndex:curSpineIndex];
         //把修改后的文件保存到原来的html
@@ -595,43 +603,43 @@
 //删除书摘、批注
 - (void)removePressed:(id)sender
 {
-    DebugLog(@"classname --> %@",classId);
-    DebugLog(@"contentText --> %@",contentText);
-    if (classId != nil && contentText != nil) {
-        NSString* js = [NSString stringWithFormat:@"removetheClass('%@')",classId];
-        [curWebView stringByEvaluatingJavaScriptFromString:js];
-        NSString* newHTML = [curWebView stringByEvaluatingJavaScriptFromString:@"document.documentElement.innerHTML"];
+    DebugLog(@"classname --> %@",_classId);
+    DebugLog(@"contentText --> %@",_contentText);
+    if (_classId != nil && _contentText != nil) {
+        NSString* js = [NSString stringWithFormat:@"removetheClass('%@')",_classId];
+        [_curWebView stringByEvaluatingJavaScriptFromString:js];
+        NSString* newHTML = [_curWebView stringByEvaluatingJavaScriptFromString:@"document.documentElement.innerHTML"];
         NSLog(@"newHtml text --> %@",newHTML);
         
         //获取书摘列表  //删除所有字体对应的书摘
         [bookPick getBookPick:iphone_minBookpick];
-        [bookPick.currentBookPick removeObjectForKey:classId];
+        [bookPick.currentBookPick removeObjectForKey:_classId];
         //写入document文件
         [bookPick.currentBookPick writeToFile:bookPick.filename atomically:YES];
         
         [bookPick getBookPick:iphone_middleBookpick];
-        [bookPick.currentBookPick removeObjectForKey:classId];
+        [bookPick.currentBookPick removeObjectForKey:_classId];
         //写入document文件
         [bookPick.currentBookPick writeToFile:bookPick.filename atomically:YES];
         
         [bookPick getBookPick:iphone_maxBookpick];
-        [bookPick.currentBookPick removeObjectForKey:classId];
+        [bookPick.currentBookPick removeObjectForKey:_classId];
         //写入document文件
         [bookPick.currentBookPick writeToFile:bookPick.filename atomically:YES];
         
         //获取批注列表  删除所有字体对应的批注
         [bookComment getBookComment:iphone_minBookComment];
-        [bookComment.currentBookComment removeObjectForKey:classId];
+        [bookComment.currentBookComment removeObjectForKey:_classId];
         //写入documen
         [bookComment.currentBookComment writeToFile:bookComment.filename atomically:YES];
         
         [bookComment getBookComment:iphone_middleBookComment];
-        [bookComment.currentBookComment removeObjectForKey:classId];
+        [bookComment.currentBookComment removeObjectForKey:_classId];
         //写入documen
         [bookComment.currentBookComment writeToFile:bookComment.filename atomically:YES];
         
         [bookComment getBookComment:iphone_maxBookComment];
-        [bookComment.currentBookComment removeObjectForKey:classId];
+        [bookComment.currentBookComment removeObjectForKey:_classId];
         //写入documen
         [bookComment.currentBookComment writeToFile:bookComment.filename atomically:YES];
         
@@ -655,7 +663,7 @@
 - (void)removeAllHighlights
 {
     // calls the javascript function to remove html highlights
-    [curWebView stringByEvaluatingJavaScriptFromString:@"uiWebview_RemoveAllHighlights()"];
+    [_curWebView stringByEvaluatingJavaScriptFromString:@"uiWebview_RemoveAllHighlights()"];
 }
 
 -(void)updateInfo:(NSDictionary*)aInfo{
@@ -668,7 +676,7 @@
         DebugLog(@"now page Index ----> %@",[[NSUserDefaults standardUserDefaults] objectForKey:@"currentPageIndex"]);
     }
 
-    self.curLable.text =[NSString stringWithFormat:@"%d",aIndex];
+    _curLable.text =[NSString stringWithFormat:@"%d",aIndex];
     NSString *nowPageIndex = [[NSUserDefaults standardUserDefaults] objectForKey:@"currentPageIndex"];
     if (isLoyoutDebug) {
         DebugLog(@"showWithIndex aIndex -- > %d",aIndex);     
@@ -701,7 +709,8 @@
     
     //等于0，加载页面扉页
     if (tempPageIndex == 0) {
-        ChapterTitlePageView *titlePage = [[[ChapterTitlePageView alloc] initWithFrame:CGRectMake(0, 0, self.bounds.size.width, self.bounds.size.height)] autorelease];
+//        ChapterTitlePageView *titlePage = [[[ChapterTitlePageView alloc] initWithFrame:CGRectMake(0, 0, , t)] autorelease];
+        ChapterTitlePageView *titlePage = [ChapterTitlePageView createWithSize:CGSizeMake(self.bounds.size.width, self.bounds.size.height)];
         [self addSubview:titlePage];
         
         Chapter* chapter = [curBook.chapters objectAtIndex:tempSpineIndex];
@@ -733,9 +742,9 @@
     Chapter* chapter = [curBook.chapters objectAtIndex:spineIndex];
     //[self loadSpine:spineIndex atPageIndex:pageIndex highlightSearchResult:nil];
     NSURL *url = [NSURL fileURLWithPath:chapter.spinePath];
-    [curWebView loadRequest:[NSURLRequest requestWithURL:url]];
+    [_curWebView loadRequest:[NSURLRequest requestWithURL:url]];
     //[curWebView2 loadRequest:[NSURLRequest requestWithURL:url]];
-    self.chapterLabel.text = chapter.title;
+    _chapterLabel.text = chapter.title;
     
 //    [self gotoPageInCurrentSpine:curPageIndex];
 }
@@ -748,25 +757,26 @@
 	float pageOffset = 0;
 //    float pageOffset2 = 0;
     if (!mf_IsPad || !share.isLandscape) {
-        pageOffset = pageIndex*curWebView.bounds.size.width ;
+        pageOffset = pageIndex*_curWebView.bounds.size.width ;
     }
     else{
 //        pageOffset = pageIndex*curWebView.bounds.size.width + pageIndex *15;
-        pageOffset = pageIndex*curWebView.bounds.size.width;
+        pageOffset = pageIndex*_curWebView.bounds.size.width;
 //        pageOffset2 = (pageIndex+1)*curWebView.bounds.size.width;
     }
     NSLog(@"gotoPageInCurrentSpine pageOffset -> %f",pageOffset);
     //设置页面依X轴来滚动
 	NSString* goToOffsetFunc = [NSString stringWithFormat:@" function pageScroll(xOffset){ window.scroll(xOffset,0); } "];
 	NSString* goTo =[NSString stringWithFormat:@"pageScroll(%f)", pageOffset]; 
-	[curWebView stringByEvaluatingJavaScriptFromString:goToOffsetFunc];
-	[curWebView stringByEvaluatingJavaScriptFromString:goTo];
+	[_curWebView stringByEvaluatingJavaScriptFromString:goToOffsetFunc];
+	[_curWebView stringByEvaluatingJavaScriptFromString:goTo];
     
 //    NSString* goTo2 =[NSString stringWithFormat:@"pageScroll(%f)", pageOffset2]; 
 //    [curWebView2 stringByEvaluatingJavaScriptFromString:goToOffsetFunc];
 //	[curWebView2 stringByEvaluatingJavaScriptFromString:goTo2];
    
-	curWebView.hidden = NO;
+    [_hud setHidden:YES];//隐藏loading提醒
+	_curWebView.hidden = NO;//显示webview
     //curWebView2.hidden = NO;
 }
 
@@ -776,12 +786,15 @@
 	NSArray *components = [requestString componentsSeparatedByString:@":"];
     NSLog(@"requestString --> %@",requestString);
 
-	if ([components count] > 2 && [requestString hasPrefix:@"ibooks:"]) {
+	if ([components count] > 2 && [requestString hasPrefix:@"iBooks:"]) {
 		// document.location = "iBooks:" + "tags:" + randomCssClass + ":" + selectText; 
         NSString* clssName =[components objectAtIndex:2];
         NSString* txt =[components objectAtIndex:3]; 
         mouseX = [[components objectAtIndex:4] floatValue];
         mouseY = [[components objectAtIndex:5] floatValue];
+        if (mouseY < 80.f) {
+            mouseY = 25.f;
+        }
         //中文乱码转换
         NSString *string = [txt stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
         if (txt.length<10) {
@@ -795,13 +808,13 @@
 //        [theMenu setMenuVisible:YES animated:YES];
         
         DebugLog(@"string ----> %@",string);
-        
+        DebugLog(@"--- x: %f  --- y: %f",mouseX,mouseY);
         [self becomeFirstResponder];
-        CGRect selectionRect = CGRectMake(mouseX, mouseY, 30,20);
-        [menuController setTargetRect:selectionRect inView: self];
+        CGRect selectionRect = CGRectMake(self.bounds.size.width / 2.f, mouseY, 30,20);
+        [_menuController setTargetRect:selectionRect inView: self];
         //设置显示位置  
 //        [menuController setTargetRect:self.frame inView: self];
-        [self.menuController setMenuVisible:YES animated:YES];
+        [_menuController setMenuVisible:YES animated:YES];
         
 //        [[TagsHelper sharedInstanse] addTagWithClassId:clssName txt:txt];
         //保存html－－
@@ -860,7 +873,7 @@
         NSString *insertRule1 = [NSString stringWithFormat:@"addCSSRule('html', 'padding: 0px; height: %fpx; -webkit-column-gap: 0px; -webkit-column-width: %fpx;')", webView.frame.size.height, webView.frame.size.width];
         NSString *insertRule2 = [NSString stringWithFormat:@"addCSSRule('p', 'text-align: justify;')"];
         //NSString *setTextSizeRule = [NSString stringWithFormat:@"addCSSRule('body', '-webkit-text-size-adjust: %d%%;')", 94];
-        NSString *setHighlightColorRule = [NSString stringWithFormat:@"addCSSRule('highlight', 'background-color: yellow;')"];
+//        NSString *setHighlightColorRule = [NSString stringWithFormat:@"addCSSRule('highlight', 'background-color: yellow;')"];
         
         //设置页面字体
         //设置页面文字尺寸
@@ -871,17 +884,17 @@
 //        [webView stringByEvaluatingJavaScriptFromString:@"document.documentElement.style.webkitTouchCallout='none';"];
         
         
-        [webView stringByEvaluatingJavaScriptFromString:varMySheet];
-        [webView stringByEvaluatingJavaScriptFromString:addCSSRule];
-        [webView stringByEvaluatingJavaScriptFromString:setTextSizeRule];
-        [webView stringByEvaluatingJavaScriptFromString:insertRule1];
-        [webView stringByEvaluatingJavaScriptFromString:insertRule2];
-        [webView stringByEvaluatingJavaScriptFromString:setHighlightColorRule];
+        [_curWebView stringByEvaluatingJavaScriptFromString:varMySheet];
+        [_curWebView stringByEvaluatingJavaScriptFromString:addCSSRule];
+        [_curWebView stringByEvaluatingJavaScriptFromString:setTextSizeRule];
+        [_curWebView stringByEvaluatingJavaScriptFromString:insertRule1];
+        [_curWebView stringByEvaluatingJavaScriptFromString:insertRule2];
+//        [webView stringByEvaluatingJavaScriptFromString:setHighlightColorRule];
         
         //加亮显示搜索的内容
         if(currentSearchResult!=nil){
             //	NSLog(@"Highlighting %@", currentSearchResult.originatingQuery);
-            [webView highlightAllOccurencesOfString:currentSearchResult.originatingQuery];
+            [_curWebView highlightAllOccurencesOfString:currentSearchResult.originatingQuery];
         }
         
         //获取返回页面的总宽度
@@ -905,7 +918,9 @@
 //        [curWebView stringByEvaluatingJavaScriptFromString:@"loadCss('split')"];
 //        
 //    }
-    [self inject];
+    if (!_jquery) {
+        [self inject];
+    }
     //加载内容
 //    NSArray* list =[[TagsHelper sharedInstanse] getTagsInfo];
 //    for (Tags* tag in list) {
@@ -932,8 +947,8 @@
     }
     
 	if (!injected) {
-		[curWebView stringByEvaluatingJavaScriptFromString:jquery];
-        [curWebView stringByEvaluatingJavaScriptFromString:@"loadjscssfile('css.css', 'css')"];
+		[_curWebView stringByEvaluatingJavaScriptFromString:_jquery];
+        [_curWebView stringByEvaluatingJavaScriptFromString:@"loadjscssfile('css.css', 'css')"];
 		injected = YES; 
 	} 
 }
@@ -946,7 +961,7 @@
      */
 	NSFileManager *fileManager = [NSFileManager defaultManager]; 
     
-	NSString *jqueryFilePath =resPath(@"Res/jquery-1.7.2.js");
+	NSString *jqueryFilePath =resPath(@"Res/jquery-1.7.2.min.js");
 //    NSLog(@"jqueryFilePath  %@",jqueryFilePath);
     
 	BOOL jqueryFileExists = [fileManager fileExistsAtPath:jqueryFilePath];

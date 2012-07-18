@@ -12,6 +12,10 @@
 @synthesize chaterTitle,chapterName,chapterIndex,enChaterIndex;
 
 - (void)dealloc {
+//    [self.chaterTitle release];self.chaterTitle = nil;
+//    [self.chapterName release];self.chapterName = nil;
+//    [self.chapterIndex release];self.chapterIndex = nil;
+//    [self.enChaterIndex release];self.enChaterIndex = nil;
     [super dealloc];
 }
 
@@ -30,7 +34,6 @@
     
 //    self.chapterName = [[UILabel alloc] initWithFrame:CGRectMake(chapterIndex.left, chapterIndex.bottom ,self.bounds.size.width - chapterIndex.left, 44)];
     self.chapterName = [[[UILabel alloc] init] autorelease];
-    
     [chapterName setBackgroundColor:[UIColor clearColor]];
     [self addSubview:chapterName];
     

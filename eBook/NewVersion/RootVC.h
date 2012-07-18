@@ -18,13 +18,9 @@
 { 
     BOOL parsing;
     BOOL operViewShowed;
-    OperView* operView;
-    NavView* navView;
-    NSString *lastPage;
 }
 @property(nonatomic,retain) NSString *lastPage;
 @property(nonatomic,retain) ATPagingView* pageView;
-@property(nonatomic,retain)NSArray* datasoucre;
 @property(nonatomic,retain) NavView* navView;
 @property(nonatomic,retain) OperView* operView;
 

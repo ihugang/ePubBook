@@ -13,35 +13,36 @@
 #import "Book.h"
 
 @implementation RootVC
-@synthesize pageView,datasoucre,lastPage,navView,operView;
+@synthesize pageView = _pageView,lastPage = _lastPage,navView = _navView,operView = _operView;
 - (void)dealloc {
-    self.datasoucre = nil;
     //释放掉通知
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"searchPageIndex" object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"chapterListPageLoad" object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"FontChange" object:nil];
 //    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"landScape" object:nil];
-    [self.navView release];
-    [self.operView release];
-    self.pageView = nil;
+    [_pageView release];_pageView = nil;
+    [_lastPage release];_lastPage = nil;
+    [_navView release]; _navView = nil;
+    [_operView release];_operView = nil;
     [super dealloc];
 }
  
 -(void)addUI{
-    [self.pageView removeFromSuperview];
+//    [_pageView removeFromSuperview];
     self.pageView =[[[ATPagingView alloc] initWithFrame:self.view.bounds] autorelease];
-    UIScrollView* sv =  [self.pageView valueForKey:@"_scrollView"];
+    UIScrollView* sv =  [_pageView valueForKey:@"_scrollView"];
     sv.backgroundColor = baseColor;
-    self.pageView.delegate = self;
-    self.pageView.horizontal = YES;//设置方向
-    self.pageView.recyclingEnabled = NO;
-    //self.pageView.pagesToPreload = 0;//前后方向加载不可见页数，第一次设置为0，只加载当前页面
+    _pageView.delegate = self;
+    _pageView.horizontal = YES;//设置方向
+    _pageView.recyclingEnabled = NO;
+    _pageView.pagesToPreload = 2;//前后方向加载不可见页数，第一次设置为0，只加载当前页面
 //    self.pageView.backgroundColor =[UIColor whiteColor];
-    self.pageView.backgroundColor = baseColor;
-    [self.view insertSubview:self.pageView atIndex:0];
-    [self.pageView setAutoresizesSubviews:YES];
-    [self.pageView setAutoresizingMask:UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleRightMargin];
-    [self.pageView reloadData];
+    _pageView.backgroundColor = baseColor;
+    [self.view insertSubview:_pageView atIndex:0];
+    [_pageView setAutoresizesSubviews:YES];
+    [_pageView setAutoresizingMask:UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleRightMargin];
+    DebugLog(@"_pageView-------------------- %d",_pageView.retainCount);
+    [_pageView reloadData];
 
 }
 
@@ -59,11 +60,11 @@
     }
     
     if (pos<0.2&&self.pageView.currentPageIndex>0) {
-         self.pageView.currentPageIndex-=1;
+         _pageView.currentPageIndex-=1;
     }
     
-    if (pos>0.8 && self.pageView.currentPageIndex<curBook.PageCount) {
-        self.pageView.currentPageIndex+=1;
+    if (pos>0.8 && _pageView.currentPageIndex<curBook.PageCount) {
+        _pageView.currentPageIndex+=1;
     }
     
     if (pos>0.4 && pos<0.6) {
@@ -73,7 +74,7 @@
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     self.view.top = 0;
-    navView.bottom = self.view.height;
+    _navView.bottom = self.view.height;
 }
 
 - (void)viewWillDisappear:(BOOL)animated{
@@ -84,39 +85,33 @@
 - (void)viewDidLoad{
     [super viewDidLoad]; 
     self.view.backgroundColor = baseColor;
-//    self.view.backgroundColor = [UIColor whiteColor];
-    OperView* ov =[OperView createWithSize:CGSizeMake(self.view.width, 44)];
-    ov.top = 19;
-    self.operView = ov;
-//    [ov setAlpha:0.9];
-    ov.rootVC = self;
-    ov.delegate=self;
-    [self.view addSubview:ov];
-    [ov setAutoresizesSubviews:YES];
-    [ov setAutoresizingMask:UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleRightMargin];
     
-    NavView* nv =[NavView createWithSize:CGSizeMake(self.view.width, 70)];
-//    nv.bottom = self.view.height;
-    nv.top = self.view.height - 70;
-    self.navView = nv;
-//    [nv setAlpha:0.9];
-    nv.delegate=self;
-//    [nv setBackgroundColor:[UIColor grayColor]];
-    [self.view addSubview:nv];
-    [nv setAutoresizesSubviews:YES];
-    [nv setAutoresizingMask:UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleTopMargin|UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleRightMargin];
+    self.operView =[OperView createWithSize:CGSizeMake(self.view.width, 44)];
+    _operView.top = 19;
+    _operView.rootVC = self;
+    _operView.delegate=self;
+    [self.view addSubview:_operView];
+    [_operView setAutoresizesSubviews:YES];
+    [_operView setAutoresizingMask:UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleRightMargin];
+    
+    self.navView =[NavView createWithSize:CGSizeMake(self.view.width, 70)];
+    _navView.top = self.view.height - 70;
+    _navView.delegate=self;
+    [self.view addSubview:_navView];
+    [_navView setAutoresizesSubviews:YES];
+    [_navView setAutoresizingMask:UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleTopMargin|UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleRightMargin];
     
     self.lastPage = [[NSUserDefaults standardUserDefaults] objectForKey:@"curPageIndex"];
-    if (lastPage == nil) {
+    if (_lastPage == nil) {
         self.lastPage = @"0";//程序第一次加载，默认第0页开始
     }
     NSString *nowPageIndex = [[NSUserDefaults standardUserDefaults] objectForKey:@"currentPageIndex"];
-    DebugLog(@"lastpage : %@,nowpage: %@ ",self.lastPage,nowPageIndex);
+    DebugLog(@"lastpage : %@,nowpage: %@ ",_lastPage,nowPageIndex);
     //发送检查页面是否添加书签
     [[NSNotificationCenter defaultCenter] postNotificationName:@"sendPageToBookMark" object:self.lastPage];
-    if (nowPageIndex==nil || ![nowPageIndex isEqualToString:self.lastPage]) {
+    if (nowPageIndex==nil || ![nowPageIndex isEqualToString:_lastPage]) {
         //添加当前加载的页面
-        [[NSUserDefaults standardUserDefaults] setValue:self.lastPage forKey:@"currentPageIndex"];
+        [[NSUserDefaults standardUserDefaults] setValue:_lastPage forKey:@"currentPageIndex"];
         [[NSUserDefaults standardUserDefaults] synchronize];//写入数据
     }
     
@@ -126,15 +121,15 @@
     parsing = NO;
     [Bussicess fetchBookInfo:^{///解析plist文件
         [hud setHidden:YES];
-        self.pageView.pagesToPreload = 0;//前后方向加载不可见页数，第一次设置为0，只加载当前页面
+        _pageView.pagesToPreload = 0;//前后方向加载不可见页数，第一次设置为0，只加载当前页面
         [self addUI]; 
          //最后一次加载的页面
-        DebugLog(@"lastPageIndex ---> %@",lastPage);
-        self.pageView.currentPageIndex = self.lastPage.intValue;//设置默认的加载页面
+        DebugLog(@"lastPageIndex ---> %@",_lastPage);
+        _pageView.currentPageIndex = _lastPage.intValue;//设置默认的加载页面
         parsing = YES;
-        nv.count = curBook.PageCount;
+        _navView.count = curBook.PageCount;
         //设置拖动条的默认值
-        nv.value = self.lastPage.intValue;
+        _navView.value = _lastPage.intValue;
     }]; 
     
     //添加上面的view 
@@ -159,29 +154,33 @@
 {
     DebugLog(@"test ---> %d",[[notification object] intValue]);
     parsing = NO;
-    self.pageView.currentPageIndex = [[notification object] intValue];
+    _pageView.currentPageIndex = [[notification object] intValue];
+    [_pageView reloadData];
 }
 
 //目录列表页面跳转
 - (void)fontChange:(NSNotification *)notification
 {
     parsing = NO;
-    self.pageView.currentPageIndex = [[notification object] intValue];
+    _pageView.currentPageIndex = [[notification object] intValue];
+    [_pageView reloadData];
 }
 
 //目录列表页面跳转
 - (void)chapterListPageLoad:(NSNotification *)notification
 {
     parsing = NO;
-    self.pageView.currentPageIndex = [[notification object] intValue];
+    _pageView.currentPageIndex = [[notification object] intValue];
+    [_pageView reloadData];
 }
 
 //搜索页面跳转
 - (void)searchPageLoad:(NSNotification *)notification
 {
     parsing = NO;
-    self.pageView.currentPageIndex = [[[notification userInfo] objectForKey:@"chapterPageIndex"] intValue];
+    _pageView.currentPageIndex = [[[notification userInfo] objectForKey:@"chapterPageIndex"] intValue];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"searchText" object:[[notification userInfo] objectForKey:@"searchResult"]];
+    [_pageView reloadData];
 }
 
 -(void)operViewTappedToDissmiss{
@@ -198,8 +197,8 @@
 		return NO;
     } 
     
-    if ([touch.view isDescendantOfView:navView]||
-        [touch.view isDescendantOfView:operView]
+    if ([touch.view isDescendantOfView:_navView]||
+        [touch.view isDescendantOfView:_operView]
         ) {
         //隐藏掉字体设置窗体
         [self.view viewWithTag:1001].hidden = YES;
@@ -218,7 +217,7 @@
 }
 
 - (UIView *)viewForPageInPagingView:(ATPagingView *)pagingView atIndex:(NSInteger)index{
-    ContentWrapperView* cwv = (ContentWrapperView*)[pageView dequeueReusablePage];
+    ContentWrapperView* cwv = (ContentWrapperView*)[pagingView dequeueReusablePage];
     if (!cwv) {
          cwv = [ContentWrapperView createWithSize:pagingView.frame.size];
     }
@@ -226,7 +225,7 @@
     cwv.rootVC = self;
     [cwv showWithPathIndex:index];
     
-    NSLog(@"viewForPageInPagingView currentpageIndex --%d",self.pageView.currentPageIndex);
+    NSLog(@"viewForPageInPagingView currentpageIndex --%d",_pageView.currentPageIndex);
     return cwv;
 }
 
@@ -239,9 +238,9 @@
     
 //    self.pageView.currentPageIndex = 5;
     if (parsing) {
-        self.pageView.pagesToPreload = 2;//前后方向加载不可见页数
+        _pageView.pagesToPreload = 2;//前后方向加载不可见页数
     }else {
-        self.pageView.pagesToPreload = 0;//前后方向加载不可见页数
+        _pageView.pagesToPreload = 0;//前后方向加载不可见页数
 //        parsing = YES;
     }
     NSLog(@"pagesDidChangeInPagingView");
@@ -250,22 +249,22 @@
 //    #warning loufq debug return for iphone
 //    return;//loufq debug
     if (parsing) {
-        self.pageView.pagesToPreload = 2;//前后方向加载不可见页数
+        _pageView.pagesToPreload = 2;//前后方向加载不可见页数
     }else {
-        self.pageView.pagesToPreload = 0;//前后方向加载不可见页数
+        _pageView.pagesToPreload = 0;//前后方向加载不可见页数
 //        parsing = YES;
     }
-   NSLog(@"currentPageDidChangeInPagingView  --> %d",pagingView.currentPageIndex);
+   NSLog(@"currentPageDidChangeInPagingView  --> %d",_pageView.currentPageIndex);
     if (share.isLandscape) {
 //        self.pageView.currentPageIndex = pagingView.currentPageIndex+2;
         //添加当前加载的页面
-        [[NSUserDefaults standardUserDefaults] setValue:[NSString stringWithFormat:@"%d",pagingView.currentPageIndex] forKey:@"currentPageIndex"];
+        [[NSUserDefaults standardUserDefaults] setValue:[NSString stringWithFormat:@"%d",_pageView.currentPageIndex] forKey:@"currentPageIndex"];
     }else {
-        [[NSUserDefaults standardUserDefaults] setValue:[NSString stringWithFormat:@"%d",pagingView.currentPageIndex] forKey:@"currentPageIndex"];
+        [[NSUserDefaults standardUserDefaults] setValue:[NSString stringWithFormat:@"%d",_pageView.currentPageIndex] forKey:@"currentPageIndex"];
     }
     //发送检查页面是否添加书签
 //    [[NSNotificationCenter defaultCenter] postNotificationName:@"pageChange" object:[NSString stringWithFormat:@"%d",pagingView.currentPageIndex]];
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"sendPageToBookMark" object:[NSString stringWithFormat:@"%d",pagingView.currentPageIndex]];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"sendPageToBookMark" object:[NSString stringWithFormat:@"%d",_pageView.currentPageIndex]];
     [[NSUserDefaults standardUserDefaults] synchronize];//写入数据
 }
 #pragma mark 旋转
@@ -293,8 +292,8 @@
     parsing = NO;
     int iCurIndex = [nowPageIndex intValue];
     DebugLog(@"Root didRotateFromInterfaceOrientation --> %d",iCurIndex);
-    self.pageView.currentPageIndex =  iCurIndex;
-    self.lastPage = nowPageIndex;
+    _pageView.currentPageIndex =  iCurIndex;
+    _lastPage = nowPageIndex;
     [super didRotateFromInterfaceOrientation:fromInterfaceOrientation];
 //    [self.pageView didRotate];
     if (!parsing) {
@@ -305,8 +304,9 @@
 #pragma mark 导航条
 -(void)navView:(NavView*)navView changeToIndex:(int)pageIndex{
     parsing = NO;
-    self.pageView.currentPageIndex = pageIndex;
+    _pageView.currentPageIndex = pageIndex;
     [self swichUI:!operViewShowed];
+    [_pageView reloadData];
 }
 #pragma mark 操作条
 -(void)operView:(OperView*)navView changeToIndex:(int)pageIndex{
@@ -315,8 +315,8 @@
 #pragma mark 切换UI显示
 -(void)swichUI:(BOOL)showOperView{
     operViewShowed = showOperView; 
-    operView.hidden = !showOperView;
-    navView.hidden = !showOperView;
+    _operView.hidden = !showOperView;
+    _navView.hidden = !showOperView;
     [[UIApplication sharedApplication]  setStatusBarHidden:!operViewShowed withAnimation:UIStatusBarAnimationSlide];
     if (showOperView) {
         
@@ -328,7 +328,10 @@
 
 - (void)didReceiveMemoryWarning
 {
-    self.pageView = nil;
+    [_pageView release];_pageView = nil;
+    [_lastPage release];_lastPage = nil;
+//    [_navView release];_navView = nil;
+//    [_operView release];_operView = nil;
     [super didReceiveMemoryWarning];
     DebugLog(@"RootVC  ---> didReceiveMemoryWarning");
 }

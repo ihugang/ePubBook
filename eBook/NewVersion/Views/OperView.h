@@ -22,19 +22,16 @@
 @end
 
 @interface OperView : BaseView<ChapterListVCDelegate,SearchVCDelegate>{
-    UIButton* btnFontSize;
     BOOL show;
     FontView *fv;
     UINavigationController *navController;
-    UIButton *bookMark;
-    UIButton *fontsize;
 }
 
+@property(nonatomic,retain)UIButton *bookMark;
+@property(nonatomic,retain)UIButton *btnFontSize;
 @property(nonatomic,assign)UIViewController* rootVC;
 @property(nonatomic,retain) NSString *currentPageIndex;
 @property(nonatomic,retain) NSString *curChapterIndex;
 @property(nonatomic,retain) NSString *curChapterPageIndex;
-
-
 @property(nonatomic,assign)id<OperViewDelegate>delegate;
 @end

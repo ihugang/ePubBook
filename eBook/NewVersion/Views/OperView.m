@@ -12,8 +12,15 @@
 #import "Book.h"
 
 @implementation OperView
+
+@synthesize bookMark = _bookMark,btnFontSize = _btnFontSize;
 @synthesize delegate,rootVC,currentPageIndex,curChapterIndex,curChapterPageIndex;
 - (void)dealloc {
+    [_bookMark release];_bookMark = nil;
+    [_btnFontSize release];_btnFontSize = nil;
+//    [self.curChapterIndex release];self.curChapterIndex = nil;
+//    [self.currentPageIndex release];self.currentPageIndex = nil;
+//    [self.curChapterPageIndex release];self.curChapterPageIndex = nil;
     self.delegate =nil;
 //    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"pageChange" object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"sendPageToBookMark" object:nil];
@@ -51,17 +58,17 @@
     [btnList addTarget:self action:@selector(btnListTapped:) forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:btnList];
     
-    btnFontSize =[UIButton nodeWithOnImage:nil offImage:skinImage(@"operbar/b004.png")];
+    self.btnFontSize =[UIButton nodeWithOnImage:nil offImage:skinImage(@"operbar/b004.png")];
     //btnFontSize.size = btnList.size;
-    btnFontSize.left = btnList.right + 20;
-    btnFontSize.top = btnList.top;
-    [btnFontSize setAutoresizingMask:UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleRightMargin];
-    [btnFontSize addEvent:@selector(btnFontSizeTapped:) atContainer:self];
-    [self addSubview:btnFontSize];
+    _btnFontSize.left = btnList.right + 20;
+    _btnFontSize.top = btnList.top;
+    [_btnFontSize setAutoresizingMask:UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleRightMargin];
+    [_btnFontSize addEvent:@selector(btnFontSizeTapped:) atContainer:self];
+    [self addSubview:_btnFontSize];
     
     UIButton* btnSearch =[UIButton nodeWithOnImage:nil offImage:skinImage(@"operbar/b005.png")];
     // btnSearch.size = btnList.size;
-    btnSearch.left = btnFontSize.right + 20;
+    btnSearch.left = _btnFontSize.right + 20;
     btnSearch.top = btnList.top;
     [btnSearch setAutoresizingMask:UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleRightMargin];
     [btnSearch addEvent:@selector(btnSearchTapped:) atContainer:self];
@@ -75,13 +82,13 @@
     [btnSetting addEvent:@selector(btnSettingTapped:) atContainer:self];
     [self addSubview:btnSetting];
     
-    bookMark = [UIButton nodeWithOnImage:nil offImage:resImage(@"content/bookmark.png")];
-    bookMark.left = btnSetting.right + 20;
-    bookMark.top = 10;
-    [bookMark setAutoresizingMask:UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleRightMargin];
-    [bookMark addEvent:@selector(addBookMark:) atContainer:self];
+    self.bookMark = [UIButton nodeWithOnImage:nil offImage:resImage(@"content/bookmark.png")];
+    _bookMark.left = btnSetting.right + 20;
+    _bookMark.top = 10;
+    [_bookMark setAutoresizingMask:UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleRightMargin];
+    [_bookMark addEvent:@selector(addBookMark:) atContainer:self];
 //    [bookMark addTarget:self action:@selector(addBookMark:) forControlEvents:UIControlEventTouchUpInside];
-    [self addSubview:bookMark];
+    [self addSubview:_bookMark];
     
 //    bookMark = [UIButton buttonWithType:UIButtonTypeCustom];
 //    [bookMark setImage:resImage(@"content/bookmark.png") forState:UIControlStateNormal];
@@ -131,9 +138,9 @@
     DebugLog(@"checkBookMark - %@",[notification object]);
     if ([bookMarks.currentBookMark objectForKey: [notification object]] != nil) {
 //        //添加标签
-        [bookMark setImage:resImage(@"content/bookmark-blue.png") forState:UIControlStateNormal];
+        [_bookMark setImage:resImage(@"content/bookmark-blue.png") forState:UIControlStateNormal];
     }else {
-        [bookMark setImage:resImage(@"content/bookmark.png") forState:UIControlStateNormal];
+        [_bookMark setImage:resImage(@"content/bookmark.png") forState:UIControlStateNormal];
     }
 }
 
@@ -149,16 +156,13 @@
   
     clv.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
     [self.rootVC presentModalViewController:clv animated:YES];
-    
-//    [self.rootVC.view addSubview:clv.view];
-    
     clv.delegate = self;
 }
 
 -(void)btnFontSizeTapped:(UIButton*)sender{
     DebugLog(@"%@",sender);
     if (fv == nil) {
-        fv = [[FontView alloc] initWithFrame:CGRectMake(10,btnFontSize.bottom + 22 , 200, 100)] ;
+        fv = [[FontView alloc] initWithFrame:CGRectMake(10,_btnFontSize.bottom + 22 , 200, 100)] ;
         [fv setAutoresizingMask:UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleRightMargin];
         fv.tag = 1001;
 //        fv.curPageIndex = self.currentPageIndex;

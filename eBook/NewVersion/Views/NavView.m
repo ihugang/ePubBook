@@ -12,6 +12,7 @@
 @synthesize delegate,count,pageSlider,value;
 - (void)dealloc {
     self.delegate = nil;
+    [pageSlider release];pageSlider = nil;
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"pageChange" object:nil];
     [super dealloc];
 }
@@ -29,7 +30,7 @@
     [self addSubview:iv];
    // self.backgroundColor =[UIColor blueColor];
     
-    pageSlider = [[UISlider alloc] initWithFrame:CGRectMake(0, 0, self.bounds.size.width - 40, 0)];
+    self.pageSlider = [[[UISlider alloc] initWithFrame:CGRectMake(0, 0, self.bounds.size.width - 40, 0)] autorelease];
     
     [pageSlider setAutoresizingMask:UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleRightMargin];
 //    pageSlider.value = [[[NSUserDefaults standardUserDefaults] objectForKey:@"curPageIndex"] intValue];
@@ -45,19 +46,19 @@
     //滑动拖动后的事件
     [pageSlider addTarget:self action:@selector(slidingEnded:) forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:pageSlider];
-    [pageSlider release];
+//    [pageSlider release];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pageChange:) name:@"pageChange" object:nil];
 }
 
 - (void)pageChange:(NSNotification*)notification
 {
-    pageSlider.value = [[notification object] intValue];
+    self.pageSlider.value = [[notification object] intValue];
 }
 
 - (void)setValue:(int)aValue{
     value = aValue;
-    pageSlider.value = value;
+    self.pageSlider.value = value;
 }
  
 -(void)setCount:(int)aCount{ 

@@ -27,10 +27,11 @@
 @property(nonatomic,assign)UILabel*  chapterLabel;
 @property (nonatomic, retain) SearchResult* currentSearchResult;
 @property (nonatomic, retain) NSString *jquery; 
-@property(nonatomic,assign)UIMenuController *menuController;
 @property (nonatomic, retain) NSString *classId; 
 @property (nonatomic, retain) NSString *contentText; 
+@property(nonatomic,assign)UIMenuController *menuController;
 @property(nonatomic,assign)UIViewController *rootVC;
+@property(nonatomic,assign)MBProgressHUD *hud;
 
 -(void)showWithIndex:(int)aIndex;
 

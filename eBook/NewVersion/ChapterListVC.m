@@ -25,11 +25,6 @@
 @implementation ChapterListVC
 @synthesize delegate,bookMarkSortedValues,bookPickSortedValues,bookCommentSortedValues;
 
-- (void)dealloc {
-    [chapterList release];
-    [super dealloc];
-}
-
 - (void)viewDidLoad
 {
     UIImageView *imageView = [UIImageView nodeWithImage:skinImage(@"catalogbar/h002.png")];
@@ -471,6 +466,14 @@ NSInteger customSort2(id obj1, id obj2,void* context){
     return (NSComparisonResult)NSOrderedSame;
 }
 
+- (void)dealloc {
+    [bookMarkSortedValues release];
+    [bookPickSortedValues release];
+    [bookCommentSortedValues release];
+    [chapterList release];
+    [super dealloc];
+}
+
 - (void)viewDidUnload
 {
     [cataButton1 release];
@@ -488,6 +491,9 @@ NSInteger customSort2(id obj1, id obj2,void* context){
 
 - (void)didReceiveMemoryWarning
 {
+    [bookMarkSortedValues release];
+    [bookPickSortedValues release];
+    [bookCommentSortedValues release];
     [super didReceiveMemoryWarning];
     DebugLog(@"ChapterListVC didReceiveMemoryWaring");
 }

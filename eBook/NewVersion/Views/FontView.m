@@ -16,6 +16,9 @@
 @synthesize curPageIndex,curChapterIndex,curChapterPageIndex;
 
 - (void)dealloc {
+    [curPageIndex release];curPageIndex = nil;
+    [curChapterIndex release];curChapterIndex = nil;
+    [curChapterPageIndex release];curPageIndex = nil;
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"sendPageToBookMark" object:nil];
     [super dealloc];
 }
