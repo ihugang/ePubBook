@@ -60,7 +60,7 @@
     // someone uses ATPagingView in a non-fullscreen layout.
     self.clipsToBounds = YES;
 
-    _scrollView = [[UIScrollView alloc] initWithFrame:[self frameForScrollView]];
+    _scrollView = [[[UIScrollView alloc] initWithFrame:[self frameForScrollView]] autorelease];
     _scrollView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     _scrollView.pagingEnabled = YES;
     _scrollView.backgroundColor = [UIColor blackColor];
@@ -168,10 +168,10 @@
     }
     
     if (!CGSizeEqualToSize(_scrollView.contentSize, contentSize)) {
-#ifdef AT_PAGING_VIEW_TRACE_LAYOUT
+//#ifdef AT_PAGING_VIEW_TRACE_LAYOUT
         NSLog(@"configurePages: _scrollView.frame == %@, setting _scrollView.contentSize = %@",
               NSStringFromCGRect(_scrollView.frame), NSStringFromCGSize(contentSize));
-#endif
+//#endif
         _scrollView.contentSize = contentSize;
         if (_horizontal) {
             _scrollView.contentOffset = CGPointMake(_scrollView.frame.size.width * _currentPageIndex, 0);
@@ -179,9 +179,9 @@
             _scrollView.contentOffset = CGPointMake(0, _scrollView.frame.size.height * _currentPageIndex);
         }
     } else {
-#ifdef AT_PAGING_VIEW_TRACE_LAYOUT
+//#ifdef AT_PAGING_VIEW_TRACE_LAYOUT
         NSLog(@"configurePages: _scrollView.frame == %@", NSStringFromCGRect(_scrollView.frame));
-#endif
+//#endif
     }
 
     CGRect visibleBounds = _scrollView.bounds;
@@ -191,9 +191,9 @@
     } else {
         newPageIndex = MIN(MAX(floorf(CGRectGetMidY(visibleBounds) / CGRectGetHeight(visibleBounds)), 0), _pageCount - 1);
     }
-#ifdef AT_PAGING_VIEW_TRACE_LAYOUT
+//#ifdef AT_PAGING_VIEW_TRACE_LAYOUT
     NSLog(@"newPageIndex == %d", newPageIndex);
-#endif
+//#endif
 
     newPageIndex = MAX(0, MIN(_pageCount, newPageIndex));
 
@@ -217,14 +217,16 @@
     for (int index = firstPage; index <= lastPage; index++) {
         if ([self viewForPageAtIndex:index] == nil) {
             // only preload visible pages in quick mode
-            if (quickMode && (index < firstVisiblePage || index > lastVisiblePage))
-                continue;
+//            if (quickMode && (index < firstVisiblePage || index > lastVisiblePage))
+//                continue;
             UIView *page = [_delegate viewForPageInPagingView:self atIndex:index];
             [self configurePage:page forIndex:index];
             [_scrollView addSubview:page];
             [_visiblePages addObject:page];
         }
     }
+    
+    DebugLog(@"_visiblePages------> %@",_visiblePages);
 
     // update loaded pages info
     BOOL loadedPagesChanged;
@@ -260,7 +262,7 @@
     if (loadedPagesChanged || pageIndexChanged) {
         if ([_delegate respondsToSelector:@selector(pagesDidChangeInPagingView:)]) {
 //#ifdef AT_PAGING_VIEW_TRACE_DELEGATE_CALLS
-            NSLog(@"pagesDidChangeInPagingView");
+            NSLog(@"ATPagingView pagesDidChangeInPagingView");
 //#endif
             [_delegate pagesDidChangeInPagingView:self];
         }

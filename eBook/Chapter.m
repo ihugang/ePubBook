@@ -19,8 +19,9 @@
         chapterIndex = theIndex;
 
 		NSString* html = [[NSString alloc] initWithData:[NSData dataWithContentsOfURL:[NSURL fileURLWithPath:theSpinePath]] encoding:NSUTF8StringEncoding];
+//        NSLog(@"html ------- >>>>>%@",html);
 		text = [[html stringByConvertingHTMLToPlainText] retain];
-//        NSLog(@"text ------- >>>>>%d",spinePath.retainCount);
+//        NSLog(@"text ------- >>>>>%@",text);
 //      
 		[html release];
         

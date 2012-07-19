@@ -16,9 +16,9 @@
     //提示下载
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{ 
 		dispatch_async(dispatch_get_main_queue(), ^{ 
+            [[Book sharedInstance] prepareBook];
 		});  
-        [[Book sharedInstance] prepareBook];
- 
+        
 		//解压代码 
 		dispatch_async(dispatch_get_main_queue(), ^{
 			   info(); 

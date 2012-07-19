@@ -30,29 +30,31 @@
      [DemoDataParse parse];
      return YES;
      */
-    NSLog(@"didFinishLaunchingWithOptions");
+//    DebugLog(@"didFinishLaunchingWithOptions");
+//    
+//    NSString *test = @"浪网上;赌遍全球;的BLOG:http://blog.sina.co";
+//    NSString *all = @"如有愿购买本书或[赌遍全球]系列书的其他分册，请查看：李老胜在新浪网上;赌遍全球;的BLOG:http://blog.sina.com.cn/dubianquanqiu";
+//    NSRange range = [all rangeOfString:test];
+//    int location = range.location;
+//    int leight = range.length;
+//    NSString *astring = [[NSString alloc] initWithString:[NSString stringWithFormat:@"Location:%i,Leight:%i",location,leight]];
+//    NSLog(@"astring:%@",astring);
+//    [astring release];
     
-    NSString *test = @"浪网上;赌遍全球;的BLOG:http://blog.sina.co";
-    NSString *all = @"如有愿购买本书或[赌遍全球]系列书的其他分册，请查看：李老胜在新浪网上;赌遍全球;的BLOG:http://blog.sina.com.cn/dubianquanqiu";
-    NSRange range = [all rangeOfString:test];
-    int location = range.location;
-    int leight = range.length;
-    NSString *astring = [[NSString alloc] initWithString:[NSString stringWithFormat:@"Location:%i,Leight:%i",location,leight]];
-    NSLog(@"astring:%@",astring);
-    [astring release];
-    
-    application.statusBarHidden=NO;
+//    application.statusBarHidden=NO;
     self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
     self.window.backgroundColor = [UIColor whiteColor];
     
-    if (YES) {
-        self.rootVC = [[[RootVC alloc] init] autorelease];
-        self.window.rootViewController = rootVC;
-    }
-    else{
+//    if (YES) {
+//        
+//    }
+//    else{
 //        eBook = [[[eBookViewController alloc] init] autorelease];
 //        self.window.rootViewController = eBook;
-    }
+//    }
+    self.rootVC = [[[RootVC alloc] init] autorelease];
+    self.window.rootViewController = rootVC;
+    
     [self.window makeKeyAndVisible];
     
     //检查问价是否存在，拷贝文件到document目录
@@ -81,7 +83,7 @@
     }
         
     //屏幕亮度控制
-    brightnessView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.window.bounds.size.width, self.window.bounds.size.height)];
+    brightnessView = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, self.window.bounds.size.width, self.window.bounds.size.height)] autorelease];
     [brightnessView setBackgroundColor:[UIColor blackColor]];
     [brightnessView setUserInteractionEnabled:NO];
     [self.window addSubview:brightnessView];

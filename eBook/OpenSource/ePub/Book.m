@@ -14,8 +14,17 @@
 @synthesize currentBookInfo;
 @synthesize BodyFontSize,PageWidth,PageHeight;
 @synthesize PageCount,ChapterCount;
-@synthesize chapters,Pages;
+@synthesize chapters,Pages,jquery;
 SYNTHESIZE_SINGLETON_FOR_CLASS(Book);
+
+- (void)dealloc
+{
+    [self.currentBookInfo release];
+    [self.chapters release];
+    [self.Pages release];
+    [self.jquery release];
+    [super dealloc];
+}
 
 -(void)prepareBook{ 
 
@@ -51,9 +60,9 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(Book);
     }
     
     self.currentBookInfo =[NSDictionary dictionaryWithContentsOfFile:path];
-    BodyFontSize = DI(self.currentBookInfo, @"BodyFontSize");
-    PageWidth = DI(self.currentBookInfo, @"PageWidth");
-    PageHeight = DI(self.currentBookInfo, @"PageHeight"); 
+    self.BodyFontSize = DI(self.currentBookInfo, @"BodyFontSize");
+    self.PageWidth = DI(self.currentBookInfo, @"PageWidth");
+    self.PageHeight = DI(self.currentBookInfo, @"PageHeight"); 
     
     NSLog(@"Book prepareBook - >BodyFontSize:%d,PageWidth:%d,PageHeight:%d",BodyFontSize,PageWidth,PageHeight);
     
@@ -94,6 +103,8 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(Book);
     self.PageCount =iAllPageCount;
     self.Pages = allPages;
     self.chapters = cs;
+    //加载js
+    [self setupJavascript]; 
 }
 //返回plist中对应的页面位置
 -(NSString*)getPIndex:(NSString*)name pChapter:(NSInteger)c pIndex:(NSString *)p aIndex:(NSString*)a
@@ -129,6 +140,57 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(Book);
     }
     DebugLog(@"index -------> %@",pIndex);
     return pIndex;
+}
+
+- (void) setupJavascript {
+    /*
+     <script type="text/javascript" src="jquery-1.7.2.js"></script> 
+     <script type="text/javascript" src="rangy.js"></script>
+     <script type="text/javascript" src="injection.js"></script>
+     */
+	NSFileManager *fileManager = [NSFileManager defaultManager]; 
+    
+	NSString *jqueryFilePath =resPath(@"Res/jquery-1.7.2.min.js");
+    //    NSLog(@"jqueryFilePath  %@",jqueryFilePath);
+    
+	BOOL jqueryFileExists = [fileManager fileExistsAtPath:jqueryFilePath];
+	if (! jqueryFileExists) {
+		NSLog(@"The jquery file does not exist.");
+		return;
+	} 
+    
+    NSData *jqueryFileData = [fileManager contentsAtPath:jqueryFilePath];
+	NSString *jqueryFileContentsAsString = [[[NSString alloc] initWithData:jqueryFileData encoding:NSASCIIStringEncoding] autorelease]; 
+	// injection.js
+	NSString *injectionFilePath = resPath(@"Res/rangy.js");
+    //    NSLog(@"injectionFilePath  %@",injectionFilePath);
+	
+	BOOL injectionFileExists = [fileManager fileExistsAtPath:injectionFilePath]; 
+	if (! injectionFileExists) {
+		NSLog(@"The injection file does not exist.");
+		return;
+	} 
+	NSData *injectionFileData = [fileManager contentsAtPath:injectionFilePath];
+	NSString *injectionFileContentsAsString = [[[NSString alloc] initWithData:injectionFileData encoding:NSASCIIStringEncoding] autorelease]; 
+    
+    self.jquery = [jqueryFileContentsAsString stringByAppendingString:injectionFileContentsAsString];
+    
+    //    jqueryFileData = [fileManager contentsAtPath:jqueryFilePath];
+    //    jqueryFileContentsAsString = [[[NSString alloc] initWithData:jqueryFileData encoding:NSASCIIStringEncoding] autorelease]; 
+	// injection.js
+    injectionFilePath = resPath(@"Res/injection.js");
+	
+	injectionFileExists = [fileManager fileExistsAtPath:injectionFilePath]; 
+	if (! injectionFileExists) {
+		NSLog(@"The injection file does not exist.");
+		return;
+	} 
+    
+    injectionFileData = [fileManager contentsAtPath:injectionFilePath];
+    injectionFileContentsAsString = [[[NSString alloc] initWithData:injectionFileData encoding:NSASCIIStringEncoding] autorelease];
+    
+	// concat the two files
+	self.jquery = [self.jquery stringByAppendingString:injectionFileContentsAsString];
 }
 
 @end

@@ -18,6 +18,7 @@
 @property(nonatomic,assign) int ChapterCount;
 @property(nonatomic,retain)NSArray* chapters;
 @property(nonatomic,retain)NSArray* Pages;
+@property(nonatomic,retain)NSString *jquery;
 
 SYNTHESIZE_SINGLETON_FOR_CLASS_HEADER(Book);
 

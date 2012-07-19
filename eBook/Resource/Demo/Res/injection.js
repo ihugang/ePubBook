@@ -39,7 +39,7 @@ $(document).ready(function() {
 function make(name,txt,x,y) {
 //    alert(name);
     //传递数据给webview
-    document.location = "iBooks:" + "tags:" + name + ":" + txt + ":" + x + ":"+ y;
+    document.location = "ibooks:" + "tags:" + name + ":" + txt + ":" + x + ":"+ y;
 }
 
 //删除样式

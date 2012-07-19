@@ -139,6 +139,7 @@
 - (NSString *)stringByDecodingHTMLEntities {
 	// gtm_stringByUnescapingFromHTML can return self so create new string ;)
 	return [NSString stringWithString:[self gtm_stringByUnescapingFromHTML]]; 
+//    return  nil;
 }
 
 // Encode all HTML entities using GTM

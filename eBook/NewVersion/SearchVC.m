@@ -108,7 +108,7 @@
     [searchIcon setImage:skinImage(@"searchbar/d004.png")];
     [bg addSubview:searchIcon];
     
-    searchField = [[UITextField alloc] initWithFrame:CGRectMake(27, 2, bg.bounds.size.width - 28, bg.bounds.size.height - 4)] ;
+    searchField = [[[UITextField alloc] initWithFrame:CGRectMake(27, 2, bg.bounds.size.width - 28, bg.bounds.size.height - 4)] autorelease] ;
     [searchField setBorderStyle:UITextBorderStyleNone];
     searchField.adjustsFontSizeToFitWidth = YES;//设置为YES时文本会自动缩小以适应文本窗口大小。默认是保持原来大小，而让长文本滚动  
     searchField.clearButtonMode = UITextFieldViewModeUnlessEditing;//右边显示的'X'清楚按钮  
@@ -129,7 +129,7 @@
     [searchButton setAutoresizingMask:UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleRightMargin];
     [searchView addSubview:searchButton];
     
-    resultTable = [[UITableView alloc] initWithFrame:CGRectMake(5, 5, resultView.bounds.size.width - 10, resultView.bounds.size.height - 10)];
+    self.resultTable = [[[UITableView alloc] initWithFrame:CGRectMake(5, 5, resultView.bounds.size.width - 10, resultView.bounds.size.height - 10)] autorelease];
     [resultTable setDataSource:self];
     [resultTable setDelegate:self];
     [resultTable setAutoresizesSubviews:YES];
@@ -148,7 +148,6 @@
 - (void)search:(id)sender
 {
     NSLog(@"search");
-    
     [self.delegate showSearchVC];
     
 }
@@ -185,6 +184,7 @@
     cell.number.highlightedTextColor = [UIColor whiteColor];
     cell.content.highlightedTextColor = [UIColor whiteColor];
     
+    
     return cell;
 }
 
@@ -218,12 +218,16 @@
     [sectionView addSubview:_refreshHeaderView];
     [sectionView setAutoresizesSubviews:YES];
     [sectionView setAutoresizingMask:UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleRightMargin];
-
-    if ([tableView numberOfRowsInSection:section] > 4) {
+    if (results.count > 4) {
         _refreshHeaderView.hidden = NO;
     }else {
         _refreshHeaderView.hidden = YES;
     }
+//    if ([tableView numberOfRowsInSection:0] > 4) {
+//        
+//    }else {
+//        
+//    }
     return sectionView;
 
 }
@@ -260,6 +264,7 @@
     self.currentQuery = searchField.text;
     NSLog(@"query --> %@",currentQuery);   
     [self searchString:currentQuery inChapterAtIndex:0];
+    [searchField resignFirstResponder];
 }
 
 - (void) searchString:(NSString *)query inChapterAtIndex:(int)index{
