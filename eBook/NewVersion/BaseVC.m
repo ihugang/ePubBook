@@ -14,6 +14,15 @@
     return [[[self alloc] init] autorelease];
 }
 
+- (id)init
+{
+    self = [super init];
+    if (self) {
+        [[UIApplication sharedApplication]  setStatusBarHidden:YES];
+    }
+    return self;
+}
+
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {

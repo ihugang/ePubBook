@@ -89,7 +89,7 @@
     [settingView setAutoresizingMask:UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleRightMargin];
     [baseView addSubview:settingView];
     
-    NSArray *aa = [NSArray arrayWithObjects:@"test",@"test",@"test", nil];
+    NSArray *aa = [NSArray arrayWithObjects:@"关于我们", nil];
     self.test = aa;
     
     //释放对象
@@ -114,7 +114,7 @@
     if (section == 0) {
         return 1;
     }else{
-        return 3;
+        return self.test.count;
     }
 }
 

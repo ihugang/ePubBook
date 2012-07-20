@@ -34,11 +34,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "eBook/NewVersion/RootVC.m"
-         timestampString = "364385644.286807"
+         timestampString = "364444665.172714"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "259"
-         endingLineNumber = "259"
+         startingLineNumber = "261"
+         endingLineNumber = "261"
          landmarkName = "-currentPageDidChangeInPagingView:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -47,25 +47,12 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "eBook/NewVersion/RootVC.m"
-         timestampString = "364385644.286807"
+         timestampString = "364444665.172714"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "245"
-         endingLineNumber = "245"
+         startingLineNumber = "247"
+         endingLineNumber = "247"
          landmarkName = "-pagesDidChangeInPagingView:"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "eBook/NewVersion/RootVC.m"
-         timestampString = "364385644.286807"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "316"
-         endingLineNumber = "316"
-         landmarkName = "-navView:changeToIndex:"
          landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>

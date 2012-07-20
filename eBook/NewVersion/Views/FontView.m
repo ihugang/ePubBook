@@ -207,7 +207,7 @@
     NSLog(@" npageIndex --> %@",npageIndex);
     
     [self getPages];
-    NSInteger before = [self getNowPageIndex];
+//    NSInteger before = [self getNowPageIndex];
     //获取当前页面的p index 和 Auto Index
     NSString *curNowPageIndex = [NSString stringWithFormat:@"%d",self.curChapterPageIndex.intValue];
     NSString *nowParaIndex = [[[curBook.Pages objectAtIndex:self.curChapterIndex.intValue] objectAtIndex:curNowPageIndex.intValue] objectForKey:@"ParaIndex"]; 
@@ -216,7 +216,7 @@
     DebugLog(@"FontView ---->P: %@   a: %@",nowParaIndex,nowAtomIndex);
     
 //    DebugLog(@"min:%@  mid:%@ max:%@",iphone_min,iphone_mid,iphone_max);
-    NSString *pIndex = nil;
+//    NSString *pIndex = nil;
     if (select.tag == 100) {
         [minButton setBackgroundImage:skinImage(@"fontbar/c008-选中.png") forState:UIControlStateNormal];
         [middleButton setBackgroundImage:skinImage(@"fontbar/c009.png") forState:UIControlStateNormal];
@@ -226,12 +226,12 @@
         [[NSUserDefaults standardUserDefaults] synchronize];
         NSString *iphone_min = [curBook getPIndex:@"iPhone_2@2x.plist" pChapter:self.curChapterIndex.intValue pIndex:nowParaIndex aIndex:nowAtomIndex];
         [curBook prepareBook];
-        pIndex = [NSString stringWithFormat:@"%d",iphone_min.intValue+before];
+//        pIndex = [NSString stringWithFormat:@"%d",iphone_min.intValue+before];
         
-        [[NSUserDefaults standardUserDefaults] setValue:pIndex forKey:@"currentPageIndex"];
+        [[NSUserDefaults standardUserDefaults] setValue:iphone_min forKey:@"currentPageIndex"];
         [[NSUserDefaults standardUserDefaults] synchronize];//写入数据
         
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"FontChange" object:pIndex];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"FontChange" object:iphone_min];
         
         
     }else if(select.tag == 101){
@@ -244,12 +244,12 @@
         
         NSString *iphone_mid = [curBook getPIndex:@"iPhone_2@2x36.plist" pChapter:self.curChapterIndex.intValue pIndex:nowParaIndex aIndex:nowAtomIndex];
         [curBook prepareBook];
-        pIndex = [NSString stringWithFormat:@"%d",iphone_mid.intValue+before];
+//        pIndex = [NSString stringWithFormat:@"%d",iphone_mid.intValue+before];
         
-        [[NSUserDefaults standardUserDefaults] setValue:pIndex forKey:@"currentPageIndex"];
+        [[NSUserDefaults standardUserDefaults] setValue:iphone_mid forKey:@"currentPageIndex"];
         [[NSUserDefaults standardUserDefaults] synchronize];//写入数据
         
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"FontChange" object:pIndex];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"FontChange" object:iphone_mid];
         
         
     }else {
@@ -262,15 +262,15 @@
         
         NSString *iphone_max = [curBook getPIndex:@"iPhone_2@2x44.plist" pChapter:self.curChapterIndex.intValue pIndex:nowParaIndex aIndex:nowAtomIndex];
         [curBook prepareBook];
-        pIndex = [NSString stringWithFormat:@"%d",iphone_max.intValue+before];
+//        pIndex = [NSString stringWithFormat:@"%d",iphone_max.intValue+before];
         
-        [[NSUserDefaults standardUserDefaults] setValue:pIndex forKey:@"currentPageIndex"];
+        [[NSUserDefaults standardUserDefaults] setValue:iphone_max forKey:@"currentPageIndex"];
         [[NSUserDefaults standardUserDefaults] synchronize];//写入数据
         
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"FontChange" object:pIndex];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"FontChange" object:iphone_max];
     }
     
-    DebugLog(@"FontView =========>P:%@",pIndex);
+//    DebugLog(@"FontView =========>P:%@",pIndex);
     
     //发送通知，就是说此时要调用观察者处的方
 //    [[NSNotificationCenter defaultCenter] postNotificationName:@"pageLoad" object:[NSString stringWithFormat:@"%d",select.tag]];

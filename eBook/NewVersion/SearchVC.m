@@ -91,7 +91,7 @@
     [searchView setAutoresizingMask:UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleRightMargin];
     [self.view addSubview:searchView];
     
-    UIView *resultView = [[[UIView alloc] initWithFrame:CGRectMake(10, navBar.bounds.size.height + searchView.bounds.size.height + 20, self.view.bounds.size.width - 20, self.view.bounds.size.height - navBar.bounds.size.height - searchView.bounds.size.height - 10)] autorelease];
+    UIView *resultView = [[[UIView alloc] initWithFrame:CGRectMake(10, navBar.bounds.size.height + searchView.bounds.size.height + 20, self.view.bounds.size.width - 20, self.view.bounds.size.height - navBar.bounds.size.height - searchView.bounds.size.height - 30)] autorelease];
     [resultView setBackgroundColor:[UIColor whiteColor]];
     [resultView setAutoresizesSubviews:YES];
     [resultView setAutoresizingMask:UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleRightMargin];
@@ -116,6 +116,7 @@
     [searchField setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];//text垂直居中
     [searchField setAutoresizesSubviews:YES];
     [searchField setAutoresizingMask:UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleRightMargin];
+    [searchField becomeFirstResponder];
     [searchField setDelegate:self];
     [bg addSubview:searchField];
     
@@ -207,7 +208,7 @@
 
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
 {
-    UIView * sectionView = [[[UIView alloc] initWithFrame:CGRectMake(0,50, tableView.bounds.size.width,tableView.bounds.size.height)] autorelease];
+    UIView * sectionView = [[[UIView alloc] initWithFrame:CGRectMake(0,resultTable.height, tableView.bounds.size.width,tableView.bounds.size.height)] autorelease];
     //上拉刷新
     _refreshHeaderView=[[EGORefreshTableHeaderView alloc] initWithFrame:
                         CGRectMake(0,100, sectionView.bounds.size.width, sectionView.bounds.size.height)];

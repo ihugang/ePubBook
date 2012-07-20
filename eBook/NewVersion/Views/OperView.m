@@ -210,7 +210,7 @@
         DebugLog(@"remove bookmark");
         [self getPages];
         
-        NSInteger before = [self getNowPageIndex];
+//        NSInteger before = [self getNowPageIndex];
         
         DebugLog(@"----> %@",[curBook.Pages objectAtIndex:self.curChapterIndex.intValue]);
         //获取当前页面的p index 和 Auto Index
@@ -228,21 +228,21 @@
         
         //删除书签
         [bookMarks getBookMark:iphone_minBookMark];
-         NSString *pIndex = [NSString stringWithFormat:@"%d",iphone_min.intValue+before];
-        DebugLog(@"pIndx -----> %@",pIndex);
-        [bookMarks.bookmarks removeObjectForKey:pIndex];
+//         NSString *pIndex = [NSString stringWithFormat:@"%d",iphone_min.intValue+before];
+//        DebugLog(@"pIndx -----> %@",pIndex);
+        [bookMarks.bookmarks removeObjectForKey:iphone_min];
         [bookMarks.bookmarks writeToFile:bookMarks.filename atomically:YES];
         
         [bookMarks getBookMark:iphone_middleBookMark];
-        pIndex = [NSString stringWithFormat:@"%d",iphone_mid.intValue+before];
-        DebugLog(@"pIndx -----> %@",pIndex);
-        [bookMarks.bookmarks removeObjectForKey:pIndex];
+//        pIndex = [NSString stringWithFormat:@"%d",iphone_mid.intValue+before];
+//        DebugLog(@"pIndx -----> %@",pIndex);
+        [bookMarks.bookmarks removeObjectForKey:iphone_mid];
         [bookMarks.bookmarks writeToFile:bookMarks.filename atomically:YES];
         
         [bookMarks getBookMark:iphone_maxBookMark];
-        DebugLog(@"pIndx -----> %@",pIndex);
-        pIndex = [NSString stringWithFormat:@"%d",iphone_max.intValue+before];
-        [bookMarks.bookmarks removeObjectForKey:pIndex];
+//        DebugLog(@"pIndx -----> %@",pIndex);
+//        pIndex = [NSString stringWithFormat:@"%d",iphone_max.intValue+before];
+        [bookMarks.bookmarks removeObjectForKey:iphone_max];
         [bookMarks.bookmarks writeToFile:bookMarks.filename atomically:YES];
         
         [[NSNotificationCenter defaultCenter] postNotificationName:@"sendPageToBookMark" object:currentPageIndex];
@@ -296,7 +296,7 @@
     DebugLog(@"addBookMark ----> %@",self.currentPageIndex);
     Chapter* chapter = [curBook.chapters objectAtIndex:self.curChapterIndex.intValue];
     //    DebugLog(@"title  ---- %@",chapter.title);
-    NSInteger before = [self getNowPageIndex];
+//    NSInteger before = [self getNowPageIndex];
     
     DebugLog(@"----> %@",[curBook.Pages objectAtIndex:self.curChapterIndex.intValue]);
     //获取当前页面的p index 和 Auto Index
@@ -314,21 +314,18 @@
     
     [bookMarks getBookMark:iphone_minBookMark];
     //给当前页面添加书签
-    NSString *pIndex = [NSString stringWithFormat:@"%d",iphone_min.intValue+before];
-    NSDictionary *pageIndex = [[[NSDictionary alloc] initWithObjectsAndKeys:pIndex,@"pageIndex",localTime,@"time",chapter.title,@"content", nil] autorelease];
-    [bookMarks.bookmarks setValue:pageIndex forKey:pIndex];
+    NSDictionary *pageIndex = [[[NSDictionary alloc] initWithObjectsAndKeys:iphone_min,@"pageIndex",localTime,@"time",chapter.title,@"content", nil] autorelease];
+    [bookMarks.bookmarks setValue:pageIndex forKey:iphone_min];
     [bookMarks.bookmarks writeToFile:bookMarks.filename atomically:YES];
     
     [bookMarks getBookMark:iphone_middleBookMark];
-    pIndex = [NSString stringWithFormat:@"%d",iphone_mid.intValue +before];
-    pageIndex = [[[NSDictionary alloc] initWithObjectsAndKeys:pIndex,@"pageIndex",localTime,@"time",chapter.title,@"content", nil] autorelease];
-    [bookMarks.bookmarks setValue:pageIndex forKey:pIndex];
+    pageIndex = [[[NSDictionary alloc] initWithObjectsAndKeys:iphone_mid,@"pageIndex",localTime,@"time",chapter.title,@"content", nil] autorelease];
+    [bookMarks.bookmarks setValue:pageIndex forKey:iphone_mid];
     [bookMarks.bookmarks writeToFile:bookMarks.filename atomically:YES];
     
     [bookMarks getBookMark:iphone_maxBookMark];
-    pIndex = [NSString stringWithFormat:@"%d",iphone_max.intValue +before];
-    pageIndex = [[[NSDictionary alloc] initWithObjectsAndKeys:pIndex,@"pageIndex",localTime,@"time",chapter.title,@"content", nil] autorelease];
-    [bookMarks.bookmarks setValue:pageIndex forKey:pIndex];
+    pageIndex = [[[NSDictionary alloc] initWithObjectsAndKeys:iphone_max,@"pageIndex",localTime,@"time",chapter.title,@"content", nil] autorelease];
+    [bookMarks.bookmarks setValue:pageIndex forKey:iphone_max];
     [bookMarks.bookmarks writeToFile:bookMarks.filename atomically:YES];
     
     [formatter release];

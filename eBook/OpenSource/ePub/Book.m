@@ -115,29 +115,45 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(Book);
     NSArray *all = DA(dic, @"PageBreakSet");
     NSDictionary *chap = [all objectAtIndex:c];
     NSArray *pages = DA(chap, @"pages");
-    DebugLog(@"getPindex -------> %@",pages);
+//    DebugLog(@"getPindex -------> %@",pages);
     
-    NSString *pIndex = @"";
+    //计算当前Chapter之前的 所有页面总数
+    int pageTotal = 0;
+    for (int m =0; m < all.count; m++) {
+        if (m < c) {
+            int page = DA([all objectAtIndex:m], @"pages").count + 1;
+            pageTotal += page;
+        }else {
+            break;
+        }
+    }
+    DebugLog(@"pageTotal -------> %d",pageTotal);
+    //获取当前p在当前chapter的第几页
+    int pInChapter;
     for (int i =0 ; i< pages.count; i++) {
         if ([[[pages objectAtIndex:i] objectForKey:@"ParaIndex"] intValue] == p.intValue) {
             //等于当前P,判断在p中的偏移位置
             if ([[[pages objectAtIndex:i] objectForKey:@"AtomIndex"] intValue] == a.intValue) {
-                pIndex = [NSString stringWithFormat:@"%d",i];
+                pInChapter = i;
+//                pIndex = [NSString stringWithFormat:@"%d",i];
                 break;
             }else {
                 if ([[[pages objectAtIndex:i] objectForKey:@"AtomIndex"] intValue] > a.intValue) {
-                    pIndex = [NSString stringWithFormat:@"%d",i];
+                    pInChapter = i;
+//                    pIndex = [NSString stringWithFormat:@"%d",i];
                     break;
                 }
 //                pIndex = [NSString stringWithFormat:@"%d",i+1];
             }
         }else {//没有匹配的P 根据大于当前p的index
             if ([[[pages objectAtIndex:i] objectForKey:@"ParaIndex"] intValue] > p.intValue) {
-                pIndex = [NSString stringWithFormat:@"%d",i];
+                pInChapter = i;
+//                pIndex = [NSString stringWithFormat:@"%d",i]; 
                 break;
             }
         }
     }
+    NSString *pIndex = [NSString stringWithFormat:@"%d",pageTotal + pInChapter];
     DebugLog(@"index -------> %@",pIndex);
     return pIndex;
 }

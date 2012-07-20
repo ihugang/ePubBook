@@ -168,6 +168,8 @@
 //    self.pageView.pagesToPreload = 0;//前后方向加载不可见页数
     self.pageView.currentPageIndex = [[notification object] intValue];
     [self.pageView reloadData];
+    //隐藏导航栏
+    [self swichUI:NO];
 }
 
 //目录列表页面跳转
@@ -211,9 +213,9 @@
         [self.view viewWithTag:1001].hidden = YES;
         return NO;
     }
-    if ([self.view viewWithTag:1001]) {
-        [self.view viewWithTag:1001].hidden = YES;
-    }
+//    if ([self.view viewWithTag:1001]) {
+//        [self.view viewWithTag:1001].hidden = YES;
+//    }
     return YES;
 }
 
@@ -273,9 +275,10 @@
     
     [[NSUserDefaults standardUserDefaults] setValue:[NSString stringWithFormat:@"%d",pagingView.currentPageIndex] forKey:@"currentPageIndex"];
     [[NSUserDefaults standardUserDefaults] synchronize];//写入数据
-    //发送检查页面是否添加书签
-//    [[NSNotificationCenter defaultCenter] postNotificationName:@"pageChange" object:[NSString stringWithFormat:@"%d",pagingView.currentPageIndex]];
+    //检查是否添加书签
     [[NSNotificationCenter defaultCenter] postNotificationName:@"sendPageToBookMark" object:[NSString stringWithFormat:@"%d",pagingView.currentPageIndex]];
+    //发送给拖动条
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"pageChange" object:[NSString stringWithFormat:@"%d",pagingView.currentPageIndex]];
 }
 #pragma mark 旋转
 -(void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation{
@@ -328,6 +331,9 @@
     operViewShowed = showOperView; 
     _operView.hidden = !showOperView;
     _navView.hidden = !showOperView;
+    if ([self.view viewWithTag:1001]) {
+        [self.view viewWithTag:1001].hidden = YES;
+    }
     [[UIApplication sharedApplication]  setStatusBarHidden:!operViewShowed withAnimation:UIStatusBarAnimationSlide];
     if (showOperView) {
         

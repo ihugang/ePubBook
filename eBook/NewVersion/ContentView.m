@@ -377,15 +377,13 @@
         NSString *iphone_max = [curBook getPIndex:@"iPhone_2@2x44.plist" pChapter:curSpineIndex pIndex:pIndex aIndex:nowAtomIndex];
         DebugLog(@"min:%@  mid:%@ max:%@",iphone_min,iphone_mid,iphone_max);
         
-        NSInteger before = [self getNowPageIndex];
-        
 //        NSString *npageIndex = [[NSUserDefaults standardUserDefaults] objectForKey:@"currentPageIndex"];
 //        DebugLog(@" npageIndex --> %@",npageIndex);
+
         //获取书摘列表
         [bookPick getBookPick:iphone_minBookpick];
         //给当前页面添加书摘
-        NSString *nIndex = [NSString stringWithFormat:@"%d",iphone_min.intValue + before];
-        NSDictionary *pageIndex = [[[NSDictionary alloc] initWithObjectsAndKeys:nIndex,@"pageIndex",className,@"className",localTime,@"time",highlightedString,@"content",pIndex,@"pIndex",nowAtomIndex,@"AtomIndex", nil] autorelease];
+        NSDictionary *pageIndex = [[[NSDictionary alloc] initWithObjectsAndKeys:iphone_min,@"pageIndex",className,@"className",localTime,@"time",highlightedString,@"content",pIndex,@"pIndex",nowAtomIndex,@"AtomIndex", nil] autorelease];
         [bookPick.currentBookPick setValue:pageIndex forKey:className];
         //写入document文件
         [bookPick.currentBookPick writeToFile:bookPick.filename atomically:YES];
@@ -393,8 +391,7 @@
         //获取书摘列表
         [bookPick getBookPick:iphone_middleBookpick];
         //给当前页面添加书摘
-        nIndex = [NSString stringWithFormat:@"%d",iphone_mid.intValue + before];
-        pageIndex = [[[NSDictionary alloc] initWithObjectsAndKeys:nIndex,@"pageIndex",className,@"className",localTime,@"time",highlightedString,@"content",pIndex,@"pIndex",nowAtomIndex,@"AtomIndex", nil] autorelease];
+        pageIndex = [[[NSDictionary alloc] initWithObjectsAndKeys:iphone_mid,@"pageIndex",className,@"className",localTime,@"time",highlightedString,@"content",pIndex,@"pIndex",nowAtomIndex,@"AtomIndex", nil] autorelease];
         [bookPick.currentBookPick setValue:pageIndex forKey:className];
         //写入document文件
         [bookPick.currentBookPick writeToFile:bookPick.filename atomically:YES];
@@ -402,8 +399,7 @@
         //获取书摘列表
         [bookPick getBookPick:iphone_maxBookpick];
         //给当前页面添加书摘
-        nIndex = [NSString stringWithFormat:@"%d",iphone_max.intValue + before];
-        pageIndex = [[[NSDictionary alloc] initWithObjectsAndKeys:nIndex,@"pageIndex",className,@"className",localTime,@"time",highlightedString,@"content",pIndex,@"pIndex",nowAtomIndex,@"AtomIndex", nil] autorelease];
+        pageIndex = [[[NSDictionary alloc] initWithObjectsAndKeys:iphone_max,@"pageIndex",className,@"className",localTime,@"time",highlightedString,@"content",pIndex,@"pIndex",nowAtomIndex,@"AtomIndex", nil] autorelease];
         [bookPick.currentBookPick setValue:pageIndex forKey:className];
         //写入document文件
         [bookPick.currentBookPick writeToFile:bookPick.filename atomically:YES];
@@ -471,37 +467,30 @@
         NSString *iphone_mid = [curBook getPIndex:@"iPhone_2@2x36.plist" pChapter:curSpineIndex pIndex:pIndex aIndex:nowAtomIndex];
         NSString *iphone_max = [curBook getPIndex:@"iPhone_2@2x44.plist" pChapter:curSpineIndex pIndex:pIndex aIndex:nowAtomIndex];
         DebugLog(@"min:%@  mid:%@ max:%@",iphone_min,iphone_mid,iphone_max);
-        NSInteger before = [self getNowPageIndex];
         
 //        NSString *npageIndex = [[NSUserDefaults standardUserDefaults] objectForKey:@"currentPageIndex"];
 //        DebugLog(@" npageIndex --> %@",npageIndex);
         
-        //获取批注列表
+        //获取手机版最小字体批注列表
         [bookComment getBookComment:iphone_minBookComment];
         //给当前页面添加书摘
-        NSString *nIndex = [NSString stringWithFormat:@"%d",iphone_min.intValue + before];
-        
-        //给当前页面添加书摘
-        NSDictionary *pageIndex = [[[NSDictionary alloc] initWithObjectsAndKeys:nIndex,@"pageIndex",_classId,@"className",localTime,@"time",_contentText,@"content", nil] autorelease];
+        NSDictionary *pageIndex = [[[NSDictionary alloc] initWithObjectsAndKeys:iphone_min,@"pageIndex",_classId,@"className",localTime,@"time",_contentText,@"content", nil] autorelease];
         [bookComment.currentBookComment setValue:pageIndex forKey:_classId];
         //写入document文件
         [bookComment.currentBookComment writeToFile:bookComment.filename atomically:YES];
         
-        //获取批注列表
+        //获取手机版中间字体批注列表
         [bookComment getBookComment:iphone_middleBookComment];
-        nIndex = [NSString stringWithFormat:@"%d",iphone_mid.intValue + before];
-        
         //给当前页面添加书摘
-        pageIndex = [[[NSDictionary alloc] initWithObjectsAndKeys:nIndex,@"pageIndex",_classId,@"className",localTime,@"time",_contentText,@"content", nil] autorelease];
+        pageIndex = [[[NSDictionary alloc] initWithObjectsAndKeys:iphone_mid,@"pageIndex",_classId,@"className",localTime,@"time",_contentText,@"content", nil] autorelease];
         [bookComment.currentBookComment setValue:pageIndex forKey:_classId];
         //写入document文件
         [bookComment.currentBookComment writeToFile:bookComment.filename atomically:YES];
         
-        //获取批注列表
+        //获取手机版大字体批注列表
         [bookComment getBookComment:iphone_maxBookComment];
-        nIndex = [NSString stringWithFormat:@"%d",iphone_max.intValue + before];
         //给当前页面添加书摘
-        pageIndex = [[[NSDictionary alloc] initWithObjectsAndKeys:nIndex,@"pageIndex",_classId,@"className",localTime,@"time",_contentText,@"content", nil] autorelease];
+        pageIndex = [[[NSDictionary alloc] initWithObjectsAndKeys:iphone_max,@"pageIndex",_classId,@"className",localTime,@"time",_contentText,@"content", nil] autorelease];
         [bookComment.currentBookComment setValue:pageIndex forKey:_classId];
         //写入document文件
         [bookComment.currentBookComment writeToFile:bookComment.filename atomically:YES];
@@ -551,35 +540,26 @@
         NSString *iphone_max = [curBook getPIndex:@"iPhone_2@2x44.plist" pChapter:curSpineIndex pIndex:pIndex aIndex:nowAtomIndex];
         DebugLog(@"Comment min:%@  mid:%@ max:%@",iphone_min,iphone_mid,iphone_max);
         
-        NSInteger before = [self getNowPageIndex];
-        
 //        NSString *npageIndex = [[NSUserDefaults standardUserDefaults] objectForKey:@"currentPageIndex"];
 //        DebugLog(@" npageIndex --> %@",npageIndex);
-        //获取批注列表
+        //获取手机版min字体批注列表
         [bookComment getBookComment:iphone_minBookComment];
-        //给当前页面添加书摘
-        NSString *nIndex = [NSString stringWithFormat:@"%d",iphone_min.intValue + before];
-        
-        NSDictionary *comm = [[[NSDictionary alloc] initWithObjectsAndKeys:nIndex,@"pageIndex",className,@"className",localTime,@"time",highlightedString,@"content", nil] autorelease];
+        NSDictionary *comm = [[[NSDictionary alloc] initWithObjectsAndKeys:iphone_min,@"pageIndex",className,@"className",localTime,@"time",highlightedString,@"content", nil] autorelease];
         [bookComment.currentBookComment setValue:comm forKey:className];
         //写入document文件
         [bookComment.currentBookComment writeToFile:bookComment.filename atomically:YES];
         
-        //获取批注列表
+        //获取手机版middle版字体批注列表
         [bookComment getBookComment:iphone_middleBookComment];
-        //给当前页面添加书摘
-        nIndex = [NSString stringWithFormat:@"%d",iphone_mid.intValue + before];
-        
-        comm = [[[NSDictionary alloc] initWithObjectsAndKeys:nIndex,@"pageIndex",className,@"className",localTime,@"time",highlightedString,@"content", nil] autorelease];
+        comm = [[[NSDictionary alloc] initWithObjectsAndKeys:iphone_mid,@"pageIndex",className,@"className",localTime,@"time",highlightedString,@"content", nil] autorelease];
         [bookComment.currentBookComment setValue:comm forKey:className];
         //写入document文件
         [bookComment.currentBookComment writeToFile:bookComment.filename atomically:YES];
         
-        //获取批注列表
+        //获取手机版max字体批注列表
         [bookComment getBookComment:iphone_maxBookComment];
         //给当前页面添加书摘
-        nIndex = [NSString stringWithFormat:@"%d",iphone_max.intValue + before];
-        comm = [[[NSDictionary alloc] initWithObjectsAndKeys:nIndex,@"pageIndex",className,@"className",localTime,@"time",highlightedString,@"content", nil] autorelease];
+        comm = [[[NSDictionary alloc] initWithObjectsAndKeys:iphone_max,@"pageIndex",className,@"className",localTime,@"time",highlightedString,@"content", nil] autorelease];
         [bookComment.currentBookComment setValue:comm forKey:className];
         //写入document文件
         [bookComment.currentBookComment writeToFile:bookComment.filename atomically:YES];
