@@ -6,73 +6,63 @@
 	<array>
 		<dict>
 			<key>icon</key>
-			<string>bookicon/i001.jpg</string>
+			<string>bookicon/bookicon@2x.png</string>
 			<key>name</key>
-			<string>aaa</string>
+			<string>赌遍全球2</string>
 			<key>description</key>
-			<string>asdfasdfasdf</string>
+			<string>赌遍全球系列图书第二版</string>
 			<key>path</key>
-			<string>www.google.com.cn</string>
+			<string></string>
 		</dict>
 		<dict>
 			<key>icon</key>
-			<string>bookicon/i002.jpg</string>
+			<string>bookicon/bookicon@2x.png</string>
 			<key>name</key>
-			<string>iphone 开发基础教程</string>
+			<string>赌遍全球3</string>
 			<key>description</key>
-			<string>这是一本介绍iPhone开发的基础教程</string>
+			<string>赌遍全球系统图书第三版</string>
 			<key>path</key>
-			<string>www.baidu.com</string>
+			<string></string>
 		</dict>
 		<dict>
 			<key>icon</key>
-			<string>bookicon/i003.jpg</string>
+			<string>bookicon/bookicon@2x.png</string>
 			<key>name</key>
-			<string>iphone 开发基础教程</string>
+			<string>赌遍全球4</string>
 			<key>description</key>
-			<string>这是一本介绍iPhone开发的基础教程</string>
+			<string>赌遍全球系列图书第四版</string>
 			<key>path</key>
-			<string>www.baidu.com</string>
+			<string></string>
 		</dict>
 		<dict>
 			<key>icon</key>
-			<string>bookicon/i004.jpg</string>
+			<string>bookicon/bookicon@2x.png</string>
 			<key>name</key>
-			<string>iphone 开发基础教程</string>
+			<string>赌遍全球5</string>
 			<key>description</key>
-			<string>这是一本介绍iPhone开发的基础教程</string>
+			<string>赌遍全球系列图书第五版</string>
 			<key>path</key>
-			<string>www.baidu.com</string>
+			<string></string>
 		</dict>
 		<dict>
 			<key>icon</key>
-			<string>bookicon/i001.jpg</string>
+			<string>bookicon/bookicon@2x.png</string>
 			<key>name</key>
-			<string>iphone 开发基础教程</string>
+			<string>赌遍全球6</string>
 			<key>description</key>
-			<string>这是一本介绍iPhone开发的基础教程</string>
+			<string>赌遍全球系列图书第六版</string>
 			<key>path</key>
-			<string>www.baidu.com</string>
+			<string></string>
 		</dict>
 		<dict>
 			<key>icon</key>
-			<string>bookicon/i002.jpg</string>
+			<string>bookicon/bookicon@2x.png</string>
 			<key>name</key>
-			<string>iphone 开发基础教程</string>
+			<string>赌遍全球7</string>
 			<key>description</key>
-			<string>这是一本介绍iPhone开发的基础教程</string>
+			<string>赌遍全球系列图书第七版</string>
 			<key>path</key>
-			<string>www.baidu.com</string>
-		</dict>
-		<dict>
-			<key>icon</key>
-			<string>bookicon/i003.jpg</string>
-			<key>name</key>
-			<string>iphone 开发基础教程</string>
-			<key>description</key>
-			<string>这是一本介绍iPhone开发的基础教程</string>
-			<key>path</key>
-			<string>www.baidu.com</string>
+			<string></string>
 		</dict>
 	</array>
 </dict>

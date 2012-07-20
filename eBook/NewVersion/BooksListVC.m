@@ -74,7 +74,7 @@
 //    [navigationItem setLeftBarButtonItem:leftButton];   
 //    [navigationItem setRightBarButtonItem:rightButton]; 
     
-    UITableView *booksList = [[UITableView alloc] initWithFrame:CGRectMake(0, navBar.frame.size.height, self.view.bounds.size.width, self.view.bounds.size.height - 20)];
+    UITableView *booksList = [[UITableView alloc] initWithFrame:CGRectMake(0, navBar.frame.size.height, self.view.bounds.size.width, self.view.bounds.size.height - 40)];
     [booksList setDelegate:self];
     [booksList setDataSource:self];
     [booksList setAutoresizesSubviews:YES];
@@ -138,9 +138,11 @@
 {
     NSString *path = [[[bookStore books] objectAtIndex:[indexPath row]] valueForKey:@"path"];
     DebugLog(@"select path --> %@",path);
-    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://%@",path]];
-    //打开系统站点
-    [[UIApplication sharedApplication] openURL:url];
+    if (!path) {
+        NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://%@",path]];
+        //打开系统站点
+        [[UIApplication sharedApplication] openURL:url];
+    }
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
