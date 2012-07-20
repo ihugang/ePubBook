@@ -32,8 +32,8 @@
      */
 //    DebugLog(@"didFinishLaunchingWithOptions");
 //    
-//    NSString *test = @"浪网上;赌遍全球;的BLOG:http://blog.sina.co";
-//    NSString *all = @"如有愿购买本书或[赌遍全球]系列书的其他分册，请查看：李老胜在新浪网上;赌遍全球;的BLOG:http://blog.sina.com.cn/dubianquanqiu";
+//    NSString *test = @"极为迅速，有十几亿人会玩，远远多于玩百家乐的人。高手赢低手，大鱼吃小鱼，行行如此";
+//    NSString *all = @"德州扑克是当前全球最为流行的赌博游戏，斗智斗勇，尔虞我诈，大家围坐一张赌桌，就是一个缩小的人生舞台。德州扑克是赌客互相之间的搏智，通常赌场抽水2%-5%，短期搏牌凭运气，长期赢钱靠策略技巧和判断能力。 你要赚的钱当然是来自比你水平低的人，德州扑克是世界上最多人玩的游戏，最近几年发展极为迅速，有十几亿人会玩，远远多于玩百家乐的人。高手赢低手，大鱼吃小鱼，行行如此。世界上有五千家合法赌场和无数网络赌场，本书目的就是让你成为高手，成为赌博海洋里自由翱游的大鱼。";
 //    NSRange range = [all rangeOfString:test];
 //    int location = range.location;
 //    int leight = range.length;

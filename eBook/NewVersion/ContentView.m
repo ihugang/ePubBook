@@ -81,7 +81,7 @@
 	}
     
     self.hud =[MBProgressHUD showHUDAddedTo:self animated:YES];
-    [_hud setLabelText:@"Loading....."];
+    [_hud setLabelText:@"加载中..."];
     [_curWebView setHidden:YES];
     
 //    curWebView2 = [[[UIWebView alloc] init] autorelease];
@@ -921,7 +921,7 @@
 //    }
 }
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error{
-    DebugLog(@"%@", @"didFailLoadWithError");
+    DebugLog(@"webView didFailLoadWithError");
 }
 
 - (void) inject{

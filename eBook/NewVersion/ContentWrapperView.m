@@ -30,7 +30,7 @@
     cv1.centerY = self.height/2;
     [self addSubview:cv1]; 
     [cv1 showWithIndex:aIndex]; 
-    [cv1 setDebug:YES];
+    [cv1 setDebug:NO];
     cv1.rootVC = self.rootVC;
     
     [cv1 setAutoresizingMask:UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleRightMargin];

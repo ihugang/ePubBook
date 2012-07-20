@@ -13,9 +13,9 @@ function getHighlightedString() {
     
     atomIndex = text.anchorOffset;
     
-    alert(text.focusNode.parentNode);
+//    alert(text.focusNode.parentNode);
     pIndex = getIndex(text.focusNode.parentNode);
-    alert("pIndex:"+pIndex);
+//    alert("pIndex:"+pIndex);
     
     //js获取当前p所在页面的index
 //    $("p").mouseup(function(){
@@ -42,7 +42,7 @@ function getIndex(obj){　　
 // ...
 function stylizeHighlightedString(className) {
     var range               = window.getSelection().getRangeAt(0);
-    alert("range startOffset:"+range.startOffset);
+//    alert("range startOffset:"+range.startOffset);
     
     var selectionContents   = range.extractContents();
     var span                = document.createElement("span");

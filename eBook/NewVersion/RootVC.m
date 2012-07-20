@@ -301,18 +301,17 @@
     //    int iCurIndex = self.pageView.currentPageIndex;
     //加载当前index也页面
     
-    [self addUI];
+//    [self addUI];
     parsing = YES;
     int iCurIndex = [nowPageIndex intValue];
     DebugLog(@"Root didRotateFromInterfaceOrientation --> %d",iCurIndex);
     self.pageView.currentPageIndex =  iCurIndex;
-    _lastPage = nowPageIndex;
+    self.lastPage = nowPageIndex;
     [super didRotateFromInterfaceOrientation:fromInterfaceOrientation];
 //    [self.pageView didRotate];
-    if (!parsing) {
-        return;
-    }
-    
+//    if (parsing) {
+//        return;
+//    }
 }
 #pragma mark 导航条
 -(void)navView:(NavView*)navView changeToIndex:(int)pageIndex{
